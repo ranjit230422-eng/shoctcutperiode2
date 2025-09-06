@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prediksi Togel - Semua Pasaran</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e94560;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .disclaimer {
+            background: rgba(229, 69, 96, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            border-left: 4px solid #e94560;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #generate-all {
+            background: linear-gradient(to right, #e94560, #ff6b81);
+            color: white;
+        }
+        
+        #generate-all:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        #generate-single {
+            background: linear-gradient(to right, #0f3460, #1a5f7a);
+            color: white;
+        }
+        
+        #generate-single:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15, 52, 96, 0.4);
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .market-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .market-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .market-name {
+            font-size: 1.1rem;
+            color: #e94560;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .market-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timestamp {
+            font-size: 0.8rem;
+            color: #8a8a8a;
+            text-align: right;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .export-btn {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 176, 155, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .market-numbers {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Generator Prediksi Togel Semua Pasaran</h1>
+            <p>Hasil prediksi untuk semua pasaran togel sekaligus</p>
+            <div class="disclaimer">
+                <strong>Peringatan:</strong> Permainan togel memiliki risiko finansial. Harap bermain dengan bijak dan bertanggung jawab. 
+                Jangan pernah menghabiskan lebih dari yang Anda mampu untuk kehilangan. Situs ini hanya untuk hiburan.
+            </div>
+        </header>
+        
+        <div class="controls">
+            <button id="generate-all">Generate Semua Pasaran</button>
+            <button id="generate-single">Generate Pasaran Spesifik</button>
+        </div>
+        
+        <div class="results-container" id="results-container">
+            <!-- Hasil prediksi akan ditampilkan di sini -->
+        </div>
+        
+        <div class="action-buttons">
+            <button class="export-btn" id="export-btn">Export ke CSV</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsContainer = document.getElementById('results-container');
+            const generateAllBtn = document.getElementById('generate-all');
+            const generateSingleBtn = document.getElementById('generate-single');
+            const exportBtn = document.getElementById('export-btn');
+            
+            // Daftar semua pasaran togel
+            const allMarkets = [
+                "TOTO MACAU PAGI",
+                "KENTUCKY MIDDAY",
+                "FLORIDA MIDDAY",
+                "HUAHIN 0100",
+                "BANGKOK 0130",
+                "NEW YORK MIDDAY",
+                "NORTH CAROLINA DAY",
+                "BRUNEI 02",
+                "OREGON03",
+                "OREGON06",
+                "CALIFORNIA",
+                "FLORIDA EVENING",
+                "OREGON09",
+                "BANGKOK 0930",
+                "NEW YORK EVENING",
+                "KENTUCKY EVENING",
+                "CAROLINA EVENING",
+                "TOTOCAMBODIA",
+                "CHELSEA 11",
+                "OREGON12",
+                "POIPET12",
+                "TOTO MACAU SIANG",
+                "BULLSEYE",
+                "SYDNEY",
+                "JAKARTA 1400",
+                "BRUNEI 14",
+                "CHELSEA 15",
+                "TOTO MACAU 5D SORE",
+                "POIPET15",
+                "TOTOMALI1530",
+                "TOTO MACAU SORE",
+                "HUAHIN 1630",
+                "KINGKONG 4D SORE",
+                "SINGAPORE 4D",
+                "SINGAPORE TOTO",
+                "MAGNUM4D",
+                "CHELSEA19",
+                "TOTO MACAU MALAM I",
+                "POIPET19",
+                "PCSO",
+                "TOTOMALI2030",
+                "HUAHIN 2100",
+                "CHELSEA21",
+                "TOTOMACAU 5D MALAM",
+                "NEVADA",
+                "BRUNEI 21",
+                "TOTOMACAU MALAM II",
+                "POIPET22",
+                "HONGKONG",
+                "TOTO MACAU MALAM III",
+                "TOTOMALI2330",
+                "JAKARTA 2330",
+                "KINGKONG 4D MALAM"
+            ];
+            
+            // Fungsi untuk menghasilkan angka acak
+            function generateRandomNumbers(count) {
+                const numbers = [];
+                for (let i = 0; i < count; i++) {
+                    numbers.push(Math.floor(Math.random() * 10));
+                }
+                return numbers;
+            }
+            
+            // Fungsi untuk menentukan jumlah digit berdasarkan pasaran
+            function getDigitCount(market) {
+                if (market.includes('5D')) return 5;
+                if (market.includes('4D')) return 4;
+                if (market.includes('TOTO')) return 6;
+                return 4; // Default 4 digit
+            }
+            
+            // Fungsi untuk menampilkan hasil prediksi semua pasaran
+            function displayAllPredictions() {
+                resultsContainer.innerHTML = '';
+                
+                allMarkets.forEach(market => {
+                    const digitCount = getDigitCount(market);
+                    const numbers = generateRandomNumbers(digitCount);
+                    
+                    const marketCard = document.createElement('div');
+                    marketCard.className = 'market-card';
+                    
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString('id-ID');
+                    
+                    marketCard.innerHTML = `
+                        <div class="market-name">${market}</div>
+                        <div class="market-numbers">
+                            ${numbers.map(num => `<div class="number">${num}</div>`).join('')}
+                        </div>
+                        <div class="timestamp">Generated: ${timeString}</div>
+                    `;
+                    
+                    resultsContainer.appendChild(marketCard);
+                });
+            }
+            
+            // Fungsi untuk menampilkan form pemilihan pasaran spesifik
+            function showSpecificMarketForm() {
+                resultsContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center;">
+                        <h2 style="margin-bottom: 20px; color: #e94560;">Pilih Pasaran Spesifik</h2>
+                        <select id="market-select" style="padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; background: rgba(0, 0, 0, 0.3); color: white; width: 80%; max-width: 400px; margin-bottom: 20px;">
+                            <option value="">-- Pilih Pasaran Togel --</option>
+                            ${allMarkets.map(market => `<option value="${market}">${market}</option>`).join('')}
+                        </select>
+                        <button id="generate-specific" style="padding: 12px 25px; border: none; border-radius: 8px; font-size: 1rem; background: linear-gradient(to right, #0f3460, #1a5f7a); color: white; cursor: pointer;">Generate</button>
+                    </div>
+                `;
+                
+                document.getElementById('generate-specific').addEventListener('click', function() {
+                    const selectedMarket = document.getElementById('market-select').value;
+                    
+                    if (!selectedMarket) {
+                        alert('Silakan pilih pasaran togel terlebih dahulu!');
+                        return;
+                    }
+                    
+                    generateSpecificPrediction(selectedMarket);
+                });
+            }
+            
+            // Fungsi untuk menghasilkan prediksi untuk pasaran spesifik
+            function generateSpecificPrediction(market) {
+                const digitCount = getDigitCount(market);
+                const numbers = generateRandomNumbers(digitCount);
+                
+                resultsContainer.innerHTML = '';
+                
+                const marketCard = document.createElement('div');
+                marketCard.className = 'market-card';
+                marketCard.style.gridColumn = '1 / -1';
+                marketCard.style.maxWidth = '500px';
+                marketCard.style.margin = '0 auto';
+                
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('id-ID');
+                
+                marketCard.innerHTML = `
+                    <div class="market-name" style="font-size: 1.5rem; text-align: center;">${market}</div>
+                    <div class="market-numbers" style="margin: 30px 0;">
+                        ${numbers.map(num => `<div class="number" style="width: 60px; height: 60px; font-size: 1.8rem;">${num}</div>`).join('')}
+                    </div>
+                    <div class="timestamp">Generated: ${timeString}</div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="back-to-all" style="padding: 10px 20px; border: none; border-radius: 8px; font-size: 1rem; background: rgba(255, 255, 255, 0.1); color: white; cursor: pointer;">Kembali ke Semua Pasaran</button>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(marketCard);
+                
+                document.getElementById('back-to-all').addEventListener('click', function() {
+                    displayAllPredictions();
+                });
+            }
+            
+            // Fungsi untuk mengexport data ke CSV
+            function exportToCSV() {
+                let csvContent = "Pasaran,Prediksi,Waktu\n";
+                
+                const cards = document.querySelectorAll('.market-card');
+                cards.forEach(card => {
+                    const market = card.querySelector('.market-name').textContent;
+                    const numbers = Array.from(card.querySelectorAll('.number')).map(num => num.textContent).join('-');
+                    const time = card.querySelector('.timestamp').textContent.replace('Generated: ', '');
+                    
+                    csvContent += `"${market}","${numbers}","${time}"\n`;
+                });
+                
+                const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "prediksi_togel.csv");
+                document.body.appendChild(link);
+                
+                link.click();
+                document.body.removeChild(link);
+            }
+            
+            // Event listeners
+            generateAllBtn.addEventListener('click', displayAllPredictions);
+            generateSingleBtn.addEventListener('click', showSpecificMarketForm);
+            exportBtn.addEventListener('click', exportToCSV);
+            
+            // Generate semua pasaran secara otomatis saat halaman dimuat
+            displayAllPredictions();
+        });
+    </script>
+</body>
+</html>
