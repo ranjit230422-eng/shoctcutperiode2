@@ -247,6 +247,24 @@
             transform: translateY(-2px);
         }
         
+        .generate-all-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .generate-all-btn:hover {
+            transform: translateY(-2px);
+        }
+        
         .prediction-result {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -255,6 +273,30 @@
             font-family: 'Courier New', monospace;
             line-height: 1.6;
             position: relative;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .all-predictions-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .prediction-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .prediction-item:last-child {
+            border-bottom: none;
         }
         
         .copy-btn {
@@ -273,6 +315,25 @@
         }
         
         .copy-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .copy-all-btn {
+            background: linear-gradient(135deg, #4ECDC4, #2A9D8F);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 15px;
+            width: 100%;
+            display: none;
+        }
+        
+        .copy-all-btn:hover {
             transform: translateY(-2px);
         }
         
@@ -355,6 +416,30 @@
             font-size: 16px;
         }
         
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
         @media (max-width: 480px) {
             .container {
                 border-radius: 15px;
@@ -375,6 +460,11 @@
             .prediction-result {
                 padding: 15px;
                 font-size: 14px;
+            }
+            
+            .all-predictions-container {
+                padding: 15px;
+                font-size: 12px;
             }
         }
     </style>
@@ -424,12 +514,17 @@
     <div class="dashboard" id="dashboard">
         <div class="dashboard-header">
             <h2><i class="fas fa-chart-line"></i> Generator Prediksi Togel</h2>
-            <p>Selamat datang! Pilih pasaran dan generate prediksi</p>
+            <p>Selamat datang! Pilih mode generator prediksi</p>
         </div>
         
-        <div class="generator-container">
+        <div class="tab-container">
+            <button class="tab active" id="singleTab">Prediksi Per Pasaran</button>
+            <button class="tab" id="allTab">Semua Pasaran</button>
+        </div>
+        
+        <div class="generator-container" id="singleGenerator">
             <div class="generator-header">
-                <h3><i class="fas fa-dice"></i> Generator Prediksi</h3>
+                <h3><i class="fas fa-dice"></i> Generator Prediksi Per Pasaran</h3>
             </div>
             
             <select class="pasaran-select" id="pasaranSelect">
@@ -501,6 +596,24 @@
             </button>
         </div>
         
+        <div class="generator-container" id="allGenerator" style="display: none;">
+            <div class="generator-header">
+                <h3><i class="fas fa-dice"></i> Generator Semua Pasaran</h3>
+            </div>
+            
+            <button class="generate-all-btn" id="generateAllBtn">
+                <i class="fas fa-sync-alt"></i> Generate Semua Prediksi
+            </button>
+            
+            <div class="all-predictions-container" id="allPredictionsContainer">
+                <p style="text-align: center; opacity: 0.7;">Klik "Generate Semua Prediksi" untuk menampilkan semua prediksi</p>
+            </div>
+            
+            <button class="copy-all-btn" id="copyAllBtn">
+                <i class="fas fa-copy"></i> Salin Semua Prediksi
+            </button>
+        </div>
+        
         <div class="nawala-section">
             <h3><i class="fas fa-globe"></i> Cek Nawala Situs</h3>
             <p>Periksa status nawala suatu situs web</p>
@@ -517,6 +630,21 @@
     <script>
         // Data shio
         const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'KAMBING', 'MONYET', 'AYAM', 'ANJING', 'BABI'];
+
+        // Data semua pasaran
+        const semuaPasaran = [
+            "TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
+            "NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
+            "CALIFORNIA", "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
+            "KENTUCKY EVENING", "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
+            "POIPET12", "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
+            "BRUNEI 14", "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
+            "TOTO MACAU SORE", "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE 4D", "SINGAPORE TOTO",
+            "MAGNUM4D", "CHELSEA19", "TOTO MACAU MALAM I", "POIPET19", "PCSO",
+            "TOTOMALI2030", "HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA",
+            "BRUNEI 21", "TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III",
+            "TOTOMALI2330", "JAKARTA 2330", "KINGKONG 4D MALAM"
+        ];
 
         // Fungsi untuk menghasilkan angka acak dengan panjang tertentu
         function generateRandomNumber(length) {
@@ -593,6 +721,35 @@ Selalu Utamakan Prediksi Sendiri
             predictionResult.setAttribute('data-prediction', prediction);
         }
 
+        // Fungsi untuk menampilkan semua prediksi
+        function displayAllPredictions() {
+            const allPredictionsContainer = document.getElementById('allPredictionsContainer');
+            const copyAllBtn = document.getElementById('copyAllBtn');
+            
+            // Tampilkan loading
+            allPredictionsContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;">Sedang memuat semua prediksi...</p>';
+            
+            // Simulasi loading dengan timeout
+            setTimeout(() => {
+                let allPredictions = '';
+                
+                // Generate prediksi untuk setiap pasaran
+                semuaPasaran.forEach(pasaran => {
+                    const prediction = generateTogelPrediction(pasaran);
+                    allPredictions += `<div class="prediction-item"><div class="prediction-value" style="white-space: pre-line;">${prediction}</div></div>`;
+                });
+                
+                // Tampilkan semua prediksi
+                allPredictionsContainer.innerHTML = allPredictions;
+                
+                // Tampilkan tombol salin semua
+                copyAllBtn.style.display = 'block';
+                
+                // Simpan teks semua prediksi untuk disalin
+                allPredictionsContainer.setAttribute('data-all-predictions', semuaPasaran.map(pasaran => generateTogelPrediction(pasaran)).join('\n\n'));
+            }, 1000);
+        }
+
         // Fungsi untuk menyalin prediksi ke clipboard
         function copyPredictionToClipboard() {
             const predictionText = document.getElementById('predictionResult').getAttribute('data-prediction');
@@ -610,6 +767,26 @@ Selalu Utamakan Prediksi Sendiri
             }).catch(err => {
                 console.error('Gagal menyalin teks: ', err);
                 alert('Gagal menyalin prediksi. Silakan coba lagi.');
+            });
+        }
+
+        // Fungsi untuk menyalin semua prediksi ke clipboard
+        function copyAllPredictionsToClipboard() {
+            const allPredictionsText = document.getElementById('allPredictionsContainer').getAttribute('data-all-predictions');
+            
+            navigator.clipboard.writeText(allPredictionsText).then(() => {
+                // Ubah teks tombol sementara
+                const copyAllBtn = document.getElementById('copyAllBtn');
+                const originalText = copyAllBtn.innerHTML;
+                copyAllBtn.innerHTML = '<i class="fas fa-check"></i> Semua Tersalin!';
+                
+                // Kembalikan teks asli setelah 2 detik
+                setTimeout(() => {
+                    copyAllBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+                alert('Gagal menyalin semua prediksi. Silakan coba lagi.');
             });
         }
 
@@ -643,8 +820,14 @@ Selalu Utamakan Prediksi Sendiri
             displayPrediction(selectedPasaran);
         });
         
+        // Fungsi untuk generate semua prediksi
+        document.getElementById('generateAllBtn').addEventListener('click', displayAllPredictions);
+        
         // Fungsi untuk menyalin prediksi
         document.getElementById('copyBtn').addEventListener('click', copyPredictionToClipboard);
+        
+        // Fungsi untuk menyalin semua prediksi
+        document.getElementById('copyAllBtn').addEventListener('click', copyAllPredictionsToClipboard);
         
         // Fungsi untuk logout
         document.getElementById('logoutBtn').addEventListener('click', function() {
@@ -655,6 +838,7 @@ Selalu Utamakan Prediksi Sendiri
             
             // Sembunyikan tombol salin
             document.getElementById('copyBtn').style.display = 'none';
+            document.getElementById('copyAllBtn').style.display = 'none';
         });
         
         // Fitur toggle password
@@ -671,6 +855,21 @@ Selalu Utamakan Prediksi Sendiri
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
             }
+        });
+        
+        // Fungsi untuk tab
+        document.getElementById('singleTab').addEventListener('click', function() {
+            document.getElementById('singleTab').classList.add('active');
+            document.getElementById('allTab').classList.remove('active');
+            document.getElementById('singleGenerator').style.display = 'block';
+            document.getElementById('allGenerator').style.display = 'none';
+        });
+        
+        document.getElementById('allTab').addEventListener('click', function() {
+            document.getElementById('allTab').classList.add('active');
+            document.getElementById('singleTab').classList.remove('active');
+            document.getElementById('singleGenerator').style.display = 'none';
+            document.getElementById('allGenerator').style.display = 'block';
         });
     </script>
 </body>
