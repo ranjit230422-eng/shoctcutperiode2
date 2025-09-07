@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nawala Check - Generator Prediksi Togel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #9370DB;
+            --accent: #FF6B6B;
+            --light: #FFFFFF;
+            --dark: #2D1B69;
+            --success: #4ECDC4;
+            --warning: #FFE66D;
+            --gradient-start: #6A11CB;
+            --gradient-end: #2575FC;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --text-light: #F8F8F8;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, var(--gradient-start), var(--dark), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-light);
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: containerFade 0.8s ease;
+        }
+        
+        @keyframes containerFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .logo {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+        
+        .input-with-icon input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .error {
+            color: #f56565;
+            border: 1px solid rgba(245, 101, 101, 0.3);
+        }
+        
+        .success {
+            color: #48bb78;
+            border: 1px solid rgba(72, 187, 120, 0.3);
+        }
+        
+        .dashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 15px;
+        }
+        
+        .dashboard-header h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        
+        .generator-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .generator-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .pasaran-select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .pasaran-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .prediction-result {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .copy-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .prediction-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+        
+        .prediction-line {
+            margin-bottom: 8px;
+        }
+        
+        .prediction-value {
+            font-weight: 500;
+            color: #fff;
+            font-size: 15px;
+        }
+        
+        .nawala-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .nawala-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .nawala-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nawala-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logout-btn {
+            display: block;
+            margin: 20px auto;
+            background: linear-gradient(135deg, var(--accent), #ff4b2b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            max-width: 150px;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .prediction-result {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Nawala Check</h1>
+            <p>Masuk untuk generator prediksi togel</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="username">User ID</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Masukkan user ID" autocomplete="off">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Masukkan password">
+                    <span class="password-toggle" id="passwordToggle">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <button class="login-btn" id="loginBtn">Masuk ke Sistem</button>
+            
+            <div id="errorMessage" class="message error">
+                <i class="fas fa-exclamation-circle"></i> User ID atau password salah!
+            </div>
+            
+            <div id="successMessage" class="message success">
+                <i class="fas fa-check-circle"></i> Login berhasil! Memuat dashboard...
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h2><i class="fas fa-chart-line"></i> Generator Prediksi Togel</h2>
+            <p>Selamat datang! Pilih pasaran dan generate prediksi</p>
+        </div>
+        
+        <div class="generator-container">
+            <div class="generator-header">
+                <h3><i class="fas fa-dice"></i> Generator Prediksi</h3>
+            </div>
+            
+            <select class="pasaran-select" id="pasaranSelect">
+                <option value="TOTO MACAU PAGI">TOTO MACAU PAGI</option>
+                <option value="KENTUCKY MIDDAY">KENTUCKY MIDDAY</option>
+                <option value="FLORIDA MIDDAY">FLORIDA MIDDAY</option>
+                <option value="HUAHIN 0100">HUAHIN 0100</option>
+                <option value="BANGKOK 0130">BANGKOK 0130</option>
+                <option value="NEW YORK MIDDAY">NEW YORK MIDDAY</option>
+                <option value="NORTH CAROLINA DAY">NORTH CAROLINA DAY</option>
+                <option value="BRUNEI 02">BRUNEI 02</option>
+                <option value="OREGON03">OREGON03</option>
+                <option value="OREGON06">OREGON06</option>
+                <option value="CALIFORNIA">CALIFORNIA</option>
+                <option value="FLORIDA EVENING">FLORIDA EVENING</option>
+                <option value="OREGON09">OREGON09</option>
+                <option value="BANGKOK 0930">BANGKOK 0930</option>
+                <option value="NEW YORK EVENING">NEW YORK EVENING</option>
+                <option value="KENTUCKY EVENING">KENTUCKY EVENING</option>
+                <option value="CAROLINA EVENING">CAROLINA EVENING</option>
+                <option value="TOTOCAMBODIA">TOTOCAMBODIA</option>
+                <option value="CHELSEA 11">CHELSEA 11</option>
+                <option value="OREGON12">OREGON12</option>
+                <option value="POIPET12">POIPET12</option>
+                <option value="TOTO MACAU SIANG">TOTO MACAU SIANG</option>
+                <option value="BULLSEYE">BULLSEYE</option>
+                <option value="SYDNEY">SYDNEY</option>
+                <option value="JAKARTA 1400">JAKARTA 1400</option>
+                <option value="BRUNEI 14">BRUNEI 14</option>
+                <option value="CHELSEA 15">CHELSEA 15</option>
+                <option value="TOTO MACAU 5D SORE">TOTO MACAU 5D SORE</option>
+                <option value="POIPET15">POIPET15</option>
+                <option value="TOTOMALI1530">TOTOMALI1530</option>
+                <option value="TOTO MACAU SORE">TOTO MACAU SORE</option>
+                <option value="HUAHIN 1630">HUAHIN 1630</option>
+                <option value="KINGKONG 4D SORE">KINGKONG 4D SORE</option>
+                <option value="SINGAPORE 4D">SINGAPORE 4D</option>
+                <option value="SINGAPORE TOTO">SINGAPORE TOTO</option>
+                <option value="MAGNUM4D">MAGNUM4D</option>
+                <option value="CHELSEA19">CHELSEA19</option>
+                <option value="TOTO MACAU MALAM I">TOTO MACAU MALAM I</option>
+                <option value="POIPET19">POIPET19</option>
+                <option value="PCSO">PCSO</option>
+                <option value="TOTOMALI2030">TOTOMALI2030</option>
+                <option value="HUAHIN 2100">HUAHIN 2100</option>
+                <option value="CHELSEA21">CHELSEA21</option>
+                <option value="TOTOMACAU 5D MALAM">TOTOMACAU 5D MALAM</option>
+                <option value="NEVADA">NEVADA</option>
+                <option value="BRUNEI 21">BRUNEI 21</option>
+                <option value="TOTOMACAU MALAM II">TOTOMACAU MALAM II</option>
+                <option value="POIPET22">POIPET22</option>
+                <option value="HONGKONG">HONGKONG</option>
+                <option value="TOTO MACAU MALAM III">TOTO MACAU MALAM III</option>
+                <option value="TOTOMALI2330">TOTOMALI2330</option>
+                <option value="JAKARTA 2330">JAKARTA 2330</option>
+                <option value="KINGKONG 4D MALAM">KINGKONG 4D MALAM</option>
+            </select>
+            
+            <button class="generate-btn" id="generateBtn">
+                <i class="fas fa-sync-alt"></i> Generate Prediksi
+            </button>
+            
+            <div class="prediction-result" id="predictionResult">
+                <p style="text-align: center; opacity: 0.7;">Pilih pasaran dan klik Generate untuk melihat prediksi</p>
+            </div>
+            
+            <button class="copy-btn" id="copyBtn">
+                <i class="fas fa-copy"></i> Salin Prediksi
+            </button>
+        </div>
+        
+        <div class="nawala-section">
+            <h3><i class="fas fa-globe"></i> Cek Nawala Situs</h3>
+            <p>Periksa status nawala suatu situs web</p>
+            <a href="https://nawalacheck.skiddle.id/" class="nawala-btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Buka Nawala Check
+            </a>
+        </div>
+        
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <script>
+        // Data shio
+        const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'KAMBING', 'MONYET', 'AYAM', 'ANJING', 'BABI'];
+
+        // Fungsi untuk menghasilkan angka acak dengan panjang tertentu
+        function generateRandomNumber(length) {
+            return Array.from({length}, () => Math.floor(Math.random() * 10)).join('');
+        }
+
+        // Fungsi untuk menghasilkan prediksi togel dalam format yang diinginkan
+        function generateTogelPrediction(pasaran) {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const day = days[now.getDay()];
+            const date = now.getDate().toString().padStart(2, '0');
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            const bbfs = generateRandomNumber(7);
+            const am = generateRandomNumber(5);
+            
+            // Generate 4D numbers
+            const fourD = Array(4).fill().map(() => generateRandomNumber(4)).join(' ');
+            
+            // Generate 3D numbers
+            const threeD = Array(4).fill().map(() => generateRandomNumber(3)).join(' ');
+            
+            // Generate 2D numbers
+            const twoD = Array(10).fill().map(() => generateRandomNumber(2)).join(' ');
+            
+            // Generate colok bebas
+            const colokBebas = `${generateRandomNumber(1)} / ${generateRandomNumber(1)}`;
+            
+            // Generate colok bebas 2D
+            const colokBebas2D = Array(3).fill().map(() => generateRandomNumber(2)).join(' / ');
+            
+            // Generate twin numbers
+            const twin = Array(3).fill().map(() => {
+                const num = generateRandomNumber(1);
+                return `${num}${num}`;
+            }).join(' / ');
+            
+            // Generate random shio
+            const shio = Array(3).fill().map(() => shios[Math.floor(Math.random() * shios.length)]).join(' / ');
+            
+            return `
+Prediksi ${pasaran}
+Hari ${day}, ${date} ${month} ${year}
+BBFS : ${bbfs}
+AM/AI/CK : ${am}
+4D : ${fourD}
+3D : ${threeD}
+2D (BB) : ${twoD}
+COLOK BEBAS : ${colokBebas}
+COLOK BEBAS 2D : ${colokBebas2D}
+TWIN : ${twin}
+SHIO : ${shio}
+Selalu Utamakan Prediksi Sendiri
+            `;
+        }
+
+        // Fungsi untuk menampilkan prediksi
+        function displayPrediction(pasaran) {
+            const prediction = generateTogelPrediction(pasaran);
+            const predictionResult = document.getElementById('predictionResult');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            // Format teks dengan line breaks
+            predictionResult.innerHTML = `<div class="prediction-value" style="white-space: pre-line;">${prediction}</div>`;
+            
+            // Tampilkan tombol salin
+            copyBtn.style.display = 'block';
+            
+            // Simpan teks prediksi untuk disalin
+            predictionResult.setAttribute('data-prediction', prediction);
+        }
+
+        // Fungsi untuk menyalin prediksi ke clipboard
+        function copyPredictionToClipboard() {
+            const predictionText = document.getElementById('predictionResult').getAttribute('data-prediction');
+            
+            navigator.clipboard.writeText(predictionText).then(() => {
+                // Ubah teks tombol sementara
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                
+                // Kembalikan teks asli setelah 2 detik
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+                alert('Gagal menyalin prediksi. Silakan coba lagi.');
+            });
+        }
+
+        // Fungsi untuk login
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Validasi login (username tidak case-sensitive)
+            if (username.toLowerCase() === 'ranjit31' && password === '1234') {
+                // Tampilkan pesan sukses
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Tunggu sebentar lalu tampilkan dashboard
+                setTimeout(function() {
+                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                }, 1500);
+            } else {
+                // Tampilkan pesan error
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+        
+        // Fungsi untuk generate prediksi
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const pasaranSelect = document.getElementById('pasaranSelect');
+            const selectedPasaran = pasaranSelect.value;
+            displayPrediction(selectedPasaran);
+        });
+        
+        // Fungsi untuk menyalin prediksi
+        document.getElementById('copyBtn').addEventListener('click', copyPredictionToClipboard);
+        
+        // Fungsi untuk logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            
+            // Sembunyikan tombol salin
+            document.getElementById('copyBtn').style.display = 'none';
+        });
+        
+        // Fitur toggle password
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
+</body>
+</html>
