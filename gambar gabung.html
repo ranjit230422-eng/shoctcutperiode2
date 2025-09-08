@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Merger - Gabungkan & Kelola Gambar dari Link</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .description {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .url-input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-add {
+            background-color: #2ecc71;
+        }
+
+        .btn-add:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-combine {
+            background-color: #9b59b6;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-combine:hover {
+            background-color: #8e44ad;
+        }
+
+        .btn-download {
+            background-color: #e74c3c;
+        }
+
+        .btn-download:hover {
+            background-color: #c0392b;
+        }
+
+        .error {
+            color: #e74c3c;
+            margin-top: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error i {
+            margin-right: 5px;
+        }
+
+        .gallery-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .gallery-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .image-container {
+            position: relative;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 150px;
+        }
+
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #3498db;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-number {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .image-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-container:hover .image-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: #3498db;
+        }
+
+        .result-section {
+            margin-top: 40px;
+            text-align: center;
+            display: none;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        #combinedImage {
+            max-width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-url {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1001;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-images"></i> Image Merger</h1>
+            <p class="description">Gabungkan beberapa gambar dari link menjadi satu gambar yang dapat diunduh. Klik pada gambar untuk melihat preview dan menyalin URL.</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2><i class="fas fa-link"></i> Tambahkan Link Gambar</h2>
+                <div class="input-group">
+                    <label for="imageUrl">Masukkan URL Gambar:</label>
+                    <input type="text" id="imageUrl" class="url-input" placeholder="Contoh: https://example.com/image.jpg">
+                    <p class="error" id="urlError"></p>
+                </div>
+                <button id="addImageBtn" class="btn btn-add"><i class="fas fa-plus"></i> Tambahkan Gambar</button>
+                
+                <h3 style="margin-top: 30px;"><i class="fas fa-lightbulb"></i> Cara Penggunaan</h3>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>Masukkan URL gambar di atas</li>
+                    <li>Klik "Tambahkan Gambar" untuk menambahkannya ke galeri</li>
+                    <li>Klik pada gambar di galeri untuk melihat preview dan menyalin URL</li>
+                    <li>Klik "Gabungkan Gambar" setelah menambahkan semua gambar</li>
+                    <li>Unduh hasil penggabungan gambar</li>
+                </ol>
+            </div>
+
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <h2 class="gallery-title"><i class="fas fa-th"></i> Galeri Gambar</h2>
+                    <span id="imageCount">0 gambar</span>
+                </div>
+                
+                <div class="gallery" id="imageGallery">
+                    <div class="placeholder" style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #7f8c8d;">
+                        <i class="fas fa-inbox" style="font-size: 50px; margin-bottom: 15px;"></i>
+                        <p>Belum ada gambar. Tambahkan gambar menggunakan form di sebelah kiri.</p>
+                    </div>
+                </div>
+                
+                <button id="combineBtn" class="btn btn-combine"><i class="fas fa-object-group"></i> Gabungkan Gambar</button>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultContainer">
+            <h2 class="result-title"><i class="fas fa-check-circle"></i> Hasil Penggabungan Gambar</h2>
+            <canvas id="combinedCanvas" style="display: none;"></canvas>
+            <img id="combinedImage" alt="Hasil penggabungan gambar">
+            <div class="result-actions">
+                <button id="downloadBtn" class="btn btn-download"><i class="fas fa-download"></i> Download Gambar</button>
+                <button id="newMergeBtn" class="btn"><i class="fas fa-plus"></i> Merge Baru</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 Image Merger - Tool untuk menggabungkan gambar dari link</p>
+        </footer>
+    </div>
+
+    <!-- Modal untuk preview gambar -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <img class="modal-img" id="modalImage" src="" alt="Preview Gambar">
+            <div class="modal-url">
+                <span id="modalUrl"></span>
+                <button class="copy-btn" id="copyUrlBtn"><i class="fas fa-copy"></i> Salin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifikasi -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notificationText">URL berhasil disalin!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageUrlInput = document.getElementById('imageUrl');
+            const addImageBtn = document.getElementById('addImageBtn');
+            const urlError = document.getElementById('urlError');
+            const imageGallery = document.getElementById('imageGallery');
+            const imageCount = document.getElementById('imageCount');
+            const combineBtn = document.getElementById('combineBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const combinedCanvas = document.getElementById('combinedCanvas');
+            const combinedImage = document.getElementById('combinedImage');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const newMergeBtn = document.getElementById('newMergeBtn');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalUrl = document.getElementById('modalUrl');
+            const copyUrlBtn = document.getElementById('copyUrlBtn');
+            const modalClose = document.getElementById('modalClose');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            let images = [];
+            let currentModalUrl = '';
+            
+            // Fungsi untuk menambahkan gambar
+            addImageBtn.addEventListener('click', function() {
+                const url = imageUrlInput.value.trim();
+                
+                if (!url) {
+                    showError('Masukkan link gambar terlebih dahulu');
+                    return;
+                }
+                
+                // Validasi URL gambar
+                if (!isValidImageUrl(url)) {
+                    showError('Link tidak valid atau bukan gambar');
+                    return;
+                }
+                
+                // Cek apakah gambar sudah ada
+                if (images.includes(url)) {
+                    showError('Gambar ini sudah ditambahkan');
+                    return;
+                }
+                
+                // Tambahkan gambar
+                images.push(url);
+                renderGallery();
+                imageUrlInput.value = '';
+                urlError.textContent = '';
+            });
+            
+            // Fungsi untuk menampilkan error
+            function showError(message) {
+                urlError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            }
+            
+            // Fungsi untuk memvalidasi URL gambar
+            function isValidImageUrl(url) {
+                return /\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i.test(url);
+            }
+            
+            // Fungsi untuk merender galeri
+            function renderGallery() {
+                imageCount.textContent = `${images.length} gambar`;
+                
+                if (images.length === 0) {
+                    imageGallery.innerHTML = `
+                        <div class="placeholder" style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #7f8c8d;">
+                            <i class="fas fa-inbox" style="font-size: 50px; margin-bottom: 15px;"></i>
+                            <p>Belum ada gambar. Tambahkan gambar menggunakan form di sebelah kiri.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                imageGallery.innerHTML = '';
+                
+                images.forEach((url, index) => {
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'image-container';
+                    imageContainer.setAttribute('data-url', url);
+                    
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = `Gambar ${index + 1}`;
+                    img.onerror = function() {
+                        imageContainer.innerHTML = `
+                            <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #e74c3c;">
+                                <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px;"></i>
+                                <span>Gagal memuat gambar</span>
+                            </div>
+                        `;
+                    };
+                    
+                    const imageNumber = document.createElement('div');
+                    imageNumber.className = 'image-number';
+                    imageNumber.textContent = index + 1;
+                    
+                    const imageActions = document.createElement('div');
+                    imageActions.className = 'image-actions';
+                    imageActions.innerHTML = `
+                        <button class="action-btn" data-index="${index}" data-action="view"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" data-index="${index}" data-action="copy"><i class="fas fa-copy"></i></button>
+                        <button class="action-btn" data-index="${index}" data-action="remove"><i class="fas fa-trash"></i></button>
+                    `;
+                    
+                    imageContainer.appendChild(img);
+                    imageContainer.appendChild(imageNumber);
+                    imageContainer.appendChild(imageActions);
+                    imageGallery.appendChild(imageContainer);
+                    
+                    // Event listener untuk action buttons
+                    const actionButtons = imageContainer.querySelectorAll('.action-btn');
+                    actionButtons.forEach(btn => {
+                        btn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const index = parseInt(this.getAttribute('data-index'));
+                            const action = this.getAttribute('data-action');
+                            
+                            if (action === 'view') {
+                                openModal(images[index]);
+                            } else if (action === 'copy') {
+                                copyToClipboard(images[index]);
+                            } else if (action === 'remove') {
+                                images.splice(index, 1);
+                                renderGallery();
+                            }
+                        });
+                    });
+                    
+                    // Event listener untuk membuka modal saat gambar di klik
+                    imageContainer.addEventListener('click', function() {
+                        openModal(url);
+                    });
+                });
+            }
+            
+            // Fungsi untuk membuka modal preview gambar
+            function openModal(url) {
+                currentModalUrl = url;
+                modalImage.src = url;
+                modalUrl.textContent = url;
+                imageModal.style.display = 'flex';
+            }
+            
+            // Fungsi untuk menutup modal
+            modalClose.addEventListener('click', function() {
+                imageModal.style.display = 'none';
+            });
+            
+            // Fungsi untuk menyalin URL ke clipboard
+            copyUrlBtn.addEventListener('click', function() {
+                copyToClipboard(currentModalUrl);
+            });
+            
+            // Fungsi untuk menyalin teks ke clipboard
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('URL berhasil disalin!');
+                }).catch(err => {
+                    showNotification('Gagal menyalin URL');
+                    console.error('Error copying text: ', err);
+                });
+            }
+            
+            // Fungsi untuk menampilkan notifikasi
+            function showNotification(message) {
+                notificationText.textContent = message;
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Fungsi untuk menggabungkan gambar
+            combineBtn.addEventListener('click', function() {
+                if (images.length < 1) {
+                    showNotification('Tambahkan setidaknya satu gambar');
+                    return;
+                }
+                
+                // Sembunyikan tombol sementara proses
+                combineBtn.disabled = true;
+                combineBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menggabungkan...';
+                
+                // Gunakan Promise untuk menunggu semua gambar dimuat
+                const loadImage = url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.crossOrigin = 'Anonymous'; // Untuk menangani CORS
+                        img.onload = () => resolve(img);
+                        img.onerror = reject;
+                        img.src = url;
+                    });
+                };
+                
+                Promise.all(images.map(loadImage))
+                    .then(loadedImages => {
+                        // Hitung dimensi canvas
+                        const totalWidth = loadedImages.reduce((sum, img) => sum + img.width, 0);
+                        const maxHeight = Math.max(...loadedImages.map(img => img.height));
+                        
+                        // Set ukuran canvas
+                        combinedCanvas.width = totalWidth;
+                        combinedCanvas.height = maxHeight;
+                        
+                        const ctx = combinedCanvas.getContext('2d');
+                        
+                        // Gambar semua gambar pada canvas
+                        let xOffset = 0;
+                        loadedImages.forEach(img => {
+                            ctx.drawImage(img, xOffset, 0);
+                            xOffset += img.width;
+                        });
+                        
+                        // Konversi canvas ke data URL dan tampilkan
+                        combinedImage.src = combinedCanvas.toDataURL('image/png');
+                        resultContainer.style.display = 'block';
+                        
+                        // Scroll ke hasil
+                        resultContainer.scrollIntoView({ behavior: 'smooth' });
+                    })
+                    .catch(error => {
+                        console.error('Error loading images:', error);
+                        showNotification('Gagal memuat beberapa gambar. Pastikan link gambar valid.');
+                    })
+                    .finally(() => {
+                        // Kembalikan tombol ke keadaan semula
+                        combineBtn.disabled = false;
+                        combineBtn.innerHTML = '<i class="fas fa-object-group"></i> Gabungkan Gambar';
+                    });
+            });
+            
+            // Fungsi untuk mengunduh gambar
+            downloadBtn.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'gabungan-gambar.png';
+                link.href = combinedCanvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            // Fungsi untuk memulai merge baru
+            newMergeBtn.addEventListener('click', function() {
+                images = [];
+                renderGallery();
+                resultContainer.style.display = 'none';
+                showNotification('Mulai merge gambar baru');
+            });
+            
+            // Tutup modal saat klik di luar konten modal
+            window.addEventListener('click', function(event) {
+                if (event.target === imageModal) {
+                    imageModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
