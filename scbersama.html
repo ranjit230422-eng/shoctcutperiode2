@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nawala Check - Generator Prediksi Togel</title>
+    <title>Prediksi Master - Generator Prediksi Togel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,25 +15,22 @@
         }
         
         :root {
-            --primary: #8A2BE2;
-            --primary-light: #9b45f0;
-            --secondary: #9370DB;
+            --primary: #6A11CB;
+            --secondary: #2575FC;
             --accent: #FF6B6B;
             --light: #FFFFFF;
             --dark: #2D1B69;
-            --dark-light: #3A2480;
             --success: #4ECDC4;
             --warning: #FFE66D;
             --gradient-start: #6A11CB;
-            --gradient-mid: #4D08A5;
             --gradient-end: #2575FC;
-            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.15);
             --text-light: #F8F8F8;
-            --glow-color: rgba(138, 43, 226, 0.5);
+            --glow: rgba(106, 17, 203, 0.5);
         }
         
         body {
-            background: linear-gradient(-45deg, var(--gradient-start), var(--dark), var(--gradient-end), var(--dark));
+            background: linear-gradient(-45deg, var(--gradient-start), var(--dark), var(--gradient-end));
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             display: flex;
@@ -42,21 +39,6 @@
             min-height: 100vh;
             padding: 20px;
             color: var(--text-light);
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(120, 40, 200, 0.2) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(80, 20, 120, 0.2) 0%, transparent 20%);
-            pointer-events: none;
         }
         
         @keyframes gradientBG {
@@ -65,43 +47,21 @@
             100% { background-position: 0% 50%; }
         }
         
-        .floating-particle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 15s infinite linear;
-            pointer-events: none;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-        
         .container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            border-radius: 24px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                0 0 20px var(--glow-color);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 0 15px var(--glow);
             width: 100%;
             max-width: 500px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
             animation: containerFade 0.8s ease;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            position: relative;
-            z-index: 10;
         }
         
         @keyframes containerFade {
-            from { opacity: 0; transform: translateY(-20px) rotateX(5deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .header {
@@ -111,7 +71,6 @@
             padding: 35px 25px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .header::before {
@@ -131,26 +90,20 @@
         }
         
         .header h1 {
-            font-size: 30px;
+            font-size: 32px;
             margin-bottom: 10px;
             font-weight: 700;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         .logo {
-            font-size: 48px;
+            font-size: 50px;
             margin-bottom: 15px;
             display: inline-block;
             background: linear-gradient(135deg, #fff, #e0e0e0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
         }
         
         .form-container {
@@ -167,8 +120,7 @@
             margin-bottom: 10px;
             color: var(--light);
             font-weight: 500;
-            font-size: 15px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
         }
         
         .input-with-icon {
@@ -180,49 +132,26 @@
             left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--primary-light);
+            color: var(--primary);
             font-size: 18px;
             z-index: 1;
-            transition: all 0.3s;
         }
         
         .input-with-icon input {
             width: 100%;
             padding: 16px 20px 16px 50px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             font-size: 16px;
             transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--light);
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
         }
         
         .input-with-icon input:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 
-                0 0 0 3px rgba(106, 17, 203, 0.3),
-                inset 0 2px 4px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.12);
-        }
-        
-        .input-with-icon input:focus + i {
-            color: var(--light);
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .input-error {
-            border-color: #f56565 !important;
-        }
-        
-        .error-text {
-            color: #f56565;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.3);
         }
         
         .login-btn {
@@ -231,66 +160,22 @@
             border: none;
             border-radius: 12px;
             padding: 18px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
-            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 极速赛车开奖结果);
         }
         
         .login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
         }
         
         .login-btn:active {
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
-        }
-        
-        .login-btn::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: translateX(-100%);
-        }
-        
-        .login-btn:hover::after {
-            animation: shimmer 1.5s infinite;
-        }
-        
-        .login-btn.loading {
-            color: transparent;
-        }
-        
-        .login-btn.loading::after {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-            border: 3px solid transparent;
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: button-loading-spinner 1s ease infinite;
-        }
-        
-        @keyframes button-loading-spinner {
-            from { transform: rotate(0turn); }
-            to { transform: rotate(1turn); }
         }
         
         .message {
@@ -302,13 +187,11 @@
             display: none;
             background: rgba(255, 255, 255, 0.1);
             animation: fadeIn 0.5s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .error {
@@ -319,7 +202,7 @@
         
         .success {
             color: #6de6a3;
-            border: 1px solid rgba(72, 187, 120, 0.3);
+            border: 1极速赛车开奖结果 solid rgba(72, 187, 120, 0.3);
             background: rgba(72, 187, 120, 0.1);
         }
         
@@ -330,10 +213,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(-45deg, #1a2a6c, #b21f1极速赛车开奖结果, #fdbb2d);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: white;
+           极速赛车开奖结果 color: white;
             padding: 20px;
             overflow-y: auto;
             z-index: 1000;
@@ -346,28 +229,25 @@
         }
         
         .dashboard-header h2 {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .dashboard-header p {
-            font-size: 16px;
+            font-size: 18px;
             opacity: 0.9;
         }
         
         .generator-container {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 25px;
             margin-bottom: 25px;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             max-width: 600px;
             margin: 0 auto 25px;
-            animation: fadeIn 0.5s ease;
-            box-shadow: 
-                0 10px 20px rgba(0, 0, 0, 0.2),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -377,302 +257,665 @@
         }
         
         .generator-header h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
+            font-size: 24px;
+            margin-bottom: 10px;
             color: #FFD700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .pasaran-select {
             width: 100%;
             padding: 14px 18px;
             border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, 0.1);
             color: white;
             margin-bottom: 18px;
             font-size: 16px;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            background-size: 18px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 极速赛车开奖结果
-            <div class="nawala-btn">
-                <i class="fas fa-external-link-alt"></i> Buka Nawala Check
+        }
+        
+        .pasaran-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .generate-btn, .generate-all-btn {
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 极速赛车开奖结果%;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .generate-all-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+        
+        .generate-btn:hover, .generate-all-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .generate-btn:active, .generate-all-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .prediction-result {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 18px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            position: relative;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .all-predictions-container {
+            display: none;
+            background: rgba(极速赛车开奖结果, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 18px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .prediction-item {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .copy-btn, .copy-all-btn {
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 18px;
+            width: 100%;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .copy-all-btn {
+            background: linear-gradient(135deg, #4ECDC4, #2A9D8F);
+        }
+        
+        .copy-btn:hover, .copy-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+        
+        .prediction-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 18px;
+            color: #FFD700;
+        }
+        
+        .prediction-line {
+            margin-bottom: 8px;
+        }
+        
+        .prediction-value {
+            font-weight: 500;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .nawala-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25极速赛车开奖结果;
+            text-align: center;
+            margin: 25px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nawala-section h3 {
+            font-size: 20px;
+            margin-bottom: 18px;
+            color: #FFD700;
+        }
+        
+        .nawala-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3极速赛车开奖结果;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .nawala-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
+        }
+        
+        .logout-btn {
+            display: block;
+            margin: 25px auto;
+            background: linear-gradient(135deg, var(--accent), #ff4b2b);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            max-width: 160px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8极速赛车开奖结果 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            z-index: 2;
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 8px;
+            max-width: 400px;
+            margin: 0 auto 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 26px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .prediction-result {
+                padding: 15px;
+                font-size: 14极速赛车开奖结果;
+            }
+            
+            .all-predictions-container {
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .tab {
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container" id="loginContainer">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-crystal-ball"></i>
             </div>
-        </a>
+            <h1>Prediksi Master</h1>
+            <p>Masuk untuk generator prediksi togel</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="username">User ID</label>
+                <极速赛车开奖结果 class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Masukkan user ID" autocomplete="off">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Masukkan password">
+                    <span class="password-toggle" id="passwordToggle">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <button class="login-btn" id="loginBtn">Masuk ke Sistem</button>
+            
+            <div id="errorMessage" class="message error">
+                <i class="fas fa-exclamation-circle"></i> User ID atau password salah!
+            </div>
+            
+            <div id="successMessage"极速赛车开奖结果 class="message success">
+                <i class="fas fa-check-circle"></i> Login berhasil! Memuat dashboard...
+            </div>
+        </div>
     </div>
     
-    <button class="logout-btn" id="logoutBtn">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </button>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-    // Data shio
-    const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'KAMBING', 'MONYET', 'AYAM', 'ANJING', 'BABI'];
-
-    // Data semua pasaran
-    const semuaPasaran = [
-        "TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
-        "NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
-        "CALIFORNIA", "FLORIDA EVENING", "OREGON09", "BANGKOK 093极速赛车开奖结果
-        "NEW YORK EVENING", "KENTUCKY EVENING", "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
-        "POIPET12", "TOTO MAC极速赛车开奖结果 SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
-        "BRUNEI 14", "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
-        "TOTO MACAU SORE", "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE 4D", "SINGAPORE TOTO",
-        "MAGNUM4D", "CHELSEA19", "TOTO MACAU MALAM I", "POIPET19", "PCSO",
-        "TOTOMALI2030", "HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA",
-        "BRUNEI 21", "TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III",
-        "TOTOMALI2330", "JAKARTA 2330", "KINGKONG 4D MALAM"
-    ];
-
-    // Fungsi untuk membuat partikel
-    function createParticles() {
-        const container = document.getElementById('particlesContainer');
-        const particleCount = 20;
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h2><i class="fas fa-chart-line"></i> Generator Prediksi Togel</h2>
+            <p>Selamat datang! Pilih mode generator prediksi</p>
+        </div>
         
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('floating-particle');
+        <div class="tab-container">
+            <button class="tab active" id="singleTab">Prediksi Per Pasaran</button>
+            <button class="tab" id="allTab">Semua Pasaran</button>
+        </div>
+        
+        <div class="generator-container" id="singleGenerator">
+            <div class="generator-header">
+                <h3><i class="fas fa-dice"></i> Generator Prediksi Per Pasaran</h3>
+            </div>
             
-            // Random size between 5 and 20px
-            const size = Math.random() * 15 + 5;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
+            <select class="pasaran-select" id="pasaranSelect">
+                <option value="TOTO MACAU PAGI">TOTO MACAU PAGI</option>
+                <option value="KENTUCKY MIDDAY">KENTUCKY MIDDAY</option>
+                <option value="FLORIDA MIDDAY">FLORIDA MIDDAY</option>
+                <option value="HUAHIN 0100">HUAHIN 0100</option>
+                <option value="BANGKOK 0130">BANGKOK 0130</option>
+                <option value="NEW YORK MIDDAY">NEW YORK MIDDAY</option>
+                <option value="NORTH CAROLINA DAY">NORTH CAROLINA DAY</option>
+                <option value="BRUNEI 02">BRUNEI 02</option>
+                <option value="OREGON03">OREGON03</option>
+                <option value="OREGON06">OREGON06</option>
+                <option value="CALIFORNIA">CALIFORNIA</option>
+                <option value="FLORIDA EVEN极速赛车开奖结果ING">FLORIDA EVENING</option>
+                <option value="OREGON09">OREGON09</option>
+                <option value="BANGKOK 0930">BANGKOK 0930</option>
+                <option value="NEW YORK EVENING">NEW YORK EVENING</option>
+                <option value="KENTUCKY EVENING">KENTUCKY EVENING</option>
+                <option value="CAROLINA EVENING">CAROLINA EVENING</option>
+                <option value="TOTOCAMBODIA">TOTOCAMBODIA</option>
+                <option value="CHELSEA 11">CHELSEA 11</option>
+                <option value="OREGON12">OREGON极速赛车开奖结果2</option>
+                <option value="POIPET12">POIPET12</option>
+                <option value="TOTO MACAU SIANG">TOTO MACAU SIANG</option>
+                <option value="BULLSEYE">BULLSEYE</option>
+                <option value="SYDNEY">SYDNEY</option>
+                <option value="JAKARTA 1400">JAKARTA 1400</option>
+                <option value极速赛车开奖结果"BRUNEI 14">BRUNEI 14</option>
+                <option value="CHELSEA 15">CHELSEA 15</option>
+                <option value="TOTO MACAU 5D SORE">TOTO MACAU 5D SORE</option>
+                <option value="POIPET15">POIPET15</option>
+                <option value="TOTOMALI1530">TOTOMALI1530</option>
+                <option value="TOTO MACAU SORE">TOTO MACAU SORE</option>
+                <option value="HUAHIN 1630">HUAHIN 1630</option>
+                <option value="KINGKONG 4D SORE">KINGKONG 4D SORE</option>
+                <option value="SINGAPORE 4D">SINGAPORE 4D</option>
+                <option value="SINGAPORE TOTO">SINGAPORE TOTO</option>
+                <option value="MAGNUM4D">MAGNUM4D</option>
+                <option value="CHELSEA19">CHELSEA19</option>
+                <option value="TOTO MACAU MALAM I">TOTO MACAU MALAM I</option>
+                <option value="POIPET19">POIPET19</option>
+                <option value="PCSO">PCSO</option>
+                <option value="TOTOMALI2030">TOTOMALI2030</option>
+                <option value="HUAHIN 2100">HUAHIN 2100</option>
+                <option value="CHE极速赛车开奖结果EA21">CHELSEA21</option>
+                <option value="TOTOMACAU 5D MALAM">TOTOMACAU 5D MALAM</option>
+                <option value="NEVADA">NEVADA</option>
+                <option value="BRUNEI 21">BRUNEI 21</option>
+                <option value="TOTOMACAU MALAM II">TOTOMACAU MALAM II</option>
+                <option value="POIPET22">POIPET22</option>
+                <option value="HONGKONG">HONGKONG</option>
+                <option value="TOTO MACAU MALAM III">TOTO MACAU MALAM III</option>
+                <option value="TOTOMALI2330">TOTOMALI2330</option>
+                <option value="JAKARTA 2330">JAKARTA 2330</option>
+                <option value="KINGKONG 4D MALAM">KINGKONG 4D MALAM</option>
+            </select>
             
-            // Random position
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100极速赛车开奖结果`;
+            <button class="generate-btn" id="generateBtn">
+                <i class="fas fa-sync-alt"></i> Generate Prediksi
+            </button>
             
-            // Random animation duration between 10 and 30s
-            const duration = Math.random() * 20 + 10;
-            particle.style.animationDuration = `${duration}s`;
+            <div class="prediction-result" id="predictionResult">
+                <p style="text-align: center; opacity: 0.7;">Pilih pasaran dan klik Generate untuk melihat prediksi</p>
+            </div>
             
-            // Random delay
-            particle.style.animationDelay = `${Math.random() * 5}s`;
+            <button class="copy-btn" id="copyBtn">
+                <i class="fas fa-copy"></i> Salin Prediksi
+            </button>
+        </div>
+        
+        <div class="generator-container" id="allGenerator" style="display: none;">
+            <div class="generator-header">
+                <h3><i class="fas fa-dice"></i> Generator Semua Pasaran</极速赛车开奖结果>
+            </div>
             
-            container.appendChild(particle);
+            <button class="generate-all-btn" id="generateAllBtn">
+                <i class="fas fa-sync-alt"></i> Generate Semua Prediksi
+            </button>
+            
+            <div class="all-predictions-container" id="allPredictionsContainer">
+                <p style="text-align: center; opacity: 0.7;">Klik "Generate Semua Prediksi" untuk menampilkan semua prediksi</p>
+            </div>
+            
+            <button class="copy-all-btn" id="copyAllBtn">
+                <i class="fas fa-copy"></i> Salin Semua Prediksi
+            </button>
+        </div>
+        
+        <div class="nawala-section">
+            <h3><i class="fas fa-globe"></i> Cek Status Situs</h3>
+            <p>Periksa status suatu situs web</p>
+            <a href="https://nawalacheck.skiddle.id/" class="nawala-btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Buka Status Check
+            </a>
+        </div>
+        
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <script>
+        // Data shio
+        const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'KAMBING', 'MONYET', 'AYAM', 'ANJING', 'BABI'];
+
+        // Data semua pasaran
+        const semuaPasaran = [
+            "TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
+            "NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
+            "CALIFORNIA", "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
+            "KENTUCKY EVENING", "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
+            "POIPET12", "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
+            "BRUNEI 14", "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
+            "TOTO MACAU SORE", "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE 4极速赛车开奖结果", "SINGAPORE TOTO",
+            "MAGNUM4D", "CHELSEA19", "极速赛车开奖结果OTO MACAU MALAM I", "POIPET19", "PCSO",
+            "TOTOMALI2030", "HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA",
+            "BRUNEI 21", "TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III",
+            "TOTOMALI2330", "JAKARTA 2330", "KINGKONG 4D MALAM"
+        ];
+
+        // Data login pribadi
+        const loginData = {
+            username: "myprediksi",
+            password: "rahasia123"
+        };
+
+        // Fungsi untuk membuat partikel
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
         }
-    }
 
-    // Fungsi untuk menampilkan toast notifikasi
-    function showToast(message, type = 'default') {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.style.display = 'block';
-        
-        // Reset animasi dengan menghapus dan menambahkan elemen kembali
-        toast.style.animation = 'none';
-        setTimeout(() => {
-            toast.style.animation = 'toastIn 0.3s ease, toast极速赛车开奖结果 0.3s ease 2.7s';
-        }, 10);
-        
-        // Sembunyikan toast setelah 3 detik
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 3000);
-    }
-
-    // Fungsi untuk memeriksa status login
-    function checkLoginStatus() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (isLoggedIn === 'true') {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
+        // Fungsi untuk memeriksa status login
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            }
         }
-    }
 
-    // Fungsi untuk validasi input
-    function validateInput极速赛车开奖结果() {
-        let isValid = true;
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-        
-        // Validasi username
-        if (username === '') {
-            document.getElementById('usernameError').style.display = 'block';
-            document.getElementById('username').classList.add('input-error');
-            isValid = false;
-        } else {
-            document.getElementById('usernameError').style.display = 'none';
-            document.getElementById('username').classList.remove('input-error');
+        // Fungsi untuk menghasilkan angka acak dengan panjang tertentu
+        function generateRandomNumber(length) {
+            return Array.from({length}, () => Math.floor(Math.random() * 10)).join('');
         }
-        
-        // Validasi password
-        if (password === '') {
-            document.getElementById('passwordError').style.display = 'block';
-            document.getElementById('password').classList.add('input-error');
-            isValid = false;
-        } else {
-            document.getElementById极速赛车开奖结果('passwordError').style.display = 'none';
-            document.getElementById('password').classList.remove('input-error');
-        }
-        
-        return isValid;
-    }
 
-    // Fungsi untuk menghasilkan angka acak dengan panjang tertentu
-    function generateRandomNumber(length) {
-        return Array.from({length}, () => Math.floor(Math.random() * 10)).join('');
-    }
-
-    // Fungsi untuk menghasilkan prediksi togel dalam format yang diinginkan
-    function generateTogelPrediction(pasaran) {
-        const now = new Date();
-        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        
-        const day = days[now.getDay()];
-        const date = now.getDate().toString().padStart(2, '0');
-        const month = months[now.getMonth()];
-        const year = now.getFullYear();
-        
-        const bbfs = generateRandomNumber(7);
-        const am = generateRandomNumber(5);
-        
-        // Generate 4D numbers
-        const fourD = Array(4).fill().map(() => generateRandomNumber(4)).join(' ');
-        
-        // Generate 3D numbers
-        const threeD = Array(4极速赛车开奖结果.fill().map(() => generateRandomNumber(3)).join(' ');
-        
-        // Generate 2D numbers
-        const twoD = Array(10).fill().map(() => generateRandomNumber(2)).join(' ');
-        
-        // Generate colok bebas
-        const colokBebas = `${generateRandomNumber(1)} / ${generateRandomNumber(1)}`;
-        
-        // Generate colok bebas 2D
-        const colokBebas2D = Array(3).fill().map(() => generateRandomNumber(2)).join(' / ');
-        
-        // Generate twin numbers
-        const twin = Array(3).fill().map(() => {
-            const num = generateRandomNumber(1);
-            return `${num}${num}`;
-        }).join(' / ');
-        
-        // Generate random shio
-        const shio = Array(3).fill().map(() => shios[Math.floor(Math.random() * shios.length)]).join(' / ');
-        
-        return `Prediksi ${pasaran}
+        // Fungsi untuk menghasilkan prediksi togel dalam format yang diinginkan
+        function generateTogelPrediction(pasaran) {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const day = days[now.getDay()];
+            const date = now.getDate().toString().padStart(2, '0');
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            const bbfs = generateRandomNumber(7);
+            const am = generateRandomNumber(5);
+            
+            // Generate 4D numbers
+            const fourD = Array(4).fill().map(() => generateRandomNumber(4)).join(' ');
+            
+            // Generate 3D numbers
+            const threeD = Array(4).fill().map(() => generateRandomNumber(3)).join(' ');
+            
+            // Generate 2D numbers
+            const twoD = Array(10).fill().map(() => generateRandomNumber(2)).join(' ');
+            
+            // Generate colok bebas
+            const colokBebas = `${generateRandomNumber(1)} / ${generateRandomNumber(1)}`;
+            
+            // Generate colok bebas 2D
+            const colokBebas2D = Array(3).fill().map(() => generateRandomNumber(2)).join(' / ');
+            
+            // Generate twin numbers
+            const twin = Array(3).fill().map(() => {
+                const num = generateRandomNumber(1);
+                return `${num}${num}`;
+            }).join(' / ');
+            
+            // Generate random shio
+            const shio = Array(3).fill().map(() => shios[Math.floor(Math.random() * shios.length)]).join(' / ');
+            
+            return `
+Prediksi ${pasaran}
 Hari ${day}, ${date} ${month} ${year}
 BBFS: ${bbfs}
 AM/AI/CK: ${am}
 4D: ${fourD}
 3D: ${threeD}
-2D (BB): ${twoD}
+2D (极速赛车开奖结果B): ${twoD}
 COLOK BEBAS: ${colokBebas}
 COLOK BEBAS 2D: ${colokBebas2D}
 TWIN: ${twin}
-SHIO: ${shio}
-Selalu Utamakan Prediksi Sendiri`;
-    }
+SHIO: ${sh极速赛车开奖结果}
+Selalu Utamakan Prediksi Sendiri
+            `;
+        }
 
-    // Fungsi untuk menampilkan prediksi
-    function displayPrediction(pasaran) {
-        const prediction = generateTogelPrediction(pasaran);
-        const predictionResult = document.getElementById('predictionResult');
-        const copyBtn = document.getElementById('copyBtn');
-        
-        // Format teks dengan line breaks
-        predictionResult.innerHTML = `<div class="prediction-value" style="white-space: pre-line;">${prediction}</div>`;
-        
-        // Tampilkan tombol salin
-        copyBtn.style.display = 'block';
-        
-        // Simpan teks prediksi untuk disalin
-        predictionResult.setAttribute('data-prediction', prediction);
-        
-        // Tampilkan toast sukses
-        showToast('Prediksi berhasil digenerate!');
-    }
-
-    // Fungsi untuk menampilkan semua prediksi
-    function displayAllPredictions() {
-        const allPredictionsContainer = document.getElementById('allPredictionsContainer');
-        const copyAllBtn = document.getElementById('copyAllBtn');
-        
-        // Tampilkan loading
-        allPredictionsContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;">Sedang memuat semua prediksi...</p>';
-        allPredictionsContainer.style.display = 'block';
-        
-        // Set loading state pada tombol
-        const generateAllBtn = document.getElementById('generateAllBtn');
-        generateAllBtn.classList.add('loading');
-        
-        // Simulasi loading dengan timeout
-        setTimeout(() => {
-            let allPredictions = '';
+        // Fungsi untuk menampilkan prediksi
+        function displayPrediction(pasaran) {
+            const prediction = generateTogelPrediction(pasaran);
+            const predictionResult = document.getElementById('predictionResult');
+            const copyBtn = document.getElementById('copyBtn');
             
-            // Generate prediksi untuk setiap pasaran
-            semuaPasaran.forEach(pasaran => {
-                const prediction = generateTogelPrediction(pasaran);
-                allPredictions += `<div class="prediction-item"><div class="prediction-value" style="white-space: pre-line;">${prediction}</div></div>`;
+            // Format teks dengan line breaks
+            predictionResult.innerHTML = `<div class="prediction-value" style="white-space: pre-line;">${prediction}</div>`;
+            
+            // Tampilkan tombol salin
+            copyBtn.style.display = 'block';
+            
+            // Simpan teks prediksi untuk disalin
+            predictionResult.setAttribute('data-prediction', prediction);
+        }
+
+        // Fungsi untuk menampilkan semua prediksi
+        function displayAllPredictions() {
+            const allPredictionsContainer = document.getElementById('allPredictionsContainer');
+            const copyAllBtn = document.getElementById('copyAllBtn');
+            
+            // Tampilkan loading
+            allPredictionsContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;">Sedang memuat semua prediksi...</p>';
+            allPredictionsContainer.style.display = 'block';
+            
+            // Simulasi loading dengan timeout
+            setTimeout(() => {
+                let allPredictions = '';
+                
+                // Generate prediksi untuk setiap pasaran
+                semuaPasaran.forEach(pasaran => {
+                    const prediction = generateTogelPrediction(pasaran);
+                    allPredictions += `<div class="prediction-item"><div class="prediction-value" style="white-space: pre-line;">${prediction}</div></div>`;
+                });
+                
+                // Tampilkan semua prediksi
+                allPredictionsContainer.innerHTML = allPredictions;
+                
+                // Tampilkan tombol salin semua
+                copyAllBtn.style.display = 'block';
+                
+                // Simpan teks semua prediksi untuk disalin
+                allPredictionsContainer.setAttribute('data-all-predictions', semuaPasaran.map(pasaran => generateTogelPrediction(p极速赛车开奖结果aran)).join('\n\n'));
+            }, 1000);
+        }
+
+        // Fungsi untuk menyalin prediksi ke clipboard
+        function copyPredictionToClipboard() {
+            const predictionText = document.getElementById('predictionResult').getAttribute('data-prediction');
+            
+            navigator.clipboard.writeText(predictionText).then(() => {
+                // Ubah teks tombol sementara
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                
+                // Kembalikan teks asli setelah 2 detik
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+                alert('Gagal menyalin prediksi. Silakan coba lagi.');
             });
-            
-            // Tampilkan semua prediksi
-            allPredictionsContainer.innerHTML = allPredictions;
-            
-            // Tampilkan tombol salin semua
-            copyAllBtn.style.display = 'block';
-            
-            // Hapus loading state
-            generateAllBtn.classList.remove('loading');
-            
-            // Simpan teks semua prediksi untuk disalin
-            allPredictionsContainer.setAttribute('data-all-predictions', semuaPasaran.map(pasaran => generateTogelPrediction(pasaran)).join('\n\n'));
-            
-            // Tampilkan toast sukses
-            showToast('Semua prediksi berhasil digenerate!');
-        }, 1500);
-    }
+        }
 
-    // Fungsi untuk menyalin prediksi ke clipboard
-    function copyPredictionToClipboard() {
-        const predictionText = document.getElementById('predictionResult').getAttribute('data-prediction');
-        
-        navigator.clipboard.writeText(predictionText).then(() => {
-            // Tampilkan toast notifikasi
-            showToast('Prediksi berhasil disalin!');
-        }).catch(err => {
-            console.error('Gagal menyalin teks: ', err);
-            showToast('Gagal menyalin prediksi. Silakan coba lagi.', 'error');
-        });
-    }
+        // Fungsi untuk menyalin semua prediksi ke clipboard
+        function copyAllPredictionsToClipboard() {
+            const allPredictionsText = document.getElementById('allPredictionsContainer').getAttribute('data-all-predictions');
+            
+            navigator.clipboard.writeText(allPredictionsText).then(() => {
+                // Ubah teks tombol sementara
+                const copyAllBtn = document.getElementById('copyAllBtn');
+                const originalText = copyAllBtn.innerHTML;
+                copyAllBtn.innerHTML = '<i class="fas fa-check"></i> Semua Tersalin!';
+                
+                // Kembalikan teks asli setelah 2 detik
+                setTimeout(() => {
+                    copyAllBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+                alert('Gagal menyalin semua prediksi. Silakan coba lagi.');
+            });
+        }
 
-    // Fungsi untuk menyalin semua prediksi ke clipboard
-    function copyAllPredictionsToClipboard() {
-        const allPredictionsText = document.getElementById('allPredictionsContainer').极速赛车开奖结果('data-all-predictions');
-        
-        navigator.clipboard.writeText(allPredictionsText).then(() => {
-            // Tampilkan toast notifikasi
-            showToast('Semua prediksi berhasil disalin!');
-        }).catch(err => {
-            console.error('Gagal menyalin teks: ', err);
-            showToast('Gagal menyalin semua prediksi. Silakan coba lagi.', 'error');
-        });
-    }
-
-    // Fungsi untuk login
-    function handleLogin() {
-        if (!validateInputs()) return;
-        
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
-        // Set loading state pada tombol login
-        const loginBtn = document.getElementById('loginBtn');
-        loginBtn.classList.add('loading');
-        
-        // Simulasi proses login dengan timeout
-        setTimeout(function() {
-            // Validasi login (username tidak case-sensitive)
-            // Catatan: Dalam implementasi nyata, jangan simpan kredensial di kode frontend
-            if (username.toLowerCase() === 'milk pribadi' && password === '1234') {
+        // Fungsi untuk login
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Validasi login
+            if (username === loginData.username && password === loginData.password) {
                 // Tampilkan pesan sukses
                 document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
@@ -684,66 +927,33 @@ Selalu Utamakan Prediksi Sendiri`;
                 setTimeout(function() {
                     document.getElementById('loginContainer').style.display = 'none';
                     document.getElementById('dashboard').style.display = 'block';
-                    loginBtn.classList.remove('loading');
                 }, 1500);
             } else {
                 // Tampilkan pesan error
                 document.getElementById('successMessage').style.display = 'none';
                 document.getElementById('errorMessage').style.display = 'block';
-                loginBtn.classList.remove('loading');
-                
-                // Tampilkan toast error
-                showToast('User ID atau password salah!', 'error');
             }
-        }, 1000);
-    }
-    
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buat partikel latar belakang
-        createParticles();
-        
-        checkLoginStatus();
-        
-        // Login button event
-        document.getElementById('loginBtn').addEventListener('click', handleLogin);
-        
-        // Enter key untuk login
-        document.getElementById('username').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleLogin();
         });
         
-        document.getElementById('password').addEventListener('keypress', function(e极速赛车开奖结果) {
-            if (e.key === 'Enter') handleLogin();
-        });
-        
-        // Generate prediction event
+        // Fungsi untuk generate prediksi
         document.getElementById('generateBtn').addEventListener('click', function() {
             const pasaranSelect = document.getElementById('pasaranSelect');
             const selectedPasaran = pasaranSelect.value;
-            
-            // Set loading state
-            this.classList.add极速赛车开奖结果('loading');
-            
-            // Simulasi loading
-            setTimeout(() => {
-                displayPrediction(selected极速赛车开奖结果);
-                this.classList.remove('loading');
-            }, 800);
+            displayPrediction(selectedPasaran);
         });
         
-        // Generate all predictions event
+        // Fungsi untuk generate semua prediksi
         document.getElementById('generateAllBtn').addEventListener('click', displayAllPredictions);
         
-        // Copy prediction event
+        // Fungsi untuk menyalin prediksi
         document.getElementById('copyBtn').addEventListener('click', copyPredictionToClipboard);
         
-        // Copy all predictions event
+        // Fungsi untuk menyalin semua prediksi
         document.getElementById('copyAllBtn').addEventListener('click', copyAllPredictionsToClipboard);
         
-        // Logout event
+        // Fungsi untuk logout
         document.getElementById('logoutBtn').addEventListener('click', function() {
-            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('dashboard').极速赛车开奖结果.style.display = 'none';
             document.getElementById('loginContainer').style.display = 'block';
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
@@ -754,12 +964,9 @@ Selalu Utamakan Prediksi Sendiri`;
             // Sembunyikan tombol salin
             document.getElementById('copyBtn').style.display = 'none';
             document.getElementById('copyAllBtn').style.display = 'none';
-            
-            // Tampilkan toast
-            showToast('Anda telah logout');
         });
         
-        // Toggle password visibility
+        // Fitur toggle password
         document.getElementById('passwordToggle').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
             const icon = this.querySelector('i');
@@ -775,7 +982,7 @@ Selalu Utamakan Prediksi Sendiri`;
             }
         });
         
-        // Tab events
+        // Fungsi untuk tab
         document.getElementById('singleTab').addEventListener('click', function() {
             document.getElementById('singleTab').classList.add('active');
             document.getElementById('allTab').classList.remove('active');
@@ -789,7 +996,12 @@ Selalu Utamakan Prediksi Sendiri`;
             document.getElementById('singleGenerator').style.display = 'none';
             document.getElementById('allGenerator').style.display = 'block';
         });
-    });
-</script>
+
+        // Periksa status login saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            checkLoginStatus();
+        });
+    </script>
 </body>
 </html>
