@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Merger - Gabungkan & Kelola Gambar dari Link</title>
+    <title>Image Merger - Hasil Bisa Dicopy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -272,6 +272,14 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #combinedImage:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
         }
 
         .result-actions {
@@ -356,6 +364,17 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1001;
+            animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
         }
 
         footer {
@@ -364,13 +383,26 @@
             color: #7f8c8d;
             font-size: 0.9rem;
         }
+
+        .click-hint {
+            margin-top: 10px;
+            color: #3498db;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .click-hint i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1><i class="fas fa-images"></i> Image Merger</h1>
-            <p class="description">Gabungkan beberapa gambar dari link menjadi satu gambar yang dapat diunduh. Klik pada gambar untuk melihat preview dan menyalin URL.</p>
+            <p class="description">Gabungkan beberapa gambar dari link menjadi satu gambar yang dapat diunduh. Klik pada gambar hasil untuk menyalinnya.</p>
         </header>
 
         <div class="main-content">
@@ -389,6 +421,7 @@
                     <li>Klik "Tambahkan Gambar" untuk menambahkannya ke galeri</li>
                     <li>Klik pada gambar di galeri untuk melihat preview dan menyalin URL</li>
                     <li>Klik "Gabungkan Gambar" setelah menambahkan semua gambar</li>
+                    <li>Klik pada gambar hasil untuk menyalinnya</li>
                     <li>Unduh hasil penggabungan gambar</li>
                 </ol>
             </div>
@@ -412,6 +445,7 @@
 
         <div class="result-section" id="resultContainer">
             <h2 class="result-title"><i class="fas fa-check-circle"></i> Hasil Penggabungan Gambar</h2>
+            <p class="click-hint"><i class="fas fa-mouse-pointer"></i> Klik pada gambar di bawah untuk menyalinnya</p>
             <canvas id="combinedCanvas" style="display: none;"></canvas>
             <img id="combinedImage" alt="Hasil penggabungan gambar">
             <div class="result-actions">
@@ -613,6 +647,7 @@
                 notificationText.textContent = message;
                 notification.style.display = 'block';
                 
+                // Sembunyikan notifikasi setelah 3 detik
                 setTimeout(() => {
                     notification.style.display = 'none';
                 }, 3000);
@@ -691,6 +726,31 @@
                 renderGallery();
                 resultContainer.style.display = 'none';
                 showNotification('Mulai merge gambar baru');
+            });
+            
+            // Fungsi untuk menyalin gambar hasil ketika diklik
+            combinedImage.addEventListener('click', function() {
+                // Buat canvas sementara untuk mengonversi gambar ke blob
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = this.naturalWidth;
+                tempCanvas.height = this.naturalHeight;
+                tempCtx.drawImage(this, 0, 0);
+                
+                // Konversi canvas ke blob
+                tempCanvas.toBlob(function(blob) {
+                    // Salin blob ke clipboard
+                    navigator.clipboard.write([
+                        new ClipboardItem({
+                            'image/png': blob
+                        })
+                    ]).then(() => {
+                        showNotification('Gambar berhasil disalin ke clipboard!');
+                    }).catch(err => {
+                        console.error('Error copying image: ', err);
+                        showNotification('Gagal menyalin gambar. Browser mungkin tidak mendukung fitur ini.');
+                    });
+                });
             });
             
             // Tutup modal saat klik di luar konten modal
