@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Scatter Mahjong Ways</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--primary: #FF6B35;
+--secondary: #2EC4B6;
+--accent: #FF9F1C;
+--dark: #1A1A2E;
+--darker: #0D0D1A;
+--light: #F5F5F5;
+--glass: rgba(255, 255, 255, 0.1);
+--glass-dark: rgba(0, 0, 0, 0.3);
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Poppins', sans-serif;
+}
+
+body {
+background: linear-gradient(135deg, var(--darker), var(--dark), #16213E);
+color: var(--light);
+min-height: 100vh;
+padding: 20px;
+background-attachment: fixed;
+}
+
+.container {
+max-width: 1300px;
+margin: 0 auto;
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(12px);
+border-radius: 24px;
+padding: 35px;
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header {
+text-align: center;
+margin-bottom: 40px;
+position: relative;
+}
+
+.logo {
+font-size: 3.5rem;
+color: var(--accent);
+margin-bottom: 15px;
+text-shadow: 0 0 20px rgba(255, 159, 28, 0.6);
+}
+
+h1 {
+font-size: 3.2rem;
+margin-bottom: 12px;
+background: linear-gradient(to right, var(--accent), var(--primary));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-weight: 800;
+letter-spacing: 1.5px;
+}
+
+.subtitle {
+font-size: 1.4rem;
+color: var(--secondary);
+margin-bottom: 25px;
+font-weight: 400;
+}
+
+.content {
+display: grid;
+grid-template-columns: 1.2fr 0.8fr;
+gap: 35px;
+}
+
+@media (max-width: 1000px) {
+.content {
+grid-template-columns: 1fr;
+}
+}
+
+.input-section, .result-section {
+background: var(--glass-dark);
+padding: 30px;
+border-radius: 20px;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.input-section:hover, .result-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.section-title {
+color: var(--accent);
+margin-bottom: 25px;
+padding-bottom: 15px;
+border-bottom: 2px solid var(--primary);
+font-size: 1.7rem;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.form-group {
+margin-bottom: 25px;
+}
+
+label {
+display: block;
+margin-bottom: 10px;
+font-weight: 600;
+color: var(--secondary);
+font-size: 1.1rem;
+}
+
+input, textarea {
+width: 100%;
+padding: 16px 20px;
+border: 2px solid rgba(255, 107, 53, 0.3);
+border-radius: 12px;
+background: rgba(0, 0, 0, 0.2);
+color: var(--light);
+font-size: 16px;
+transition: all 0.3s;
+}
+
+input:focus, textarea:focus {
+border-color: var(--primary);
+outline: none;
+box-shadow: 0 0 15px rgba(255, 107, 53, 0.4);
+background: rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+min-height: 150px;
+resize: vertical;
+}
+
+button {
+background: linear-gradient(to right, var(--primary), var(--accent));
+color: white;
+border: none;
+padding: 18px 30px;
+font-size: 1.1rem;
+border-radius: 12px;
+cursor: pointer;
+width: 100%;
+font-weight: 600;
+transition: transform 0.3s, box-shadow 0.3s;
+box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+margin-top: 15px;
+letter-spacing: 1px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+button:hover {
+transform: translateY(-5px);
+box-shadow: 0 12px 25px rgba(255, 107, 53, 0.6);
+}
+
+button:active {
+transform: translateY(0);
+}
+
+.data-result {
+background: rgba(0, 0, 0, 0.4);
+padding: 25px;
+border-radius: 15px;
+margin-top: 25px;
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-result h4 {
+color: var(--accent);
+margin-bottom: 20px;
+border-bottom: 2px solid var(--primary);
+padding-bottom: 12px;
+font-size: 1.4rem;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.data-item {
+margin-bottom: 18px;
+display: flex;
+align-items: center;
+background: rgba(0, 0, 0, 0.2);
+padding: 12px 15px;
+border-radius: 10px;
+transition: background 0.3s;
+}
+
+.data-item:hover {
+background: rgba(0, 0, 0, 0.3);
+}
+
+.data-item strong {
+display: inline-block;
+width: 150px;
+color: var(--secondary);
+font-weight: 600;
+font-size: 1.1rem;
+}
+
+.data-item span {
+flex: 1;
+word-break: break-all;
+color: var(--light);
+font-weight: 500;
+}
+
+.link-text {
+color: var(--accent);
+text-decoration: underline;
+cursor: pointer;
+transition: color 0.3s;
+}
+
+.link-text:hover {
+color: var(--primary);
+}
+
+.tile {
+display: inline-block;
+width: 45px;
+height: 55px;
+background: linear-gradient(45deg, var(--primary), var(--accent));
+margin: 0 10px;
+border-radius: 10px;
+position: relative;
+transform: rotate(15deg);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+animation: float 4s ease-in-out infinite;
+}
+
+.tile:nth-child(2) {
+animation-delay: 0.7s;
+}
+
+.tile:nth-child(3) {
+animation-delay: 1.4s;
+}
+
+@keyframes float {
+0%, 100% { transform: rotate(15deg) translateY(0) rotateY(0); }
+33% { transform: rotate(15deg) translateY(-15px) rotateY(20deg); }
+66% { transform: rotate(15deg) translateY(10px) rotateY(-20deg); }
+}
+
+.tile::before {
+content: "";
+position: absolute;
+width: 28px;
+height: 28px;
+background: var(--dark);
+border-radius: 50%;
+top: 13px;
+left: 8px;
+box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.decoration {
+text-align: center;
+margin: 35px 0;
+}
+
+.instructions {
+background: var(--glass);
+padding: 25px;
+border-radius: 15px;
+margin-top: 35px;
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instructions h3 {
+color: var(--accent);
+margin-bottom: 20px;
+font-size: 1.5rem;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.instructions ol {
+padding-left: 25px;
+}
+
+.instructions li {
+margin-bottom: 15px;
+line-height: 1.6;
+font-size: 1.05rem;
+}
+
+.copy-btn {
+background: linear-gradient(to right, var(--dark), #2A4B8C);
+width: auto;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 10px 18px;
+font-size: 0.95rem;
+margin-left: 15px;
+border-radius: 8px;
+transition: all 0.3s;
+box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+}
+
+.copy-btn:hover {
+transform: scale(1.05);
+box-shadow: 0 8px 20px rgba(26, 42, 108, 0.6);
+}
+
+.copy-btn i {
+margin-right: 8px;
+}
+
+.gallery {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 18px;
+margin-top: 25px;
+}
+
+.gallery-item {
+height: 140px;
+background: linear-gradient(45deg, var(--dark), #2A4B8C);
+border-radius: 12px;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s;
+border: 2px solid transparent;
+position: relative;
+}
+
+.gallery-item:hover {
+transform: scale(1.08) rotate(2deg);
+border-color: var(--primary);
+box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+}
+
+.gallery-item img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s;
+}
+
+.gallery-item:hover img {
+transform: scale(1.15);
+}
+
+.gallery-item::after {
+content: "Klik untuk memperbesar";
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+background: rgba(0, 0, 0, 0.7);
+color: var(--light);
+font-size: 0.8rem;
+padding: 5px;
+text-align: center;
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+.gallery-item:hover::after {
+opacity: 1;
+}
+
+.success-message {
+background: rgba(46, 196, 182, 0.3);
+color: var(--light);
+padding: 15px;
+border-radius: 10px;
+text-align: center;
+margin-top: 20px;
+display: none;
+border: 1px solid rgba(255, 255, 255, 0.1);
+animation: fadeIn 0.5s;
+font-weight: 500;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(-10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.raw-data {
+background: rgba(255, 255, 255, 0.05);
+padding: 18px;
+border-radius: 12px;
+margin-top: 25px;
+font-family: 'Fira Code', monospace;
+white-space: pre-wrap;
+word-break: break-all;
+max-height: 180px;
+overflow-y: auto;
+border: 1px solid rgba(255, 255, 255, 0.1);
+font-size: 0.95rem;
+}
+
+.final-result {
+background: linear-gradient(45deg, rgba(255, 159, 28, 0.2), rgba(255, 107, 53, 0.2));
+border: 2px solid var(--accent);
+border-radius: 18px;
+padding: 25px;
+margin-top: 30px;
+box-shadow: 0 10px 25px rgba(255, 159, 28, 0.3);
+}
+
+.final-result h4 {
+color: var(--accent);
+text-align: center;
+margin-bottom: 25px;
+font-size: 1.5rem;
+text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+}
+
+.final-data {
+font-size: 1.1rem;
+line-height: 1.8;
+}
+
+.final-data div {
+margin-bottom: 15px;
+padding: 12px;
+background: rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+display: flex;
+align-items: center;
+}
+
+.final-data div i {
+margin-right: 12px;
+color: var(--secondary);
+width: 25px;
+}
+
+.info-box {
+background: rgba(255, 159, 28, 0.2);
+border-left: 4px solid var(--accent);
+padding: 18px;
+margin: 25px 0;
+border-radius: 10px;
+font-size: 1.05rem;
+}
+
+.debug-info {
+background: rgba(255, 255, 255, 0.05);
+padding: 15px;
+border-radius: 10px;
+margin-top: 20px;
+font-size: 0.9rem;
+display: none;
+border: 1px solid rgba(255, 255, 255, 0.1);
+font-family: 'Fira Code', monospace;
+}
+
+/* Modal for image preview */
+.modal {
+display: none;
+position: fixed;
+z-index: 1000;
+padding-top: 60px;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.95);
+animation: fadeIn 0.4s;
+}
+
+.modal-content {
+display: block;
+margin: 0 auto;
+max-width: 90%;
+max-height: 80vh;
+border-radius: 15px;
+box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+animation: zoom 0.4s;
+border: 3px solid var(--accent);
+}
+
+@keyframes zoom {
+from {transform: scale(0.9); opacity: 0;}
+to {transform: scale(1); opacity: 1;}
+}
+
+.close {
+position: absolute;
+top: 20px;
+right: 40px;
+color: var(--light);
+font-size: 45px;
+font-weight: bold;
+transition: 0.3s;
+cursor: pointer;
+text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.close:hover,
+.close:focus {
+color: var(--primary);
+transform: scale(1.2);
+}
+
+.loader {
+display: none;
+text-align: center;
+margin: 25px 0;
+}
+
+.loader .spinner {
+border: 5px solid rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+border-top: 5px solid var(--primary);
+width: 60px;
+height: 60px;
+animation: spin 1s linear infinite;
+margin: 0 auto;
+box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.credit {
+text-align: center;
+margin-top: 40px;
+font-size: 1.05rem;
+color: rgba(255, 255, 255, 0.7);
+padding-top: 20px;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pulse {
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
+}
+
+.link-container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-top: 15px;
+}
+
+.link-item {
+display: flex;
+align-items: center;
+background: rgba(0, 0, 0, 0.2);
+padding: 12px 15px;
+border-radius: 10px;
+font-family: 'Fira Code', monospace;
+font-size: 0.95rem;
+word-break: break-all;
+}
+
+.link-item i {
+margin-right: 10px;
+color: var(--accent);
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo">
+<i class="fas fa-dragon"></i>
+</div>
+<h1>Event Scatter Mahjong Ways</h1>
+<p class="subtitle">Input Data Scatter untuk Mahjong Ways 1 dan Ways 2</p>
+<div class="decoration">
+<span class="tile"></span>
+<span class="tile"></span>
+<span class="tile"></span>
+</div>
+</header>
+
+<div class="content">
+<div class="input-section">
+<h2 class="section-title"><i class="fas fa-pencil-alt"></i> Input Data Scatter</h2>
+<form id="scatterForm">
+<div class="form-group">
+<label for="rawData"><i class="fas fa-paste"></i> Data Scatter (Tempel data di sini):</label>
+<textarea id="rawData" rows="6" placeholder="Tempel data scatter di sini. Contoh: Zalora99
+</div>
+
+<button type="submit" class="pulse"><i class="fas fa-cogs"></i> Proses Data</button>
+</form>
+
+<div class="instructions">
+<h3><i class="fas fa-info-circle"></i> Contoh Format Data:</h3>
+<div class="raw-data">Zalora99
+
+<div class="info-box">
+<strong><i class="fas fa-lightbulb"></i> Perhatian:</strong> Sistem akan mengambil kode tiket yang panjang (bukan nomor rekening) dan hanya nominal depan pada bettingan.
+</div>
+</div>
+</div>
+
+<div class="result-section">
+<h3 class="section-title"><i class="fas fa-search"></i> Hasil Ekstraksi Data</h3>
+
+<div class="loader" id="loader">
+<div class="spinner"></div>
+<p>Memproses data...</p>
+</div>
+
+<div class="data-result">
+<h4><i class="fas fa-database"></i> Data yang Diekstrak:</h4>
+<div class="data-item">
+<strong><i class="fas fa-user"></i> User ID:</strong>
+<span id="resultUserId">-</span>
+<button class="copy-btn" data-copy="resultUserId"><i class="fas fa-copy"></i> Salin</button>
+</div>
+<div class="data-item">
+<strong><i class="fas fa-ticket-alt"></i> Kode Tiket:</strong>
+<span id="resultTicketCode">-</span>
+<button class="copy-btn" data-copy="resultTicketCode"><i class="fas fa-copy"></i> Salin</button>
+</div>
+<div class="data-item">
+<strong><i class="fas fa-user-tag"></i> Nama Pemain:</strong>
+<span id="resultPlayerName">-</span>
+<button class="copy-btn" data-copy="resultPlayerName"><i class="fas fa-copy"></i> Salin</button>
+</div>
+<div class="data-item">
+<strong><i class="fas fa-coins"></i> Bettingan:</strong>
+<span id="resultBetting">-</span>
+<button class="copy-btn" data-copy="resultBetting"><i class="fas fa-copy"></i> Salin</button>
+</div>
+
+<div style="margin-top: 20px;">
+<strong><i class="fas fa-link"></i> Link Screenshot:</strong>
+<div class="link-container" id="linkContainer">
+<button class="copy-btn" data-copy="linkContainer"><i class="fas fa-copy"></i> Salin</button>
+<!-- Link akan ditambahkan di sini -->
+</div>
+</div>
+</div>
+
+<h4 style="margin-top: 25px;"><i class="fas fa-images"></i> Galeri Screenshot:</h4>
+<div class="gallery" id="imageGallery">
+<div class="gallery-item">Gambar akan muncul di sini</div>
+</div>
+
+<div class="final-result">
+<h4><i class="fas fa-clipboard-list"></i> Hasil Format Scatter</h4>
+<div class="final-data">
+<div><i class="fas fa-user"></i> User ID: <span id="finalUserId">-</span></div>
+<div><i class="fas fa-ticket-alt"></i> Kode Tiket: <span id="finalTicketCode">-</span></div>
+<div><i class="fas fa-user-tag"></i> Nama Pemain: <span id="finalPlayerName">-</span></div>
+<div><i class="fas fa-link"></i> Link Screenshot:
+<div class="link-container" id="finalLinkContainer">
+<!-- Link akan ditambahkan di sini -->
+</div>
+</div>
+<div><i class="fas fa-coins"></i> Bettingan: <span id="finalBetting">-</span></div>
+</div>
+<button class="copy-btn" id="copyAllBtn" style="width: 100%; margin-top: 20px;"><i class="fas fa-copy"></i> Salin Semua Data</button>
+</div>
+
+<div class="success-message" id="copySuccess">
+<i class="fas fa-check-circle"></i> Teks berhasil disalin!
+</div>
+
+<div class="debug-info" id="debugInfo">
+<!-- Informasi debug akan ditampilkan di sini -->
+</div>
+</div>
+</div>
+
+<div class="instructions">
+<h3><i class="fas fa-book"></i> Petunjuk Penggunaan:</h3>
+<ol>
+<li>Salin data scatter dari dokumen (termasuk User ID, link screenshot, kode tiket, nama pemain, dan bettingan)</li>
+<li>Tempel data yang telah disalin ke dalam textarea "Data Scatter"</li>
+<li>Klik tombol "Proses Data" untuk mengekstrak informasi</li>
+<li>Data yang diekstrak akan ditampilkan di sisi kanan</li>
+<li>Klik gambar screenshot untuk melihatnya dalam ukuran besar</li>
+<li>Gunakan tombol "Salin" untuk menyalin data tertentu atau "Salin Semua Data" untuk menyalin semua</li>
+</ol>
+</div>
+
+<div class="credit">
+<p>Dibuat dengan <i class="fas fa-heart" style="color: var(--primary);"></i> untuk Event Scatter Mahjong Ways</p>
+</div>
+</div>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal">
+<span class="close">&times;</span>
+<img class="modal-content" id="modalImage">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const form = document.getElementById('scatterForm');
+const copyButtons = document.querySelectorAll('.copy-btn');
+const copyAllBtn = document.getElementById('copyAllBtn');
+const copySuccess = document.getElementById('copySuccess');
+const debugInfo = document.getElementById('debugInfo');
+const loader = document.getElementById('loader');
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImage');
+const closeModal = document.querySelector('.close');
+const linkContainer = document.getElementById('linkContainer');
+const finalLinkContainer = document.getElementById('finalLinkContainer');
+
+// Form submission
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+
+// Show loader
+loader.style.display = 'block';
+
+// Ambil nilai dari form
+const rawData = document.getElementById('rawData').value;
+
+// Simulasikan loading (bisa dihapus di production)
+setTimeout(() => {
+// Proses data
+processScatterData(rawData);
+// Hide loader
+loader.style.display = 'none';
+}, 1000);
+});
+
+// Fungsi untuk memproses data scatter
+function processScatterData(data) {
+// Split data by tab atau spasi
+const parts = data.split(/\s+/);
+
+// Tampilkan info debug
+debugInfo.innerHTML = `<strong>Parts:</strong> ${JSON.stringify(parts)}`;
+debugInfo.style.display = 'block';
+
+// Inisialisasi variabel
+let userId = '';
+let ticketCode = '';
+let playerName = '';
+let betting = '';
+const imageLinks = [];
+const possibleTicketCodes = [];
+
+// Iterasi melalui setiap bagian
+for (let i = 0; i < parts.length; i++) {
+const part = parts[i];
+
+// Deteksi link gambar
+if (part.startsWith('http') && (part.includes('.jpg') || part.includes('.png') || part.includes('.jpeg'))) {
+imageLinks.push(part);
+}
+// Deteksi user ID (biasanya di awal)
+else if (i === 0 && !part.includes('http')) {
+userId = part;
+}
+// Deteksi kode tiket (angka, panjang biasanya lebih dari 10 digit)
+else if (/^\d+$/.test(part) && part.length > 10) {
+possibleTicketCodes.push(part);
+}
+// Deteksi nama (huruf saja, minimal 2 kata)
+else if (/^[A-Za-z\s]+$/.test(part) && part.split(' ').length >= 2 && !playerName) {
+playerName = part;
+// Jika nama terdiri dari beberapa bagian, gabungkan
+for (let j = i + 1; j < parts.length; j++) {
+if (/^[A-Za-z\s]+$/.test(parts[j])) {
+playerName += ' ' + parts[j];
+} else {
+break;
+}
+}
+}
+}
+
+// Proses bettingan - cari bagian yang mengandung "BET"
+let betFound = false;
+for (let i = 0; i < parts.length; i++) {
+if (parts[i].includes('BET')) {
+betFound = true;
+// Ambil angka setelah "BET"
+for (let j = i + 1; j < parts.length; j++) {
+if (parts[j] && /^[\d,]+$/.test(parts[j].replace(/\./g, ''))) {
+betting = parts[j].replace(/\./g, '');
+break;
+} else if (parts[j] && parts[j].includes('-')) {
+// Jika ada tanda minus, ambil bagian pertama
+const betParts = parts[j].split('-');
+if (betParts[0] && /^[\d,]+$/.test(betParts[0].replace(/\./g, ''))) {
+betting = betParts[0].replace(/\./g, '');
+}
+break;
+}
+}
+break;
+}
+}
+
+// Jika tidak menemukan "BET", cari pola angka dengan koma
+if (!betFound) {
+for (let i = 0; i < parts.length; i++) {
+if (parts[i] && /^[\d,]+-[\d,]+$/.test(parts[i])) {
+// Format: 2,000-8,000
+const betParts = parts[i].split('-');
+if (betParts[0] && /^[\d,]+$/.test(betParts[0].replace(/\./g, ''))) {
+betting = betParts[0].replace(/\./g, '');
+}
+break;
+} else if (parts[i] && /^[\d,]+$/.test(parts[i].replace(/\./g, '')) &&
+parts[i+1] && parts[i+1] === '-' &&
+parts[i+2] && /^[\d,]+$/.test(parts[i+2].replace(/\./g, ''))) {
+// Format: 2,000 - 8,000 (terpisah)
+betting = parts[i].replace(/\./g, '');
+break;
+}
+}
+}
+
+// Ambil kode tiket yang paling panjang (biasanya yang benar)
+if (possibleTicketCodes.length > 0) {
+// Urutkan dari yang terpanjang
+possibleTicketCodes.sort((a, b) => b.length - a.length);
+ticketCode = possibleTicketCodes[0];
+}
+
+// Tampilkan hasil ekstraksi
+document.getElementById('resultUserId').textContent = userId || '-';
+document.getElementById('resultTicketCode').textContent = ticketCode || '-';
+document.getElementById('resultPlayerName').textContent = playerName || '-';
+document.getElementById('resultBetting').textContent = betting || '-';
+
+// Tampilkan di hasil final
+document.getElementById('finalUserId').textContent = userId || '-';
+document.getElementById('finalTicketCode').textContent = ticketCode || '-';
+document.getElementById('finalPlayerName').textContent = playerName || '-';
+document.getElementById('finalBetting').textContent = betting || '-';
+
+// Tampilkan link screenshot
+linkContainer.innerHTML = '';
+finalLinkContainer.innerHTML = '';
+
+if (imageLinks.length > 0) {
+imageLinks.forEach(link => {
+const linkItem = document.createElement('div');
+linkItem.className = 'link-item';
+linkItem.innerHTML = `<i class="fas fa-link"></i> ${link}`;
+linkContainer.appendChild(linkItem);
+
+const finalLinkItem = document.createElement('div');
+finalLinkItem.className = 'link-item';
+finalLinkItem.innerHTML = `<i class="fas fa-link"></i> ${link}`;
+finalLinkContainer.appendChild(finalLinkItem);
+});
+} else {
+linkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
+finalLinkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
+}
+
+// Tampilkan gambar di galeri
+const imageGallery = document.getElementById('imageGallery');
+imageGallery.innerHTML = '';
+
+if (imageLinks.length > 0) {
+imageLinks.forEach(link => {
+const galleryItem = document.createElement('div');
+galleryItem.className = 'gallery-item';
+
+const img = document.createElement('img');
+img.src = link;
+img.alt = 'Bukti Screenshot';
+img.onerror = function() {
+galleryItem.innerHTML = '<span>Gagal memuat gambar</span>';
+galleryItem.style.color = '#fff';
+galleryItem.style.textAlign = 'center';
+galleryItem.style.display = 'flex';
+galleryItem.style.alignItems = 'center';
+galleryItem.style.justifyContent = 'center';
+};
+
+// Add click event to open modal
+img.addEventListener('click', function() {
+modal.style.display = 'block';
+modalImg.src = this.src;
+});
+
+galleryItem.appendChild(img);
+imageGallery.appendChild(galleryItem);
+});
+} else {
+imageGallery.innerHTML = '<div class="gallery-item">Tidak ada gambar yang ditemukan</div>';
+}
+}
+
+// Close modal when clicking on X
+closeModal.addEventListener('click', function() {
+modal.style.display = 'none';
+});
+
+// Close modal when clicking outside the image
+modal.addEventListener('click', function(e) {
+if (e.target === modal) {
+modal.style.display = 'none';
+}
+});
+
+// Copy functionality untuk tombol individual
+copyButtons.forEach(button => {
+button.addEventListener('click', function() {
+const elementId = this.getAttribute('data-copy');
+const textToCopy = document.getElementById(elementId).textContent;
+
+copyToClipboard(textToCopy);
+});
+});
+
+// Copy functionality untuk tombol salin semua
+copyAllBtn.addEventListener('click', function() {
+const userId = document.getElementById('finalUserId').textContent;
+const ticketCode = document.getElementById('finalTicketCode').textContent;
+const playerName = document.getElementById('finalPlayerName').textContent;
+const betting = document.getElementById('finalBetting').textContent;
+
+// Get all links
+const links = [];
+document.querySelectorAll('#finalLinkContainer .link-item').forEach(item => {
+links.push(item.textContent.trim());
+});
+
+const textToCopy = `User ID: ${userId}\nKode Tiket: ${ticketCode}\nNama Pemain: ${playerName}\nLink Screenshot:\n${links.join('\n')}\nBettingan: ${betting}`;
+
+copyToClipboard(textToCopy);
+});
+
+// Fungsi untuk menyalin teks ke clipboard
+function copyToClipboard(text) {
+navigator.clipboard.writeText(text).then(function() {
+copySuccess.style.display = 'block';
+setTimeout(function() {
+copySuccess.style.display = 'none';
+}, 2000);
+}).catch(function(err) {
+console.error('Gagal menyalin teks: ', err);
+// Fallback untuk browser yang tidak support clipboard API
+const textArea = document.createElement('textarea');
+textArea.value = text;
+document.body.appendChild(textArea);
+textArea.select();
+document.execCommand('copy');
+document.body.removeChild(textArea);
+
+copySuccess.style.display = 'block';
+setTimeout(function() {
+copySuccess.style.display = 'none';
+}, 2000);
+});
+}
+});
+</script>
+</body>
+</html>
