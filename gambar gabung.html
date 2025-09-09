@@ -9,868 +9,868 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
---primary: #6c5ce7;
---primary-dark: #5649c9;
---secondary: #a29bfe;
---accent: #fd79a8;
---success: #00b894;
---warning: #fdcb6e;
---danger: #e17055;
---light: #f8f9fa;
---dark: #2d3436;
---gray: #dfe6e9;
---dark-bg: #1e2029;
---card-bg: #2d303d;
+  --primary: #6c5ce7;
+  --primary-dark: #5649c9;
+  --secondary: #a29bfe;
+  --accent: #fd79a8;
+  --success: #00b894;
+  --warning: #fdcb6e;
+  --danger: #e17055;
+  --light: #f8f9fa;
+  --dark: #2d3436;
+  --gray: #dfe6e9;
+  --dark-bg: #1e2029;
+  --card-bg: #2d303d;
 }
 
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-font-family: 'Poppins', sans-serif;
-background: linear-gradient(135deg, var(--dark-bg) 0%, #252734 100%);
-color: var(--light);
-line-height: 1.6;
-min-height: 100vh;
-padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, #252734 100%);
+  color: var(--light);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .container {
-max-width: 1200px;
-margin: 0 auto;
-background-color: rgba(45, 48, 61, 0.9);
-border-radius: 20px;
-padding: 30px;
-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: rgba(45, 48, 61, 0.9);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 header {
-text-align: center;
-margin-bottom: 40px;
-padding: 25px 0;
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-border-radius: 15px;
-color: white;
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-position: relative;
-overflow: hidden;
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 25px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 header::before {
-content: "";
-position: absolute;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
-background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-transform: rotate(30deg);
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  transform: rotate(30deg);
 }
 
 h1 {
-margin-bottom: 10px;
-font-size: 2.8rem;
-font-weight: 700;
-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-position: relative;
+  margin-bottom: 10px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .description {
-font-size: 1.1rem;
-max-width: 800px;
-margin: 0 auto;
-opacity: 0.9;
-position: relative;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+  position: relative;
 }
 
 .tabs {
-display: flex;
-margin-bottom: 30px;
-background: var(--card-bg);
-border-radius: 12px;
-overflow: hidden;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  margin-bottom: 30px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .tab-button {
-flex: 1;
-padding: 18px;
-text-align: center;
-background: var(--card-bg);
-border: none;
-font-size: 16px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s ease;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-overflow: hidden;
-color: var(--light);
+  flex: 1;
+  padding: 18px;
+  text-align: center;
+  background: var(--card-bg);
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--light);
 }
 
 .tab-button i {
-margin-right: 10px;
-font-size: 18px;
+  margin-right: 10px;
+  font-size: 18px;
 }
 
 .tab-button.active {
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-color: white;
-box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
 }
 
 .tab-button:not(.active):hover {
-background: rgba(108, 92, 231, 0.2);
+  background: rgba(108, 92, 231, 0.2);
 }
 
 .tab-content {
-display: none;
-animation: fadeIn 0.5s ease;
+  display: none;
+  animation: fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(10px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .tab-content.active {
-display: block;
+  display: block;
 }
 
 .main-content {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 30px;
-margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 900px) {
-.main-content {
-grid-template-columns: 1fr;
-}
+  .main-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 .input-section, .gallery-section, .upload-section, .result-section {
-background: var(--card-bg);
-padding: 25px;
-border-radius: 15px;
-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-transition: all 0.3s ease;
-border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .input-section:hover, .gallery-section:hover, .upload-section:hover, .result-section:hover {
-transform: translateY(-5px);
-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .section-title {
-font-size: 1.5rem;
-color: var(--secondary);
-margin-bottom: 20px;
-display: flex;
-align-items: center;
-padding-bottom: 10px;
-border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .section-title i {
-margin-right: 10px;
-color: var(--primary);
-font-size: 1.3em;
+  margin-right: 10px;
+  color: var(--primary);
+  font-size: 1.3em;
 }
 
 .input-group {
-margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 label {
-display: block;
-margin-bottom: 8px;
-font-weight: 600;
-color: var(--light);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--light);
 }
 
 .url-input {
-width: 100%;
-padding: 15px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-border-radius: 10px;
-font-size: 16px;
-transition: all 0.3s;
-font-family: 'Poppins', sans-serif;
-background: rgba(255, 255, 255, 0.05);
-color: var(--light);
+  width: 100%;
+  padding: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
 }
 
 .url-input:focus {
-border-color: var(--primary);
-outline: none;
-box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
 .btn {
-padding: 15px 25px;
-color: white;
-border: none;
-border-radius: 10px;
-cursor: pointer;
-font-size: 16px;
-font-weight: 600;
-transition: all 0.3s;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-position: relative;
-overflow: hidden;
+  padding: 15px 25px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn::before {
-content: "";
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-transition: 0.5s;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
 }
 
 .btn:hover::before {
-left: 100%;
+  left: 100%;
 }
 
 .btn i {
-margin-right: 8px;
+  margin-right: 8px;
 }
 
 .btn:hover {
-transform: translateY(-3px);
-box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-add {
-background: linear-gradient(135deg, var(--success) 0%, #00a382 100%);
+  background: linear-gradient(135deg, var(--success) 0%, #00a382 100%);
 }
 
 .btn-add:hover {
-background: linear-gradient(135deg, #00a382 0%, #008f72 100%);
+  background: linear-gradient(135deg, #00a382 0%, #008f72 100%);
 }
 
 .btn-combine {
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-width: 100%;
-margin-top: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  width: 100%;
+  margin-top: 20px;
 }
 
 .btn-combine:hover {
-background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
 }
 
 .btn-download {
-background: linear-gradient(135deg, var(--accent) 0%, #f94c93 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #f94c93 100%);
 }
 
 .btn-download:hover {
-background: linear-gradient(135deg, #f94c93 0%, #e83e83 100%);
+  background: linear-gradient(135deg, #f94c93 0%, #e83e83 100%);
 }
 
 .btn-new {
-background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
-color: var(--dark);
+  background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
+  color: var(--dark);
 }
 
 .btn-new:hover {
-background: linear-gradient(135deg, #fdb43e 0%, #fca311 100%);
+  background: linear-gradient(135deg, #fdb43e 0%, #fca311 100%);
 }
 
 .btn-extract {
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-width: 100%;
-margin-top: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  width: 100%;
+  margin-top: 20px;
 }
 
 .btn-extract:hover {
-background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
 }
 
 .error {
-color: var(--danger);
-margin-top: 5px;
-font-size: 14px;
-display: flex;
-align-items: center;
+  color: var(--danger);
+  margin-top: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 
 .error i {
-margin-right: 5px;
+  margin-right: 5px;
 }
 
 .gallery-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .gallery-title {
-font-size: 1.5rem;
-color: var(--secondary);
+  font-size: 1.5rem;
+  color: var(--secondary);
 }
 
 .image-count {
-background: var(--primary);
-color: white;
-padding: 5px 12px;
-border-radius: 20px;
-font-size: 14px;
-font-weight: 500;
+  background: var(--primary);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .gallery {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-gap: 15px;
-margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .image-container {
-position: relative;
-border: 2px solid rgba(255, 255, 255, 0.1);
-border-radius: 12px;
-overflow: hidden;
-background-color: rgba(255, 255, 255, 0.05);
-cursor: pointer;
-transition: all 0.3s;
-height: 150px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 150px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .image-container:hover {
-transform: translateY(-5px);
-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary);
 }
 
 .image-container img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .image-number {
-position: absolute;
-top: 5px;
-left: 5px;
-background: rgba(0, 0, 0, 0.7);
-color: white;
-border-radius: 50%;
-width: 25px;
-height: 25px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 12px;
-font-weight: bold;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .image-actions {
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-background: rgba(0, 0, 0, 0.7);
-display: flex;
-justify-content: space-around;
-padding: 8px;
-opacity: 0;
-transition: opacity 0.3s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .image-container:hover .image-actions {
-opacity: 1;
+  opacity: 1;
 }
 
 .action-btn {
-color: white;
-background: none;
-border: none;
-cursor: pointer;
-font-size: 14px;
-transition: color 0.3s;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.3s;
 }
 
 .action-btn:hover {
-color: var(--secondary);
+  color: var(--secondary);
 }
 
 .result-section {
-margin-top: 40px;
-text-align: center;
-display: none;
-background: var(--card-bg);
-padding: 30px;
-border-radius: 15px;
-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  margin-top: 40px;
+  text-align: center;
+  display: none;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .result-title {
-font-size: 1.8rem;
-color: var(--secondary);
-margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: var(--secondary);
+  margin-bottom: 15px;
 }
 
 .click-hint {
-margin-bottom: 20px;
-color: var(--primary);
-font-style: italic;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 500;
+  margin-bottom: 20px;
+  color: var(--primary);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
 }
 
 .click-hint i {
-margin-right: 5px;
+  margin-right: 5px;
 }
 
 #combinedImage {
-max-width: 100%;
-border: 2px solid rgba(255, 255, 255, 0.1);
-border-radius: 12px;
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-cursor: pointer;
-transition: all 0.3s;
+  max-width: 100%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 #combinedImage:hover {
-transform: scale(1.02);
-box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-border-color: var(--primary);
+  transform: scale(1.02);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary);
 }
 
 .result-actions {
-margin-top: 25px;
-display: flex;
-justify-content: center;
-gap: 15px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .upload-area {
-border: 3px dashed var(--primary);
-border-radius: 12px;
-padding: 40px 20px;
-text-align: center;
-margin-bottom: 20px;
-transition: all 0.3s;
-background: rgba(255, 255, 255, 0.05);
+  border: 3px dashed var(--primary);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .upload-area:hover {
-background: rgba(108, 92, 231, 0.1);
-border-color: var(--primary-dark);
+  background: rgba(108, 92, 231, 0.1);
+  border-color: var(--primary-dark);
 }
 
 .upload-area i {
-font-size: 60px;
-color: var(--primary);
-margin-bottom: 15px;
+  font-size: 60px;
+  color: var(--primary);
+  margin-bottom: 15px;
 }
 
 .upload-text {
-font-size: 18px;
-margin-bottom: 15px;
-color: var(--light);
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: var(--light);
 }
 
 .upload-btn {
-padding: 12px 25px;
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-color: white;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-font-size: 16px;
-font-weight: 600;
-transition: all 0.3s;
-display: inline-flex;
-align-items: center;
-justify-content: center;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .upload-btn:hover {
-transform: translateY(-3px);
-box-shadow: 0 7px 15px rgba(108, 92, 231, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px rgba(108, 92, 231, 0.3);
 }
 
 .upload-btn i {
-margin-right: 8px;
-font-size: 18px;
+  margin-right: 8px;
+  font-size: 18px;
 }
 
 #imageInput {
-display: none;
+  display: none;
 }
 
 .bank-selection {
-margin-top: 20px;
+  margin-top: 20px;
 }
 
 .bank-selection label {
-display: block;
-margin-bottom: 8px;
-font-weight: 600;
-color: var(--light);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--light);
 }
 
 .bank-select {
-width: 100%;
-padding: 12px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-font-size: 16px;
-font-family: 'Poppins', sans-serif;
-background: rgba(255, 255, 255, 0.05);
-color: var(--light);
+  width: 100%;
+  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
 }
 
 .bank-select:focus {
-border-color: var(--primary);
-outline: none;
-box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
 .preview-container {
-margin-top: 20px;
-text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .preview-title {
-font-size: 18px;
-margin-bottom: 10px;
-color: var(--light);
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--light);
 }
 
 #imagePreview {
-max-width: 100%;
-max-height: 300px;
-border-radius: 8px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-display: none;
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: none;
 }
 
 .result-box {
-background: rgba(255, 255, 255, 0.05);
-border-radius: 12px;
-padding: 20px;
-margin-bottom: 20px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .result-item {
-margin-bottom: 15px;
-padding-bottom: 15px;
-border-bottom: 1px solid rgba(255, 255, 255, 极客时间);
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 极客时间);
 }
 
 .result-item:last-child {
-margin-bottom: 0;
-padding-bottom: 0;
-border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .result-label {
-font-weight: 600;
-color: var(--secondary);
-margin-bottom: 5px;
-display: flex;
-align-items: center;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .result-label i {
-margin-right: 8px;
-color: var(--primary);
+  margin-right: 8px;
+  color: var(--primary);
 }
 
 .result-value {
-font-size: 18px;
-color: var(--light);
-padding: 10px;
-background: rgba(255, 255, 255, 0.05);
-border-radius: 8px;
-border: 1px solid rgba(255, 255, 255, 0.1);
-min-height: 50px;
-display: flex;
-align-items: center;
-word-break: break-all;
+  font-size: 18px;
+  color: var(--light);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
 }
 
 .copy-btn {
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-color: white;
-border: none;
-padding: 8px 15px;
-border-radius: 6px;
-cursor: pointer;
-margin-top: 10px;
-font-family: 'Poppins', sans-serif;
-font-weight: 500;
-transition: all 0.3s;
-display: inline-flex;
-align-items: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
 }
 
 .copy-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 5px 10px rgba(108, 92, 231, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(108, 92, 231, 0.3);
 }
 
 .copy-btn i {
-margin-right: 5px;
+  margin-right: 5px;
 }
 
 .action-buttons {
-display: flex;
-gap: 15px;
-margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .notification {
-position: fixed;
-bottom: 25px;
-right: 25px;
-padding: 15px 25px;
-background: linear-gradient(135deg, var(--success) 0%, #00a382 100%);
-color: white;
-border-radius: 10px;
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-display: none;
-z-index: 1001;
-animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
-max-width: 350px;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, var(--success) 0%, #00a382 100%);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1001;
+  animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
+  max-width: 350px;
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeOut {
-from { opacity: 1; transform: translateY(0); }
-to { opacity: 0; transform: translateY(20px); }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
 }
 
 footer {
-text-align: center;
-margin-top: 40px;
-color: rgba(255, 255, 255, 0.6);
-font-size: 0.9rem;
-padding-top: 20px;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  margin-top: 40px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .instructions {
-background: rgba(255, 255, 255, 0.05);
-padding: 20px;
-border-radius: 12px;
-margin-top: 25px;
-border-left: 4px solid var(--primary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 25px;
+  border-left: 4px solid var(--primary);
 }
 
 .instructions h3 {
-display: flex;
-align-items: center;
-margin-bottom: 15px;
-color: var(--secondary);
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: var(--secondary);
 }
 
 .instructions ol {
-margin-left: 20px;
+  margin-left: 20px;
 }
 
 .instructions li {
-margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .empty-state {
-grid-column: 1 / -1;
-text-align: center;
-padding: 40px 20px;
-color: rgba(255, 255, 255, 0.6);
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .empty-state i {
-font-size: 60px;
-margin-bottom: 15px;
-color: rgba(255, 255, 255, 0.3);
+  font-size: 60px;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .empty-state p {
-font-size: 16px;
+  font-size: 16px;
 }
 
 .progress-bar {
-width: 100%;
-height: 10px;
-background: rgba(255, 255, 255, 0.1);
-border-radius: 5px;
-margin-top: 15px;
-overflow: hidden;
-display: none;
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  margin-top: 15px;
+  overflow: hidden;
+  display: none;
 }
 
 .progress {
-height: 100%;
-background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-width: 0%;
-transition: width 0.3s;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  width: 0%;
+  transition: width 0.3s;
 }
 
 .ocr-status {
-text-align: center;
-margin-top: 10px;
-font-style: italic;
-color: var(--primary);
-display: none;
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+  color: var(--primary);
+  display: none;
 }
 
 .bank-patterns {
-margin-top: 15px;
-font-size: 14px;
-color: var(--secondary);
-background: rgba(108, 92, 231, 0.1);
-padding: 10px;
-border-radius: 8px;
-display: none;
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--secondary);
+  background: rgba(108, 92, 231, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
 }
 
 .bank-patterns ul {
-margin-left: 20px;
-margin-top: 5px;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
 .bank-patterns li {
-margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 .payment-type {
-margin-top: 15px;
+  margin-top: 15px;
 }
 
 .payment-type label {
-display: block;
-margin-bottom: 8px;
-font-weight: 600;
-color: var(--light);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--light);
 }
 
 .payment-select {
-width: 100%;
-padding: 12px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-font-size: 16px;
-font-family: 'Poppins', sans-serif;
-background: rgba(255, 255, 255, 0.05);
-color: var(--light);
+  width: 100%;
+  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
 }
 
 .payment-select:focus {
-border-color: var(--primary);
-outline: none;
-box-shadow: 0 0 0 3px rgba(108, 92, 231, 极客时间);
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 极客时间);
 }
 
 /* Tambahan untuk hasil ekstraksi yang lebih baik */
 .result-value.highlight {
-animation: highlight 2s;
+  animation: highlight 2s;
 }
 
 @keyframes highlight {
-0% { background-color: rgba(0, 184, 148, 0.1); }
-100% { background-color: rgba(255, 255, 255, 0.05); }
+  0% { background-color: rgba(0, 184, 148, 0.1); }
+  100% { background-color: rgba(255, 255, 255, 0.05); }
 }
 
 .manual-input {
-margin-top: 15px;
-display: none;
+  margin-top: 15px;
+  display: none;
 }
 
 .manual-input input {
-width: 100%;
-padding: 10px;
-margin-top: 5px;
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 5px;
-background: rgba(255, 255, 极客时间);
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  background: rgba(255, 255, 极客时间);
 }
 
 .edit-btn {
-background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
-color: var(--dark);
-border: none;
-padding: 5px 10px;
-border-radius: 4px;
-cursor: pointer;
-margin-left: 10px;
-font-size: 12px;
+  background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
+  color: var(--dark);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 12px;
 }
 
 /* Responsiveness improvements */
 @media (max-width: 768px) {
-.container {
-padding: 15px;
-}
-
-h1 {
-font-size: 2rem;
-}
-
-.main-content {
-gap: 20px;
-}
-
-.input-section, .gallery-section, .upload-section, .result-section {
-padding: 20px;
-}
-
-.action-buttons {
-flex-direction: column;
-}
-
-.result-actions {
-flex-direction: column;
-}
+  .container {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .main-content {
+    gap: 20px;
+  }
+  
+  .input-section, .gallery-section, .upload-section, .result-section {
+    padding: 20px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+  }
 }
 
 /* Loading spinner untuk tombol */
 .btn-loading {
-position: relative;
-color: transparent !important;
+  position: relative;
+  color: transparent !important;
 }
 
 .btn-loading::after {
-content: "";
-position: absolute;
-width: 20px;
-height: 20px;
-top: 50%;
-left: 50%;
-margin: -10px 0 0 -10px;
-border: 3px solid rgba(255, 255, 255, 0.3);
-border-radius: 50%;
-border-top-color: #fff;
-animation: spin 1s ease-in-out infinite;
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-to { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 </style>
 </head>
@@ -1118,742 +1118,742 @@ to { transform: rotate(360deg); }
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-// Tab functionality
-const tabButtons = document.querySelectorAll('.tab-button');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabButtons.forEach(button => {
-button.addEventListener('click', () => {
-const tabId = button.getAttribute('data-tab');
-
-// Deactivate all tabs
-tabButtons.forEach(btn => btn.classList.remove('active'));
-tabContents.forEach(content => content.classList.remove('active'));
-
-// Activate current tab
-button.classList.add('active');
-document.getElementById(tabId).classList.add('active');
-});
-});
-
-// Payment type and bank selection logic
-const paymentType = document.getElementById('paymentType');
-const bankSelect = document.getElementById('bankSelect');
-const bankPatterns = document.getElementById('bankPatterns');
-const patternInfo = document.getElementById('patternInfo');
-const rrnLabel = document.getElementById('rrnLabel');
-
-paymentType.addEventListener('change', updateBankOptions);
-bankSelect.addEventListener('change', updatePatternInfo);
-
-function updateBankOptions() {
-const type = paymentType.value;
-bankSelect.innerHTML = '';
-
-if (type === 'bank') {
-const bankOptions = [
-{value: '', text: '-- Pilih Bank --'},
-{value: 'bca', text: 'BCA'},
-{value: 'bni', text: 'BNI'},
-{value: 'bri', text: 'BRI'},
-{value: 'mandiri', text: 'Mandiri'},
-{value: 'cimb', text: 'CIMB Niaga'},
-{value: 'danamon', text: 'Danamon'},
-{value: 'other', text: 'Bank Lainnya'}
-];
-
-bankOptions.forEach(option => {
-const opt = document.createElement('option');
-opt.value = option.value;
-opt.textContent = option.text;
-bankSelect.appendChild(opt);
-});
-
-rrnLabel.innerHTML = '<i class="fas fa-receipt"></i> RRN/Referensi';
-} else {
-const ewalletOptions = [
-{value: '', text: '-- Pilih E-Wallet --'},
-{value: 'gopay', text: 'GoPay'},
-{value: 'ovo', text: 'OVO'},
-{value: 'dana', text: 'DANA'},
-{value: 'shopeepay', text: 'ShopeePay'},
-{value: 'linkaja', text: 'LinkAja'},
-{value: 'other', text: 'E-Wallet Lainnya'}
-];
-
-ewalletOptions.forEach(option => {
-const opt = document.createElement('option');
-opt.value = option.value;
-opt.textContent = option.text;
-bankSelect.appendChild(opt);
-});
-
-rrnLabel.innerHTML = '<i class="fas fa-receipt"></i> Kode QRIS/Transaksi';
-}
-
-updatePatternInfo();
-}
-
-function updatePatternInfo() {
-const type = paymentType.value;
-const bank = bankSelect.value;
-
-if (!bank) {
-bankPatterns.style.display = 'none';
-return;
-}
-
-bankPatterns.style.display = 'block';
-
-if (type === 'bank') {
-switch(bank) {
-case 'bca':
-patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
-break;
-case 'bni':
-patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
-break;
-case 'bri':
-patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
-break;
-case 'mandiri':
-patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
-break;
-default:
-patternInfo.textContent = 'RRN: 12-16 digit, Referensi: 10-16 digit';
-}
-} else {
-patternInfo.textContent = 'Kode QRIS/Transaksi: 16-20 karakter alfanumerik';
-}
-}
-
-// Initialize bank options
-updateBankOptions();
-
-// Image Merger functionality
-const imageUrlInput = document.getElementById('imageUrl');
-const addImageBtn = document.getElementById('addImageBtn');
-const urlError = document.getElementById('urlError');
-const imageGallery = document.getElementById('imageGallery');
-const imageCount = document.getElementById('imageCount');
-const combineBtn = document.getElementById('combineBtn');
-const resultContainer = document.getElementById('resultContainer');
-const combinedCanvas = document.getElementById('combinedCanvas');
-const combinedImage = document.getElementById('combinedImage');
-const downloadImageBtn = document.getElementById('downloadImageBtn');
-const newMergeBtn = document.getElementById('newMergeBtn');
-
-let images = [];
-
-// Fungsi untuk menambahkan gambar
-addImageBtn.addEventListener('click', function() {
-const url = imageUrlInput.value.trim();
-
-if (!url) {
-showError('Masukkan link gambar terlebih dahulu', 'urlError');
-return;
-}
-
-// Validasi URL gambar
-if (!isValidImageUrl(url)) {
-showError('Link tidak valid atau bukan gambar', 'urlError');
-return;
-}
-
-// Cek apakah gambar sudah ada
-if (images.includes(url)) {
-showError('Gambar ini sudah ditambahkan', 'urlError');
-return;
-}
-
-// Tambahkan gambar
-images.push(url);
-renderGallery();
-imageUrlInput.value = '';
-urlError.textContent = '';
-});
-
-// Fungsi untuk menampilkan error
-function showError(message, errorElementId) {
-const errorElement = document.getElementById(errorElementId);
-errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-}
-
-// Fungsi untuk memvalidasi URL gambar
-function isValidImageUrl(url) {
-return /\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i.test(url);
-}
-
-// Fungsi untuk merender galeri
-function renderGallery() {
-imageCount.textContent = images.length;
-
-if (images.length === 0) {
-imageGallery.innerHTML = `
-<div class="empty-state">
-<i class="fas fa-inbox"></i>
-<p>Belum ada gambar. Tambahkan gambar menggunakan form di sebelah.</p>
-</div>
-`;
-return;
-}
-
-imageGallery.innerHTML = '';
-
-images.forEach((url, index) => {
-const imageContainer = document.createElement('div');
-imageContainer.className = 'image-container';
-imageContainer.setAttribute('data-url', url);
-
-const img = document.createElement('img');
-img.src = url;
-img.alt = `Gambar ${index + 1}`;
-img.onerror = function() {
-imageContainer.innerHTML = `
-<div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #e74c3c;">
-<i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px;"></i>
-<span>Gagal memuat gambar</span>
-</div>
-`;
-};
-
-const imageNumber = document.createElement('div');
-imageNumber.className = 'image-number';
-imageNumber.textContent = index + 1;
-
-const imageActions = document.createElement('div');
-imageActions.className = 'image-actions';
-imageActions.innerHTML = `
-<button class="action-btn" data-index="${index}" data-action="view"><i class="fas fa-eye"></i></button>
-<button class="action-btn" data-index="${index}" data-action="copy"><i class="fas fa-copy"></i></button>
-<button class="action-btn" data-index="${index}" data-action="remove"><i class="fas fa-trash"></i></button>
-`;
-
-imageContainer.appendChild(img);
-imageContainer.appendChild(imageNumber);
-imageContainer.appendChild(imageActions);
-imageGallery.appendChild(imageContainer);
-
-// Event listener untuk action buttons
-const actionButtons = imageContainer.querySelectorAll('.action-btn');
-actionButtons.forEach(btn => {
-btn.addEventListener('click', function(e) {
-e.stopPropagation();
-const index = parseInt(this.getAttribute('data-index'));
-const action = this.getAttribute('data-action');
-
-if (action === 'view') {
-openModal(images[index]);
-} else if (action === 'copy') {
-copyToClipboard(images[index]);
-} else if (action === 'remove') {
-images.splice(index, 1);
-renderGallery();
-}
-});
-});
-
-// Event listener untuk membuka modal saat gambar di klik
-imageContainer.addEventListener('click', function() {
-openModal(url);
-});
-});
-}
-
-// Fungsi untuk membuka modal preview gambar
-function openModal(url) {
-// Dalam implementasi nyata, ini akan membuka modal dengan gambar yang lebih besar
-// Untuk sederhananya, kita salin URL ke clipboard
-copyToClipboard(url);
-}
-
-// Fungsi untuk menyalin teks ke clipboard
-function copyToClipboard(text) {
-navigator.clipboard.writeText(text).then(() => {
-showNotification('URL berhasil disalin!');
-}).catch(err => {
-showNotification('Gagal menyalin URL');
-console.error('Error copying text: ', err);
-});
-}
-
-// Fungsi untuk menampilkan notifikasi
-function showNotification(message) {
-const notification = document.getElementById('notification');
-const notificationText = document.getElementById('notificationText');
-
-notificationText.textContent = message;
-notification.style.display = 'block';
-
-// Sembunyikan notifikasi setelah 3 detik
-setTimeout(() => {
-notification.style.display = 'none';
-}, 3000);
-}
-
-// Fungsi untuk menggabungkan gambar
-combineBtn.addEventListener('click', function() {
-if (images.length < 1) {
-showNotification('Tambahkan setidaknya satu gambar');
-return;
-}
-
-// Sembunyikan tombol sementara proses
-combineBtn.disabled = true;
-combineBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menggabungkan...';
-
-// Gunakan Promise untuk menunggu semua gambar dimuat
-const loadImage = url => {
-return new Promise((resolve, reject) => {
-const img = new Image();
-img.crossOrigin = 'Anonymous'; // Untuk menangani CORS
-img.onload = () => resolve(img);
-img.onerror = reject;
-img.src = url;
-});
-};
-
-Promise.all(images.map(loadImage))
-.then(loadedImages => {
-// Hitung dimensi canvas
-const totalWidth = loadedImages.reduce((sum, img) => sum + img.width, 0);
-const maxHeight = Math.max(...loadedImages.map(img => img.height));
-
-// Set ukuran canvas
-combinedCanvas.width = totalWidth;
-combinedCanvas.height = maxHeight;
-
-const ctx = combinedCanvas.getContext('2d');
-
-// Gambar semua gambar pada canvas
-let xOffset = 0;
-loadedImages.forEach(img => {
-ctx.drawImage(img, xOffset, 0);
-xOffset += img.width;
-});
-
-// Konversi canvas ke data URL dan tampilkan
-combinedImage.src = combinedCanvas.toDataURL('image/png');
-resultContainer.style.display = 'block';
-
-// Scroll ke hasil
-resultContainer.scrollIntoView({ behavior: 'smooth' });
-})
-.catch(error => {
-console.error('Error loading images:', error);
-showNotification('Gagal memuat beberapa gambar. Pastikan link gambar valid.');
-})
-.finally(() => {
-// Kembalikan tombol ke keadaan semula
-combineBtn.disabled = false;
-combineBtn.innerHTML = '<i class="fas fa-object-group"></i> Gabungkan Gambar';
-});
-});
-
-// Fungsi untuk mengunduh gambar
-downloadImageBtn.addEventListener('click', function() {
-const link = document.createElement('a');
-link.download = 'gabungan-gambar.png';
-link.href = combinedCanvas.toDataURL('image/png');
-link.click();
-});
-
-// Fungsi untuk memulai merge baru
-newMergeBtn.addEventListener('click', function() {
-images = [];
-renderGallery();
-resultContainer.style.display = 'none';
-showNotification('Mulai merge gambar baru');
-});
-
-// Transfer Analysis functionality
-const uploadArea = document.getElementById('uploadArea');
-const uploadButton = document.getElementById('uploadButton');
-const imageInput = document.getElementById('imageInput');
-const imageUrlTransfer = document.getElementById('imageUrlTransfer');
-const urlErrorTransfer = document.getElementById('urlErrorTransfer');
-const imagePreview = document.getElementById('imagePreview');
-const extractBtn = document.getElementById('extractBtn');
-const merchantResult = document.getElementById('merchantResult');
-const rrnResult = document.getElementById('rrnResult');
-const referenceResult = document.getElementById('referenceResult');
-const amountResult = document.getElementById('amountResult');
-const dateResult = document.getElementById('dateResult');
-const downloadBtn = document.getElementById('downloadBtn');
-const resetBtn = document.getElementById('resetBtn');
-const transferResultContainer = document.getElementById('transferResultContainer');
-const progressBar = document.getElementById('progressBar');
-const progress = document.getElementById('progress');
-const ocrStatus = document.getElementById('ocrStatus');
-
-let uploadedImage = null;
-
-// Event listener untuk upload area
-uploadArea.addEventListener('click', function() {
-imageInput.click();
-});
-
-uploadButton.addEventListener('click', function(e) {
-e.stopPropagation();
-imageInput.click();
-});
-
-uploadArea.addEventListener('dragover', function(e) {
-e.preventDefault();
-uploadArea.style.background = 'rgba(108, 92, 231, 0.2)';
-uploadArea.style.borderColor = '#4a3cb5';
-});
-
-uploadArea.addEventListener('dragleave', function() {
-uploadArea.style.background = 'rgba(255, 255, 255, 极客时间)';
-uploadArea.style.borderColor = '#6c5ce7';
-});
-
-uploadArea.addEventListener('drop', function(e) {
-e.preventDefault();
-uploadArea.style.background = 'rgba(255, 255, 255, 0.05)';
-uploadArea.style.borderColor = '#6c5ce7';
-
-if (e.dataTransfer.files.length) {
-handleImageUpload(e.dataTransfer.files[0]);
-}
-});
-
-imageInput.addEventListener('change', function() {
-if (imageInput.files.length) {
-handleImageUpload(imageInput.files[0]);
-}
-});
-
-imageUrlTransfer.addEventListener('blur', function() {
-const url = imageUrlTransfer.value.trim();
-if (url && isValidImageUrl(url)) {
-imagePreview.src = url;
-imagePreview.style.display = 'block';
-uploadedImage = url;
-urlErrorTransfer.textContent = '';
-} else if (url) {
-urlErrorTransfer.textContent = 'URL gambar tidak valid';
-}
-});
-
-// Fungsi untuk menangani upload gambar
-function handleImageUpload(file) {
-if (!file.type.match('image.*')) {
-showNotification('Harap unggah file gambar');
-return;
-}
-
-const reader = new FileReader();
-
-reader.onload = function(e) {
-imagePreview.src = e.target.result;
-imagePreview.style.display = 'block';
-uploadedImage = e.target.result;
-};
-
-reader.readAsDataURL(file);
-}
-
-// Event listener untuk tombol ekstrak
-extractBtn.addEventListener('click', function() {
-if (!uploadedImage) {
-showNotification('Harap unggah gambar terlebih dahulu');
-return;
-}
-
-if (!bankSelect.value) {
-showNotification('Harap pilih bank/provider terlebih dahulu');
-return;
-}
-
-// Tampilkan progress bar
-progressBar.style.display = 'block';
-ocrStatus.style.display = 'block';
-
-// Ekstrak teks dari gambar menggunakan Tesseract.js
-extractTextFromImage(uploadedImage);
-});
-
-// Fungsi untuk mengekstrak teks dari gambar menggunakan Tesseract.js
-function extractTextFromImage(imageData) {
-Tesseract.recognize(
-imageData,
-eng+ind', // Bahasa: Inggris + Indonesia
-{
-logger: progress => {
-if (progress.status === 'recognizing text') {
-const p = progress.progress * 100;
-progress.style.width = `${p}%`;
-
-if (p < 30) {
-ocrStatus.textContent = "Mengenali teks...";
-} else if (p < 60) {
-ocrStatus.textContent = "Memproses hasil...";
-} else if (p < 90) {
-ocrStatus.textContent = "Menganalisis struktur...";
-} else {
-ocrStatus.textContent = "Menyelesaikan...";
-}
-}
-}
-}
-).then(({ data: { text } }) => {
-// Sembunyikan progress bar
-progressBar.style.display = 'none';
-ocrStatus.style.display = 'none';
-
-// Proses teks yang diekstrak
-processExtractedText(text);
-}).catch(error => {
-console.error('Error OCR:', error);
-showNotification('Gagal memproses gambar. Coba lagi dengan gambar yang lebih jelas.');
-progressBar.style.display = 'none';
-ocrStatus.style.display = 'none';
-});
-}
-
-// Fungsi untuk memproses teks yang diekstrak dari gambar
-function processExtractedText(text) {
-console.log("Teks yang diekstrak:", text);
-
-// Bersihkan teks dan pecah menjadi baris
-const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
-
-// Ekstrak informasi berdasarkan bank yang dipilih
-const bank = bankSelect.value;
-const paymentMethod = paymentType.value;
-let merchant = extractMerchant(lines, bank, paymentMethod);
-let rrn = extractRRN(lines, bank, paymentMethod);
-let reference = extractReference(lines, bank, paymentMethod);
-let amount = extractAmount(lines, bank, paymentMethod);
-let date = extractDate(lines, bank, paymentMethod);
-
-// Tampilkan hasil
-merchantResult.textContent = merchant;
-rrnResult.textContent = rrn;
-referenceResult.textContent = reference;
-amountResult.textContent = amount;
-dateResult.textContent = date;
-
-// Tampilkan container hasil
-transferResultContainer.style.display = 'block';
-
-showNotification('Informasi berhasil diekstrak. Periksa keakuratan data.');
-}
-
-// Fungsi untuk mengekstrak merchant berdasarkan bank dan metode pembayaran
-function extractMerchant(lines, bank, paymentMethod) {
-for (let i = 0; i < lines.length; i++) {
-// Cari pola merchant berdasarkan bank dan metode pembayaran
-if (paymentMethod === 'bank') {
-if (lines[i].match(/(MERCHANT|TOKO|STORE)/i)) {
-if (i + 1 < lines.length) return lines[i + 1];
-}
-} else {
-if (lines[i].match(/(MERCHANT|TOKO|STORE|OUTLET)/i)) {
-return lines[i + 1] || lines[i].replace(/(MERCHANT|TOKO|STORE|OUTLET)/i, '').trim();
-}
-}
-
-// Pola umum untuk semua bank
-if (lines[i].match(/(merchant|toko|store|shop|nama)/i)) {
-if (i + 1 < lines.length) return lines[i + 1];
-}
-
-// Cari baris dengan karakter uppercase (biasanya nama merchant)
-if (lines[i].match(/^[A-Z0-9\s]{5,}$/) && !lines[i].match(/(RRN|REF|TRANSFER|BANK|ATM|EWALLET)/i)) {
-return lines[i];
-}
-}
-return "-";
-}
-
-// Fungsi untuk mengekstrak RRN berdasarkan bank dan metode pembayaran
-function extractRRN(lines, bank, paymentMethod) {
-if (paymentMethod === 'bank') {
-// Pola untuk RRN bank (12-16 digit)
-const rrnPattern = /(RRN|rrn|Retrieval Reference Number)[\s:]*([0-9]{12,16})/i;
-
-for (let line of lines) {
-const match = line.match(rrnPattern);
-if (match) return match[2];
-}
-} else {
-// Pola untuk kode transaksi e-wallet/QRIS
-const qrisPattern = /(QRIS|qris|QR|Kode Transaksi|Transaction ID)[\s:]*([A-Z0-9]{16,20})/i;
-
-for (let line of lines) {
-const match = line.match(qrisPattern);
-if (match) return match[2];
-}
-}
-
-// Jika tidak ditemukan dengan pola, cari angka/karakter panjang
-for (let line of lines) {
-if (paymentMethod === 'bank') {
-const longNumberMatch = line.match(/([0-9]{12,16})/);
-if (longNumberMatch) return longNumberMatch[1];
-} else {
-const codeMatch = line.match(/([A-Z0-9]{16,20})/);
-if (codeMatch) return codeMatch[1];
-}
-}
-
-return "-";
-}
-
-// Fungsi untuk mengekstrak nomor referensi berdasarkan bank dan metode pembayaran
-function extractReference(lines, bank, paymentMethod) {
-if (paymentMethod === 'bank') {
-// Pola untuk referensi bank
-const refPattern = /(REF|Reference|Referensi|No\. Ref|Nomor Referensi)[\s:]*([0-9]{10,16})/i;
-
-for (let line of lines) {
-const match = line.match(refPattern);
-if (match) return match[2];
-}
-
-// Jika tidak ditemukan dengan pola, cari angka panjang lainnya
-for (let line of lines) {
-const longNumberMatch = line.match(/([0-9]{10,16})/);
-if (longNumberMatch) return longNumberMatch[1];
-}
-} else {
-// Untuk e-wallet, referensi biasanya sama dengan RRN/QRIS
-return "-";
-}
-
-return "-";
-}
-
-// Fungsi untuk mengekstrak nominal berdasarkan bank dan metode pembayaran
-function extractAmount(lines, bank, paymentMethod) {
-for (let line of lines) {
-// Pola untuk nominal dengan format Rp
-const match = line.match(/(Rp|RP|IDR|idr)[\s]*([0-9.,]+)/i);
-if (match) return `Rp ${formatAmount(match[2])}`;
-
-// Pola untuk nominal dengan format angka saja
-const amountMatch = line.match(/([0-9]{1,3}(\.?[0-9]{3})*(\,?[0-9]{2})?)/);
-if (amountMatch && parseFloat(amountMatch[0].replace(/\./g, '').replace(/,/g, '.')) > 1000) {
-return `Rp ${formatAmount(amountMatch[0])}`;
-}
-}
-return "-";
-}
-
-// Fungsi untuk memformat nominal
-function formatAmount(amount) {
-// Hilangkan titik (separator ribuan) dan ganti koma dengan titik (separator desimal)
-const cleaned = amount.replace(/\./g, '').replace(/,/g, '.');
-// Format kembali dengan separator ribuan
-const number = parseFloat(cleaned);
-return isNaN(number) ? amount : number.toLocaleString('id-ID');
-}
-
-// Fungsi untuk mengekstrak tanggal dan waktu
-function extractDate(lines, bank, paymentMethod) {
-for (let line of lines) {
-// Pola untuk tanggal dan waktu
-const dateMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})[\s]+(\d{2}:\d{2}:\d{2})/i);
-if (dateMatch) return `${dateMatch[1]} ${dateMatch[2]}`;
-
-// Pola untuk tanggal saja
-const dateOnlyMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})/i);
-if (dateOnlyMatch) return dateOnlyMatch[1];
-
-// Pola untuk waktu saja
-const timeMatch = line.match(/(\d{2}:\d{2}:\d{2})/i);
-if (timeMatch) return timeMatch[1];
-}
-return "-";
-}
-
-// Event listener untuk tombol salin
-document.querySelectorAll('.copy-btn').forEach(button => {
-button.addEventListener('click', function() {
-const targetId = this.getAttribute('data-copy');
-const targetElement = document.getElementById(targetId);
-const textToCopy = targetElement.textContent;
-
-navigator.clipboard.writeText(textToCopy).then(() => {
-showNotification('Teks berhasil disalin');
-}).catch(err => {
-showNotification('Gagal menyalin teks');
-});
-});
-});
-
-// Event listener untuk tombol reset
-resetBtn.addEventListener('click', function() {
-imagePreview.src = '';
-imagePreview.style.display = 'none';
-uploadedImage = null;
-bankSelect.value = '';
-imageUrlTransfer.value = '';
-merchantResult.textContent = '-';
-rrnResult.textContent = '-';
-referenceResult.textContent = '-';
-amountResult.textContent = '-';
-dateResult.textContent = '-';
-transferResultContainer.style.display = 'none';
-progressBar.style.display = 'none';
-ocrStatus.style.display = 'none';
-bankPatterns.style.display = 'none';
-});
-
-// Event listener untuk tombol unduh
-downloadBtn.addEventListener('click', function() {
-const merchant = merchantResult.textContent;
-const rrn = rrnResult.textContent;
-const reference = referenceResult.textContent;
-const amount = amountResult.textContent;
-const date = dateResult.textContent;
-
-if (merchant === '-' || rrn === '-' || reference === '-' || amount === '-' || date === '-') {
-showNotification('Tidak ada data untuk diunduh');
-return;
-}
-
-const paymentMethod = paymentType.value === 'bank' ? 'Transfer Bank' : 'E-Wallet/QRIS';
-const content = `Informasi Bukti ${paymentMethod}\n\nNama Merchant: ${merchant}\nRRN/QRIS: ${rrn}\nNomor Referensi: ${reference}\nNominal Transfer: ${amount}\nTanggal & Waktu: ${date}`;
-
-const blob = new Blob([content], { type: 'text/plain' });
-const url = URL.createObjectURL(blob);
-
-const a = document.createElement('a');
-a.href = url;
-a.download = 'informasi_transfer.txt';
-a.click();
-
-URL.revokeObjectURL(url);
-
-showNotification('File berhasil diunduh');
-});
-
-// Event listener untuk edit manual
-document.querySelectorAll('.edit-btn').forEach(button => {
-button.addEventListener('click', function() {
-const targetId = this.getAttribute('data-edit');
-const inputElement = document.getElementById(targetId.replace('Result', 'Input'));
-inputElement.style.display = 'block';
-});
-});
-
-// Event listener untuk simpan edit manual
-document.querySelectorAll('.save-btn').forEach(button => {
-button.addEventListener('click', function() {
-const target = this.getAttribute('data-save');
-const inputElement = document.getElementById(`${target}Edit`);
-const resultElement = document.getElementById(`${target}Result`);
-
-resultElement.textContent = inputElement.value || '-';
-document.getElementById(`${target}Input`).style.display = 'none';
-
-showNotification('Perubahan berhasil disimpan');
-});
-});
+  // Tab functionality
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tabId = button.getAttribute('data-tab');
+
+      // Deactivate all tabs
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      // Activate current tab
+      button.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Payment type and bank selection logic
+  const paymentType = document.getElementById('paymentType');
+  const bankSelect = document.getElementById('bankSelect');
+  const bankPatterns = document.getElementById('bankPatterns');
+  const patternInfo = document.getElementById('patternInfo');
+  const rrnLabel = document.getElementById('rrnLabel');
+
+  paymentType.addEventListener('change', updateBankOptions);
+  bankSelect.addEventListener('change', updatePatternInfo);
+
+  function updateBankOptions() {
+    const type = paymentType.value;
+    bankSelect.innerHTML = '';
+
+    if (type === 'bank') {
+      const bankOptions = [
+        {value: '', text: '-- Pilih Bank --'},
+        {value: 'bca', text: 'BCA'},
+        {value: 'bni', text: 'BNI'},
+        {value: 'bri', text: 'BRI'},
+        {value: 'mandiri', text: 'Mandiri'},
+        {value: 'cimb', text: 'CIMB Niaga'},
+        {value: 'danamon', text: 'Danamon'},
+        {value: 'other', text: 'Bank Lainnya'}
+      ];
+
+      bankOptions.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.value;
+        opt.textContent = option.text;
+        bankSelect.appendChild(opt);
+      });
+
+      rrnLabel.innerHTML = '<i class="fas fa-receipt"></i> RRN/Referensi';
+    } else {
+      const ewalletOptions = [
+        {value: '', text: '-- Pilih E-Wallet --'},
+        {value: 'gopay', text: 'GoPay'},
+        {value: 'ovo', text: 'OVO'},
+        {value: 'dana', text: 'DANA'},
+        {value: 'shopeepay', text: 'ShopeePay'},
+        {value: 'linkaja', text: 'LinkAja'},
+        {value: 'other', text: 'E-Wallet Lainnya'}
+      ];
+
+      ewalletOptions.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.value;
+        opt.textContent = option.text;
+        bankSelect.appendChild(opt);
+      });
+
+      rrnLabel.innerHTML = '<i class="fas fa-receipt"></i> Kode QRIS/Transaksi';
+    }
+
+    updatePatternInfo();
+  }
+
+  function updatePatternInfo() {
+    const type = paymentType.value;
+    const bank = bankSelect.value;
+
+    if (!bank) {
+      bankPatterns.style.display = 'none';
+      return;
+    }
+
+    bankPatterns.style.display = 'block';
+
+    if (type === 'bank') {
+      switch(bank) {
+        case 'bca':
+          patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
+          break;
+        case 'bni':
+          patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
+          break;
+        case 'bri':
+          patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
+          break;
+        case 'mandiri':
+          patternInfo.textContent = 'RRN: 12 digit, Referensi: 16 digit';
+          break;
+        default:
+          patternInfo.textContent = 'RRN: 12-16 digit, Referensi: 10-16 digit';
+      }
+    } else {
+      patternInfo.textContent = 'Kode QRIS/Transaksi: 16-20 karakter alfanumerik';
+    }
+  }
+
+  // Initialize bank options
+  updateBankOptions();
+
+  // Image Merger functionality
+  const imageUrlInput = document.getElementById('imageUrl');
+  const addImageBtn = document.getElementById('addImageBtn');
+  const urlError = document.getElementById('urlError');
+  const imageGallery = document.getElementById('imageGallery');
+  const imageCount = document.getElementById('imageCount');
+  const combineBtn = document.getElementById('combineBtn');
+  const resultContainer = document.getElementById('resultContainer');
+  const combinedCanvas = document.getElementById('combinedCanvas');
+  const combinedImage = document.getElementById('combinedImage');
+  const downloadImageBtn = document.getElementById('downloadImageBtn');
+  const newMergeBtn = document.getElementById('newMergeBtn');
+
+  let images = [];
+
+  // Fungsi untuk menambahkan gambar
+  addImageBtn.addEventListener('click', function() {
+    const url = imageUrlInput.value.trim();
+
+    if (!url) {
+      showError('Masukkan link gambar terlebih dahulu', 'urlError');
+      return;
+    }
+
+    // Validasi URL gambar
+    if (!isValidImageUrl(url)) {
+      showError('Link tidak valid atau bukan gambar', 'urlError');
+      return;
+    }
+
+    // Cek apakah gambar sudah ada
+    if (images.includes(url)) {
+      showError('Gambar ini sudah ditambahkan', 'urlError');
+      return;
+    }
+
+    // Tambahkan gambar
+    images.push(url);
+    renderGallery();
+    imageUrlInput.value = '';
+    urlError.textContent = '';
+  });
+
+  // Fungsi untuk menampilkan error
+  function showError(message, errorElementId) {
+    const errorElement = document.getElementById(errorElementId);
+    errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+  }
+
+  // Fungsi untuk memvalidasi URL gambar
+  function isValidImageUrl(url) {
+    return /\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i.test(url);
+  }
+
+  // Fungsi untuk merender galeri
+  function renderGallery() {
+    imageCount.textContent = images.length;
+
+    if (images.length === 0) {
+      imageGallery.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-inbox"></i>
+          <p>Belum ada gambar. Tambahkan gambar menggunakan form di sebelah.</p>
+        </div>
+      `;
+      return;
+    }
+
+    imageGallery.innerHTML = '';
+
+    images.forEach((url, index) => {
+      const imageContainer = document.createElement('div');
+      imageContainer.className = 'image-container';
+      imageContainer.setAttribute('data-url', url);
+
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = `Gambar ${index + 1}`;
+      img.onerror = function() {
+        imageContainer.innerHTML = `
+          <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #e74c3c;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px;"></i>
+            <span>Gagal memuat gambar</span>
+          </div>
+        `;
+      };
+
+      const imageNumber = document.createElement('div');
+      imageNumber.className = 'image-number';
+      imageNumber.textContent = index + 1;
+
+      const imageActions = document.createElement('div');
+      imageActions.className = 'image-actions';
+      imageActions.innerHTML = `
+        <button class="action-btn" data-index="${index}" data-action="view"><i class="fas fa-eye"></i></button>
+        <button class="action-btn" data-index="${index}" data-action="copy"><i class="fas fa-copy"></i></button>
+        <button class="action-btn" data-index="${index}" data-action="remove"><i class="fas fa-trash"></i></button>
+      `;
+
+      imageContainer.appendChild(img);
+      imageContainer.appendChild(imageNumber);
+      imageContainer.appendChild(imageActions);
+      imageGallery.appendChild(imageContainer);
+
+      // Event listener untuk action buttons
+      const actionButtons = imageContainer.querySelectorAll('.action-btn');
+      actionButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const index = parseInt(this.getAttribute('data-index'));
+          const action = this.getAttribute('data-action');
+
+          if (action === 'view') {
+            openModal(images[index]);
+          } else if (action === 'copy') {
+            copyToClipboard(images[index]);
+          } else if (action === 'remove') {
+            images.splice(index, 1);
+            renderGallery();
+          }
+        });
+      });
+
+      // Event listener untuk membuka modal saat gambar di klik
+      imageContainer.addEventListener('click', function() {
+        openModal(url);
+      });
+    });
+  }
+
+  // Fungsi untuk membuka modal preview gambar
+  function openModal(url) {
+    // Dalam implementasi nyata, ini akan membuka modal dengan gambar yang lebih besar
+    // Untuk sederhananya, kita salin URL ke clipboard
+    copyToClipboard(url);
+  }
+
+  // Fungsi untuk menyalin teks ke clipboard
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showNotification('URL berhasil disalin!');
+    }).catch(err => {
+      showNotification('Gagal menyalin URL');
+      console.error('Error copying text: ', err);
+    });
+  }
+
+  // Fungsi untuk menampilkan notifikasi
+  function showNotification(message) {
+    const notification = document.getElementById('notification');
+    const notificationText = document.getElementById('notificationText');
+
+    notificationText.textContent = message;
+    notification.style.display = 'block';
+
+    // Sembunyikan notifikasi setelah 3 detik
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 3000);
+  }
+
+  // Fungsi untuk menggabungkan gambar
+  combineBtn.addEventListener('click', function() {
+    if (images.length < 1) {
+      showNotification('Tambahkan setidaknya satu gambar');
+      return;
+    }
+
+    // Sembunyikan tombol sementara proses
+    combineBtn.disabled = true;
+    combineBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menggabungkan...';
+
+    // Gunakan Promise untuk menunggu semua gambar dimuat
+    const loadImage = url => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous'; // Untuk menangani CORS
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = url;
+      });
+    };
+
+    Promise.all(images.map(loadImage))
+    .then(loadedImages => {
+      // Hitung dimensi canvas
+      const totalWidth = loadedImages.reduce((sum, img) => sum + img.width, 0);
+      const maxHeight = Math.max(...loadedImages.map(img => img.height));
+
+      // Set ukuran canvas
+      combinedCanvas.width = totalWidth;
+      combinedCanvas.height = maxHeight;
+
+      const ctx = combinedCanvas.getContext('2d');
+
+      // Gambar semua gambar pada canvas
+      let xOffset = 0;
+      loadedImages.forEach(img => {
+        ctx.drawImage(img, xOffset, 0);
+        xOffset += img.width;
+      });
+
+      // Konversi canvas ke data URL dan tampilkan
+      combinedImage.src = combinedCanvas.toDataURL('image/png');
+      resultContainer.style.display = 'block';
+
+      // Scroll ke hasil
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    })
+    .catch(error => {
+      console.error('Error loading images:', error);
+      showNotification('Gagal memuat beberapa gambar. Pastikan link gambar valid.');
+    })
+    .finally(() => {
+      // Kembalikan tombol ke keadaan semula
+      combineBtn.disabled = false;
+      combineBtn.innerHTML = '<i class="fas fa-object-group"></i> Gabungkan Gambar';
+    });
+  });
+
+  // Fungsi untuk mengunduh gambar
+  downloadImageBtn.addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.download = 'gabungan-gambar.png';
+    link.href = combinedCanvas.toDataURL('image/png');
+    link.click();
+  });
+
+  // Fungsi untuk memulai merge baru
+  newMergeBtn.addEventListener('click', function() {
+    images = [];
+    renderGallery();
+    resultContainer.style.display = 'none';
+    showNotification('Mulai merge gambar baru');
+  });
+
+  // Transfer Analysis functionality
+  const uploadArea = document.getElementById('uploadArea');
+  const uploadButton = document.getElementById('uploadButton');
+  const imageInput = document.getElementById('imageInput');
+  const imageUrlTransfer = document.getElementById('imageUrlTransfer');
+  const urlErrorTransfer = document.getElementById('urlErrorTransfer');
+  const imagePreview = document.getElementById('imagePreview');
+  const extractBtn = document.getElementById('extractBtn');
+  const merchantResult = document.getElementById('merchantResult');
+  const rrnResult = document.getElementById('rrnResult');
+  const referenceResult = document.getElementById('referenceResult');
+  const amountResult = document.getElementById('amountResult');
+  const dateResult = document.getElementById('dateResult');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const transferResultContainer = document.getElementById('transferResultContainer');
+  const progressBar = document.getElementById('progressBar');
+  const progress = document.getElementById('progress');
+  const ocrStatus = document.getElementById('ocrStatus');
+
+  let uploadedImage = null;
+
+  // Event listener untuk upload area
+  uploadArea.addEventListener('click', function() {
+    imageInput.click();
+  });
+
+  uploadButton.addEventListener('click', function(e) {
+    e.stopPropagation();
+    imageInput.click();
+  });
+
+  uploadArea.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    uploadArea.style.background = 'rgba(108, 92, 231, 0.2)';
+    uploadArea.style.borderColor = '#4a3cb5';
+  });
+
+  uploadArea.addEventListener('dragleave', function() {
+    uploadArea.style.background = 'rgba(255, 255, 255, 极客时间)';
+    uploadArea.style.borderColor = '#6c5ce7';
+  });
+
+  uploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadArea.style.background = 'rgba(255, 255, 255, 0.05)';
+    uploadArea.style.borderColor = '#6c5ce7';
+
+    if (e.dataTransfer.files.length) {
+      handleImageUpload(e.dataTransfer.files[0]);
+    }
+  });
+
+  imageInput.addEventListener('change', function() {
+    if (imageInput.files.length) {
+      handleImageUpload(imageInput.files[0]);
+    }
+  });
+
+  imageUrlTransfer.addEventListener('blur', function() {
+    const url = imageUrlTransfer.value.trim();
+    if (url && isValidImageUrl(url)) {
+      imagePreview.src = url;
+      imagePreview.style.display = 'block';
+      uploadedImage = url;
+      urlErrorTransfer.textContent = '';
+    } else if (url) {
+      urlErrorTransfer.textContent = 'URL gambar tidak valid';
+    }
+  });
+
+  // Fungsi untuk menangani upload gambar
+  function handleImageUpload(file) {
+    if (!file.type.match('image.*')) {
+      showNotification('Harap unggah file gambar');
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = 'block';
+      uploadedImage = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  // Event listener untuk tombol ekstrak
+  extractBtn.addEventListener('click', function() {
+    if (!uploadedImage) {
+      showNotification('Harap unggah gambar terlebih dahulu');
+      return;
+    }
+
+    if (!bankSelect.value) {
+      showNotification('Harap pilih bank/provider terlebih dahulu');
+      return;
+    }
+
+    // Tampilkan progress bar
+    progressBar.style.display = 'block';
+    ocrStatus.style.display = 'block';
+
+    // Ekstrak teks dari gambar menggunakan Tesseract.js
+    extractTextFromImage(uploadedImage);
+  });
+
+  // Fungsi untuk mengekstrak teks dari gambar menggunakan Tesseract.js
+  function extractTextFromImage(imageData) {
+    Tesseract.recognize(
+      imageData,
+      'eng+ind', // Bahasa: Inggris + Indonesia
+      {
+        logger: progress => {
+          if (progress.status === 'recognizing text') {
+            const p = progress.progress * 100;
+            progress.style.width = `${p}%`;
+
+            if (p < 30) {
+              ocrStatus.textContent = "Mengenali teks...";
+            } else if (p < 60) {
+              ocrStatus.textContent = "Memproses hasil...";
+            } else if (p < 90) {
+              ocrStatus.textContent = "Menganalisis struktur...";
+            } else {
+              ocrStatus.textContent = "Menyelesaikan...";
+            }
+          }
+        }
+      }
+    ).then(({ data: { text } }) => {
+      // Sembunyikan progress bar
+      progressBar.style.display = 'none';
+      ocrStatus.style.display = 'none';
+
+      // Proses teks yang diekstrak
+      processExtractedText(text);
+    }).catch(error => {
+      console.error('Error OCR:', error);
+      showNotification('Gagal memproses gambar. Coba lagi dengan gambar yang lebih jelas.');
+      progressBar.style.display = 'none';
+      ocrStatus.style.display = 'none';
+    });
+  }
+
+  // Fungsi untuk memproses teks yang diekstrak dari gambar
+  function processExtractedText(text) {
+    console.log("Teks yang diekstrak:", text);
+
+    // Bersihkan teks dan pecah menjadi baris
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+    // Ekstrak informasi berdasarkan bank yang dipilih
+    const bank = bankSelect.value;
+    const paymentMethod = paymentType.value;
+    let merchant = extractMerchant(lines, bank, paymentMethod);
+    let rrn = extractRRN(lines, bank, paymentMethod);
+    let reference = extractReference(lines, bank, paymentMethod);
+    let amount = extractAmount(lines, bank, paymentMethod);
+    let date = extractDate(lines, bank, paymentMethod);
+
+    // Tampilkan hasil
+    merchantResult.textContent = merchant;
+    rrnResult.textContent = rrn;
+    referenceResult.textContent = reference;
+    amountResult.textContent = amount;
+    dateResult.textContent = date;
+
+    // Tampilkan container hasil
+    transferResultContainer.style.display = 'block';
+
+    showNotification('Informasi berhasil diekstrak. Periksa keakuratan data.');
+  }
+
+  // Fungsi untuk mengekstrak merchant berdasarkan bank dan metode pembayaran
+  function extractMerchant(lines, bank, paymentMethod) {
+    for (let i = 0; i < lines.length; i++) {
+      // Cari pola merchant berdasarkan bank dan metode pembayaran
+      if (paymentMethod === 'bank') {
+        if (lines[i].match(/(MERCHANT|TOKO|STORE)/i)) {
+          if (i + 1 < lines.length) return lines[i + 1];
+        }
+      } else {
+        if (lines[i].match(/(MERCHANT|TOKO|STORE|OUTLET)/i)) {
+          return lines[i + 1] || lines[i].replace(/(MERCHANT|TOKO|STORE|OUTLET)/i, '').trim();
+        }
+      }
+
+      // Pola umum untuk semua bank
+      if (lines[i].match(/(merchant|toko|store|shop|nama)/i)) {
+        if (i + 1 < lines.length) return lines[i + 1];
+      }
+
+      // Cari baris dengan karakter uppercase (biasanya nama merchant)
+      if (lines[i].match(/^[A-Z0-9\s]{5,}$/) && !lines[i].match(/(RRN|REF|TRANSFER|BANK|ATM|EWALLET)/i)) {
+        return lines[i];
+      }
+    }
+    return "-";
+  }
+
+  // Fungsi untuk mengekstrak RRN berdasarkan bank dan metode pembayaran
+  function extractRRN(lines, bank, paymentMethod) {
+    if (paymentMethod === 'bank') {
+      // Pola untuk RRN bank (12-16 digit)
+      const rrnPattern = /(RRN|rrn|Retrieval Reference Number)[\s:]*([0-9]{12,16})/i;
+
+      for (let line of lines) {
+        const match = line.match(rrnPattern);
+        if (match) return match[2];
+      }
+    } else {
+      // Pola untuk kode transaksi e-wallet/QRIS
+      const qrisPattern = /(QRIS|qris|QR|Kode Transaksi|Transaction ID)[\s:]*([A-Z0-9]{16,20})/i;
+
+      for (let line of lines) {
+        const match = line.match(qrisPattern);
+        if (match) return match[2];
+      }
+    }
+
+    // Jika tidak ditemukan dengan pola, cari angka/karakter panjang
+    for (let line of lines) {
+      if (paymentMethod === 'bank') {
+        const longNumberMatch = line.match(/([0-9]{12,16})/);
+        if (longNumberMatch) return longNumberMatch[1];
+      } else {
+        const codeMatch = line.match(/([A-Z0-9]{16,20})/);
+        if (codeMatch) return codeMatch[1];
+      }
+    }
+
+    return "-";
+  }
+
+  // Fungsi untuk mengekstrak nomor referensi berdasarkan bank dan metode pembayaran
+  function extractReference(lines, bank, paymentMethod) {
+    if (paymentMethod === 'bank') {
+      // Pola untuk referensi bank
+      const refPattern = /(REF|Reference|Referensi|No\. Ref|Nomor Referensi)[\s:]*([0-9]{10,16})/i;
+
+      for (let line of lines) {
+        const match = line.match(refPattern);
+        if (match) return match[2];
+      }
+
+      // Jika tidak ditemukan dengan pola, cari angka panjang lainnya
+      for (let line of lines) {
+        const longNumberMatch = line.match(/([0-9]{10,16})/);
+        if (longNumberMatch) return longNumberMatch[1];
+      }
+    } else {
+      // Untuk e-wallet, referensi biasanya sama dengan RRN/QRIS
+      return "-";
+    }
+
+    return "-";
+  }
+
+  // Fungsi untuk mengekstrak nominal berdasarkan bank dan metode pembayaran
+  function extractAmount(lines, bank, paymentMethod) {
+    for (let line of lines) {
+      // Pola untuk nominal dengan format Rp
+      const match = line.match(/(Rp|RP|IDR|idr)[\s]*([0-9.,]+)/i);
+      if (match) return `Rp ${formatAmount(match[2])}`;
+
+      // Pola untuk nominal dengan format angka saja
+      const amountMatch = line.match(/([0-9]{1,3}(\.?[0-9]{3})*(\,?[0-9]{2})?)/);
+      if (amountMatch && parseFloat(amountMatch[0].replace(/\./g, '').replace(/,/g, '.')) > 1000) {
+        return `Rp ${formatAmount(amountMatch[0])}`;
+      }
+    }
+    return "-";
+  }
+
+  // Fungsi untuk memformat nominal
+  function formatAmount(amount) {
+    // Hilangkan titik (separator ribuan) dan ganti koma dengan titik (separator desimal)
+    const cleaned = amount.replace(/\./g, '').replace(/,/g, '.');
+    // Format kembali dengan separator ribuan
+    const number = parseFloat(cleaned);
+    return isNaN(number) ? amount : number.toLocaleString('id-ID');
+  }
+
+  // Fungsi untuk mengekstrak tanggal dan waktu
+  function extractDate(lines, bank, paymentMethod) {
+    for (let line of lines) {
+      // Pola untuk tanggal dan waktu
+      const dateMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})[\s]+(\d{2}:\d{2}:\d{2})/i);
+      if (dateMatch) return `${dateMatch[1]} ${dateMatch[2]}`;
+
+      // Pola untuk tanggal saja
+      const dateOnlyMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})/i);
+      if (dateOnlyMatch) return dateOnlyMatch[1];
+
+      // Pola untuk waktu saja
+      const timeMatch = line.match(/(\d{2}:\d{2}:\d{2})/i);
+      if (timeMatch) return timeMatch[1];
+    }
+    return "-";
+  }
+
+  // Event listener untuk tombol salin
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-copy');
+      const targetElement = document.getElementById(targetId);
+      const textToCopy = targetElement.textContent;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showNotification('Teks berhasil disalin');
+      }).catch(err => {
+        showNotification('Gagal menyalin teks');
+      });
+    });
+  });
+
+  // Event listener untuk tombol reset
+  resetBtn.addEventListener('click', function() {
+    imagePreview.src = '';
+    imagePreview.style.display = 'none';
+    uploadedImage = null;
+    bankSelect.value = '';
+    imageUrlTransfer.value = '';
+    merchantResult.textContent = '-';
+    rrnResult.textContent = '-';
+    referenceResult.textContent = '-';
+    amountResult.textContent = '-';
+    dateResult.textContent = '-';
+    transferResultContainer.style.display = 'none';
+    progressBar.style.display = 'none';
+    ocrStatus.style.display = 'none';
+    bankPatterns.style.display = 'none';
+  });
+
+  // Event listener untuk tombol unduh
+  downloadBtn.addEventListener('click', function() {
+    const merchant = merchantResult.textContent;
+    const rrn = rrnResult.textContent;
+    const reference = referenceResult.textContent;
+    const amount = amountResult.textContent;
+    const date = dateResult.textContent;
+
+    if (merchant === '-' || rrn === '-' || reference === '-' || amount === '-' || date === '-') {
+      showNotification('Tidak ada data untuk diunduh');
+      return;
+    }
+
+    const paymentMethod = paymentType.value === 'bank' ? 'Transfer Bank' : 'E-Wallet/QRIS';
+    const content = `Informasi Bukti ${paymentMethod}\n\nNama Merchant: ${merchant}\nRRN/QRIS: ${rrn}\nNomor Referensi: ${reference}\nNominal Transfer: ${amount}\nTanggal & Waktu: ${date}`;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'informasi_transfer.txt';
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    showNotification('File berhasil diunduh');
+  });
+
+  // Event listener untuk edit manual
+  document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-edit');
+      const inputElement = document.getElementById(targetId.replace('Result', 'Input'));
+      inputElement.style.display = 'block';
+    });
+  });
+
+  // Event listener untuk simpan edit manual
+  document.querySelectorAll('.save-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const target = this.getAttribute('data-save');
+      const inputElement = document.getElementById(`${target}Edit`);
+      const resultElement = document.getElementById(`${target}Result`);
+      
+      resultElement.textContent = inputElement.value || '-';
+      document.getElementById(`${target}Input`).style.display = 'none';
+      
+      showNotification('Perubahan berhasil disimpan');
+    });
+  });
 });
 </script>
 </body>
