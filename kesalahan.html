@@ -297,7 +297,7 @@
                 <div class="alert alert-info">
                     <strong><i class="fas fa-info-circle me-2"></i>Info:</strong> Data diambil langsung dari Google Sheets. Pastikan spreadsheet sudah dipublikasikan agar data dapat diakses.
                     <div class="form-check form-switch mt-2">
-                        <input class="form-check-input" type="checkbox" id="useSampleData">
+                        <input class="form-check-input" type="checkbox" id="useSampleData" checked>
                         <label class="form-check-label" for="useSampleData">Gunakan data contoh untuk testing</label>
                     </div>
                 </div>
@@ -460,23 +460,82 @@
         let csData = [];
         let currentPage = 1;
         let filteredData = [];
-        let useSampleData = false;
+        let useSampleData = true; // Default menggunakan data contoh
         
-        // Data contoh untuk testing
-        const sampleData = [
-            { 'Tanggal': '2023-06-01', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan jumlah' },
-            { 'Tanggal': '2023-06-01', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 5 menit' },
-            { 'Tanggal': '2023-06-02', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang salah' },
-            { 'Tanggal': '2023-06-02', 'Nama CS': 'Ahmad Rizki', 'ID CS': 'CS003', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan nomor' },
-            { 'Tanggal': '2023-06-03', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 10 menit' },
-            { 'Tanggal': '2023-06-03', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang kedaluwarsa' },
-            { 'Tanggal': '2023-06-04', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan nama' },
-            { 'Tanggal': '2023-06-04', 'Nama CS': 'Dewi Lestari', 'ID CS': 'CS004', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 8 menit' },
-            { 'Tanggal': '2023-06-05', 'Nama CS': 'Ahmad Rizki', 'ID CS': 'CS003', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang tidak akurat' },
-            { 'Tanggal': '2023-06-05', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan tanggal' },
-            { 'Tanggal': '2023-06-06', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 7 menit' },
-            { 'Tanggal': '2023-06-06', 'Nama CS': 'Dewi Lestari', 'ID CS': 'CS004', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang tidak lengkap' }
-        ];
+        // Data contoh untuk testing berdasarkan daftar yang diberikan
+        const sampleData = generateSampleData();
+        
+        function generateSampleData() {
+            const names = [
+                "WIDJAYA C6202945 / E7721607",
+                "DAVID C6169860 / E6864058",
+                "FALLEN HARDINANSAH TAJU C6931386",
+                "CHARLIE C7377694/E9519110",
+                "HARIANTO X2242791",
+                "RINAL ABDILLAH NASUTION C8409170",
+                "ERI HARIANTO C8493406",
+                "MAHENDRAN C6813799",
+                "ANDHIKA DWI PUTRA C8543470",
+                "TOMMY HASIM C6735321",
+                "EGI SETIAWAN C8410298",
+                "RANJIT X1068990",
+                "WILLY PERAYUDA E0089312",
+                "ANGGA AZMAL HARAHAP C9260456",
+                "LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988",
+                "ANDI E4487475",
+                "ALFINO MUKTI C8493352",
+                "AKAS FARMA C8490102",
+                "ARI ROMANDUS FERNANDO C8386112",
+                "PARIS AMRULLOH E0237731",
+                "SAMSUL MAARIF C7008737",
+                "SUHAN RAZ C5862955",
+                "RAHMADI SORMIN E0685561"
+            ];
+            
+            const errorTypes = [
+                "Salah input data", 
+                "Respon lambat", 
+                "Salah informasi", 
+                "Tidak ramah",
+                "Tidak mematuhi SOP",
+                "Kesalahan teknis",
+                "Tidak follow up"
+            ];
+            
+            const data = [];
+            const startDate = new Date(2023, 5, 1); // 1 Juni 2023
+            const endDate = new Date(); // Hari ini
+            
+            // Generate kesalahan acak untuk setiap CS
+            names.forEach(name => {
+                // Pisahkan nama dan ID
+                const parts = name.split(' ');
+                const csName = parts.slice(0, -1).join(' ');
+                const csId = parts[parts.length - 1];
+                
+                // Jumlah kesalahan acak antara 0-15
+                const errorCount = Math.floor(Math.random() * 16);
+                
+                for (let i = 0; i < errorCount; i++) {
+                    // Tanggal acak antara startDate dan endDate
+                    const randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
+                    const formattedDate = randomDate.toISOString().split('T')[0];
+                    
+                    // Jenis kesalahan acak
+                    const randomErrorType = errorTypes[Math.floor(Math.random() * errorTypes.length)];
+                    
+                    data.push({
+                        'Tanggal': formattedDate,
+                        'Nama CS': csName,
+                        'ID CS': csId,
+                        'Jenis Kesalahan': randomErrorType,
+                        'Keterangan': `Contoh keterangan untuk ${randomErrorType.toLowerCase()}`
+                    });
+                }
+            });
+            
+            return data;
+        }
 
         // Fungsi untuk mengambil data dari Google Sheets
         async function fetchDataFromSheet() {
@@ -865,26 +924,4 @@
         }
         
         // Event listener saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', () => {
-            // Ambil data pertama kali
-            fetchDataFromSheet();
-            
-            // Event listener untuk tombol refresh
-            document.getElementById('refreshBtn').addEventListener('click', () => {
-                const icon = document.querySelector('#refreshBtn i');
-                icon.classList.add('refresh-animation');
-                
-                fetchDataFromSheet().finally(() => {
-                    setTimeout(() => {
-                        icon.classList.remove('refresh-animation');
-                    }, 1000);
-                });
-            });
-            
-            // Event listener untuk pencarian
-            document.getElementById('searchInput').addEventListener('input', searchData);
-            document.getElementById('sortSelect').addEventListener('change', searchData);
-            
-            // Event listener untuk toggle data contoh
-            document.getElementById('useSampleData').addEventListener('change', (e) => {
-                useSampleData = e.target.checked
+        document.addEventListener('DOMContentLoaded', ()
