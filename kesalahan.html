@@ -270,6 +270,17 @@
                 font-size: 2rem;
             }
         }
+
+        .debug-panel {
+            background-color: #f8f9fc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -285,6 +296,10 @@
             <div class="col-md-12">
                 <div class="alert alert-info">
                     <strong><i class="fas fa-info-circle me-2"></i>Info:</strong> Data diambil langsung dari Google Sheets. Pastikan spreadsheet sudah dipublikasikan agar data dapat diakses.
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" id="useSampleData">
+                        <label class="form-check-label" for="useSampleData">Gunakan data contoh untuk testing</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -386,3 +401,490 @@
                                         <input type="text" id="searchInput" class="form-control" placeholder="Cari nama CS atau ID...">
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="sortSelect">
+                                        <option value="name">Urutkan berdasarkan Nama</option>
+                                        <option value="errors-desc">Kesalahan (Tinggi ke Rendah)</option>
+                                        <option value="errors-asc">Kesalahan (Rendah ke Tinggi)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="csTable">
+                                <thead>
+                                    <tr>
+                                        <th>CS</th>
+                                        <th>ID</th>
+                                        <th>Jumlah Kesalahan</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="csTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center">
+                                            <div class="loading">
+                                                <div class="spinner-border spinner" role="status"></div>
+                                                <p class="mt-2">Memuat data...</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination" id="pagination">
+                                <!-- Pagination akan di-generate oleh JavaScript -->
+                            </ul>
+                        </nav>
+
+                        <div class="debug-panel mt-3 d-none" id="debugPanel">
+                            <h6>Debug Information:</h6>
+                            <div id="debugContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const SHEET_ID = '1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E';
+        const SHEET_NAME = 'Sheet1';
+        const ROWS_PER_PAGE = 10;
+        
+        // Variabel global untuk data
+        let csData = [];
+        let currentPage = 1;
+        let filteredData = [];
+        let useSampleData = false;
+        
+        // Data contoh untuk testing
+        const sampleData = [
+            { 'Tanggal': '2023-06-01', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan jumlah' },
+            { 'Tanggal': '2023-06-01', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 5 menit' },
+            { 'Tanggal': '2023-06-02', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang salah' },
+            { 'Tanggal': '2023-06-02', 'Nama CS': 'Ahmad Rizki', 'ID CS': 'CS003', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan nomor' },
+            { 'Tanggal': '2023-06-03', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 10 menit' },
+            { 'Tanggal': '2023-06-03', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang kedaluwarsa' },
+            { 'Tanggal': '2023-06-04', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan nama' },
+            { 'Tanggal': '2023-06-04', 'Nama CS': 'Dewi Lestari', 'ID CS': 'CS004', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 8 menit' },
+            { 'Tanggal': '2023-06-05', 'Nama CS': 'Ahmad Rizki', 'ID CS': 'CS003', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang tidak akurat' },
+            { 'Tanggal': '2023-06-05', 'Nama CS': 'Budi Santoso', 'ID CS': 'CS001', 'Jenis Kesalahan': 'Salah input data', 'Keterangan': 'Salah memasukkan tanggal' },
+            { 'Tanggal': '2023-06-06', 'Nama CS': 'Sari Dewi', 'ID CS': 'CS002', 'Jenis Kesalahan': 'Respon lambat', 'Keterangan': 'Respon lebih dari 7 menit' },
+            { 'Tanggal': '2023-06-06', 'Nama CS': 'Dewi Lestari', 'ID CS': 'CS004', 'Jenis Kesalahan': 'Salah informasi', 'Keterangan': 'Memberikan info yang tidak lengkap' }
+        ];
+
+        // Fungsi untuk mengambil data dari Google Sheets
+        async function fetchDataFromSheet() {
+            try {
+                // Tampilkan loading state
+                document.getElementById('csTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <div class="loading">
+                                <div class="spinner-border spinner" role="status"></div>
+                                <p class="mt-2">Memuat data...</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+                // Reset debug panel
+                document.getElementById('debugPanel').classList.add('d-none');
+                
+                let data = [];
+                
+                if (useSampleData) {
+                    // Gunakan data contoh
+                    data = sampleData;
+                    document.getElementById('debugContent').innerHTML = '<div class="text-success">Menggunakan data contoh</div>';
+                    document.getElementById('debugPanel').classList.remove('d-none');
+                } else {
+                    // URL untuk mengambil data dari Google Sheets sebagai CSV
+                    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
+                    
+                    // Fetch data
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const csvData = await response.text();
+                    
+                    // Parse CSV ke JSON
+                    data = parseCSV(csvData);
+                    
+                    // Tampilkan data mentah untuk debugging
+                    document.getElementById('debugContent').innerHTML = 
+                        `<strong>Data mentah (${data.length} baris):</strong><br>` +
+                        `<pre>${JSON.stringify(data.slice(0, 3), null, 2)}</pre>` +
+                        (data.length > 3 ? `<div>... dan ${data.length - 3} baris lainnya</div>` : '');
+                    document.getElementById('debugPanel').classList.remove('d-none');
+                }
+                
+                // Proses data
+                processData(data);
+                
+                // Update UI
+                updateUI();
+                
+                // Update waktu terakhir
+                document.getElementById('lastUpdated').innerHTML = 
+                    `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('csTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center text-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Gagal memuat data: ${error.message}
+                        </td>
+                    </tr>
+                `;
+                
+                // Tampilkan error di debug panel
+                document.getElementById('debugContent').innerHTML = 
+                    `<div class="text-danger">Error: ${error.message}</div>`;
+                document.getElementById('debugPanel').classList.remove('d-none');
+            }
+        }
+        
+        // Fungsi untuk parsing CSV
+        function parseCSV(csv) {
+            const lines = csv.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) return [];
+            
+            const result = [];
+            
+            // Ambil header (baris pertama)
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            
+            // Proses setiap baris data
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                
+                const obj = {};
+                const currentline = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+                
+                for (let j = 0; j < headers.length; j++) {
+                    // Handle kasus dimana jumlah kolom tidak sesuai
+                    if (j < currentline.length) {
+                        obj[headers[j]] = currentline[j] || '';
+                    } else {
+                        obj[headers[j]] = '';
+                    }
+                }
+                
+                result.push(obj);
+            }
+            
+            return result;
+        }
+        
+        // Fungsi untuk memproses data
+        function processData(data) {
+            // Reset data
+            csData = [];
+            
+            // Jika tidak ada data, keluar
+            if (data.length === 0) {
+                return;
+            }
+            
+            // Debug: Tampilkan keys dari data pertama untuk memeriksa struktur
+            const firstItem = data[0];
+            const keys = Object.keys(firstItem);
+            document.getElementById('debugContent').innerHTML += 
+                `<br><strong>Kolom yang terdeteksi:</strong> ${keys.join(', ')}`;
+            
+            // Cari kolom yang berisi nama CS
+            let nameKey = 'Nama CS';
+            if (!firstItem.hasOwnProperty('Nama CS')) {
+                // Coba cari kolom yang mungkin berisi nama
+                const possibleNameKeys = ['Nama', 'CS', 'Customer Service', 'Nama Customer Service', 'Name', 'CS Name'];
+                for (const key of possibleNameKeys) {
+                    if (firstItem.hasOwnProperty(key)) {
+                        nameKey = key;
+                        break;
+                    }
+                }
+            }
+            
+            // Cari kolom yang berisi ID CS
+            let idKey = 'ID CS';
+            if (!firstItem.hasOwnProperty('ID CS')) {
+                // Coba cari kolom yang mungkin berisi ID
+                const possibleIdKeys = ['ID', 'CS ID', 'ID Customer Service', 'CS Code', 'Code'];
+                for (const key of possibleIdKeys) {
+                    if (firstItem.hasOwnProperty(key)) {
+                        idKey = key;
+                        break;
+                    }
+                }
+            }
+            
+            document.getElementById('debugContent').innerHTML += 
+                `<br><strong>Kolom nama:</strong> ${nameKey}, <strong>Kolom ID:</strong> ${idKey}`;
+            
+            // Hitung jumlah kesalahan per CS
+            const errorCounts = {};
+            
+            data.forEach(row => {
+                const csName = row[nameKey] || 'Tidak Diketahui';
+                const csId = row[idKey] || 'Tidak Diketahui';
+                
+                if (!errorCounts[csName]) {
+                    errorCounts[csName] = {
+                        id: csId,
+                        count: 0,
+                        name: csName
+                    };
+                }
+                
+                errorCounts[csName].count++;
+            });
+            
+            // Konversi ke array
+            csData = Object.values(errorCounts);
+            
+            // Simpan data yang sudah difilter
+            filteredData = [...csData];
+            
+            document.getElementById('debugContent').innerHTML += 
+                `<br><strong>Data CS yang diproses:</strong> ${csData.length} CS ditemukan`;
+        }
+        
+        // Fungsi untuk memperbarui UI dengan data terbaru
+        function updateUI() {
+            // Update statistik
+            document.getElementById('totalErrors').textContent = csData.reduce((sum, cs) => sum + cs.count, 0);
+            document.getElementById('totalCS').textContent = csData.length;
+            document.getElementById('averageErrors').textContent = csData.length ? 
+                Math.round(csData.reduce((sum, cs) => sum + cs.count, 0) / csData.length) : 0;
+            
+            // CS dengan kesalahan terbanyak
+            if (csData.length) {
+                const mostErrors = csData.reduce((max, cs) => (cs.count > max.count ? cs : max), csData[0]);
+                document.getElementById('mostErrors').textContent = `${mostErrors.name} (${mostErrors.count})`;
+            } else {
+                document.getElementById('mostErrors').textContent = '-';
+            }
+            
+            // Update 5 kesalahan tertinggi
+            updateTopErrorsList();
+            
+            // Update tabel
+            updateTable();
+            
+            // Update jumlah CS
+            document.getElementById('csCount').textContent = `${csData.length} CS`;
+        }
+        
+        // Fungsi untuk memperbarui daftar 5 kesalahan tertinggi
+        function updateTopErrorsList() {
+            const topErrorsList = document.getElementById('topErrorsList');
+            
+            if (!csData.length) {
+                topErrorsList.innerHTML = `
+                    <li class="list-group-item top-error-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Tidak ada data</div>
+                        </div>
+                    </li>
+                `;
+                return;
+            }
+            
+            // Urutkan berdasarkan kesalahan terbanyak
+            const sortedData = [...csData].sort((a, b) => b.count - a.count).slice(0, 5);
+            
+            topErrorsList.innerHTML = '';
+            
+            sortedData.forEach((cs, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item top-error-item d-flex justify-content-between align-items-start';
+                li.innerHTML = `
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">${cs.name}</div>
+                        <small class="text-muted">ID: ${cs.id}</small>
+                    </div>
+                    <span class="badge-error">${cs.count}</span>
+                `;
+                topErrorsList.appendChild(li);
+            });
+        }
+        
+        // Fungsi untuk memperbarui tabel
+        function updateTable() {
+            const tableBody = document.getElementById('csTableBody');
+            
+            if (!filteredData.length) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            Tidak ada data yang sesuai dengan pencarian
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Hitung pagination
+            const totalPages = Math.ceil(filteredData.length / ROWS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = 1;
+            
+            // Data untuk halaman saat ini
+            const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ROWS_PER_PAGE, filteredData.length);
+            const currentData = filteredData.slice(startIndex, endIndex);
+            
+            // Isi tabel
+            tableBody.innerHTML = '';
+            
+            currentData.forEach(cs => {
+                const tr = document.createElement('tr');
+                
+                // Tentukan status berdasarkan jumlah kesalahan
+                let statusClass = 'status-good';
+                let statusText = 'Baik';
+                
+                if (cs.count >= 10) {
+                    statusClass = 'status-critical';
+                    statusText = 'Kritis';
+                } else if (cs.count >= 5) {
+                    statusClass = 'status-warning';
+                    statusText = 'Perhatian';
+                }
+                
+                tr.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="cs-avatar">${cs.name.charAt(0)}</div>
+                            <div>${cs.name}</div>
+                        </div>
+                    </td>
+                    <td>${cs.id}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">${cs.count}</span>
+                            <div class="progress" style="width: 100px">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: ${Math.min(cs.count * 10, 100)}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                `;
+                
+                tableBody.appendChild(tr);
+            });
+            
+            // Update pagination
+            updatePagination(totalPages);
+        }
+        
+        // Fungsi untuk memperbarui pagination
+        function updatePagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Tombol Previous
+            paginationHTML += `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
+                </li>
+            `;
+            
+            // Halaman
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <li class="page-item ${currentPage === i ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+                    </li>
+                `;
+            }
+            
+            // Tombol Next
+            paginationHTML += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
+                </li>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+            
+            // Tambahkan event listener untuk pagination
+            pagination.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = parseInt(link.getAttribute('data-page'));
+                    updateTable();
+                });
+            });
+        }
+        
+        // Fungsi untuk mencari data
+        function searchData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+            
+            // Filter data
+            filteredData = csData.filter(cs => 
+                cs.name.toLowerCase().includes(searchTerm) || 
+                (cs.id && cs.id.toLowerCase().includes(searchTerm))
+            );
+            
+            // Urutkan data
+            switch(sortBy) {
+                case 'name':
+                    filteredData.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'errors-desc':
+                    filteredData.sort((a, b) => b.count - a.count);
+                    break;
+                case 'errors-asc':
+                    filteredData.sort((a, b) => a.count - b.count);
+                    break;
+            }
+            
+            // Reset ke halaman pertama
+            currentPage = 1;
+            
+            // Perbarui tabel
+            updateTable();
+        }
+        
+        // Event listener saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ambil data pertama kali
+            fetchDataFromSheet();
+            
+            // Event listener untuk tombol refresh
+            document.getElementById('refreshBtn').addEventListener('click', () => {
+                const icon = document.querySelector('#refreshBtn i');
+                icon.classList.add('refresh-animation');
+                
+                fetchDataFromSheet().finally(() => {
+                    setTimeout(() => {
+                        icon.classList.remove('refresh-animation');
+                    }, 1000);
+                });
+            });
+            
+            // Event listener untuk pencarian
+            document.getElementById('searchInput').addEventListener('input', searchData);
+            document.getElementById('sortSelect').addEventListener('change', searchData);
+            
+            // Event listener untuk toggle data contoh
+            document.getElementById('useSampleData').addEventListener('change', (e) => {
+                useSampleData = e.target.checked
