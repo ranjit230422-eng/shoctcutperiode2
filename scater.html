@@ -5,144 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Scatter Mahjong Ways</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B35;
-            --secondary: #2EC4B6;
-            --accent: #FF9F1C;
-            --dark: #1A1A2E;
-            --darker: #0D0D1A;
-            --light: #F5F5F5;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-dark: rgba(0, 0, 0, 0.3);
+            --primary: #7e22ce;
+            --primary-glow: #c084fc;
+            --secondary: #06b6d4;
+            --secondary-glow: #22d3ee;
+            --accent: #f97316;
+            --accent-glow: #fdba74;
+            --accent2: #ec4899;
+            --accent2-glow: #f9a8d4;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f1f5f9;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-dark: rgba(0, 0, 0, 0.4);
+            --card-bg: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(20, 20, 40, 0.9));
         }
         
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, var(--darker), var(--dark), #16213E);
+            background: linear-gradient(135deg, var(--darker), var(--dark), #1e293b);
             color: var(--light);
             min-height: 100vh;
             padding: 20px;
             background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(126, 34, 206, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(16px);
             border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent), var(--accent2));
+            border-radius: 6px 6px 0 0;
+            box-shadow: 0 0 20px var(--primary-glow);
         }
         
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             position: relative;
+            padding: 20px 0;
         }
         
         .logo {
-            font-size: 3.5rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 159, 28, 0.6);
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px var(--primary-glow);
+            animation: pulse 2s infinite;
         }
         
         h1 {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
-            background: linear-gradient(to right, var(--accent), var(--primary));
+            font-size: 4rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
             letter-spacing: 1.5px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Rajdhani', sans-serif;
         }
         
         .subtitle {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--secondary);
-            margin-bottom: 25px;
-            font-weight: 400;
+            margin-bottom: 30px;
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(6, 182, 212, 0.4);
         }
         
         .content {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 35px;
+            gap: 40px;
         }
         
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
             .content {
                 grid-template-columns: 1fr;
             }
         }
         
         .input-section, .result-section {
-            background: var(--glass-dark);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, rgba(30, 30, 50, 0.9), rgba(15, 15, 35, 0.9));
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .input-section::before, .result-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 0 15px var(--primary-glow);
         }
         
         .input-section:hover, .result-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
         
         .section-title {
-            color: var(--accent);
-            margin-bottom: 25px;
+            color: var(--primary);
+            margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary);
-            font-size: 1.7rem;
+            border-bottom: 2px solid var(--secondary);
+            font-size: 2rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(126, 34, 206, 0.4);
+            font-family: 'Rajdhani', sans-serif;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: 600;
             color: var(--secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         input, textarea {
             width: 100%;
-            padding: 16px 20px;
-            border: 2px solid rgba(255, 107, 53, 0.3);
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 18px 22px;
+            border: 2px solid rgba(126, 34, 206, 0.3);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
             color: var(--light);
-            font-size: 16px;
+            font-size: 17px;
             transition: all 0.3s;
         }
         
         input:focus, textarea:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 15px rgba(255, 107, 53, 0.4);
-            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 25px rgba(126, 34, 206, 0.5);
+            background: rgba(0, 0, 0, 0.4);
         }
         
         textarea {
-            min-height: 150px;
+            min-height: 180px;
             resize: vertical;
         }
         
@@ -150,25 +213,42 @@
             background: linear-gradient(to right, var(--primary), var(--accent));
             color: white;
             border: none;
-            padding: 18px 30px;
-            font-size: 1.1rem;
-            border-radius: 12px;
+            padding: 20px 35px;
+            font-size: 1.2rem;
+            border-radius: 15px;
             cursor: pointer;
             width: 100%;
             font-weight: 600;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
-            margin-top: 15px;
+            box-shadow: 0 10px 25px rgba(126, 34, 206, 0.5);
+            margin-top: 20px;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
         }
         
         button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(255, 107, 53, 0.6);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(126, 34, 206, 0.7);
         }
         
         button:active {
@@ -177,43 +257,45 @@
         
         .data-result {
             background: rgba(0, 0, 0, 0.4);
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 25px;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .data-result h4 {
-            color: var(--accent);
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 12px;
-            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 15px;
+            font-size: 1.6rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-shadow: 0 2px 8px rgba(126, 34, 206, 0.4);
         }
         
         .data-item {
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 15px;
-            border-radius: 10px;
-            transition: background 0.3s;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 18px;
+            border-radius: 12px;
+            transition: background 0.3s, transform 0.3s;
         }
         
         .data-item:hover {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
+            transform: translateX(8px);
         }
         
         .data-item strong {
             display: inline-block;
-            width: 150px;
+            width: 160px;
             color: var(--secondary);
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         .data-item span {
@@ -223,122 +305,114 @@
             font-weight: 500;
         }
         
-        .link-text {
-            color: var(--accent);
-            text-decoration: underline;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .link-text:hover {
-            color: var(--primary);
-        }
-        
         .tile {
             display: inline-block;
-            width: 45px;
-            height: 55px;
+            width: 55px;
+            height: 65px;
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            margin: 0 10px;
-            border-radius: 10px;
+            margin: 0 15px;
+            border-radius: 12px;
             position: relative;
             transform: rotate(15deg);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             animation: float 4s ease-in-out infinite;
         }
         
         .tile:nth-child(2) {
             animation-delay: 0.7s;
+            background: linear-gradient(45deg, var(--accent2), var(--secondary));
         }
         
         .tile:nth-child(3) {
             animation-delay: 1.4s;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
         }
         
         @keyframes float {
             0%, 100% { transform: rotate(15deg) translateY(0) rotateY(0); }
-            33% { transform: rotate(15deg) translateY(-15px) rotateY(20deg); }
-            66% { transform: rotate(15deg) translateY(10px) rotateY(-20deg); }
+            33% { transform: rotate(15deg) translateY(-20px) rotateY(20deg); }
+            66% { transform: rotate(15deg) translateY(15px) rotateY(-20deg); }
         }
         
         .tile::before {
             content: "";
             position: absolute;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             background: var(--dark);
             border-radius: 50%;
-            top: 13px;
-            left: 8px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            top: 16px;
+            left: 11px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
         }
         
         .decoration {
             text-align: center;
-            margin: 35px 0;
+            margin: 40px 0;
         }
         
         .instructions {
             background: var(--glass);
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 35px;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 40px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .instructions h3 {
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            text-shadow: 0 2px 8px rgba(126, 34, 206, 0.4);
         }
         
         .instructions ol {
-            padding-left: 25px;
+            padding-left: 30px;
         }
         
         .instructions li {
-            margin-bottom: 15px;
-            line-height: 1.6;
-            font-size: 1.05rem;
+            margin-bottom: 18px;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
         
         .copy-btn {
-            background: linear-gradient(to right, var(--dark), #2A4B8C);
+            background: linear-gradient(to right, var(--dark), #374151);
             width: auto;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 18px;
-            font-size: 0.95rem;
-            margin-left: 15px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            margin-left: 20px;
+            border-radius: 10px;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         }
         
         .copy-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(26, 42, 108, 0.6);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
         }
         
         .copy-btn i {
-            margin-right: 8px;
+            margin-right: 10px;
         }
         
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 25px;
+            gap: 22px;
+            margin-top: 30px;
         }
         
         .gallery-item {
-            height: 140px;
-            background: linear-gradient(45deg, var(--dark), #2A4B8C);
-            border-radius: 12px;
+            height: 160px;
+            background: linear-gradient(45deg, var(--dark), #374151);
+            border-radius: 15px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -350,9 +424,9 @@
         }
         
         .gallery-item:hover {
-            transform: scale(1.08) rotate(2deg);
+            transform: scale(1.1) rotate(3deg);
             border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 15px 30px rgba(126, 34, 206, 0.6);
         }
         
         .gallery-item img {
@@ -360,11 +434,11 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
-            border-radius: 10px;
+            border-radius: 12px;
         }
         
         .gallery-item:hover img {
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
         
         .gallery-item::after {
@@ -373,14 +447,14 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: var(--light);
-            font-size: 0.8rem;
-            padding: 5px;
+            font-size: 0.9rem;
+            padding: 8px;
             text-align: center;
             opacity: 0;
             transition: opacity 0.3s;
-            border-radius: 0 0 10px 10px;
+            border-radius: 0 0 12px 12px;
         }
         
         .gallery-item:hover::after {
@@ -388,12 +462,12 @@
         }
         
         .success-message {
-            background: rgba(46, 196, 182, 0.3);
+            background: rgba(6, 182, 212, 0.3);
             color: var(--light);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 18px;
+            border-radius: 12px;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
             display: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
             animation: fadeIn 0.5s;
@@ -401,80 +475,120 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .raw-data {
             background: rgba(255, 255, 255, 0.05);
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
             font-family: 'Fira Code', monospace;
             white-space: pre-wrap;
             word-break: break-all;
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         
         .final-result {
-            background: linear-gradient(45deg, rgba(255, 159, 28, 0.2), rgba(255, 107, 53, 0.2));
-            border: 2px solid var(--accent);
-            border-radius: 18px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 10px 25px rgba(255, 159, 28, 0.3);
+            background: linear-gradient(145deg, rgba(126, 34, 206, 0.2), rgba(249, 115, 22, 0.2));
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 35px;
+            box-shadow: 0 15px 30px rgba(126, 34, 206, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-result::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            box-shadow: 0 0 15px var(--primary-glow);
         }
         
         .final-result h4 {
-            color: var(--accent);
+            color: var(--primary);
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 10px rgba(126, 34, 206, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
         }
         
         .final-data {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.2rem;
+            line-height: 1.9;
         }
         
         .final-data div {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            margin-bottom: 18px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
             display: flex;
             align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .final-data div:hover {
+            transform: translateX(8px);
         }
         
         .final-data div i {
-            margin-right: 12px;
+            margin-right: 15px;
             color: var(--secondary);
-            width: 25px;
+            width: 30px;
+            font-size: 1.4rem;
         }
         
         .info-box {
-            background: rgba(255, 159, 28, 0.2);
-            border-left: 4px solid var(--accent);
-            padding: 18px;
-            margin: 25px 0;
-            border-radius: 10px;
-            font-size: 1.05rem;
+            background: rgba(249, 115, 22, 0.2);
+            border-left: 5px solid var(--accent);
+            padding: 22px;
+            margin: 30px 0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .info-box::before {
+            content: "\f05a";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: -35px;
+            transform: translateY(-50%);
+            background: var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.5);
         }
         
         .debug-info {
             background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 0.9rem;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 25px;
+            font-size: 0.95rem;
             display: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
             font-family: 'Fira Code', monospace;
@@ -501,9 +615,9 @@
             max-width: 90%;
             max-height: 80vh;
             border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+            box-shadow: 0 0 35px rgba(126, 34, 206, 0.8);
             animation: zoom 0.4s;
-            border: 3px solid var(--accent);
+            border: 3px solid var(--primary);
         }
         
         @keyframes zoom {
@@ -513,14 +627,14 @@
         
         .close {
             position: absolute;
-            top: 20px;
-            right: 40px;
+            top: 25px;
+            right: 45px;
             color: var(--light);
-            font-size: 45px;
+            font-size: 50px;
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
         }
         
         .close:hover,
@@ -532,19 +646,19 @@
         .loader {
             display: none;
             text-align: center;
-            margin: 25px 0;
+            margin: 30px 0;
             color: var(--accent);
         }
         
         .loader .spinner {
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            border: 6px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top: 5px solid var(--primary);
-            width: 60px;
-            height: 60px;
+            border-top: 6px solid var(--primary);
+            width: 70px;
+            height: 70px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 0 25px rgba(126, 34, 206, 0.6);
         }
         
         @keyframes spin {
@@ -554,10 +668,10 @@
         
         .credit {
             text-align: center;
-            margin-top: 40px;
-            font-size: 1.05rem;
+            margin-top: 50px;
+            font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.7);
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -574,83 +688,166 @@
         .link-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 18px;
         }
         
         .link-item {
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 15px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px;
+            border-radius: 12px;
             font-family: 'Fira Code', monospace;
-            font-size: 0.95rem;
+            font-size: 1rem;
             word-break: break-all;
             justify-content: space-between;
+            transition: transform 0.3s;
+        }
+        
+        .link-item:hover {
+            transform: translateX(8px);
         }
         
         .link-text {
             flex: 1;
-            margin-right: 10px;
+            margin-right: 12px;
             word-break: break-all;
         }
         
         .link-item i {
             color: var(--accent);
-            margin-right: 10px;
+            margin-right: 12px;
+            font-size: 1.2rem;
         }
         
         .copy-link-btn {
-            background: linear-gradient(to right, var(--dark), #2A4B8C);
+            background: linear-gradient(to right, var(--dark), #374151);
             border: none;
             color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 10px 15px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
+            gap: 6px;
+            font-size: 0.95rem;
         }
         
         .copy-link-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
         }
         
         .link-section {
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .link-section h4 {
-            color: var(--accent);
-            margin-bottom: 15px;
+            color: var(--primary);
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1.4rem;
         }
         
         .copy-all-links-btn {
             background: linear-gradient(to right, #4A235A, #6A2C70);
-            margin-top: 10px;
+            margin-top: 15px;
             width: 100%;
         }
         
         .copy-all-links-btn:hover {
             background: linear-gradient(to right, #6A2C70, #8E44AD);
         }
+        
+        .single-line-links {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            word-break: break-all;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle 20s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .glow-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            opacity: 0.1;
+            filter: blur(40px);
+            z-index: -1;
+        }
+        
+        .glow-1 {
+            top: -150px;
+            right: -150px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+        }
+        
+        .glow-2 {
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, var(--secondary-glow) 0%, transparent 70%);
+        }
+        
+        .glow-3 {
+            top: 50%;
+            left: -150px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+        }
     </style>
 </head>
 <body>
+    <div class="floating-particles" id="particles"></div>
+    <div class="glow-effect glow-1"></div>
+    <div class="glow-effect glow-2"></div>
+    <div class="glow-effect glow-3"></div>
+    
     <div class="container">
         <header>
             <div class="logo">
-                <i class="fas fa-dragon"></i>
+                <i class="fas fa-chess-knight"></i>
             </div>
             <h1>Event Scatter Mahjong Ways</h1>
-            <p class="subtitle">Input Data Scatter untuk Mahjong Ways 1 dan Ways 2</p>
+            <p class="subtitle">Input Data Scatter untuk Mahjong Ways 1 dan Ways 2 dengan antarmuka yang lebih intuitif dan menarik</p>
             <div class="decoration">
                 <span class="tile"></span>
                 <span class="tile"></span>
@@ -664,7 +861,7 @@
                 <form id="scatterForm">
                     <div class="form-group">
                         <label for="rawData"><i class="fas fa-paste"></i> Data Scatter (Tempel data di sini):</label>
-                        <textarea id="rawData" rows="6" placeholder="Tempel data scatter di sini. Contoh: Zalora99	https://cdn.files-text.com/...	082220319460	ABDUL ROHMAN	1965274850234734080	BET 2,000 - 8,000" required></textarea>
+                        <textarea id="rawData" rows="6" placeholder="Tempel data scatter di sini. Contoh: Zalora99	https://cdn.files-text.com/...	082220319460	ABDUL ROHMAN	BET 2,000 - 8,000" required></textarea>
                     </div>
                     
                     <button type="submit" class="pulse"><i class="fas fa-cogs"></i> Proses Data</button>
@@ -672,7 +869,7 @@
                 
                 <div class="instructions">
                     <h3><i class="fas fa-info-circle"></i> Contoh Format Data:</h3>
-                    <div class="raw-data">Zalora99	https://cdn.files-text.com/us-south1/api/lc/att/13376070/d16ec5f4d411d88f5f499e0689fb8df0/Screenshot_2025-09-09-11-43-49-868_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/4bddc07ac065f1228abb090dec0865d2/Screenshot_2025-09-09-11-58-34-817_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/69292afa442f2008abf99ff1f146dea1/Screenshot_2025-09-09-11-45-52-907_com.android.chrome.jpg	082220319460	ABDUL ROHMAN	1965274850234734080	BET 2,000 - 8,000</div>
+                    <div class="raw-data">Zalora99	https://cdn.files-text.com/us-south1/api/lc/att/13376070/d16ec5f4d411d88f5f499e0689fb8df0/Screenshot_2025-09-09-11-43-49-868_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/4bddac065f1228abb090dec0865d2/Screenshot_2025-09-09-11-58-34-817_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/69292afa442f2008abf99ff1f146dea1/Screenshot_极速飞艇玩法-09-11-45-52-907_com.android.chrome.jpg	082220319460	ABDUL ROHMAN	1965274850234734080	BET 2,000 - 8,000</div>
                     
                     <div class="info-box">
                         <strong><i class="fas fa-lightbulb"></i> Perhatian:</strong> Sistem akan mengambil kode tiket yang panjang (bukan nomor rekening) dan hanya nominal depan pada bettingan.
@@ -683,7 +880,7 @@
             <div class="result-section">
                 <h3 class="section-title"><i class="fas fa-search"></i> Hasil Ekstraksi Data</h3>
                 
-                <div class="loader" id="loader">
+                <div class="loader"极速飞艇玩法 id="loader">
                     <div class="spinner"></div>
                     <p>Memproses data...</p>
                 </div>
@@ -713,8 +910,8 @@
                     
                     <div class="link-section">
                         <h4><i class="fas fa-link"></i> Link Screenshot:</h4>
-                        <div class="link-container" id="linkContainer">
-                            <!-- Link akan ditambahkan di sini -->
+                        <div class="single-line-links" id="singleLineLinks">
+                            <!-- Link akan ditampilkan dalam satu baris di sini -->
                         </div>
                         <button class="copy-all-links-btn copy-btn" id="copyAllLinksBtn">
                             <i class="fas fa-copy"></i> Salin Semua Link Sekaligus
@@ -722,7 +919,7 @@
                     </div>
                 </div>
                 
-                <h4 style="margin-top: 25px;"><i class="fas fa-images"></i> Galeri Screenshot:</h4>
+                <h4 style="margin-top: 30px;"><i class="fas fa-images"></i> Galeri Screenshot:</h4>
                 <div class="gallery" id="imageGallery">
                     <div class="gallery-item">Gambar akan muncul di sini</div>
                 </div>
@@ -730,12 +927,12 @@
                 <div class="final-result">
                     <h4><i class="fas fa-clipboard-list"></i> Hasil Format Scatter</h4>
                     <div class="final-data">
-                        <div><i class="fas fa-user"></i> User ID: <span id="finalUserId">-</span></div>
+                        <极速飞艇玩法><i class="fas fa-user"></i> User ID: <span id="finalUserId">-</span></div>
                         <div><i class="fas fa-ticket-alt"></i> Kode Tiket: <span id="finalTicketCode">-</span></div>
                         <div><i class="fas fa-user-tag"></i> Nama Pemain: <span id="finalPlayerName">-</span></div>
                         <div><i class="fas fa-link"></i> Link Screenshot: 
-                            <div class="link-container" id="finalLinkContainer">
-                                <!-- Link akan ditambahkan di sini -->
+                            <div class="single-line-links" id="finalSingleLineLinks">
+                                <!-- Link akan ditampilkan dalam satu baris di sini -->
                             </div>
                             <button class="copy-all-links-btn copy-btn" id="copyAllLinksFinalBtn">
                                 <i class="fas fa-copy"></i> Salin Semua Link Sekaligus
@@ -743,7 +940,7 @@
                         </div>
                         <div><i class="fas fa-coins"></i> Bettingan: <span id="finalBetting">-</span></div>
                     </div>
-                    <button class="copy-btn" id="copyAllBtn" style="width: 100%; margin-top: 20px;"><i class="fas fa-copy"></i> Salin Semua Data</button>
+                    <button class="copy-btn" id="copyAllBtn" style="width: 100%; margin-top: 25px;"><i class="fas fa-copy"></i> Salin Semua Data</button>
                 </div>
                 
                 <div class="success-message" id="copySuccess">
@@ -765,13 +962,13 @@
                 <li>Data yang diekstrak akan ditampilkan di sisi kanan</li>
                 <li>Klik gambar screenshot untuk melihatnya dalam ukuran besar</li>
                 <li>Gunakan tombol "Salin" untuk menyalin data tertentu</li>
-                <li>Gunakan tombol "Salin Semua Link Sekaligus" untuk menyalin semua link screenshot</li>
+                <li>Gunakan tombol "Salin Semua Link Sekaligus" untuk menyalin semua link screenshot dalam satu baris</li>
                 <li>Gunakan tombol "Salin Semua Data" untuk menyalin semua data termasuk link</li>
             </ol>
         </div>
         
         <div class="credit">
-            <p>Dibuat dengan <i class="fas fa-heart" style="color: var(--primary);"></i> untuk Event Scatter Mahjong Ways</p>
+            <p>Dibuat dengan <i class="fas fa-heart" style="color: var(--accent);"></i> untuk Event Scatter Mahjong Ways</p>
         </div>
     </div>
 
@@ -794,8 +991,11 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const closeModal = document.querySelector('.close');
-            const linkContainer = document.getElementById('linkContainer');
-            const finalLinkContainer = document.getElementById('finalLinkContainer');
+            const singleLineLinks = document.getElementById('singleLineLinks');
+            const finalSingleLineLinks = document.getElementById('finalSingleLineLinks');
+            
+            // Create floating particles
+            createParticles();
             
             // Simpan link globally untuk akses mudah
             let allImageLinks = [];
@@ -810,7 +1010,7 @@
                 // Ambil nilai dari form
                 const rawData = document.getElementById('rawData').value;
                 
-                // Simulasikan loading (bisa dihapus di production)
+                // Simulasikan loading
                 setTimeout(() => {
                     // Proses data
                     processScatterData(rawData);
@@ -845,7 +1045,7 @@
                         imageLinks.push(part);
                     }
                     // Deteksi user ID (biasanya di awal)
-                    else if (i === 0 && !part.includes('http')) {
+                    else if (i === 0 && !part.includes极速飞艇玩法('http')) {
                         userId = part;
                     }
                     // Deteksi kode tiket (angka, panjang biasanya lebih dari 10 digit)
@@ -853,11 +1053,11 @@
                         possibleTicketCodes.push(part);
                     }
                     // Deteksi nama (huruf saja, minimal 2 kata)
-                    else if (/^[A-Za-z\s]+$/.test(part) && part.split(' ').length >= 2 && !playerName) {
+                    else if (/^[A-Za-z\s]+$/.test(part) && part.split(' ').length >= 2 && !player极速飞艇玩法) {
                         playerName = part;
                         // Jika nama terdiri dari beberapa bagian, gabungkan
                         for (let j = i + 1; j < parts.length; j++) {
-                            if (/^[A-Za-z\s]+$/.test(parts[j])) {
+                            if (/^[A极速飞艇玩法-Za-z\s]+$/.test(parts[j])) {
                                 playerName += ' ' + parts[j];
                             } else {
                                 break;
@@ -926,56 +1126,23 @@
                 document.getElementById('finalUserId').textContent = userId || '-';
                 document.getElementById('finalTicketCode').textContent = ticketCode || '-';
                 document.getElementById('finalPlayerName').textContent = playerName || '-';
-                document.getElementById('finalBetting').textContent = betting || '-';
+                document.getElementById('finalBetting').极速飞艇玩法textContent = betting || '-';
                 
                 // Simpan link globally
                 allImageLinks = imageLinks;
                 
-                // Tampilkan link screenshot
-                linkContainer.innerHTML = '';
-                finalLinkContainer.innerHTML = '';
+                // Tampilkan link screenshot dalam satu baris
+                singleLineLinks.innerHTML = '';
+                finalSingleLineLinks.innerHTML = '';
                 
                 if (imageLinks.length > 0) {
-                    imageLinks.forEach((link, index) => {
-                        // Untuk panel hasil
-                        const linkItem = document.createElement('div');
-                        linkItem.className = 'link-item';
-                        linkItem.innerHTML = `
-                            <div>
-                                <i class="fas fa-link"></i>
-                                <span class="link-text">${link}</span>
-                            </div>
-                            <button class="copy-link-btn" data-link="${link}">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
-                        `;
-                        linkContainer.appendChild(linkItem);
-                        
-                        // Untuk panel final result
-                        const finalLinkItem = document.createElement('div');
-                        finalLinkItem.className = 'link-item';
-                        finalLinkItem.innerHTML = `
-                            <div>
-                                <i class="fas fa-link"></i>
-                                <span class="link-text">${link}</span>
-                            </div>
-                            <button class="copy-link-btn" data-link="${link}">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
-                        `;
-                        finalLinkContainer.appendChild(finalLinkItem);
-                    });
-                    
-                    // Tambahkan event listener untuk tombol salin link
-                    document.querySelectorAll('.copy-link-btn').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const link = this.getAttribute('data-link');
-                            copyToClipboard(link);
-                        });
-                    });
+                    // Gabungkan semua link dengan koma dan spasi
+                    const linksText = imageLinks.join(', ');
+                    singleLineLinks.textContent = linksText;
+                    finalSingleLineLinks.textContent = linksText;
                 } else {
-                    linkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
-                    finalLinkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
+                    singleLineLinks.innerHTML = '<i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan';
+                    finalSingleLineLinks.innerHTML = '<i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan';
                 }
                 
                 // Tampilkan gambar di galeri
@@ -1013,6 +1180,41 @@
                 }
             }
             
+            // Create floating particles effect
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 40;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random size
+                    const size = Math.random() * 12 + 5;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    
+                    // Random color
+                    const colors = [
+                        'rgba(126, 34, 206, 0.6)',
+                        'rgba(6, 182, 212, 0.6)',
+                        'rgba(249, 115, 22, 0.6)',
+                        'rgba(236, 72, 153, 0.6)'
+                    ];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Random animation duration
+                    particle.style.animationDuration = `${Math.random() * 25 + 15}s`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
             // Close modal when clicking on X
             closeModal.addEventListener('click', function() {
                 modal.style.display = 'none';
@@ -1035,29 +1237,12 @@
                 });
             });
             
-            // Copy functionality untuk tombol salin semua
-            copyAllBtn.addEventListener('click', function() {
-                const userId = document.getElementById('finalUserId').textContent;
-                const ticketCode = document.getElementById('finalTicketCode').textContent;
-                const playerName = document.getElementById('finalPlayerName').textContent;
-                const betting = document.getElementById('finalBetting').textContent;
-                
-                // Get all links
-                const links = [];
-                document.querySelectorAll('#finalLinkContainer .link-text').forEach(item => {
-                    links.push(item.textContent.trim());
-                });
-                
-                const textToCopy = `User ID: ${userId}\nKode Tiket: ${ticketCode}\nNama Pemain: ${playerName}\nLink Screenshot:\n${links.join('\n')}\nBettingan: ${betting}`;
-                
-                copyToClipboard(textToCopy);
-            });
-            
             // Copy functionality untuk tombol salin semua link
             copyAllLinksBtn.addEventListener('click', function() {
                 if (allImageLinks.length > 0) {
-                    const textToCopy = allImageLinks.join('\n');
-                    copyToClipboard(textToCopy);
+                    // Menggabungkan link dengan koma dan spasi
+                    const textToCopy = allImageLinks.join(', ');
+                    copyToClipboard(textToCopy, `Semua link (${allImageLinks.length}) berhasil disalin!`);
                 } else {
                     alert('Tidak ada link untuk disalin');
                 }
@@ -1066,16 +1251,33 @@
             // Copy functionality untuk tombol salin semua link di final result
             copyAllLinksFinalBtn.addEventListener('click', function() {
                 if (allImageLinks.length > 0) {
-                    const textToCopy = allImageLinks.join('\n');
-                    copyToClipboard(textToCopy);
+                    // Menggabungkan link dengan koma dan spasi
+                    const textToCopy = allImageLinks.join(', ');
+                    copyToClipboard(textToCopy, `Semua link (${allImageLinks.length}) berhasil disalin!`);
                 } else {
                     alert('Tidak ada link untuk disalin');
                 }
             });
             
+            // Copy functionality untuk tombol salin semua data
+            copyAllBtn.addEventListener('click', function() {
+                const userId = document.getElementById('finalUserId').textContent;
+                const ticketCode = document.getElementById('finalTicketCode').textContent;
+                const playerName = document.getElementById('finalPlayerName').textContent;
+                const betting = document.getElementById('finalBetting').textContent;
+                
+                // Get all links dan gabungkan dengan koma dan spasi
+                const links = allImageLinks.join(', ');
+                
+                const textToCopy = `User ID: ${userId}\nKode Tiket: ${ticketCode}\nNama Pemain: ${playerName}\nLink Bukti Screenshot: ${links}\nBettingan: ${betting}`;
+                
+                copyToClipboard(textToCopy, 'Semua data berhasil disalin!');
+            });
+            
             // Fungsi untuk menyalin teks ke clipboard
-            function copyToClipboard(text) {
+            function copyToClipboard(text, customMessage = 'Teks berhasil disalin!') {
                 navigator.clipboard.writeText(text).then(function() {
+                    copySuccess.innerHTML = `<i class="fas fa-check-circle"></i> ${customMessage}`;
                     copySuccess.style.display = 'block';
                     setTimeout(function() {
                         copySuccess.style.display = 'none';
@@ -1090,6 +1292,7 @@
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
                     
+                    copySuccess.innerHTML = `<i class="fas fa-check-circle"></极速飞艇玩法> ${customMessage}`;
                     copySuccess.style.display = 'block';
                     setTimeout(function() {
                         copySuccess.style.display = 'none';
