@@ -6,6 +6,7 @@
     <title>Laporan Kesalahan CS Line Togel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #4e73df;
@@ -16,115 +17,211 @@
             --success-color: #1cc88a;
             --warning-color: #f6c23e;
             --danger-color: #e74a3b;
+            --gold-color: #ffd700;
+            --silver-color: #c0c0c0;
+            --bronze-color: #cd7f32;
+            --dark-text: #2e3a59;
+            --light-text: #6c757d;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7ff 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1400px;
         }
         
         .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             color: white;
-            padding: 2rem 0;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+            padding: 2.5rem 0;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-weight: 300;
         }
         
         .card {
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
             overflow: hidden;
+            color: white;
+            animation: slideUp 0.5s ease-out;
         }
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
         }
         
         .card-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--glass-border);
             color: white;
-            border-radius: 15px 15px 0 0 !important;
-            font-weight: bold;
-            padding: 1rem 1.5rem;
-            border-bottom: none;
+            border-radius: 20px 20px 0 0 !important;
+            font-weight: 600;
+            padding: 1.25rem 1.75rem;
+            font-size: 1.1rem;
         }
         
         .card-body {
-            padding: 1.5rem;
+            padding: 1.75rem;
         }
         
-        .error-count {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 1.75rem;
+            text-align: center;
+            box-shadow: 0 4px 20px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .stats-number {
             font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stats-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 400;
         }
         
         .table-responsive {
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table {
+            color: white;
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
         }
         
         .table th {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
             border: none;
-            padding: 1rem;
-            font-weight: 600;
+            padding: 1.2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
         
         .table td {
-            padding: 1rem;
+            padding: 1.2rem;
             vertical-align: middle;
-            border-color: #e3e6f0;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
         
-        .table-hover tbody tr:hover {
-            background-color: rgba(78, 115, 223, 0.05);
-        }
-        
-        .badge-error {
-            background-color: var(--accent-color);
-            padding: 0.5em 0.8em;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-        }
-        
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-            flex-direction: column;
-        }
-        
-        .spinner {
-            width: 3rem;
-            height: 3rem;
-            color: var(--primary-color);
-        }
-        
-        .last-updated {
-            font-size: 0.9rem;
-            color: #6c757d;
-            background: #f8f9fc;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            display: inline-block;
+        .table-hover tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
         }
         
         .cs-avatar {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             display: flex;
@@ -132,119 +229,221 @@
             justify-content: center;
             color: white;
             font-weight: bold;
-            margin-right: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .progress {
-            height: 10px;
-            margin-top: 5px;
-            border-radius: 5px;
-            background-color: #eaecf4;
-        }
-        
-        .progress-bar {
-            border-radius: 5px;
-        }
-        
-        .search-container {
-            margin-bottom: 20px;
-        }
-        
-        .pagination {
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .alert-info {
-            border-left: 5px solid var(--primary-color);
-            border-radius: 8px;
-            background-color: #f8f9fc;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem;
-        }
-        
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .stat-label {
-            color: #5a5c69;
-            font-size: 0.9rem;
-        }
-        
-        .top-error-item {
-            transition: background-color 0.2s;
-            border-left: none;
-            border-right: none;
-        }
-        
-        .top-error-item:first-child {
-            border-top: none;
-        }
-        
-        .top-error-item:hover {
-            background-color: #f8f9fc;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border: none;
-            border-radius: 8px;
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            transform: translateY(-2px);
+            margin-right: 12px;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
         .status-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
+            padding: 0.6rem 1.1rem;
+            border-radius: 25px;
+            font-weight: 500;
             font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .status-good {
-            background-color: rgba(28, 200, 138, 0.2);
-            color: var(--success-color);
+            background: rgba(28, 200, 138, 0.2);
+            color: #1cc88a;
+            border: 1px solid rgba(28, 200, 138, 0.3);
         }
         
         .status-warning {
-            background-color: rgba(246, 194, 62, 0.2);
-            color: var(--warning-color);
+            background: rgba(246, 194, 62, 0.2);
+            color: #f6c23e;
+            border: 1px solid rgba(246, 194, 62, 0.3);
         }
         
-        .status-critical {
-            background-color: rgba(231, 74, 59, 0.2);
+        .status-danger {
+            background: rgba(231, 74, 59, 0.2);
+            color: #e74a3b;
+            border: 1px solid rgba(231, 74, 59, 0.3);
+        }
+        
+        .rank-badge {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rank-1 {
+            background: linear-gradient(135deg, var(--gold-color) 0%, #ffcc00 100%);
+        }
+        
+        .rank-2 {
+            background: linear-gradient(135deg, var(--silver-color) 0%, #a6a6a6 100%);
+        }
+        
+        .rank-3 {
+            background: linear-gradient(135deg, var(--bronze-color) 0%, #a56c2f 100%);
+        }
+        
+        .winner-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 1.5rem;
+            height: 100%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .winner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+        
+        .winner-card-1 {
+            border: 2px solid var(--gold-color);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+        }
+        
+        .winner-card-2 {
+            border: 2px solid var(--silver-color);
+            box-shadow: 0 8px 25px rgba(192, 192, 192, 0.2);
+        }
+        
+        .winner-card-3 {
+            border: 2px solid var(--bronze-color);
+            box-shadow: 0 8px 25px rgba(205, 127, 50, 0.2);
+        }
+        
+        .winner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .winner-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .refresh-btn {
+            cursor: pointer;
+            transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .last-updated {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.7rem 1.3rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .floating-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark-text);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .floating-notification.success {
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .floating-notification.error {
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+        
+        .notification-success {
+            color: var(--success-color);
+        }
+        
+        .notification-error {
             color: var(--danger-color);
         }
         
-        .filter-section {
-            background-color: #f8f9fc;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .refresh-animation {
-            animation: rotate 1s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .pulse {
+        .auto-update-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(28, 200, 138, 0.9);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             animation: pulse 2s infinite;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         @keyframes pulse {
@@ -253,77 +452,179 @@
             100% { transform: scale(1); }
         }
         
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Responsive styles */
         @media (max-width: 768px) {
+            .header {
+                padding: 2rem 0;
+            }
+            
             .card-header {
-                padding: 0.75rem 1rem;
+                padding: 1rem 1.25rem;
             }
             
             .card-body {
-                padding: 1rem;
+                padding: 1.5rem;
             }
             
             .table td, .table th {
-                padding: 0.75rem;
+                padding: 1rem;
             }
             
-            .error-count {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .stats-card {
+                padding: 1.5rem;
+            }
+            
+            .stats-number {
                 font-size: 2rem;
             }
         }
-
-        .debug-panel {
-            background-color: #f8f9fc;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            max-height: 200px;
-            overflow-y: auto;
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 50px;
+            height: 50px;
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+        
+        .shape-3 {
+            width: 70px;
+            height: 70px;
+            bottom: 15%;
+            left: 8%;
+            animation-delay: 2s;
+        }
+        
+        .shape-4 {
+            width: 60px;
+            height: 60px;
+            bottom: 25%;
+            right: 7%;
+            animation-delay: 3s;
         }
     </style>
 </head>
 <body>
-    <div class="header text-center">
-        <div class="container">
-            <h1 class="display-4"><i class="fas fa-chart-line me-2"></i>Laporan Kesalahan CS Line Togel</h1>
-            <p class="lead">Monitoring dan evaluasi performa customer service</p>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+
+    <div class="floating-notification success" id="updateNotification">
+        <i class="fas fa-check-circle notification-icon notification-success"></i>
+        <div>
+            <strong>Data Diperbarui!</strong>
+            <div>Data terbaru telah berhasil diambil</div>
         </div>
     </div>
 
+    <div class="auto-update-indicator" id="autoUpdateIndicator">
+        <i class="fas fa-sync-alt"></i> Auto-update aktif
+    </div>
+
     <div class="container">
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <div class="alert alert-info">
-                    <strong><i class="fas fa-info-circle me-2"></i>Info:</strong> Data diambil langsung dari Google Sheets. Pastikan spreadsheet sudah dipublikasikan agar data dapat diakses.
-                    <div class="form-check form-switch mt-2">
-                        <input class="form-check-input" type="checkbox" id="useSampleData" checked>
-                        <label class="form-check-label" for="useSampleData">Gunakan data contoh untuk testing</label>
-                    </div>
+        <div class="header text-center mb-5">
+            <h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>Laporan Kesalahan CS Line Togel</h1>
+            <p class="lead">Monitoring dan evaluasi performa customer service</p>
+            
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class="refresh-btn me-3" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="last-updated" id="lastUpdated">
+                    <i class="fas fa-clock me-1"></i>Terakhir diperbarui: -
                 </div>
             </div>
         </div>
 
+        <div class="stats-grid">
+            <div class="stats-card">
+                <div class="stats-number" id="totalErrors">305</div>
+                <div class="stats-label">Total Kesalahan</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="totalCS">20</div>
+                <div class="stats-label">Jumlah CS</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="averageErrors">15.3</div>
+                <div class="stats-label">Rata-rata Kesalahan</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="criticalCount">4</div>
+                <div class="stats-label">CS Status Danger</div>
+            </div>
+        </div>
+
         <div class="row mb-4">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <i class="fas fa-info-circle me-2"></i>Informasi Data
+                        <i class="fas fa-trophy me-2"></i>Top 3 Performa Terbaik
                     </div>
                     <div class="card-body">
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                            <div class="mb-3 mb-md-0 text-center text-md-start">
-                                <h5>Sumber Data</h5>
-                                <p class="mb-0">Google Sheets - Real Time</p>
-                                <small class="text-muted">https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E</small>
-                            </div>
-                            <div class="text-center text-md-end">
-                                <div class="last-updated mb-2" id="lastUpdated">
-                                    <i class="fas fa-clock me-1"></i>Terakhir diperbarui: -
+                        <div class="row" id="top3Container">
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-1 text-center p-3">
+                                    <div class="winner-badge">🥇</div>
+                                    <h4>Juara 1</h4>
+                                    <div class="cs-avatar mx-auto mb-2">T</div>
+                                    <h5>TOMMY</h5>
+                                    <p class="mb-1">HASIM C6735321</p>
+                                    <div class="stats-number text-success">5</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
                                 </div>
-                                <button class="btn btn-primary" id="refreshBtn">
-                                    <i class="fas fa-sync-alt me-1"></i>Refresh Data
-                                </button>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-2 text-center p-3">
+                                    <div class="winner-badge">🥈</div>
+                                    <h4>Juara 2</h4>
+                                    <div class="cs-avatar mx-auto mb-2">W</div>
+                                    <h5>WILLY</h5>
+                                    <p class="mb-1">PERAYUDA E0089312</p>
+                                    <div class="stats-number text-success">5</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-3 text-center p-3">
+                                    <div class="winner-badge">🥉</div>
+                                    <h4>Juara 3</h4>
+                                    <div class="cs-avatar mx-auto mb-2">M</div>
+                                    <h5>MAHENDRAN</h5>
+                                    <p class="mb-1">C6813799</p>
+                                    <div class="stats-number text-success">6</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -332,117 +633,246 @@
         </div>
 
         <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <i class="fas fa-chart-bar me-2"></i>Statistik Kesalahan
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center mb-4">
-                            <div class="col-12">
-                                <div class="error-count" id="totalErrors">0</div>
-                                <p class="text-muted">Total Kesalahan</p>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="stat-card">
-                                    <div class="stat-number" id="totalCS">0</div>
-                                    <div class="stat-label">Total CS</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="stat-card">
-                                    <div class="stat-number" id="averageErrors">0</div>
-                                    <div class="stat-label">Rata-rata Kesalahan</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-3">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>CS dengan kesalahan terbanyak:</span>
-                                <strong id="mostErrors">-</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header text-center">
-                        <i class="fas fa-exclamation-triangle me-2"></i>5 Kesalahan Tertinggi
-                    </div>
-                    <div class="card-body p-0">
-                        <ol id="topErrorsList" class="list-group list-group-numbered list-group-flush">
-                            <li class="list-group-item top-error-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">Memuat data...</div>
-                                </div>
-                                <span class="badge-error">0</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-center d-flex justify-content-between align-items-center">
                         <span><i class="fas fa-list me-2"></i>Daftar Lengkap Kesalahan CS</span>
-                        <span class="badge bg-danger" id="csCount">0 CS</span>
+                        <span class="badge bg-danger" id="csCount">20 CS</span>
                     </div>
                     <div class="card-body">
-                        <div class="filter-section">
-                            <div class="row">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        <input type="text" id="searchInput" class="form-control" placeholder="Cari nama CS atau ID...">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <select class="form-select" id="sortSelect">
-                                        <option value="name">Urutkan berdasarkan Nama</option>
-                                        <option value="errors-desc">Kesalahan (Tinggi ke Rendah)</option>
-                                        <option value="errors-asc">Kesalahan (Rendah ke Tinggi)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <div class="table-responsive">
                             <table class="table table-hover" id="csTable">
                                 <thead>
                                     <tr>
-                                        <th>CS</th>
-                                        <th>ID</th>
-                                        <th>Jumlah Kesalahan</th>
+                                        <th>Peringkat</th>
+                                        <th>Nama CS</th>
+                                        <th>Total Kesalahan</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody id="csTableBody">
+                                <tbody>
                                     <tr>
-                                        <td colspan="4" class="text-center">
-                                            <div class="loading">
-                                                <div class="spinner-border spinner" role="status"></div>
-                                                <p class="mt-2">Memuat data...</p>
+                                        <td><div class="rank-badge rank-1">1</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">T</div>
+                                                <div>TOMMY HASIM C6735321</div>
                                             </div>
                                         </td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-good">Good</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge rank-2">2</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">W</div>
+                                                <div>WILLY PERAYUDA E0089312</div>
+                                            </div>
+                                        </td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-good">Good</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge rank-3">3</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">M</div>
+                                                <div>MAHENDRAN C6813799</div>
+                                            </div>
+                                        </td>
+                                        <td>6</td>
+                                        <td><span class="status-badge status-good">Good</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">4</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">A</div>
+                                                <div>ANGGA AZMAL HARAHAP C9260456</div>
+                                            </div>
+                                        </td>
+                                        <td>6</td>
+                                        <td><span class="status-badge status-good">Good</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">5</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">F</div>
+                                                <div>FALLEN HARDINANSAH TAJU C6931386</div>
+                                            </div>
+                                        </td>
+                                        <td>8</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">6</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">A</div>
+                                                <div>ARI ROMANDUS FERNANDO C8386112</div>
+                                            </div>
+                                        </td>
+                                        <td>8</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">7</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">S</div>
+                                                <div>SUHAN RAZ C5862955</div>
+                                            </div>
+                                        </td>
+                                        <td>8</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">8</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">E</div>
+                                                <div>EGI SETIAWAN C8410298</div>
+                                            </div>
+                                        </td>
+                                        <td>9</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">9</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">R</div>
+                                                <div>RANJIT X1068990</div>
+                                            </div>
+                                        </td>
+                                        <td>12</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">10</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">E</div>
+                                                <div>ERI HARIANTO C8493406</div>
+                                            </div>
+                                        </td>
+                                        <td>13</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">11</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">D</div>
+                                                <div>DAVID C6169860 / E6864058</div>
+                                            </div>
+                                        </td>
+                                        <td>14</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">12</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">L</div>
+                                                <div>LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988</div>
+                                            </div>
+                                        </td>
+                                        <td>15</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">13</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">A</div>
+                                                <div>AKAS FARMA C8490102</div>
+                                            </div>
+                                        </td>
+                                        <td>15</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">14</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">W</div>
+                                                <div>WIDJAYA C6202945 / E7721607</div>
+                                            </div>
+                                        </td>
+                                        <td>17</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">15</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">A</div>
+                                                <div>ANDHIKA DWI PUTRA C8543470</div>
+                                            </div>
+                                        </td>
+                                        <td>18</td>
+                                        <td><span class="status-badge status-warning">Warning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">16</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">A</div>
+                                                <div>ALFINO MUKTI C8493352</div>
+                                            </div>
+                                        </td>
+                                        <td>21</td>
+                                        <td><span class="status-badge status-danger">Danger</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">17</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">S</div>
+                                                <div>SAMSUL MAARIF C7008737</div>
+                                            </div>
+                                        </td>
+                                        <td>25</td>
+                                        <td><span class="status-badge status-danger">Danger</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">18</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">P</div>
+                                                <div>PARIS AMRULLOH E0237731</div>
+                                            </div>
+                                        </td>
+                                        <td>29</td>
+                                        <td><span class="status-badge status-danger">Danger</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">19</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">H</div>
+                                                <div>HARIANTO X2242791</div>
+                                            </div>
+                                        </td>
+                                        <td>36</td>
+                                        <td><span class="status-badge status-danger">Danger</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="rank-badge">20</div></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="cs-avatar">R</div>
+                                                <div>RAHMADI SORMIN E0685561</div>
+                                            </div>
+                                        </td>
+                                        <td>36</td>
+                                        <td><span class="status-badge status-danger">Danger</span></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination" id="pagination">
-                                <!-- Pagination akan di-generate oleh JavaScript -->
-                            </ul>
-                        </nav>
-
-                        <div class="debug-panel mt-3 d-none" id="debugPanel">
-                            <h6>Debug Information:</h6>
-                            <div id="debugContent"></div>
                         </div>
                     </div>
                 </div>
@@ -451,477 +881,257 @@
     </div>
 
     <script>
-        // Konfigurasi
-        const SHEET_ID = '1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E';
-        const SHEET_NAME = 'Sheet1';
-        const ROWS_PER_PAGE = 10;
-        
-        // Variabel global untuk data
+        // Data dari Google Sheets
         let csData = [];
-        let currentPage = 1;
-        let filteredData = [];
-        let useSampleData = true; // Default menggunakan data contoh
+        let previousData = [];
+        let autoUpdateInterval;
         
-        // Data contoh untuk testing berdasarkan daftar yang diberikan
-        const sampleData = generateSampleData();
-        
-        function generateSampleData() {
-            const names = [
-                "WIDJAYA C6202945 / E7721607",
-                "DAVID C6169860 / E6864058",
-                "FALLEN HARDINANSAH TAJU C6931386",
-                "CHARLIE C7377694/E9519110",
-                "HARIANTO X2242791",
-                "RINAL ABDILLAH NASUTION C8409170",
-                "ERI HARIANTO C8493406",
-                "MAHENDRAN C6813799",
-                "ANDHIKA DWI PUTRA C8543470",
-                "TOMMY HASIM C6735321",
-                "EGI SETIAWAN C8410298",
-                "RANJIT X1068990",
-                "WILLY PERAYUDA E0089312",
-                "ANGGA AZMAL HARAHAP C9260456",
-                "LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988",
-                "ANDI E4487475",
-                "ALFINO MUKTI C8493352",
-                "AKAS FARMA C8490102",
-                "ARI ROMANDUS FERNANDO C8386112",
-                "PARIS AMRULLOH E0237731",
-                "SAMSUL MAARIF C7008737",
-                "SUHAN RAZ C5862955",
-                "RAHMADI SORMIN E0685561"
-            ];
-            
-            const errorTypes = [
-                "Salah input data", 
-                "Respon lambat", 
-                "Salah informasi", 
-                "Tidak ramah",
-                "Tidak mematuhi SOP",
-                "Kesalahan teknis",
-                "Tidak follow up"
-            ];
-            
-            const data = [];
-            const startDate = new Date(2023, 5, 1); // 1 Juni 2023
-            const endDate = new Date(); // Hari ini
-            
-            // Generate kesalahan acak untuk setiap CS
-            names.forEach(name => {
-                // Pisahkan nama dan ID
-                const parts = name.split(' ');
-                const csName = parts.slice(0, -1).join(' ');
-                const csId = parts[parts.length - 1];
-                
-                // Jumlah kesalahan acak antara 0-15
-                const errorCount = Math.floor(Math.random() * 16);
-                
-                for (let i = 0; i < errorCount; i++) {
-                    // Tanggal acak antara startDate dan endDate
-                    const randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
-                    const formattedDate = randomDate.toISOString().split('T')[0];
-                    
-                    // Jenis kesalahan acak
-                    const randomErrorType = errorTypes[Math.floor(Math.random() * errorTypes.length)];
-                    
-                    data.push({
-                        'Tanggal': formattedDate,
-                        'Nama CS': csName,
-                        'ID CS': csId,
-                        'Jenis Kesalahan': randomErrorType,
-                        'Keterangan': `Contoh keterangan untuk ${randomErrorType.toLowerCase()}`
-                    });
-                }
-            });
-            
-            return data;
+        // Data contoh jika tidak bisa mengambil dari Google Sheets
+        const sampleData = [
+            { name: "WIDJAYA C6202945 / E7721607", errors: 17 },
+            { name: "DAVID C6169860 / E6864058", errors: 14 },
+            { name: "FALLEN HARDINANSAH TAJU C6931386", errors: 8 },
+            { name: "HARIANTO X2242791", errors: 36 },
+            { name: "ERI HARIANTO C8493406", errors: 13 },
+            { name: "MAHENDRAN C6813799", errors: 6 },
+            { name: "ANDHIKA DWI PUTRA C8543470", errors: 18 },
+            { name: "TOMMY HASIM C6735321", errors: 5 },
+            { name: "EGI SETIAWAN C8410298", errors: 9 },
+            { name: "RANJIT X1068990", errors: 12 },
+            { name: "WILLY PERAYUDA E0089312", errors: 5 },
+            { name: "ANGGA AZMAL HARAHAP C9260456", errors: 6 },
+            { name: "LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988", errors: 15 },
+            { name: "ALFINO MUKTI C8493352", errors: 21 },
+            { name: "AKAS FARMA C8490102", errors: 15 },
+            { name: "ARI ROMANDUS FERNANDO C8386112", errors: 8 },
+            { name: "PARIS AMRULLOH E0237731", errors: 29 },
+            { name: "SAMSUL MAARIF C7008737", errors: 25 },
+            { name: "SUHAN RAZ C5862955", errors: 8 },
+            { name: "RAHMADI SORMIN E0685561", errors: 36 }
+        ];
+
+        // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
+        function getStatus(errors) {
+            if (errors === 0) return { text: "Excellent", class: "status-good" };
+            if (errors <= 5) return { text: "Good", class: "status-good" };
+            if (errors <= 20) return { text: "Warning", class: "status-warning" };
+            return { text: "Danger", class: "status-danger" };
         }
 
-        // Fungsi untuk mengambil data dari Google Sheets
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(type, message) {
+            const notification = document.getElementById('updateNotification');
+            const icon = notification.querySelector('.notification-icon');
+            const strong = notification.querySelector('strong');
+            const div = notification.querySelector('div');
+            
+            notification.className = `floating-notification ${type}`;
+            icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} notification-icon notification-${type}`;
+            strong.textContent = type === 'success' ? 'Data Diperbarui!' : 'Error!';
+            div.innerHTML = message;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Fungsi untuk memuat data dari Google Sheets
         async function fetchDataFromSheet() {
             try {
-                // Tampilkan loading state
-                document.getElementById('csTableBody').innerHTML = `
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            <div class="loading">
-                                <div class="spinner-border spinner" role="status"></div>
-                                <p class="mt-2">Memuat data...</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-
-                // Reset debug panel
-                document.getElementById('debugPanel').classList.add('d-none');
+                // URL Google Sheets yang sudah dipublikasikan
+                const sheetUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
                 
-                let data = [];
+                const response = await fetch(sheetUrl);
                 
-                if (useSampleData) {
-                    // Gunakan data contoh
-                    data = sampleData;
-                    document.getElementById('debugContent').innerHTML = '<div class="text-success">Menggunakan data contoh</div>';
-                    document.getElementById('debugPanel').classList.remove('d-none');
-                } else {
-                    // URL untuk mengambil data dari Google Sheets sebagai CSV
-                    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
-                    
-                    // Fetch data
-                    const response = await fetch(url);
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    
-                    const csvData = await response.text();
-                    
-                    // Parse CSV ke JSON
-                    data = parseCSV(csvData);
-                    
-                    // Tampilkan data mentah untuk debugging
-                    document.getElementById('debugContent').innerHTML = 
-                        `<strong>Data mentah (${data.length} baris):</strong><br>` +
-                        `<pre>${JSON.stringify(data.slice(0, 3), null, 2)}</pre>` +
-                        (data.length > 3 ? `<div>... dan ${data.length - 3} baris lainnya</div>` : '');
-                    document.getElementById('debugPanel').classList.remove('d-none');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                // Proses data
-                processData(data);
+                const csvData = await response.text();
                 
-                // Update UI
-                updateUI();
+                // Parse CSV
+                const lines = csvData.split('\n').filter(line => line.trim() !== '');
+                const headers = lines[0].split(',').map(header => header.trim());
                 
-                // Update waktu terakhir
-                document.getElementById('lastUpdated').innerHTML = 
-                    `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
+                // Cari indeks kolom yang benar
+                const nameIndex = headers.findIndex(header => 
+                    header.toLowerCase().includes('nama') || header.toLowerCase().includes('cs')
+                );
+                
+                const errorIndex = headers.findIndex(header => 
+                    header.toLowerCase().includes('total') || header.toLowerCase().includes('kesalahan')
+                );
+                
+                // Jika tidak menemukan kolom yang sesuai, gunakan kolom pertama dan kedua
+                const finalNameIndex = nameIndex !== -1 ? nameIndex : 0;
+                const finalErrorIndex = errorIndex !== -1 ? errorIndex : 1;
+                
+                const data = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    const values = line.split(',').map(value => value.trim().replace(/"/g, ''));
+                    
+                    // Pastikan ada cukup nilai
+                    if (values.length > Math.max(finalNameIndex, finalErrorIndex)) {
+                        const name = values[finalNameIndex] || 'Tidak Diketahui';
+                        const errors = parseInt(values[finalErrorIndex]) || 0;
+                        
+                        data.push({ name, errors });
+                    }
+                }
+                
+                // Simpan data sebelumnya untuk perbandingan
+                previousData = [...csData];
+                
+                // Filter CS tertentu yang ingin dihilangkan
+                csData = data.filter(cs => 
+                    !cs.name.includes("RINAL ABDILLAH NASUTION") && 
+                    !cs.name.includes("ANDI") && 
+                    !cs.name.includes("CHARLIE")
+                );
+                
+                renderData();
+                showNotification('success', 'Data terbaru telah berhasil diambil');
                 
             } catch (error) {
                 console.error('Error fetching data:', error);
-                document.getElementById('csTableBody').innerHTML = `
-                    <tr>
-                        <td colspan="4" class="text-center text-danger">
-                            <i class="fas fa-exclamation-triangle me-2"></i>Gagal memuat data: ${error.message}
-                        </td>
-                    </tr>
-                `;
+                showNotification('error', 'Gagal memuat data: ' + error.message);
                 
-                // Tampilkan error di debug panel
-                document.getElementById('debugContent').innerHTML = 
-                    `<div class="text-danger">Error: ${error.message}</div>`;
-                document.getElementById('debugPanel').classList.remove('d-none');
+                // Fallback ke data statis jika terjadi error
+                if (csData.length === 0) {
+                    csData = sampleData;
+                    renderData();
+                }
             }
         }
-        
-        // Fungsi untuk parsing CSV
-        function parseCSV(csv) {
-            const lines = csv.split('\n').filter(line => line.trim() !== '');
-            if (lines.length === 0) return [];
+
+        // Fungsi untuk merender data
+        function renderData() {
+            // Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar)
+            const sortedData = [...csData].sort((a, b) => a.errors - b.errors);
             
-            const result = [];
+            // Hitung statistik
+            const totalErrors = sortedData.reduce((sum, cs) => sum + cs.errors, 0);
+            const totalCS = sortedData.length;
+            const averageErrors = totalCS > 0 ? (totalErrors / totalCS).toFixed(1) : 0;
+            const criticalCount = sortedData.filter(cs => cs.errors > 25).length;
             
-            // Ambil header (baris pertama)
-            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-            
-            // Proses setiap baris data
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue;
-                
-                const obj = {};
-                const currentline = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
-                
-                for (let j = 0; j < headers.length; j++) {
-                    // Handle kasus dimana jumlah kolom tidak sesuai
-                    if (j < currentline.length) {
-                        obj[headers[j]] = currentline[j] || '';
-                    } else {
-                        obj[headers[j]] = '';
-                    }
-                }
-                
-                result.push(obj);
-            }
-            
-            return result;
-        }
-        
-        // Fungsi untuk memproses data
-        function processData(data) {
-            // Reset data
-            csData = [];
-            
-            // Jika tidak ada data, keluar
-            if (data.length === 0) {
-                return;
-            }
-            
-            // Debug: Tampilkan keys dari data pertama untuk memeriksa struktur
-            const firstItem = data[0];
-            const keys = Object.keys(firstItem);
-            document.getElementById('debugContent').innerHTML += 
-                `<br><strong>Kolom yang terdeteksi:</strong> ${keys.join(', ')}`;
-            
-            // Cari kolom yang berisi nama CS
-            let nameKey = 'Nama CS';
-            if (!firstItem.hasOwnProperty('Nama CS')) {
-                // Coba cari kolom yang mungkin berisi nama
-                const possibleNameKeys = ['Nama', 'CS', 'Customer Service', 'Nama Customer Service', 'Name', 'CS Name'];
-                for (const key of possibleNameKeys) {
-                    if (firstItem.hasOwnProperty(key)) {
-                        nameKey = key;
-                        break;
-                    }
-                }
-            }
-            
-            // Cari kolom yang berisi ID CS
-            let idKey = 'ID CS';
-            if (!firstItem.hasOwnProperty('ID CS')) {
-                // Coba cari kolom yang mungkin berisi ID
-                const possibleIdKeys = ['ID', 'CS ID', 'ID Customer Service', 'CS Code', 'Code'];
-                for (const key of possibleIdKeys) {
-                    if (firstItem.hasOwnProperty(key)) {
-                        idKey = key;
-                        break;
-                    }
-                }
-            }
-            
-            document.getElementById('debugContent').innerHTML += 
-                `<br><strong>Kolom nama:</strong> ${nameKey}, <strong>Kolom ID:</strong> ${idKey}`;
-            
-            // Hitung jumlah kesalahan per CS
-            const errorCounts = {};
-            
-            data.forEach(row => {
-                const csName = row[nameKey] || 'Tidak Diketahui';
-                const csId = row[idKey] || 'Tidak Diketahui';
-                
-                if (!errorCounts[csName]) {
-                    errorCounts[csName] = {
-                        id: csId,
-                        count: 0,
-                        name: csName
-                    };
-                }
-                
-                errorCounts[csName].count++;
-            });
-            
-            // Konversi ke array
-            csData = Object.values(errorCounts);
-            
-            // Simpan data yang sudah difilter
-            filteredData = [...csData];
-            
-            document.getElementById('debugContent').innerHTML += 
-                `<br><strong>Data CS yang diproses:</strong> ${csData.length} CS ditemukan`;
-        }
-        
-        // Fungsi untuk memperbarui UI dengan data terbaru
-        function updateUI() {
             // Update statistik
-            document.getElementById('totalErrors').textContent = csData.reduce((sum, cs) => sum + cs.count, 0);
-            document.getElementById('totalCS').textContent = csData.length;
-            document.getElementById('averageErrors').textContent = csData.length ? 
-                Math.round(csData.reduce((sum, cs) => sum + cs.count, 0) / csData.length) : 0;
+            document.getElementById('totalErrors').textContent = totalErrors;
+            document.getElementById('totalCS').textContent = totalCS;
+            document.getElementById('averageErrors').textContent = averageErrors;
+            document.getElementById('criticalCount').textContent = criticalCount;
+            document.getElementById('csCount').textContent = `${totalCS} CS`;
             
-            // CS dengan kesalahan terbanyak
-            if (csData.length) {
-                const mostErrors = csData.reduce((max, cs) => (cs.count > max.count ? cs : max), csData[0]);
-                document.getElementById('mostErrors').textContent = `${mostErrors.name} (${mostErrors.count})`;
-            } else {
-                document.getElementById('mostErrors').textContent = '-';
-            }
+            // Update waktu terakhir
+            document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
             
-            // Update 5 kesalahan tertinggi
-            updateTopErrorsList();
-            
-            // Update tabel
-            updateTable();
-            
-            // Update jumlah CS
-            document.getElementById('csCount').textContent = `${csData.length} CS`;
-        }
-        
-        // Fungsi untuk memperbarui daftar 5 kesalahan tertinggi
-        function updateTopErrorsList() {
-            const topErrorsList = document.getElementById('topErrorsList');
-            
-            if (!csData.length) {
-                topErrorsList.innerHTML = `
-                    <li class="list-group-item top-error-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">Tidak ada data</div>
+            // Render top 3
+            const top3 = sortedData.slice(0, 3);
+            const top3Html = top3.map((cs, index) => {
+                const status = getStatus(cs.errors);
+                const shortName = cs.name.split(' ')[0];
+                
+                return `
+                    <div class="col-md-4 mb-3">
+                        <div class="winner-card winner-card-${index+1} text-center p-3">
+                            <div class="winner-badge">${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
+                            <h4>Juara ${index+1}</h4>
+                            <div class="cs-avatar mx-auto mb-2">${shortName.charAt(0)}</div>
+                            <h5>${shortName}</h5>
+                            <p class="mb-1 text-truncate">${cs.name.split(' ').slice(1).join(' ')}</p>
+                            <div class="stats-number ${cs.errors === 0 ? 'text-success' : 'text-primary'}">${cs.errors}</div>
+                            <div class="stats-label">Kesalahan</div>
+                            <span class="status-badge ${status.class}">${status.text}</span>
                         </div>
-                    </li>
-                `;
-                return;
-            }
-            
-            // Urutkan berdasarkan kesalahan terbanyak
-            const sortedData = [...csData].sort((a, b) => b.count - a.count).slice(0, 5);
-            
-            topErrorsList.innerHTML = '';
-            
-            sortedData.forEach((cs, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item top-error-item d-flex justify-content-between align-items-start';
-                li.innerHTML = `
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">${cs.name}</div>
-                        <small class="text-muted">ID: ${cs.id}</small>
                     </div>
-                    <span class="badge-error">${cs.count}</span>
                 `;
-                topErrorsList.appendChild(li);
-            });
-        }
-        
-        // Fungsi untuk memperbarui tabel
-        function updateTable() {
-            const tableBody = document.getElementById('csTableBody');
+            }).join('');
             
-            if (!filteredData.length) {
-                tableBody.innerHTML = `
+            document.getElementById('top3Container').innerHTML = top3Html;
+            
+            // Render tabel
+            const tableHtml = sortedData.map((cs, index) => {
+                const status = getStatus(cs.errors);
+                let rankBadge = `<div class="rank-badge">${index+1}</div>`;
+                
+                if (index === 0) rankBadge = `<div class="rank-badge rank-1">1</div>`;
+                else if (index === 1) rankBadge = `<div class="rank-badge rank-2">2</div>`;
+                else if (index === 2) rankBadge = `<div class="rank-badge rank-3">3</div>`;
+                
+                return `
                     <tr>
-                        <td colspan="4" class="text-center">
-                            Tidak ada data yang sesuai dengan pencarian
+                        <td>${rankBadge}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="cs-avatar">${cs.name.charAt(0)}</div>
+                                <div>${cs.name}</div>
+                            </div>
                         </td>
+                        <td>${cs.errors}</td>
+                        <td><span class="status-badge ${status.class}">${status.text}</span></td>
                     </tr>
                 `;
-                return;
-            }
+            }).join('');
             
-            // Hitung pagination
-            const totalPages = Math.ceil(filteredData.length / ROWS_PER_PAGE);
-            if (currentPage > totalPages) currentPage = 1;
-            
-            // Data untuk halaman saat ini
-            const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
-            const endIndex = Math.min(startIndex + ROWS_PER_PAGE, filteredData.length);
-            const currentData = filteredData.slice(startIndex, endIndex);
-            
-            // Isi tabel
-            tableBody.innerHTML = '';
-            
-            currentData.forEach(cs => {
-                const tr = document.createElement('tr');
-                
-                // Tentukan status berdasarkan jumlah kesalahan
-                let statusClass = 'status-good';
-                let statusText = 'Baik';
-                
-                if (cs.count >= 10) {
-                    statusClass = 'status-critical';
-                    statusText = 'Kritis';
-                } else if (cs.count >= 5) {
-                    statusClass = 'status-warning';
-                    statusText = 'Perhatian';
-                }
-                
-                tr.innerHTML = `
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="cs-avatar">${cs.name.charAt(0)}</div>
-                            <div>${cs.name}</div>
-                        </div>
-                    </td>
-                    <td>${cs.id}</td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <span class="me-2">${cs.count}</span>
-                            <div class="progress" style="width: 100px">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: ${Math.min(cs.count * 10, 100)}%"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                `;
-                
-                tableBody.appendChild(tr);
-            });
-            
-            // Update pagination
-            updatePagination(totalPages);
+            document.getElementById('csTableBody').innerHTML = tableHtml;
         }
-        
-        // Fungsi untuk memperbarui pagination
-        function updatePagination(totalPages) {
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
+
+        // Fungsi untuk memulai auto-update
+        function startAutoUpdate() {
+            // Hapus interval sebelumnya jika ada
+            if (autoUpdateInterval) {
+                clearInterval(autoUpdateInterval);
             }
             
-            let paginationHTML = '';
+            // Set interval untuk auto-update setiap 2 menit
+            autoUpdateInterval = setInterval(fetchDataFromSheet, 120000);
             
-            // Tombol Previous
-            paginationHTML += `
-                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
-                </li>
-            `;
-            
-            // Halaman
-            for (let i = 1; i <= totalPages; i++) {
-                paginationHTML += `
-                    <li class="page-item ${currentPage === i ? 'active' : ''}">
-                        <a class="page-link" href="#" data-page="${i}">${i}</a>
-                    </li>
-                `;
-            }
-            
-            // Tombol Next
-            paginationHTML += `
-                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
-                </li>
-            `;
-            
-            pagination.innerHTML = paginationHTML;
-            
-            // Tambahkan event listener untuk pagination
-            pagination.querySelectorAll('.page-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentPage = parseInt(link.getAttribute('data-page'));
-                    updateTable();
-                });
-            });
+            // Tampilkan indikator auto-update
+            document.getElementById('autoUpdateIndicator').style.display = 'flex';
         }
-        
-        // Fungsi untuk mencari data
-        function searchData() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const sortBy = document.getElementById('sortSelect').value;
-            
-            // Filter data
-            filteredData = csData.filter(cs => 
-                cs.name.toLowerCase().includes(searchTerm) || 
-                (cs.id && cs.id.toLowerCase().includes(searchTerm))
-            );
-            
-            // Urutkan data
-            switch(sortBy) {
-                case 'name':
-                    filteredData.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
-                case 'errors-desc':
-                    filteredData.sort((a, b) => b.count - a.count);
-                    break;
-                case 'errors-asc':
-                    filteredData.sort((a, b) => a.count - b.count);
-                    break;
+
+        // Fungsi untuk menghentikan auto-update
+        function stopAutoUpdate() {
+            if (autoUpdateInterval) {
+                clearInterval(autoUpdateInterval);
+                autoUpdateInterval = null;
             }
             
-            // Reset ke halaman pertama
-            currentPage = 1;
-            
-            // Perbarui tabel
-            updateTable();
+            // Sembunyikan indikator auto-update
+            document.getElementById('autoUpdateIndicator').style.display = 'none';
         }
-        
+
         // Event listener saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', ()
+        document.addEventListener('DOMContentLoaded', function() {
+            // Muat data pertama kali
+            fetchDataFromSheet();
+            
+            // Mulai auto-update
+            startAutoUpdate();
+            
+            // Event listener untuk tombol refresh
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                fetchDataFromSheet();
+            });
+        });
+
+        // Handle visibilitas halaman untuk mengoptimalkan auto-update
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Hentikan auto-update ketika tab tidak aktif
+                stopAutoUpdate();
+            } else {
+                // Lanjutkan auto-update ketika tab aktif kembali
+                startAutoUpdate();
+                // Perbarui data
+                fetchDataFromSheet();
+            }
+        });
+    </script>
+</body>
+</html>
