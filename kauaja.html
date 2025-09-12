@@ -60,7 +60,7 @@
       <tr>
         <th>No</th>
         <th>Nama CS</th>
-        <th>Kesalahan</th>
+        <th>Total Kesalahan</th>
       </tr>
     </thead>
     <tbody id="csBody"></tbody>
@@ -81,15 +81,19 @@
         const lines = csvText.split('\n');
         
         // Ambil header (baris pertama)
-        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+        const rawHeaders = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
 
-        // Cari indeks kolom "Nama CS" dan "Kesalahan"
-        const namaCsIndex = headers.indexOf('Nama CS');
-        const kesalahanIndex = headers.indexOf('Kesalahan');
+        // Cari indeks kolom
+        const namaCsIndex = rawHeaders.indexOf('NAMA CS');
+        const totalKesalahanIndex = rawHeaders.indexOf('TOTAL KESALAHAN');
 
-        if (namaCsIndex === -1 || kesalahanIndex === -1) {
+        if (namaCsIndex === -1 || totalKesalahanIndex === -1) {
           document.getElementById('loading').style.display = 'none';
-          document.getElementById('error').innerText = 'Kolom "Nama CS" atau "Kesalahan" tidak ditemukan di sheet. Pastikan nama kolom tepat.';
+          document.getElementById('error').innerText = 
+            `❌ Kolom tidak ditemukan!\n` +
+            `Header yang terdeteksi: [${rawHeaders.join(', ')}]\n` +
+            `Pastikan nama kolom persis: "NAMA CS" dan "TOTAL KESALAHAN"`;
+          console.log('Raw headers:', rawHeaders);
           return;
         }
 
@@ -101,17 +105,17 @@
           if (!lines[i].trim()) continue; // Skip baris kosong
 
           const row = lines[i].split(',');
-          const namaCs = row[namaCsIndex]?.replace(/"/g, '') || '-';
-          const kesalahan = row[kesalahanIndex]?.replace(/"/g, '') || '-';
+          const namaCs = row[namaCsIndex]?.replace(/"/g, '').trim() || '-';
+          const totalKesalahan = row[totalKesalahanIndex]?.replace(/"/g, '').trim() || '0';
 
-          // Hanya tampilkan jika nama CS ada
-          if (namaCs && namaCs !== '-') {
+          // Hanya tampilkan jika nama CS tidak kosong
+          if (namaCs && namaCs !== '-' && namaCs !== '') {
             count++;
             const tr = document.createElement('tr');
             tr.innerHTML = `
               <td>${count}</td>
               <td>${namaCs}</td>
-              <td>${kesalahan}</td>
+              <td>${totalKesalahan}</td>
             `;
             tbody.appendChild(tr);
           }
@@ -123,13 +127,18 @@
           document.getElementById('csTable').style.display = 'table';
         } else {
           document.getElementById('loading').style.display = 'none';
-          document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan.';
+          document.getElementById('error').innerText = '⚠️ Tidak ada data CS yang ditemukan.';
         }
       })
       .catch(error => {
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').innerText = `Gagal memuat data: ${error.message}. Pastikan sheet sudah di-share ke publik.`;
-        console.error('Error:', error);
+        document.getElementById('error').innerText = 
+          `❌ Gagal memuat data.\n` +
+          `Error: ${error.message}\n\n` +
+          `Pastikan:\n` +
+          `1. Sheet "part1" sudah di-share ke "Anyone with the link" → Viewer\n` +
+          `2. Link CSV tidak diblokir oleh firewall atau adblocker`;
+        console.error('Fetch error:', error);
       });
   </script>
 
