@@ -516,25 +516,12 @@
       font-weight: 600;
       color: var(--primary);
       margin-bottom: 5px;
-      display: flex;
-      justify-content: space-between;
     }
     
-    .error-link {
-      display: inline-block;
-      background: #3498db;
-      color: white;
-      padding: 5px 12px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      margin-top: 5px;
-      transition: all 0.3s;
-    }
-    
-    .error-link:hover {
-      background: #2980b9;
-      transform: translateY(-2px);
+    .error-detail {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
     
     @media (max-width: 900px) {
@@ -658,7 +645,7 @@
   <div id="errorModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Error Details for <span id="modalCsName"></span></h2>
+        <h2 class="modal-title">Detail Kesalahan untuk <span id="modalCsName"></span></h2>
         <span class="close-modal">&times;</span>
       </div>
       <ul class="error-list" id="errorList"></ul>
@@ -688,12 +675,11 @@
       const namaCsIndex = part1RawHeaders.indexOf('nama cs');
       const totalKesalahanIndex = part1RawHeaders.indexOf('total kesalahan');
       
-      // Proses data error details
+      // Proses data error details (hanya kolom A dan B)
       const errorLines = errorText.split('\n');
       const errorRawHeaders = errorLines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
       const errorNamaCsIndex = errorRawHeaders.indexOf('nama cs');
       const errorDetailIndex = errorRawHeaders.indexOf('detail kesalahan');
-      const errorLinkIndex = errorRawHeaders.indexOf('link');
       
       // Debug info
       const debugInfo = document.getElementById('debugInfo');
@@ -703,10 +689,10 @@
       debugHeaders.innerHTML = `<strong>Part1 Headers:</strong> ${part1RawHeaders.join(', ')}<br>
                                 <strong>Error Sheet Headers:</strong> ${errorRawHeaders.join(', ')}`;
       debugData.innerHTML = `<strong>Part1 Columns:</strong> Nama CS: ${namaCsIndex}, Total Kesalahan: ${totalKesalahanIndex}<br>
-                             <strong>Error Columns:</strong> Nama CS: ${errorNamaCsIndex}, Detail: ${errorDetailIndex}, Link: ${errorLinkIndex}`;
+                             <strong>Error Columns:</strong> Nama CS: ${errorNamaCsIndex}, Detail: ${errorDetailIndex}`;
       
       if (namaCsIndex === -1 || totalKesalahanIndex === -1 || 
-          errorNamaCsIndex === -1 || errorDetailIndex === -1 || errorLinkIndex === -1) {
+          errorNamaCsIndex === -1 || errorDetailIndex === -1) {
         debugInfo.style.display = 'block';
         document.getElementById('error').innerText = 
           `❌ Kolom tidak ditemukan!\n` +
@@ -733,20 +719,19 @@
         }
       }
       
-      // Proses data error details
+      // Proses data error details (hanya kolom A dan B)
       const errorDetailsMap = {};
       for (let i = 1; i < errorLines.length; i++) {
         if (!errorLines[i].trim()) continue;
         const row = errorLines[i].split(',');
         const namaCs = row[errorNamaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '';
         const detail = row[errorDetailIndex]?.replace(/"/g, '').trim() || 'Tidak ada detail';
-        const link = row[errorLinkIndex]?.replace(/"/g, '').trim() || '#';
         
         if (namaCs) {
           if (!errorDetailsMap[namaCs]) {
             errorDetailsMap[namaCs] = [];
           }
-          errorDetailsMap[namaCs].push({ detail, link });
+          errorDetailsMap[namaCs].push(detail);
         }
       }
       
@@ -871,16 +856,14 @@
       const errors = errorDetailsMap[normalizedCsName] || [];
       
       if (errors.length === 0) {
-        errorList.innerHTML = '<li class="error-item">Tidak ada detail kesalahan untuk CS ini</li>';
+        errorList.innerHTML = '<li class="error-item"><div class="error-title">Tidak ada detail kesalahan</div><div class="error-detail">CS ini tidak memiliki data kesalahan di sheet</div></li>';
       } else {
         errors.forEach(error => {
           const li = document.createElement('li');
           li.className = 'error-item';
           li.innerHTML = `
-            <div class="error-title">
-              <span>${error.detail}</span>
-              ${error.link !== '#' ? `<a href="${error.link}" class="error-link" target="_blank">Lihat Detail</a>` : ''}
-            </div>
+            <div class="error-title">Kesalahan</div>
+            <div class="error-detail">${error}</div>
           `;
           errorList.appendChild(li);
         });
