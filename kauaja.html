@@ -3,60 +3,276 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Kesalahan CS Togel</title>
+  <title>📊 Dashboard Kesalahan CS Togel | Premium Design</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --success: #4cc9f0;
+      --danger: #f72585;
+      --warning: #f8961e;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--dark);
+    }
+
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
-    h1 {
+
+    .header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 30px 40px;
       text-align: center;
-      color: #333;
-      margin-bottom: 30px;
+      position: relative;
     }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      background: var(--light);
+      border-bottom: 1px solid #eee;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: var(--card-shadow);
+      flex: 1;
+      margin: 0 10px;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .search-container {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      border: none;
+      border-radius: 50px;
+      background: #f8f9fa;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.2);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 1.2rem;
+    }
+
     .cs-list {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .cs-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      height: 100%;
     }
-    .cs-item {
-      padding: 16px;
-      background: #f9f9f9;
-      border-left: 4px solid #007bff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+    .cs-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     }
-    .cs-item:hover {
-      background: #e9ecef;
-      transform: translateX(5px);
-    }
-    .cs-name {
-      font-weight: bold;
-      color: #2c3e50;
-      font-size: 18px;
-    }
-    .total-error {
-      background: #e74c3c;
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
+
+    .card-header h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .error-badge {
+      background: var(--danger);
+      color: white;
+      padding: 6px 15px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .card-body {
+      padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .error-details {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .error-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+
+    .error-icon i {
+      color: var(--danger);
+      font-size: 1.2rem;
+    }
+
+    .error-count {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--danger);
+    }
+
+    .error-link {
+      display: block;
+      background: var(--light);
+      color: var(--primary);
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+      margin-top: auto;
+      transition: var(--transition);
+    }
+
+    .error-link:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .no-data {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      color: var(--gray);
+      font-size: 1.2rem;
+    }
+
+    .loading-container {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(67, 97, 238, 0.2);
+      border-top: 5px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -64,82 +280,207 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.85);
       z-index: 1000;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
+
     .modal-content {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow: hidden;
       position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     }
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #aaa;
-    }
-    .close-btn:hover {
-      color: #333;
-    }
-    .error-detail h2 {
-      color: #e74c3c;
-      margin-bottom: 15px;
-    }
-    .error-link {
-      display: block;
-      margin-top: 20px;
-      padding: 12px;
-      background: #3498db;
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      text-align: center;
-      border-radius: 8px;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .close-modal {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .modal-body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .modal-details {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .modal-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-icon i {
+      color: var(--danger);
+      font-size: 2rem;
+    }
+
+    .modal-info {
+      flex: 1;
+    }
+
+    .modal-info h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .modal-info p {
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .modal-link {
+      background: var(--danger);
+      color: white;
       text-decoration: none;
-      font-weight: bold;
-    }
-    .error-link:hover {
-      background: #2980b9;
-    }
-    .no-data {
+      padding: 16px 30px;
+      border-radius: 12px;
       text-align: center;
-      color: #7f8c8d;
-      font-style: italic;
-      padding: 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      display: inline-block;
+      margin-top: 10px;
     }
-    .filter-label {
+
+    .modal-link:hover {
+      background: #e01a6e;
+      transform: translateY(-3px);
+    }
+
+    .footer {
       text-align: center;
-      margin-bottom: 20px;
-      color: #555;
+      padding: 20px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 768px) {
+      .stats-container {
+        flex-direction: column;
+      }
+      
+      .cs-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .modal-content {
+        max-width: 95%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📊 Daftar Kesalahan CS Togel</h1>
-    <p class="filter-label">Hanya menampilkan CS dengan status "ada" di kolom C</p>
+    <div class="header">
+      <h1><i class="fas fa-chart-line"></i> Dashboard Kesalahan CS Togel</h1>
+      <p>Analisis detail kesalahan CS berdasarkan data real-time dengan desain premium</p>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-value" id="totalCS">0</div>
+        <div class="stat-label">Total CS Aktif</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalErrors">0</div>
+        <div class="stat-label">Total Kesalahan</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="avgErrors">0</div>
+        <div class="stat-label">Rata-rata Kesalahan</div>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Cari nama CS atau detail...">
+      </div>
+    </div>
 
     <div class="cs-list" id="csList">
-      <!-- Data akan diisi oleh JavaScript -->
-      <p class="no-data">Memuat data...</p>
+      <div class="loading-container">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Dashboard Kesalahan CS Togel &copy; 2023 | Data diambil dari Google Sheets real-time</p>
     </div>
   </div>
 
-  <!-- Modal Detail -->
   <div class="modal" id="errorModal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <div class="error-detail">
-        <h2 id="modalTitle">Nama CS</h2>
-        <p id="modalLinkText">Link kesalahan:</p>
-        <a href="#" id="modalLink" class="error-link" target="_blank">Buka Link Kesalahan</a>
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Nama CS</h2>
+        <button class="close-modal" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-details">
+          <div class="modal-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="modal-info">
+            <h2 id="modalName">Nama CS</h2>
+            <p id="modalErrorCount">Total kesalahan: <span id="modalErrorValue">0</span></p>
+            <p id="modalLinkText">Klik tombol di bawah untuk melihat detail kesalahan</p>
+            <a href="#" id="modalLink" class="modal-link" target="_blank">
+              <i class="fas fa-link"></i> Buka Link Kesalahan
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -147,10 +488,11 @@
   <script>
     // Konfigurasi Google Sheets
     const SHEET_ID = "1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E";
-    const SHEET_NAME = "Part1"; // Sesuaikan jika nama sheet berbeda
+    const SHEET_NAME = "Part1";
     const JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
     let csData = [];
+    let filteredData = [];
 
     // Fungsi untuk mengambil data dari Google Sheets
     async function fetchSheetData() {
@@ -168,25 +510,40 @@
         const rows = data.table.rows;
 
         csData = rows.map(row => ({
-          name: row.c[0]?.v || '',     // Kolom A: Nama CS
-          total: row.c[1]?.v || 0,     // Kolom B: Total Kesalahan
-          status: row.c[2]?.v || '',   // Kolom C: Filter (harus "ada")
-          link: row.c[3]?.v || ''      // Kolom D: Link Kesalahan
+          name: row.c[0]?.v || 'Tidak diketahui',
+          total: row.c[1]?.v ? parseInt(row.c[1].v) : 0,
+          status: row.c[2]?.v ? row.c[2].v.toString().trim().toLowerCase() : '',
+          link: row.c[3]?.v || '#'
         }));
 
         // Filter hanya yang statusnya "ada" (case-insensitive)
-        csData = csData.filter(item => 
-          item.status && item.status.toLowerCase().trim() === "ada"
+        filteredData = csData.filter(item => 
+          item.status === "ada" || item.status === "yes" || item.status === "active"
         );
 
         // Sortir berdasarkan total kesalahan (terbanyak ke terkecil)
-        csData.sort((a, b) => parseInt(b.total) - parseInt(a.total));
+        filteredData.sort((a, b) => b.total - a.total);
+
+        // Hitung statistik
+        const totalCS = filteredData.length;
+        const totalErrors = filteredData.reduce((sum, item) => sum + item.total, 0);
+        const avgErrors = totalCS > 0 ? Math.round(totalErrors / totalCS) : 0;
+
+        // Update UI statistik
+        document.getElementById('totalCS').textContent = totalCS;
+        document.getElementById('totalErrors').textContent = totalErrors;
+        document.getElementById('avgErrors').textContent = avgErrors;
 
         renderCSList();
       } catch (error) {
         console.error("Gagal mengambil data:", error);
         document.getElementById('csList').innerHTML = `
-          <p class="no-data">❌ Gagal memuat data. Pastikan sheet sudah dipublikasikan dan nama sheet benar.</p>
+          <div class="no-data">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 15px; color: var(--danger)"></i>
+            <h3>Gagal Memuat Data</h3>
+            <p>Pastikan sheet sudah dipublikasikan ke web dan aksesnya terbuka</p>
+            <p>URL: <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank">https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit</a></p>
+          </div>
         `;
       }
     }
@@ -194,30 +551,44 @@
     // Render daftar CS ke halaman
     function renderCSList() {
       const container = document.getElementById('csList');
-      if (csData.length === 0) {
-        container.innerHTML = `<p class="no-data">Tidak ada CS dengan status "ada".</p>`;
+      if (filteredData.length === 0) {
+        container.innerHTML = `
+          <div class="no-data">
+            <i class="fas fa-ban" style="font-size: 3rem; margin-bottom: 15px; color: var(--warning)"></i>
+            <h3>Tidak Ada Data</h3>
+            <p>Tidak ada CS dengan status "ada" atau data kosong</p>
+          </div>
+        `;
         return;
       }
 
-      container.innerHTML = '';
-      csData.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'cs-item';
-        div.innerHTML = `
-          <span class="cs-name">${item.name}</span>
-          <span class="total-error">${item.total} Kesalahan</span>
-        `;
-        div.onclick = () => openModal(item);
-        container.appendChild(div);
-      });
+      container.innerHTML = filteredData.map(item => `
+        <div class="cs-card">
+          <div class="card-header">
+            <h3>${item.name}</h3>
+            <span class="error-badge">${item.total} Kesalahan</span>
+          </div>
+          <div class="card-body">
+            <div class="error-details">
+              <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+              </div>
+              <div class="error-count">${item.total}</div>
+            </div>
+            <a href="#" class="error-link" onclick="openModal(${JSON.stringify(item)}); return false;">
+              <i class="fas fa-eye"></i> Lihat Detail
+            </a>
+          </div>
+        </div>
+      `).join('');
     }
 
     // Buka modal detail
     function openModal(item) {
       document.getElementById('modalTitle').textContent = item.name;
-      document.getElementById('modalLinkText').textContent = 'Link Kesalahan:';
-      document.getElementById('modalLink').href = item.link || '#';
-      document.getElementById('modalLink').textContent = 'Buka Detail Kesalahan';
+      document.getElementById('modalName').textContent = item.name;
+      document.getElementById('modalErrorValue').textContent = item.total;
+      document.getElementById('modalLink').href = item.link;
       document.getElementById('errorModal').style.display = 'flex';
     }
 
@@ -225,6 +596,25 @@
     function closeModal() {
       document.getElementById('errorModal').style.display = 'none';
     }
+
+    // Filter berdasarkan search input
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      if (!searchTerm) {
+        filteredData = [...csData].filter(item => 
+          item.status === "ada" || item.status === "yes" || item.status === "active"
+        );
+        filteredData.sort((a, b) => b.total - a.total);
+      } else {
+        filteredData = csData.filter(item => 
+          (item.status === "ada" || item.status === "yes" || item.status === "active") &&
+          (item.name.toLowerCase().includes(searchTerm) || 
+           item.total.toString().includes(searchTerm))
+        );
+        filteredData.sort((a, b) => b.total - a.total);
+      }
+      renderCSList();
+    });
 
     // Close modal jika klik di luar konten
     window.onclick = function(event) {
