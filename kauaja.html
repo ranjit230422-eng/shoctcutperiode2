@@ -135,12 +135,26 @@
       transition: all 0.3s ease;
       font-size: 0.9rem;
       border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      position: relative;
     }
     
     .special-item:hover {
       transform: translateY(-2px);
       background: rgba(255,255,255,0.25);
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .special-item::after {
+      content: '🔍';
+      position: absolute;
+      right: 10px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    
+    .special-item:hover::after {
+      opacity: 1;
     }
     
     .special-item-number {
@@ -210,11 +224,24 @@
       border-radius: 12px;
       background: #f8f9fa;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
     
     .rank-item:hover {
       background: #eef2f7;
       transform: translateX(5px);
+    }
+    
+    .rank-item::after {
+      content: '🔍';
+      position: absolute;
+      right: 15px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    
+    .rank-item:hover::after {
+      opacity: 1;
     }
     
     .rank-item:nth-child(1) {
@@ -333,11 +360,19 @@
       padding: 14px 16px;
       border-bottom: 1px solid #eee;
       transition: all 0.2s;
+      cursor: pointer;
     }
     
     tr:hover td {
       background: #f8f9fa;
       transform: translateX(2px);
+    }
+    
+    tr:hover td::after {
+      content: '🔍';
+      position: absolute;
+      right: 15px;
+      opacity: 0.6;
     }
     
     .danger {
@@ -408,6 +443,100 @@
       display: none;
     }
     
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      padding: 20px;
+      overflow: auto;
+    }
+    
+    .modal-content {
+      background: white;
+      margin: 5% auto;
+      padding: 25px;
+      border-radius: 16px;
+      max-width: 800px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .close-modal {
+      font-size: 2rem;
+      color: #e74c3c;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .close-modal:hover {
+      color: #c0392b;
+    }
+    
+    .error-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+    
+    .error-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #3498db;
+      transition: all 0.3s;
+    }
+    
+    .error-item:hover {
+      transform: translateX(5px);
+      background: #edf2f7;
+    }
+    
+    .error-title {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .error-link {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      transition: all 0.3s;
+    }
+    
+    .error-link:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
     @media (max-width: 900px) {
       .header {
         padding-right: 0;
@@ -429,6 +558,11 @@
       .header h1 {
         font-size: 2.2rem;
       }
+      
+      .modal-content {
+        margin: 10% auto;
+        width: 90%;
+      }
     }
     
     @media (max-width: 600px) {
@@ -440,6 +574,14 @@
         width: 35px;
         height: 35px;
         font-size: 1.4rem;
+      }
+      
+      .modal-title {
+        font-size: 1.5rem;
+      }
+      
+      .close-modal {
+        font-size: 1.8rem;
       }
     }
     
@@ -512,8 +654,20 @@
     </div>
   </div>
 
+  <!-- Error Details Modal -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Error Details for <span id="modalCsName"></span></h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <ul class="error-list" id="errorList"></ul>
+    </div>
+  </div>
+
   <script>
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
+    const part1CsvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
+    const errorCsvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=TOTAL%20KESALAHAN%20CS%20LINE%20TOGEL';
     
     // Nama CS LINE yang tidak masuk perhitungan juara
     const specialNames = [
@@ -522,160 +676,230 @@
       'ANDI E4487475'
     ];
     
-    fetch(csvUrl)
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.text();
-      })
-      .then(csvText => {
-        const lines = csvText.split('\n');
-        
-        // Ambil header dan normalisasi ke lowercase
-        const rawHeaders = lines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
-        const namaCsIndex = rawHeaders.indexOf('nama cs');
-        const totalKesalahanIndex = rawHeaders.indexOf('total kesalahan');
-        
-        // Tampilkan debug info
-        const debugInfo = document.getElementById('debugInfo');
-        const debugHeaders = document.getElementById('debugHeaders');
-        const debugData = document.getElementById('debugData');
-        
-        debugHeaders.innerHTML = `<strong>Headers:</strong> ${rawHeaders.join(', ')}`;
-        debugData.innerHTML = `<strong>Headers Index:</strong> Nama CS: ${namaCsIndex}, Total Kesalahan: ${totalKesalahanIndex}`;
-        
-        if (namaCsIndex === -1 || totalKesalahanIndex === -1) {
-          debugInfo.style.display = 'block';
-          document.getElementById('error').innerText = 
-            `❌ Kolom tidak ditemukan!\n` +
-            `Pastikan nama kolom persis: "Nama CS" dan "Total Kesalahan" (case-insensitive)`;
-          console.log('Raw headers:', rawHeaders);
-          return;
-        }
-        
-        // Proses data
-        const allData = [];
-        for (let i = 1; i < lines.length; i++) {
-          if (!lines[i].trim()) continue;
-          const row = lines[i].split(',');
-          const namaCs = row[namaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '-';
-          const totalKesalahan = parseInt(row[totalKesalahanIndex]?.replace(/"/g, '').trim()) || 0;
-          
-          if (namaCs !== '-' && namaCs !== '') {
-            allData.push({ 
-              nama: namaCs,
-              originalNama: row[namaCsIndex]?.replace(/"/g, '').trim(),
-              kesalahan: totalKesalahan,
-              status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
-            });
-          }
-        }
-        
-        // Debug data
-        debugData.innerHTML += `<br><strong>Data Ditemukan:</strong> ${allData.length} baris`;
-        if (allData.length > 0) {
-          debugData.innerHTML += `<br>Contoh data: ${allData[0].originalNama} - ${allData[0].kesalahan}`;
-        }
-        
-        // Normalisasi nama CS LINE untuk perbandingan
-        const normalizedSpecialNames = specialNames.map(name => name.trim().toLowerCase());
-        
-        // Pisahkan data menjadi special dan main
-        const specialData = allData.filter(item => 
-          normalizedSpecialNames.includes(item.nama)
-        );
-        const mainData = allData.filter(item => 
-          !normalizedSpecialNames.includes(item.nama)
-        );
-        
-        debugData.innerHTML += `<br><strong>CS LINE:</strong> ${specialData.length} item`;
-        debugData.innerHTML += `<br><strong>CS Non-LINE:</strong> ${mainData.length} item`;
-        
-        // Tampilkan special CS
-        const specialList = document.getElementById('specialList');
-        specialList.innerHTML = '';
-        if (specialData.length > 0) {
-          specialData.forEach((item, index) => {
-            const li = document.createElement('li');
-            li.className = 'special-item';
-            li.innerHTML = `
-              <div class="special-item-number">${index+1}</div>
-              <div>${item.originalNama}</div>
-              <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
-            `;
-            specialList.appendChild(li);
-          });
-        } else {
-          specialList.innerHTML = '<li class="special-item">Tidak ada data CS LINE yang cocok</li>';
-        }
-        
-        // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
-        const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
-        
-        // Tampilkan ranking juara 1-3 dari mainData
-        const rankingList = document.getElementById('rankingList');
-        rankingList.innerHTML = '';
-        
-        const medals = [
-          { icon: '🥇', color: '#FFD700' },
-          { icon: '🥈', color: '#C0C0C0' },
-          { icon: '🥉', color: '#CD7F32' }
-        ];
-        
-        for (let i = 0; i < Math.min(3, mainDataSorted.length); i++) {
-          const item = mainDataSorted[i];
-          const li = document.createElement('li');
-          li.className = 'rank-item';
-          li.innerHTML = `
-            <div class="rank-number">${i+1}</div>
-            <div class="rank-medal" style="background: ${medals[i].color}">${medals[i].icon}</div>
-            <div class="rank-name">${item.originalNama}</div>
-            <div class="rank-value">${item.kesalahan}</div>
-          `;
-          rankingList.appendChild(li);
-        }
-        
-        // Tampilkan tabel
-        const tbody = document.getElementById('csBody');
-        tbody.innerHTML = '';
-        let count = 0;
-        
-        if (mainDataSorted.length > 0) {
-          mainDataSorted.forEach(item => {
-            count++;
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${count}</td>
-              <td>${item.originalNama}</td>
-              <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
-              <td>
-                <span class="status-badge status-${item.status}">
-                  ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
-                </span>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
-          document.getElementById('csTable').style.display = 'table';
-        } else {
-          document.getElementById('csTable').style.display = 'none';
-          document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
-        }
-        
-        // Tampilkan debug info jika ada data
-        if (allData.length > 0) {
-          debugInfo.style.display = 'block';
-        }
-      })
-      .catch(error => {
-        document.getElementById('loading').style.display = 'none';
+    // Fetch data dari kedua sheet
+    Promise.all([
+      fetch(part1CsvUrl).then(r => r.text()),
+      fetch(errorCsvUrl).then(r => r.text())
+    ])
+    .then(([part1Text, errorText]) => {
+      // Proses data part1
+      const part1Lines = part1Text.split('\n');
+      const part1RawHeaders = part1Lines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
+      const namaCsIndex = part1RawHeaders.indexOf('nama cs');
+      const totalKesalahanIndex = part1RawHeaders.indexOf('total kesalahan');
+      
+      // Proses data error details
+      const errorLines = errorText.split('\n');
+      const errorRawHeaders = errorLines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
+      const errorNamaCsIndex = errorRawHeaders.indexOf('nama cs');
+      const errorDetailIndex = errorRawHeaders.indexOf('detail kesalahan');
+      const errorLinkIndex = errorRawHeaders.indexOf('link');
+      
+      // Debug info
+      const debugInfo = document.getElementById('debugInfo');
+      const debugHeaders = document.getElementById('debugHeaders');
+      const debugData = document.getElementById('debugData');
+      
+      debugHeaders.innerHTML = `<strong>Part1 Headers:</strong> ${part1RawHeaders.join(', ')}<br>
+                                <strong>Error Sheet Headers:</strong> ${errorRawHeaders.join(', ')}`;
+      debugData.innerHTML = `<strong>Part1 Columns:</strong> Nama CS: ${namaCsIndex}, Total Kesalahan: ${totalKesalahanIndex}<br>
+                             <strong>Error Columns:</strong> Nama CS: ${errorNamaCsIndex}, Detail: ${errorDetailIndex}, Link: ${errorLinkIndex}`;
+      
+      if (namaCsIndex === -1 || totalKesalahanIndex === -1 || 
+          errorNamaCsIndex === -1 || errorDetailIndex === -1 || errorLinkIndex === -1) {
+        debugInfo.style.display = 'block';
         document.getElementById('error').innerText = 
-          `❌ Gagal memuat data.\n` +
-          `Error: ${error.message}\n\n` +
-          `Pastikan:\n` +
-          `1. Sheet "part1" sudah di-share ke "Anyone with the link" → Viewer\n` +
-          `2. Link CSV tidak diblokir oleh firewall atau adblocker`;
-        console.error('Fetch error:', error);
-      });
+          `❌ Kolom tidak ditemukan!\n` +
+          `Pastikan nama kolom persis di kedua sheet`;
+        console.error('Kolom tidak ditemukan di salah satu sheet');
+        return;
+      }
+      
+      // Proses data part1
+      const allData = [];
+      for (let i = 1; i < part1Lines.length; i++) {
+        if (!part1Lines[i].trim()) continue;
+        const row = part1Lines[i].split(',');
+        const namaCs = row[namaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '-';
+        const totalKesalahan = parseInt(row[totalKesalahanIndex]?.replace(/"/g, '').trim()) || 0;
+        
+        if (namaCs !== '-' && namaCs !== '') {
+          allData.push({ 
+            nama: namaCs,
+            originalNama: row[namaCsIndex]?.replace(/"/g, '').trim(),
+            kesalahan: totalKesalahan,
+            status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
+          });
+        }
+      }
+      
+      // Proses data error details
+      const errorDetailsMap = {};
+      for (let i = 1; i < errorLines.length; i++) {
+        if (!errorLines[i].trim()) continue;
+        const row = errorLines[i].split(',');
+        const namaCs = row[errorNamaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '';
+        const detail = row[errorDetailIndex]?.replace(/"/g, '').trim() || 'Tidak ada detail';
+        const link = row[errorLinkIndex]?.replace(/"/g, '').trim() || '#';
+        
+        if (namaCs) {
+          if (!errorDetailsMap[namaCs]) {
+            errorDetailsMap[namaCs] = [];
+          }
+          errorDetailsMap[namaCs].push({ detail, link });
+        }
+      }
+      
+      // Debug data
+      debugData.innerHTML += `<br><strong>Data Part1:</strong> ${allData.length} baris<br>
+                              <strong>Error Details:</strong> ${Object.keys(errorDetailsMap).length} CS dengan error`;
+      
+      // Normalisasi nama CS LINE
+      const normalizedSpecialNames = specialNames.map(name => name.trim().toLowerCase());
+      
+      // Pisahkan data menjadi special dan main
+      const specialData = allData.filter(item => 
+        normalizedSpecialNames.includes(item.nama)
+      );
+      const mainData = allData.filter(item => 
+        !normalizedSpecialNames.includes(item.nama)
+      );
+      
+      debugData.innerHTML += `<br><strong>CS LINE:</strong> ${specialData.length} item<br>
+                              <strong>CS Non-LINE:</strong> ${mainData.length} item`;
+      
+      // Tampilkan special CS
+      const specialList = document.getElementById('specialList');
+      specialList.innerHTML = '';
+      if (specialData.length > 0) {
+        specialData.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.className = 'special-item';
+          li.onclick = () => showErrorModal(item.originalNama);
+          li.innerHTML = `
+            <div class="special-item-number">${index+1}</div>
+            <div>${item.originalNama}</div>
+            <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
+          `;
+          specialList.appendChild(li);
+        });
+      } else {
+        specialList.innerHTML = '<li class="special-item">Tidak ada data CS LINE yang cocok</li>';
+      }
+      
+      // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
+      const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
+      
+      // Tampilkan ranking juara 1-3 dari mainData
+      const rankingList = document.getElementById('rankingList');
+      rankingList.innerHTML = '';
+      
+      const medals = [
+        { icon: '🥇', color: '#FFD700' },
+        { icon: '🥈', color: '#C0C0C0' },
+        { icon: '🥉', color: '#CD7F32' }
+      ];
+      
+      for (let i = 0; i < Math.min(3, mainDataSorted.length); i++) {
+        const item = mainDataSorted[i];
+        const li = document.createElement('li');
+        li.className = 'rank-item';
+        li.onclick = () => showErrorModal(item.originalNama);
+        li.innerHTML = `
+          <div class="rank-number">${i+1}</div>
+          <div class="rank-medal" style="background: ${medals[i].color}">${medals[i].icon}</div>
+          <div class="rank-name">${item.originalNama}</div>
+          <div class="rank-value">${item.kesalahan}</div>
+        `;
+        rankingList.appendChild(li);
+      }
+      
+      // Tampilkan tabel
+      const tbody = document.getElementById('csBody');
+      tbody.innerHTML = '';
+      let count = 0;
+      
+      if (mainDataSorted.length > 0) {
+        mainDataSorted.forEach(item => {
+          count++;
+          const tr = document.createElement('tr');
+          tr.onclick = () => showErrorModal(item.originalNama);
+          tr.innerHTML = `
+            <td>${count}</td>
+            <td>${item.originalNama}</td>
+            <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
+            <td>
+              <span class="status-badge status-${item.status}">
+                ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
+              </span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        document.getElementById('csTable').style.display = 'table';
+      } else {
+        document.getElementById('csTable').style.display = 'none';
+        document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
+      }
+      
+      // Tampilkan debug info jika ada data
+      if (allData.length > 0) {
+        debugInfo.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      document.getElementById('error').innerText = 
+        `❌ Gagal memuat data.\n` +
+        `Error: ${error.message}\n\n` +
+        `Pastikan:\n` +
+        `1. Sheet "part1" dan "TOTAL KESALAHAN CS LINE TOGEL" sudah di-share ke "Anyone with the link" → Viewer\n` +
+        `2. Link CSV tidak diblokir oleh firewall atau adblocker`;
+      console.error('Fetch error:', error);
+    });
+    
+    // Fungsi untuk menampilkan modal error details
+    function showErrorModal(csName) {
+      const modal = document.getElementById('errorModal');
+      const modalCsName = document.getElementById('modalCsName');
+      const errorList = document.getElementById('errorList');
+      
+      modalCsName.textContent = csName;
+      errorList.innerHTML = '';
+      
+      // Cari detail error untuk CS ini
+      const normalizedCsName = csName.trim().toLowerCase();
+      const errors = errorDetailsMap[normalizedCsName] || [];
+      
+      if (errors.length === 0) {
+        errorList.innerHTML = '<li class="error-item">Tidak ada detail kesalahan untuk CS ini</li>';
+      } else {
+        errors.forEach(error => {
+          const li = document.createElement('li');
+          li.className = 'error-item';
+          li.innerHTML = `
+            <div class="error-title">
+              <span>${error.detail}</span>
+              ${error.link !== '#' ? `<a href="${error.link}" class="error-link" target="_blank">Lihat Detail</a>` : ''}
+            </div>
+          `;
+          errorList.appendChild(li);
+        });
+      }
+      
+      modal.style.display = 'block';
+    }
+    
+    // Tutup modal saat klik tombol close atau di luar modal
+    document.querySelector('.close-modal').addEventListener('click', function() {
+      document.getElementById('errorModal').style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('errorModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
   </script>
 
 </body>
