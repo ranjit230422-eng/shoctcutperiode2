@@ -493,36 +493,33 @@
       color: #c0392b;
     }
     
-    .error-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 15px;
+    .modal-content-body {
+      padding: 20px;
+      text-align: center;
     }
     
-    .error-item {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-left: 4px solid #3498db;
-      transition: all 0.3s;
-    }
-    
-    .error-item:hover {
-      transform: translateX(5px);
-      background: #edf2f7;
-    }
-    
-    .error-title {
+    .link-button {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
       font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 5px;
+      transition: all 0.3s;
+      margin-top: 10px;
+      font-size: 1rem;
     }
     
-    .error-detail {
+    .link-button:hover {
+      background: #2980b9;
+      transform: translateY(-3px);
+    }
+    
+    .no-detail {
+      font-size: 1.2rem;
       color: #555;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      padding: 20px;
     }
     
     @media (max-width: 900px) {
@@ -571,6 +568,11 @@
       .close-modal {
         font-size: 1.8rem;
       }
+      
+      .link-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
     }
     
     /* Animasi loading */
@@ -608,8 +610,7 @@
     <div class="content">
       <div class="debug-info" id="debugInfo">
         <strong>Debug Information:</strong><br>
-        <span id="debugPart1"></span><br>
-        <span id="debugError"></span>
+        <span id="debugPart1"></span>
       </div>
       
       <div class="error" id="error"></div>
@@ -641,20 +642,21 @@
     </div>
   </div>
 
-  <!-- Error Details Modal -->
-  <div id="errorModal" class="modal">
+  <!-- Link Modal -->
+  <div id="linkModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Detail Kesalahan untuk <span id="modalCsName"></span></h2>
+        <h2 class="modal-title">Detail Link untuk <span id="modalCsName"></span></h2>
         <span class="close-modal">&times;</span>
       </div>
-      <ul class="error-list" id="errorList"></ul>
+      <div class="modal-content-body" id="modalContentBody">
+        <!-- Content will be dynamically added here -->
+      </div>
     </div>
   </div>
 
   <script>
     const part1CsvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
-    const errorCsvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=TOTAL%20KESALAHAN%20CS%20LINE%20TOGEL';
     
     // Nama CS LINE yang tidak masuk perhitungan juara
     const specialNames = [
@@ -670,194 +672,165 @@
       );
     }
     
-    // Fetch data dari kedua sheet
-    Promise.all([
-      fetch(part1CsvUrl).then(r => r.text()),
-      fetch(errorCsvUrl).then(r => r.text())
-    ])
-    .then(([part1Text, errorText]) => {
-      // Bersihkan data
-      const part1Lines = cleanCsvData(part1Text);
-      const errorLines = cleanCsvData(errorText);
-      
-      // Debug: Tampilkan data part1
-      const debugPart1 = document.getElementById('debugPart1');
-      debugPart1.innerHTML = '<strong>Part1 Sheet Data (Kolom A & B):</strong><br>';
-      
-      for (let i = 1; i < Math.min(5, part1Lines.length); i++) {
-        const row = part1Lines[i].split(',').map(cell => cell.trim());
-        if (row.length >= 2) {
-          debugPart1.innerHTML += `Baris ${i}: ${row[0]} | ${row[1]}<br>`;
-        }
-      }
-      
-      // Debug: Tampilkan data error
-      const debugError = document.getElementById('debugError');
-      debugError.innerHTML = '<strong>Error Sheet Data (Kolom A & B):</strong><br>';
-      
-      for (let i = 1; i < Math.min(5, errorLines.length); i++) {
-        const row = errorLines[i].split(',').map(cell => cell.trim());
-        if (row.length >= 2) {
-          debugError.innerHTML += `Baris ${i}: ${row[0]} | ${row[1]}<br>`;
-        }
-      }
-      
-      // Proses data part1 (ambil kolom A dan B)
-      const allData = [];
-      for (let i = 1; i < part1Lines.length; i++) {
-        const row = part1Lines[i].split(',').map(cell => cell.trim());
-        if (row.length < 2) continue;
+    // Fetch data dari sheet part1
+    fetch(part1CsvUrl)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.text();
+      })
+      .then(csvText => {
+        // Bersihkan data
+        const part1Lines = cleanCsvData(csvText);
         
-        const namaCs = row[0].toLowerCase();
-        const totalKesalahan = parseInt(row[1]) || 0;
+        // Debug: Tampilkan data part1
+        const debugPart1 = document.getElementById('debugPart1');
+        debugPart1.innerHTML = '<strong>Part1 Sheet Data (Kolom A, B, C):</strong><br>';
         
-        if (namaCs && namaCs !== '-') {
-          allData.push({ 
-            nama: namaCs,
-            originalNama: row[0],
-            kesalahan: totalKesalahan,
-            status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
-          });
-        }
-      }
-      
-      // Proses data error details (ambil kolom A dan B)
-      const errorDetailsMap = {};
-      for (let i = 1; i < errorLines.length; i++) {
-        const row = errorLines[i].split(',').map(cell => cell.trim());
-        if (row.length < 2) continue;
-        
-        const namaCs = row[0].toLowerCase();
-        const detail = row[1];
-        
-        if (namaCs && namaCs !== '') {
-          if (!errorDetailsMap[namaCs]) {
-            errorDetailsMap[namaCs] = [];
+        for (let i = 1; i < Math.min(5, part1Lines.length); i++) {
+          const row = part1Lines[i].split(',').map(cell => cell.trim());
+          if (row.length >= 3) {
+            debugPart1.innerHTML += `Baris ${i}: ${row[0]} | ${row[1]} | ${row[2]}<br>`;
           }
-          errorDetailsMap[namaCs].push(detail);
         }
-      }
-      
-      // Normalisasi nama CS LINE
-      const normalizedSpecialNames = specialNames.map(name => name.trim().toLowerCase());
-      
-      // Pisahkan data menjadi special dan main
-      const specialData = allData.filter(item => 
-        normalizedSpecialNames.includes(item.nama)
-      );
-      const mainData = allData.filter(item => 
-        !normalizedSpecialNames.includes(item.nama)
-      );
-      
-      // Tampilkan special CS
-      const specialList = document.getElementById('specialList');
-      specialList.innerHTML = '';
-      if (specialData.length > 0) {
-        specialData.forEach((item, index) => {
+        
+        // Proses data part1 (ambil kolom A, B, C)
+        const allData = [];
+        for (let i = 1; i < part1Lines.length; i++) {
+          const row = part1Lines[i].split(',').map(cell => cell.trim());
+          if (row.length < 3) continue;
+          
+          const namaCs = row[0].toLowerCase();
+          const totalKesalahan = parseInt(row[1]) || 0;
+          const link = row[2] || '#';
+          
+          if (namaCs && namaCs !== '-') {
+            allData.push({ 
+              nama: namaCs,
+              originalNama: row[0],
+              kesalahan: totalKesalahan,
+              link: link,
+              status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
+            });
+          }
+        }
+        
+        // Normalisasi nama CS LINE
+        const normalizedSpecialNames = specialNames.map(name => name.trim().toLowerCase());
+        
+        // Pisahkan data menjadi special dan main
+        const specialData = allData.filter(item => 
+          normalizedSpecialNames.includes(item.nama)
+        );
+        const mainData = allData.filter(item => 
+          !normalizedSpecialNames.includes(item.nama)
+        );
+        
+        // Tampilkan special CS
+        const specialList = document.getElementById('specialList');
+        specialList.innerHTML = '';
+        if (specialData.length > 0) {
+          specialData.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'special-item';
+            li.onclick = () => showLinkModal(item.originalNama, item.link, true);
+            li.innerHTML = `
+              <div class="special-item-number">${index+1}</div>
+              <div>${item.originalNama}</div>
+              <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
+            `;
+            specialList.appendChild(li);
+          });
+        } else {
+          specialList.innerHTML = '<li class="special-item">Tidak ada data CS LINE yang cocok</li>';
+        }
+        
+        // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
+        const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
+        
+        // Tampilkan ranking juara 1-3 dari mainData
+        const rankingList = document.getElementById('rankingList');
+        rankingList.innerHTML = '';
+        
+        const medals = [
+          { icon: '🥇', color: '#FFD700' },
+          { icon: '🥈', color: '#C0C0C0' },
+          { icon: '🥉', color: '#CD7F32' }
+        ];
+        
+        for (let i = 0; i < Math.min(3, mainDataSorted.length); i++) {
+          const item = mainDataSorted[i];
           const li = document.createElement('li');
-          li.className = 'special-item';
-          li.onclick = () => showErrorModal(item.originalNama);
+          li.className = 'rank-item';
+          li.onclick = () => showLinkModal(item.originalNama, item.link, false);
           li.innerHTML = `
-            <div class="special-item-number">${index+1}</div>
-            <div>${item.originalNama}</div>
-            <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
+            <div class="rank-number">${i+1}</div>
+            <div class="rank-medal" style="background: ${medals[i].color}">${medals[i].icon}</div>
+            <div class="rank-name">${item.originalNama}</div>
+            <div class="rank-value">${item.kesalahan}</div>
           `;
-          specialList.appendChild(li);
-        });
-      } else {
-        specialList.innerHTML = '<li class="special-item">Tidak ada data CS LINE yang cocok</li>';
-      }
-      
-      // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
-      const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
-      
-      // Tampilkan ranking juara 1-3 dari mainData
-      const rankingList = document.getElementById('rankingList');
-      rankingList.innerHTML = '';
-      
-      const medals = [
-        { icon: '🥇', color: '#FFD700' },
-        { icon: '🥈', color: '#C0C0C0' },
-        { icon: '🥉', color: '#CD7F32' }
-      ];
-      
-      for (let i = 0; i < Math.min(3, mainDataSorted.length); i++) {
-        const item = mainDataSorted[i];
-        const li = document.createElement('li');
-        li.className = 'rank-item';
-        li.onclick = () => showErrorModal(item.originalNama);
-        li.innerHTML = `
-          <div class="rank-number">${i+1}</div>
-          <div class="rank-medal" style="background: ${medals[i].color}">${medals[i].icon}</div>
-          <div class="rank-name">${item.originalNama}</div>
-          <div class="rank-value">${item.kesalahan}</div>
-        `;
-        rankingList.appendChild(li);
-      }
-      
-      // Tampilkan tabel
-      const tbody = document.getElementById('csBody');
-      tbody.innerHTML = '';
-      let count = 0;
-      
-      if (mainDataSorted.length > 0) {
-        mainDataSorted.forEach(item => {
-          count++;
-          const tr = document.createElement('tr');
-          tr.onclick = () => showErrorModal(item.originalNama);
-          tr.innerHTML = `
-            <td>${count}</td>
-            <td>${item.originalNama}</td>
-            <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
-            <td>
-              <span class="status-badge status-${item.status}">
-                ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
-              </span>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-        document.getElementById('csTable').style.display = 'table';
-      } else {
-        document.getElementById('csTable').style.display = 'none';
-        document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
-      }
-    })
-    .catch(error => {
-      document.getElementById('error').innerText = 
-        `❌ Gagal memuat data.\n` +
-        `Error: ${error.message}\n\n` +
-        `Pastikan:\n` +
-        `1. Sheet "part1" dan "TOTAL KESALAHAN CS LINE TOGEL" sudah di-share ke "Anyone with the link" → Viewer\n` +
-        `2. Link CSV tidak diblokir oleh firewall atau adblocker`;
-      console.error('Fetch error:', error);
-    });
+          rankingList.appendChild(li);
+        }
+        
+        // Tampilkan tabel
+        const tbody = document.getElementById('csBody');
+        tbody.innerHTML = '';
+        let count = 0;
+        
+        if (mainDataSorted.length > 0) {
+          mainDataSorted.forEach(item => {
+            count++;
+            const tr = document.createElement('tr');
+            tr.onclick = () => showLinkModal(item.originalNama, item.link, false);
+            tr.innerHTML = `
+              <td>${count}</td>
+              <td>${item.originalNama}</td>
+              <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
+              <td>
+                <span class="status-badge status-${item.status}">
+                  ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
+                </span>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+          document.getElementById('csTable').style.display = 'table';
+        } else {
+          document.getElementById('csTable').style.display = 'none';
+          document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
+        }
+      })
+      .catch(error => {
+        document.getElementById('error').innerText = 
+          `❌ Gagal memuat data.\n` +
+          `Error: ${error.message}\n\n` +
+          `Pastikan:\n` +
+          `1. Sheet "part1" sudah di-share ke "Anyone with the link" → Viewer\n` +
+          `2. Link CSV tidak diblokir oleh firewall atau adblocker`;
+        console.error('Fetch error:', error);
+      });
     
-    // Fungsi untuk menampilkan modal error details
-    function showErrorModal(csName) {
-      const modal = document.getElementById('errorModal');
+    // Fungsi untuk menampilkan modal link
+    function showLinkModal(csName, link, isCsLine) {
+      const modal = document.getElementById('linkModal');
       const modalCsName = document.getElementById('modalCsName');
-      const errorList = document.getElementById('errorList');
+      const modalContentBody = document.getElementById('modalContentBody');
       
       modalCsName.textContent = csName;
-      errorList.innerHTML = '';
       
-      // Cari detail error untuk CS ini
-      const normalizedCsName = csName.trim().toLowerCase();
-      const errors = errorDetailsMap[normalizedCsName] || [];
-      
-      if (errors.length === 0) {
-        errorList.innerHTML = '<li class="error-item"><div class="error-title">Tidak ada detail kesalahan</div><div class="error-detail">CS ini tidak memiliki data kesalahan di sheet</div></li>';
+      if (isCsLine) {
+        modalContentBody.innerHTML = `
+          <div class="no-detail">CS LINE tidak memiliki detail kesalahan</div>
+        `;
       } else {
-        errors.forEach(error => {
-          const li = document.createElement('li');
-          li.className = 'error-item';
-          li.innerHTML = `
-            <div class="error-title">Kesalahan</div>
-            <div class="error-detail">${error}</div>
+        if (link && link !== '#') {
+          modalContentBody.innerHTML = `
+            <a href="${link}" target="_blank" class="link-button">Buka Link Kesalahan</a>
           `;
-          errorList.appendChild(li);
-        });
+        } else {
+          modalContentBody.innerHTML = `
+            <div class="no-detail">Tidak ada link yang tersedia untuk CS ini</div>
+          `;
+        }
       }
       
       modal.style.display = 'block';
@@ -865,11 +838,11 @@
     
     // Tutup modal saat klik tombol close atau di luar modal
     document.querySelector('.close-modal').addEventListener('click', function() {
-      document.getElementById('errorModal').style.display = 'none';
+      document.getElementById('linkModal').style.display = 'none';
     });
     
     window.addEventListener('click', function(event) {
-      const modal = document.getElementById('errorModal');
+      const modal = document.getElementById('linkModal');
       if (event.target === modal) {
         modal.style.display = 'none';
       }
