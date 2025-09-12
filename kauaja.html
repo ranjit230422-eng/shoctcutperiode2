@@ -47,7 +47,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
             opacity: 0.05;
             z-index: -1;
         }
@@ -528,19 +528,19 @@
         </div>
         <div class="stats-grid">
             <div class="stats-card">
-                <div class="stats-number" id="totalErrors">305</div>
+                <div class="stats-number" id="totalErrors">0</div>
                 <div class="stats-label">Total Kesalahan</div>
             </div>
             <div class="stats-card">
-                <div class="stats-number" id="totalCS">20</div>
+                <div class="stats-number" id="totalCS">0</div>
                 <div class="stats-label">Jumlah CS</div>
             </div>
             <div class="stats-card">
-                <div class="stats-number" id="averageErrors">15.3</div>
+                <div class="stats-number" id="averageErrors">0.0</div>
                 <div class="stats-label">Rata-rata Kesalahan</div>
             </div>
             <div class="stats-card">
-                <div class="stats-number" id="criticalCount">4</div>
+                <div class="stats-number" id="criticalCount">0</div>
                 <div class="stats-label">CS Status Danger</div>
             </div>
         </div>
@@ -552,42 +552,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row" id="top3Container">
-                            <div class="col-md-4 mb-3">
-                                <div class="winner-card winner-card-1 text-center p-3">
-                                    <div class="winner-badge">🥇</div>
-                                    <h4>Juara 1</h4>
-                                    <div class="cs-avatar mx-auto mb-2">T</div>
-                                    <h5>TOMMY</h5>
-                                    <p class="mb-1">HASIM C6735321</p>
-                                    <div class="stats-number text-success">5</div>
-                                    <div class="stats-label">Kesalahan</div>
-                                    <span class="status-badge status-good">Good</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="winner-card winner-card-2 text-center p-3">
-                                    <div class="winner-badge">🥈</div>
-                                    <h4>Juara 2</h4>
-                                    <div class="cs-avatar mx-auto mb-2">W</div>
-                                    <h5>WILLY</h5>
-                                    <p class="mb-1">PERAYUDA E0089312</p>
-                                    <div class="stats-number text-success">5</div>
-                                    <div class="stats-label">Kesalahan</div>
-                                    <span class="status-badge status-good">Good</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="winner-card winner-card-3 text-center p-3">
-                                    <div class="winner-badge">🥉</div>
-                                    <h4>Juara 3</h4>
-                                    <div class="cs-avatar mx-auto mb-2">M</div>
-                                    <h5>MAHENDRAN</h5>
-                                    <p class="mb-1">C6813799</p>
-                                    <div class="stats-number text-success">6</div>
-                                    <div class="stats-label">Kesalahan</div>
-                                    <span class="status-badge status-good">Good</span>
-                                </div>
-                            </div>
+                            <!-- Data akan diisi oleh JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -598,7 +563,7 @@
                 <div class="card">
                     <div class="card-header text-center d-flex justify-content-between align-items-center">
                         <span><i class="fas fa-list me-2"></i>Daftar Lengkap Kesalahan CS</span>
-                        <span class="badge bg-danger" id="csCount">20 CS</span>
+                        <span class="badge bg-danger" id="csCount">0 CS</span>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -626,30 +591,6 @@
         let csData = [];
         let previousData = [];
         let autoUpdateInterval;
-        
-        // Data contoh jika tidak bisa mengambil dari Google Sheets
-        const sampleData = [
-            { name: "WIDJAYA C6202945 / E7721607", errors: 17 },
-            { name: "DAVID C6169860 / E6864058", errors: 14 },
-            { name: "FALLEN HARDINANSAH TAJU C6931386", errors: 8 },
-            { name: "HARIANTO X2242791", errors: 36 },
-            { name: "ERI HARIANTO C8493406", errors: 13 },
-            { name: "MAHENDRAN C6813799", errors: 6 },
-            { name: "ANDHIKA DWI PUTRA C8543470", errors: 18 },
-            { name: "TOMMY HASIM C6735321", errors: 5 },
-            { name: "EGI SETIAWAN C8410298", errors: 9 },
-            { name: "RANJIT X1068990", errors: 12 },
-            { name: "WILLY PERAYUDA E0089312", errors: 5 },
-            { name: "ANGGA AZMAL HARAHAP C9260456", errors: 6 },
-            { name: "LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988", errors: 15 },
-            { name: "ALFINO MUKTI C8493352", errors: 21 },
-            { name: "AKAS FARMA C8490102", errors: 15 },
-            { name: "ARI ROMANDUS FERNANDO C8386112", errors: 8 },
-            { name: "PARIS AMRULLOH E0237731", errors: 29 },
-            { name: "SAMSUL MAARIF C7008737", errors: 25 },
-            { name: "SUHAN RAZ C5862955", errors: 8 },
-            { name: "RAHMADI SORMIN E0685561", errors: 36 }
-        ];
         
         // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
         function getStatus(errors) {
@@ -686,11 +627,12 @@
                 }
                 const csvData = await response.text();
                 
-                // Parsing CSV dengan fungsi yang lebih andal
-                const parsedData = parseCSV(csvData);
+                // Parsing CSV dengan lebih baik
+                const lines = csvData.split(/\r?\n/).filter(line => line.trim() !== '');
+                if (lines.length === 0) throw new Error('CSV data is empty');
                 
-                const headers = parsedData.headers;
-                const rows = parsedData.data;
+                const headers = lines[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
+                const data = [];
                 
                 // Cari indeks kolom yang benar
                 const nameIndex = headers.findIndex(header => 
@@ -704,13 +646,35 @@
                 const finalNameIndex = nameIndex !== -1 ? nameIndex : 0;
                 const finalErrorIndex = errorIndex !== -1 ? errorIndex : 1;
                 
-                const data = [];
-                for (let i = 0; i < rows.length; i++) {
-                    const row = rows[i];
-                    if (row.length <= Math.max(finalNameIndex, finalErrorIndex)) continue;
+                for (let i = 1; i < lines.length; i++) {
+                    const row = lines[i].trim();
+                    if (!row) continue;
                     
-                    const name = row[finalNameIndex] || 'Tidak Diketahui';
-                    const errors = parseInt(row[finalErrorIndex]) || 0;
+                    // Parse baris CSV dengan penanganan tanda kutip
+                    const values = [];
+                    let current = '';
+                    let inQuote = false;
+                    
+                    for (let j = 0; j < row.length; j++) {
+                        if (row[j] === '"' && (j === 0 || row[j-1] !== '\\')) {
+                            inQuote = !inQuote;
+                        } else if (row[j] === ',' && !inQuote) {
+                            values.push(current);
+                            current = '';
+                        } else {
+                            current += row[j];
+                        }
+                    }
+                    values.push(current);
+                    
+                    // Bersihkan nilai
+                    const cleanValues = values.map(value => value.trim().replace(/^"|"$/g, ''));
+                    
+                    // Pastikan ada cukup nilai
+                    if (cleanValues.length <= Math.max(finalNameIndex, finalErrorIndex)) continue;
+                    
+                    const name = cleanValues[finalNameIndex] || 'Tidak Diketahui';
+                    const errors = parseInt(cleanValues[finalErrorIndex]) || 0;
                     data.push({ name, errors });
                 }
                 
@@ -727,13 +691,8 @@
                 renderData();
                 showNotification('success', 'Data terbaru telah berhasil diambil');
             } catch (error) {
-                console.error('Error fetching ', error);
+                console.error('Error fetching data:', error);
                 showNotification('error', 'Gagal memuat data: ' + error.message);
-                // Fallback ke data statis jika terjadi error
-                if (csData.length === 0) {
-                    csData = sampleData;
-                    renderData();
-                }
             }
         }
         
@@ -824,40 +783,6 @@
             }
             // Sembunyikan indikator auto-update
             document.getElementById('autoUpdateIndicator').style.display = 'none';
-        }
-        
-        // Fungsi untuk parsing CSV yang lebih andal
-        function parseCSV(csv) {
-            const rows = csv.split(/\r?\n/).filter(row => row.trim() !== '');
-            if (rows.length === 0) return { headers: [],  [] };
-            
-            const headers = rows[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
-            const data = [];
-            
-            for (let i = 1; i < rows.length; i++) {
-                const row = rows[i];
-                const values = [];
-                let current = '';
-                let inQuote = false;
-                
-                for (let j = 0; j < row.length; j++) {
-                    if (row[j] === '"' && (j === 0 || row[j-1] !== '\\')) {
-                        inQuote = !inQuote;
-                    } else if (row[j] === ',' && !inQuote) {
-                        values.push(current);
-                        current = '';
-                    } else {
-                        current += row[j];
-                    }
-                }
-                values.push(current);
-                
-                // Hapus tanda kutip di awal dan akhir jika ada
-                const cleanValues = values.map(value => value.trim().replace(/^"|"$/g, ''));
-                data.push(cleanValues);
-            }
-            
-            return { headers, data };
         }
         
         // Event listener saat halaman dimuat
