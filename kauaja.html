@@ -1,631 +1,890 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📊 Dashboard Kesalahan CS Togel | Premium Design</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #4361ee;
-      --secondary: #3f37c9;
-      --success: #4cc9f0;
-      --danger: #f72585;
-      --warning: #f8961e;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --gray: #6c757d;
-      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-      min-height: 100vh;
-      padding: 20px;
-      color: var(--dark);
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 30px 40px;
-      text-align: center;
-      position: relative;
-    }
-
-    .header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .stats-container {
-      display: flex;
-      justify-content: space-around;
-      padding: 20px;
-      background: var(--light);
-      border-bottom: 1px solid #eee;
-    }
-
-    .stat-card {
-      text-align: center;
-      padding: 15px;
-      border-radius: 12px;
-      background: white;
-      box-shadow: var(--card-shadow);
-      flex: 1;
-      margin: 0 10px;
-      transition: var(--transition);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 10px 0;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--gray);
-    }
-
-    .search-container {
-      padding: 20px 40px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .search-box {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 16px 20px 16px 50px;
-      border: none;
-      border-radius: 50px;
-      background: #f8f9fa;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .search-box input:focus {
-      outline: none;
-      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.2);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray);
-      font-size: 1.2rem;
-    }
-
-    .cs-list {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .cs-card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      transition: var(--transition);
-      cursor: pointer;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .cs-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .card-header h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin: 0;
-    }
-
-    .error-badge {
-      background: var(--danger);
-      color: white;
-      padding: 6px 15px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .card-body {
-      padding: 25px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .error-details {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .error-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(247, 37, 133, 0.1);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-    }
-
-    .error-icon i {
-      color: var(--danger);
-      font-size: 1.2rem;
-    }
-
-    .error-count {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--danger);
-    }
-
-    .error-link {
-      display: block;
-      background: var(--light);
-      color: var(--primary);
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 500;
-      margin-top: auto;
-      transition: var(--transition);
-    }
-
-    .error-link:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    .no-data {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px 20px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: var(--card-shadow);
-      color: var(--gray);
-      font-size: 1.2rem;
-    }
-
-    .loading-container {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 50px;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(67, 97, 238, 0.2);
-      border-top: 5px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 650px;
-      max-height: 90vh;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 25px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-title {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin: 0;
-    }
-
-    .close-modal {
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .close-modal:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .modal-body {
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-
-    .modal-details {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .modal-icon {
-      width: 70px;
-      height: 70px;
-      background: rgba(247, 37, 133, 0.1);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-icon i {
-      color: var(--danger);
-      font-size: 2rem;
-    }
-
-    .modal-info {
-      flex: 1;
-    }
-
-    .modal-info h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .modal-info p {
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .modal-link {
-      background: var(--danger);
-      color: white;
-      text-decoration: none;
-      padding: 16px 30px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: var(--transition);
-      display: inline-block;
-      margin-top: 10px;
-    }
-
-    .modal-link:hover {
-      background: #e01a6e;
-      transform: translateY(-3px);
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: var(--gray);
-      font-size: 0.9rem;
-      border-top: 1px solid #eee;
-    }
-
-    @media (max-width: 768px) {
-      .stats-container {
-        flex-direction: column;
-      }
-      
-      .cs-list {
-        grid-template-columns: 1fr;
-      }
-      
-      .header h1 {
-        font-size: 2rem;
-      }
-      
-      .modal-content {
-        max-width: 95%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Kesalahan CS Line Togel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #6f42c1;
+            --accent-color: #e83e8c;
+            --light-bg: #f8f9fc;
+            --dark-bg: #2e59d9;
+            --success-color: #1cc88a;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --gold-color: #ffd700;
+            --silver-color: #c0c0c0;
+            --bronze-color: #cd7f32;
+            --dark-text: #2e3a59;
+            --light-text: #6c757d;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+            opacity: 0.05;
+            z-index: -1;
+        }
+        .container {
+            max-width: 1400px;
+        }
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 2.5rem 0;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        .header h1 {
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            color: white;
+            animation: slideUp 0.5s ease-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+            color: white;
+            border-radius: 20px 20px 0 0 !important;
+            font-weight: 600;
+            padding: 1.25rem 1.75rem;
+            font-size: 1.1rem;
+        }
+        .card-body {
+            padding: 1.75rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stats-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 1.75rem;
+            text-align: center;
+            box-shadow: 0 4px 20px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.2);
+        }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .stats-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            color: white;
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .table th {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .table td {
+            padding: 1.2rem;
+            vertical-align: middle;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .table-hover tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+        }
+        .cs-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .status-badge {
+            padding: 0.6rem 1.1rem;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .status-good {
+            background: rgba(28, 200, 138, 0.2);
+            color: #1cc88a;
+            border: 1px solid rgba(28, 200, 138, 0.3);
+        }
+        .status-warning {
+            background: rgba(246, 194, 62, 0.2);
+            color: #f6c23e;
+            border: 1px solid rgba(246, 194, 62, 0.3);
+        }
+        .status-danger {
+            background: rgba(231, 74, 59, 0.2);
+            color: #e74a3b;
+            border: 1px solid rgba(231, 74, 59, 0.3);
+        }
+        .rank-badge {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        .rank-1 {
+            background: linear-gradient(135deg, var(--gold-color) 0%, #ffcc00 100%);
+        }
+        .rank-2 {
+            background: linear-gradient(135deg, var(--silver-color) 0%, #a6a6a6 100%);
+        }
+        .rank-3 {
+            background: linear-gradient(135deg, var(--bronze-color) 0%, #a56c2f 100%);
+        }
+        .winner-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 1.5rem;
+            height: 100%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        .winner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+        .winner-card-1 {
+            border: 2px solid var(--gold-color);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+        }
+        .winner-card-2 {
+            border: 2px solid var(--silver-color);
+            box-shadow: 0 8px 25px rgba(192, 192, 192, 0.2);
+        }
+        .winner-card-3 {
+            border: 2px solid var(--bronze-color);
+            box-shadow: 0 8px 25px rgba(205, 127, 50, 0.2);
+        }
+        .winner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+        .winner-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+        .refresh-btn {
+            cursor: pointer;
+            transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .last-updated {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.7rem 1.3rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .floating-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark-text);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .floating-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .floating-notification.success {
+            border-left: 4px solid var(--success-color);
+        }
+        .floating-notification.error {
+            border-left: 4px solid var(--danger-color);
+        }
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+        .notification-success {
+            color: var(--success-color);
+        }
+        .notification-error {
+            color: var(--danger-color);
+        }
+        .auto-update-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(28, 200, 138, 0.9);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: pulse 2s infinite;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem 0;
+            }
+            .card-header {
+                padding: 1rem 1.25rem;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            .table td, .table th {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .stats-card {
+                padding: 1.5rem;
+            }
+            .stats-number {
+                font-size: 2rem;
+            }
+        }
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s infinite ease-in-out;
+        }
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        .shape-2 {
+            width: 50px;
+            height: 50px;
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+        .shape-3 {
+            width: 70px;
+            height: 70px;
+            bottom: 15%;
+            left: 8%;
+            animation-delay: 2s;
+        }
+        .shape-4 {
+            width: 60px;
+            height: 60px;
+            bottom: 25%;
+            right: 7%;
+            animation-delay: 3s;
+        }
+        /* CS LINE di kanan atas */
+        .cs-line-top-right {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: white;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cs-line-top-right strong {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ffd700;
+        }
+        .cs-line-top-right div {
+            font-weight: 500;
+            padding: 2px 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1><i class="fas fa-chart-line"></i> Dashboard Kesalahan CS Togel</h1>
-      <p>Analisis detail kesalahan CS berdasarkan data real-time dengan desain premium</p>
-    </div>
-
-    <div class="stats-container">
-      <div class="stat-card">
-        <div class="stat-value" id="totalCS">0</div>
-        <div class="stat-label">Total CS Aktif</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="totalErrors">0</div>
-        <div class="stat-label">Total Kesalahan</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="avgErrors">0</div>
-        <div class="stat-label">Rata-rata Kesalahan</div>
-      </div>
-    </div>
-
-    <div class="search-container">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Cari nama CS atau detail...">
-      </div>
-    </div>
-
-    <div class="cs-list" id="csList">
-      <div class="loading-container">
-        <div class="spinner"></div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p>Dashboard Kesalahan CS Togel &copy; 2023 | Data diambil dari Google Sheets real-time</p>
-    </div>
-  </div>
-
-  <div class="modal" id="errorModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Nama CS</h2>
-        <button class="close-modal" onclick="closeModal()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-details">
-          <div class="modal-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <div class="modal-info">
-            <h2 id="modalName">Nama CS</h2>
-            <p id="modalErrorCount">Total kesalahan: <span id="modalErrorValue">0</span></p>
-            <p id="modalLinkText">Klik tombol di bawah untuk melihat detail kesalahan</p>
-            <a href="#" id="modalLink" class="modal-link" target="_blank">
-              <i class="fas fa-link"></i> Buka Link Kesalahan
-            </a>
-          </div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+    <div class="floating-notification success" id="updateNotification">
+        <i class="fas fa-check-circle notification-icon notification-success"></i>
+        <div>
+            <strong>Data Diperbarui!</strong>
+            <div>Data terbaru telah berhasil diambil</div>
         </div>
-      </div>
     </div>
-  </div>
-
-  <script>
-    // Konfigurasi Google Sheets
-    const SHEET_ID = "1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E";
-    const SHEET_NAME = "Part1";
-    const JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
-
-    let csData = [];
-    let filteredData = [];
-
-    // Fungsi untuk mengambil data dari Google Sheets
-    async function fetchSheetData() {
-      try {
-        const response = await fetch(JSON_URL);
-        const text = await response.text();
-
-        // Parsing JSON dari response Google Sheets
-        const jsonStart = text.indexOf('{');
-        const jsonEnd = text.lastIndexOf('}') + 1;
-        const jsonString = text.substring(jsonStart, jsonEnd);
-        const data = JSON.parse(jsonString);
-
-        // Ekstrak baris data (mulai dari baris 2 karena baris 1 header)
-        const rows = data.table.rows;
-
-        csData = rows.map(row => ({
-          name: row.c[0]?.v || 'Tidak diketahui',
-          total: row.c[1]?.v ? parseInt(row.c[1].v) : 0,
-          status: row.c[2]?.v ? row.c[2].v.toString().trim().toLowerCase() : '',
-          link: row.c[3]?.v || '#'
-        }));
-
-        // Filter hanya yang statusnya "ada" (case-insensitive)
-        filteredData = csData.filter(item => 
-          item.status === "ada" || item.status === "yes" || item.status === "active"
-        );
-
-        // Sortir berdasarkan total kesalahan (terbanyak ke terkecil)
-        filteredData.sort((a, b) => b.total - a.total);
-
-        // Hitung statistik
-        const totalCS = filteredData.length;
-        const totalErrors = filteredData.reduce((sum, item) => sum + item.total, 0);
-        const avgErrors = totalCS > 0 ? Math.round(totalErrors / totalCS) : 0;
-
-        // Update UI statistik
-        document.getElementById('totalCS').textContent = totalCS;
-        document.getElementById('totalErrors').textContent = totalErrors;
-        document.getElementById('avgErrors').textContent = avgErrors;
-
-        renderCSList();
-      } catch (error) {
-        console.error("Gagal mengambil data:", error);
-        document.getElementById('csList').innerHTML = `
-          <div class="no-data">
-            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 15px; color: var(--danger)"></i>
-            <h3>Gagal Memuat Data</h3>
-            <p>Pastikan sheet sudah dipublikasikan ke web dan aksesnya terbuka</p>
-            <p>URL: <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank">https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit</a></p>
-          </div>
-        `;
-      }
-    }
-
-    // Render daftar CS ke halaman
-    function renderCSList() {
-      const container = document.getElementById('csList');
-      if (filteredData.length === 0) {
-        container.innerHTML = `
-          <div class="no-data">
-            <i class="fas fa-ban" style="font-size: 3rem; margin-bottom: 15px; color: var(--warning)"></i>
-            <h3>Tidak Ada Data</h3>
-            <p>Tidak ada CS dengan status "ada" atau data kosong</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filteredData.map(item => `
-        <div class="cs-card">
-          <div class="card-header">
-            <h3>${item.name}</h3>
-            <span class="error-badge">${item.total} Kesalahan</span>
-          </div>
-          <div class="card-body">
-            <div class="error-details">
-              <div class="error-icon">
-                <i class="fas fa-exclamation-circle"></i>
-              </div>
-              <div class="error-count">${item.total}</div>
+    <div class="auto-update-indicator" id="autoUpdateIndicator">
+        <i class="fas fa-sync-alt"></i> Auto-update aktif
+    </div>
+    <div class="container">
+        <div class="header text-center mb-5">
+            <h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>Laporan Kesalahan CS Line Togel</h1>
+            <p class="lead">Monitoring dan evaluasi performa customer service</p>
+            
+            <!-- CS LINE di kanan atas -->
+            <div class="cs-line-top-right">
+                <strong>CS LINE</strong>
+                <div>CHARLIE</div>
+                <div>ANDI</div>
+                <div>RINAL ABDILLAH NASUTION</div>
             </div>
-            <a href="#" class="error-link" onclick="openModal(${JSON.stringify(item)}); return false;">
-              <i class="fas fa-eye"></i> Lihat Detail
-            </a>
-          </div>
+            
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class="refresh-btn me-3" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="last-updated" id="lastUpdated">
+                    <i class="fas fa-clock me-1"></i>Terakhir diperbarui: -
+                </div>
+            </div>
         </div>
-      `).join('');
-    }
-
-    // Buka modal detail
-    function openModal(item) {
-      document.getElementById('modalTitle').textContent = item.name;
-      document.getElementById('modalName').textContent = item.name;
-      document.getElementById('modalErrorValue').textContent = item.total;
-      document.getElementById('modalLink').href = item.link;
-      document.getElementById('errorModal').style.display = 'flex';
-    }
-
-    // Tutup modal
-    function closeModal() {
-      document.getElementById('errorModal').style.display = 'none';
-    }
-
-    // Filter berdasarkan search input
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-      const searchTerm = e.target.value.toLowerCase();
-      if (!searchTerm) {
-        filteredData = [...csData].filter(item => 
-          item.status === "ada" || item.status === "yes" || item.status === "active"
-        );
-        filteredData.sort((a, b) => b.total - a.total);
-      } else {
-        filteredData = csData.filter(item => 
-          (item.status === "ada" || item.status === "yes" || item.status === "active") &&
-          (item.name.toLowerCase().includes(searchTerm) || 
-           item.total.toString().includes(searchTerm))
-        );
-        filteredData.sort((a, b) => b.total - a.total);
-      }
-      renderCSList();
-    });
-
-    // Close modal jika klik di luar konten
-    window.onclick = function(event) {
-      const modal = document.getElementById('errorModal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    };
-
-    // Jalankan saat halaman dimuat
-    fetchSheetData();
-  </script>
+        <div class="stats-grid">
+            <div class="stats-card">
+                <div class="stats-number" id="totalErrors">305</div>
+                <div class="stats-label">Total Kesalahan</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="totalCS">20</div>
+                <div class="stats-label">Jumlah CS</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="averageErrors">15.3</div>
+                <div class="stats-label">Rata-rata Kesalahan</div>
+            </div>
+            <div class="stats-card">
+                <div class="stats-number" id="criticalCount">4</div>
+                <div class="stats-label">CS Status Danger</div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <i class="fas fa-trophy me-2"></i>Top 3 Performa Terbaik
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="top3Container">
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-1 text-center p-3">
+                                    <div class="winner-badge">🥇</div>
+                                    <h4>Juara 1</h4>
+                                    <div class="cs-avatar mx-auto mb-2">T</div>
+                                    <h5>TOMMY</h5>
+                                    <p class="mb-1">HASIM C6735321</p>
+                                    <div class="stats-number text-success">5</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-2 text-center p-3">
+                                    <div class="winner-badge">🥈</div>
+                                    <h4>Juara 2</h4>
+                                    <div class="cs-avatar mx-auto mb-2">W</div>
+                                    <h5>WILLY</h5>
+                                    <p class="mb-1">PERAYUDA E0089312</p>
+                                    <div class="stats-number text-success">5</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="winner-card winner-card-3 text-center p-3">
+                                    <div class="winner-badge">🥉</div>
+                                    <h4>Juara 3</h4>
+                                    <div class="cs-avatar mx-auto mb-2">M</div>
+                                    <h5>MAHENDRAN</h5>
+                                    <p class="mb-1">C6813799</p>
+                                    <div class="stats-number text-success">6</div>
+                                    <div class="stats-label">Kesalahan</div>
+                                    <span class="status-badge status-good">Good</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-list me-2"></i>Daftar Lengkap Kesalahan CS</span>
+                        <span class="badge bg-danger" id="csCount">20 CS</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="csTable">
+                                <thead>
+                                    <tr>
+                                        <th>Peringkat</th>
+                                        <th>Nama CS</th>
+                                        <th>Total Kesalahan</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="csTableBody">
+                                    <!-- Data akan diisi oleh JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Data dari Google Sheets
+        let csData = [];
+        let previousData = [];
+        let autoUpdateInterval;
+        
+        // Data contoh jika tidak bisa mengambil dari Google Sheets
+        const sampleData = [
+            { name: "WIDJAYA C6202945 / E7721607", errors: 17 },
+            { name: "DAVID C6169860 / E6864058", errors: 14 },
+            { name: "FALLEN HARDINANSAH TAJU C6931386", errors: 8 },
+            { name: "HARIANTO X2242791", errors: 36 },
+            { name: "ERI HARIANTO C8493406", errors: 13 },
+            { name: "MAHENDRAN C6813799", errors: 6 },
+            { name: "ANDHIKA DWI PUTRA C8543470", errors: 18 },
+            { name: "TOMMY HASIM C6735321", errors: 5 },
+            { name: "EGI SETIAWAN C8410298", errors: 9 },
+            { name: "RANJIT X1068990", errors: 12 },
+            { name: "WILLY PERAYUDA E0089312", errors: 5 },
+            { name: "ANGGA AZMAL HARAHAP C9260456", errors: 6 },
+            { name: "LALU MUHAMMAD ADNAN ZAKARIA C7565548 / E7776988", errors: 15 },
+            { name: "ALFINO MUKTI C8493352", errors: 21 },
+            { name: "AKAS FARMA C8490102", errors: 15 },
+            { name: "ARI ROMANDUS FERNANDO C8386112", errors: 8 },
+            { name: "PARIS AMRULLOH E0237731", errors: 29 },
+            { name: "SAMSUL MAARIF C7008737", errors: 25 },
+            { name: "SUHAN RAZ C5862955", errors: 8 },
+            { name: "RAHMADI SORMIN E0685561", errors: 36 }
+        ];
+        
+        // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
+        function getStatus(errors) {
+            if (errors === 0) return { text: "Excellent", class: "status-good" };
+            if (errors <= 5) return { text: "Good", class: "status-good" };
+            if (errors <= 20) return { text: "Warning", class: "status-warning" };
+            return { text: "Danger", class: "status-danger" };
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(type, message) {
+            const notification = document.getElementById('updateNotification');
+            const icon = notification.querySelector('.notification-icon');
+            const strong = notification.querySelector('strong');
+            const div = notification.querySelector('div');
+            notification.className = `floating-notification ${type}`;
+            icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} notification-icon notification-${type}`;
+            strong.textContent = type === 'success' ? 'Data Diperbarui!' : 'Error!';
+            div.innerHTML = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Fungsi untuk memuat data dari Google Sheets
+        async function fetchDataFromSheet() {
+            try {
+                // URL Google Sheets yang sudah dipublikasikan
+                const sheetUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
+                const response = await fetch(sheetUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const csvData = await response.text();
+                
+                // Parsing CSV dengan fungsi yang lebih andal
+                const parsedData = parseCSV(csvData);
+                
+                const headers = parsedData.headers;
+                const rows = parsedData.data;
+                
+                // Cari indeks kolom yang benar
+                const nameIndex = headers.findIndex(header => 
+                    header.toLowerCase().includes('nama') || header.toLowerCase().includes('cs')
+                );
+                const errorIndex = headers.findIndex(header => 
+                    header.toLowerCase().includes('total') || header.toLowerCase().includes('kesalahan')
+                );
+                
+                // Jika tidak menemukan kolom yang sesuai, gunakan kolom pertama dan kedua
+                const finalNameIndex = nameIndex !== -1 ? nameIndex : 0;
+                const finalErrorIndex = errorIndex !== -1 ? errorIndex : 1;
+                
+                const data = [];
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (row.length <= Math.max(finalNameIndex, finalErrorIndex)) continue;
+                    
+                    const name = row[finalNameIndex] || 'Tidak Diketahui';
+                    const errors = parseInt(row[finalErrorIndex]) || 0;
+                    data.push({ name, errors });
+                }
+                
+                // Simpan data sebelumnya untuk perbandingan
+                previousData = [...csData];
+                
+                // Filter CS tertentu yang ingin dihilangkan
+                csData = data.filter(cs => 
+                    !cs.name.includes("RINAL ABDILLAH NASUTION") && 
+                    !cs.name.includes("ANDI") && 
+                    !cs.name.includes("CHARLIE")
+                );
+                
+                renderData();
+                showNotification('success', 'Data terbaru telah berhasil diambil');
+            } catch (error) {
+                console.error('Error fetching ', error);
+                showNotification('error', 'Gagal memuat data: ' + error.message);
+                // Fallback ke data statis jika terjadi error
+                if (csData.length === 0) {
+                    csData = sampleData;
+                    renderData();
+                }
+            }
+        }
+        
+        // Fungsi untuk merender data
+        function renderData() {
+            // Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar)
+            const sortedData = [...csData].sort((a, b) => a.errors - b.errors);
+            
+            // Hitung statistik
+            const totalErrors = sortedData.reduce((sum, cs) => sum + cs.errors, 0);
+            const totalCS = sortedData.length;
+            const averageErrors = totalCS > 0 ? (totalErrors / totalCS).toFixed(1) : 0;
+            const criticalCount = sortedData.filter(cs => cs.errors > 25).length;
+            
+            // Update statistik
+            document.getElementById('totalErrors').textContent = totalErrors;
+            document.getElementById('totalCS').textContent = totalCS;
+            document.getElementById('averageErrors').textContent = averageErrors;
+            document.getElementById('criticalCount').textContent = criticalCount;
+            document.getElementById('csCount').textContent = `${totalCS} CS`;
+            
+            // Update waktu terakhir
+            document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
+            
+            // Render top 3
+            const top3 = sortedData.slice(0, 3);
+            const top3Html = top3.map((cs, index) => {
+                const status = getStatus(cs.errors);
+                const shortName = cs.name.split(' ')[0];
+                return `
+                    <div class="col-md-4 mb-3">
+                        <div class="winner-card winner-card-${index+1} text-center p-3">
+                            <div class="winner-badge">${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
+                            <h4>Juara ${index+1}</h4>
+                            <div class="cs-avatar mx-auto mb-2">${shortName.charAt(0)}</div>
+                            <h5>${shortName}</h5>
+                            <p class="mb-1 text-truncate">${cs.name.split(' ').slice(1).join(' ')}</p>
+                            <div class="stats-number ${cs.errors === 0 ? 'text-success' : 'text-primary'}">${cs.errors}</div>
+                            <div class="stats-label">Kesalahan</div>
+                            <span class="status-badge ${status.class}">${status.text}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('top3Container').innerHTML = top3Html;
+            
+            // Render tabel
+            const tableHtml = sortedData.map((cs, index) => {
+                const status = getStatus(cs.errors);
+                let rankBadge = `<div class="rank-badge">${index+1}</div>`;
+                if (index === 0) rankBadge = `<div class="rank-badge rank-1">1</div>`;
+                else if (index === 1) rankBadge = `<div class="rank-badge rank-2">2</div>`;
+                else if (index === 2) rankBadge = `<div class="rank-badge rank-3">3</div>`;
+                return `
+                    <tr>
+                        <td>${rankBadge}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="cs-avatar">${cs.name.charAt(0)}</div>
+                                <div>${cs.name}</div>
+                            </div>
+                        </td>
+                        <td>${cs.errors}</td>
+                        <td><span class="status-badge ${status.class}">${status.text}</span></td>
+                    </tr>
+                `;
+            }).join('');
+            document.getElementById('csTableBody').innerHTML = tableHtml;
+        }
+        
+        // Fungsi untuk memulai auto-update
+        function startAutoUpdate() {
+            // Hapus interval sebelumnya jika ada
+            if (autoUpdateInterval) {
+                clearInterval(autoUpdateInterval);
+            }
+            // Set interval untuk auto-update setiap 2 menit
+            autoUpdateInterval = setInterval(fetchDataFromSheet, 120000);
+            // Tampilkan indikator auto-update
+            document.getElementById('autoUpdateIndicator').style.display = 'flex';
+        }
+        
+        // Fungsi untuk menghentikan auto-update
+        function stopAutoUpdate() {
+            if (autoUpdateInterval) {
+                clearInterval(autoUpdateInterval);
+                autoUpdateInterval = null;
+            }
+            // Sembunyikan indikator auto-update
+            document.getElementById('autoUpdateIndicator').style.display = 'none';
+        }
+        
+        // Fungsi untuk parsing CSV yang lebih andal
+        function parseCSV(csv) {
+            const rows = csv.split(/\r?\n/).filter(row => row.trim() !== '');
+            if (rows.length === 0) return { headers: [],  [] };
+            
+            const headers = rows[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
+            const data = [];
+            
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const values = [];
+                let current = '';
+                let inQuote = false;
+                
+                for (let j = 0; j < row.length; j++) {
+                    if (row[j] === '"' && (j === 0 || row[j-1] !== '\\')) {
+                        inQuote = !inQuote;
+                    } else if (row[j] === ',' && !inQuote) {
+                        values.push(current);
+                        current = '';
+                    } else {
+                        current += row[j];
+                    }
+                }
+                values.push(current);
+                
+                // Hapus tanda kutip di awal dan akhir jika ada
+                const cleanValues = values.map(value => value.trim().replace(/^"|"$/g, ''));
+                data.push(cleanValues);
+            }
+            
+            return { headers, data };
+        }
+        
+        // Event listener saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Muat data pertama kali
+            fetchDataFromSheet();
+            // Mulai auto-update
+            startAutoUpdate();
+            
+            // Event listener untuk tombol refresh
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                fetchDataFromSheet();
+            });
+        });
+        
+        // Handle visibilitas halaman untuk mengoptimalkan auto-update
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Hentikan auto-update ketika tab tidak aktif
+                stopAutoUpdate();
+            } else {
+                // Lanjutkan auto-update ketika tab aktif kembali
+                startAutoUpdate();
+                // Perbarui data
+                fetchDataFromSheet();
+            }
+        });
+    </script>
 </body>
 </html>
