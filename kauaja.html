@@ -4,146 +4,502 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kesalahan CS Line Togel - Part1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #27ae60;
+      --warning: #f39c12;
+      --card-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      --gradient: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
+      background: var(--gradient);
+      min-height: 100vh;
       padding: 20px;
-      color: #333;
+      color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+    
     .container {
-      max-width: 1000px;
-      margin: auto;
+      max-width: 1200px;
+      width: 100%;
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    
+    .header {
+      background: var(--gradient);
+      color: white;
+      padding: 25px 30px;
+      text-align: center;
+      position: relative;
       overflow: hidden;
     }
-    header {
-      background: linear-gradient(135deg, #3498db, #2c3e50);
-      color: white;
-      text-align: center;
-      padding: 20px;
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: rotate(30deg);
     }
+    
     h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
+      font-family: 'Roboto Slab', serif;
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
     }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+    
     .content {
-      padding: 20px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 25px;
     }
-    .ranking {
-      background-color: #f8f9fa;
-      border-left: 5px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 8px;
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
     }
-    .ranking h3 {
-      margin-top: 0;
-      color: #2c3e50;
+    
+    .special-cs {
+      background: linear-gradient(145deg, #1e3c72, #2a5298);
+      color: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      height: fit-content;
     }
-    .warning {
-      background-color: #ffebee;
-      color: #c62828;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 15px 0;
-      font-weight: 600;
+    
+    .special-cs::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #ff6b6b, #4facfe);
+    }
+    
+    .special-cs h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
       text-align: center;
-      border: 1px solid #ef9a9a;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
+    
+    .special-cs h3 i {
+      color: #ffd700;
+      font-size: 1.4rem;
+    }
+    
+    .special-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .special-item {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .special-item:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.25);
+    }
+    
+    .special-item-number {
+      background: #ff6b6b;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    
+    .ranking {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ranking::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #2ecc71, #3498db);
+    }
+    
+    .ranking h3 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+    
+    .rank-item:hover {
+      background: #eef2f7;
+      transform: translateX(5px);
+    }
+    
+    .rank-item:nth-child(1) {
+      background: linear-gradient(135deg, #ffd700, #ffcc00);
+      color: #8b4513;
+    }
+    
+    .rank-item:nth-child(2) {
+      background: linear-gradient(135deg, #c0c0c0, #a9a9a9);
+      color: #444;
+    }
+    
+    .rank-item:nth-child(3) {
+      background: linear-gradient(135deg, #cd7f32, #a6693a);
+      color: #5d4037;
+    }
+    
+    .rank-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      min-width: 45px;
+      text-align: center;
+    }
+    
+    .rank-medal {
+      font-size: 1.8rem;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .rank-name {
+      flex: 1;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .rank-value {
+      background: #e9f7ef;
+      color: var(--success);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    
+    .warning {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      border: 1px solid #ffcc80;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .warning::before {
+      content: '!';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff9800;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+    
+    .warning h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #e65100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .warning p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      margin-top: 10px;
     }
+    
+    thead {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+    }
+    
     th {
-      background-color: #3498db;
-      color: white;
-      padding: 12px;
+      padding: 16px;
       text-align: left;
+      color: white;
       font-weight: 600;
     }
+    
     td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      transition: all 0.2s;
     }
-    tr:hover {
-      background-color: #f1f1f1;
+    
+    tr:hover td {
+      background: #f8f9fa;
+      transform: translateX(2px);
     }
-    .highlight {
-      background-color: #fff3cd;
-      font-weight: 600;
-    }
+    
     .danger {
-      color: #c62828;
+      color: var(--accent);
       font-weight: 700;
+      background: rgba(231,76,60,0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
     }
-    .medal {
-      font-size: 1.2em;
-      margin-right: 8px;
+    
+    .highlight {
+      color: var(--success);
+      font-weight: 600;
+      background: rgba(39,174,96,0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
     }
-    .gold { color: #FFD700; }
-    .silver { color: #C0C0C0; }
-    .bronze { color: #CD7F32; }
+    
     .loading {
       text-align: center;
+      padding: 40px;
       color: #7f8c8d;
       font-style: italic;
-      margin: 20px;
     }
+    
     .error {
-      color: #e74c3c;
+      color: var(--accent);
       text-align: center;
-      margin: 20px;
-      font-weight: bold;
+      padding: 20px;
+      background: rgba(231,76,60,0.1);
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .status-good {
+      background: rgba(39,174,96,0.2);
+      color: var(--success);
+    }
+    
+    .status-caution {
+      background: rgba(243,156,18,0.2);
+      color: var(--warning);
+    }
+    
+    .status-danger {
+      background: rgba(231,76,60,0.2);
+      color: var(--accent);
+    }
+    
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+      
+      .special-cs {
+        position: relative;
+        grid-column: 1 / -1;
+        margin-bottom: 25px;
+      }
+      
+      .header h1 {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .content {
+        padding: 15px;
+      }
+      
+      .rank-number {
+        font-size: 1.8rem;
+      }
+      
+      .rank-medal {
+        width: 35px;
+        height: 35px;
+        font-size: 1.4rem;
+      }
+    }
+    
+    /* Animasi loading */
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(52, 152, 219, 0.3);
+      border-radius: 50%;
+      border-top-color: #3498db;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <header>
-      <h1>📊 Kesalahan CS Line Togel</h1>
-      <p style="color: #bdc3c7;">Data dari Sheet: part1</p>
-    </header>
-
+    <div class="header">
+      <h1>📊 CS Line Togel Performance Dashboard</h1>
+      <p class="subtitle">Real-time data tracking for CS performance</p>
+    </div>
+    
     <div class="content">
-      <div id="loading" class="loading">Memuat data dari Google Sheets...</div>
-      <div id="error" class="error"></div>
-
-      <!-- Ranking -->
-      <div class="ranking">
-        <h3>🏆 RANKING JUARA (Kesalahan Terendah)</h3>
-        <ul id="rankingList"></ul>
+      <div class="main-content">
+        <!-- Ranking -->
+        <div class="ranking">
+          <h3><i class="fas fa-trophy"></i> TOP PERFORMERS (Kesalahan Terendah)</h3>
+          <ul class="ranking-list" id="rankingList"></ul>
+        </div>
+        
+        <!-- Warning -->
+        <div class="warning">
+          <h3><i class="fas fa-exclamation-triangle"></i> PERINGATAN KRITIS</h3>
+          <p>CS dengan total kesalahan ≥25 harus segera diperhatikan dan dilakukan evaluasi!</p>
+        </div>
+        
+        <!-- Table -->
+        <table id="csTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama CS</th>
+              <th>Total Kesalahan</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="csBody"></tbody>
+        </table>
       </div>
-
-      <!-- Warning -->
-      <div class="warning">
-        🔥 <strong>PERINGATAN:</strong> CS dengan total kesalahan ≥25 harus hati-hati!
+      
+      <!-- Special CS Section (kanan atas) -->
+      <div class="special-cs">
+        <h3><i class="fas fa-users"></i> CS LINE</h3>
+        <ul class="special-list" id="specialList"></ul>
       </div>
-
-      <!-- Table -->
-      <table id="csTable" style="display: none;">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama CS</th>
-            <th>Total Kesalahan</th>
-          </tr>
-        </thead>
-        <tbody id="csBody"></tbody>
-      </table>
     </div>
   </div>
 
   <script>
     const csvUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
-
+    
+    // Nama yang akan dipisahkan sebagai "CS LINE"
+    const specialNames = ['RINAL ABDILLAH NASUTION CHARLIE', 'ANDI'];
+    
     fetch(csvUrl)
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -156,7 +512,7 @@
         const rawHeaders = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
         const namaCsIndex = rawHeaders.indexOf('NAMA CS');
         const totalKesalahanIndex = rawHeaders.indexOf('TOTAL KESALAHAN');
-
+        
         if (namaCsIndex === -1 || totalKesalahanIndex === -1) {
           document.getElementById('loading').style.display = 'none';
           document.getElementById('error').innerText = 
@@ -166,57 +522,93 @@
           console.log('Raw headers:', rawHeaders);
           return;
         }
-
+        
         // Proses data
-        const data = [];
+        const allData = [];
         for (let i = 1; i < lines.length; i++) {
           if (!lines[i].trim()) continue;
           const row = lines[i].split(',');
           const namaCs = row[namaCsIndex]?.replace(/"/g, '').trim() || '-';
           const totalKesalahan = parseInt(row[totalKesalahanIndex]?.replace(/"/g, '').trim()) || 0;
-
-          if (namaCs !== '-') {
-            data.push({ nama: namaCs, kesalahan: totalKesalahan });
+          
+          if (namaCs !== '-' && namaCs !== '') {
+            allData.push({ 
+              nama: namaCs, 
+              kesalahan: totalKesalahan,
+              status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
+            });
           }
         }
-
-        // Urutkan berdasarkan kesalahan (terkecil dulu)
-        data.sort((a, b) => a.kesalahan - b.kesalahan);
-
+        
+        // Pisahkan data menjadi special dan main
+        const specialData = allData.filter(item => specialNames.includes(item.nama));
+        const mainData = allData.filter(item => !specialNames.includes(item.nama));
+        
+        // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
+        const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
+        
         // Tampilkan ranking juara 1-3
         const rankingList = document.getElementById('rankingList');
         rankingList.innerHTML = '';
-        const medals = ['🥇', '🥈', '🥉'];
-        const medalColors = ['gold', 'silver', 'bronze'];
-
-        for (let i = 0; i < Math.min(3, data.length); i++) {
-          const item = data[i];
+        
+        const medals = [
+          { icon: '🥇', color: '#FFD700' },
+          { icon: '🥈', color: '#C0C0C0' },
+          { icon: '🥉', color: '#CD7F32' }
+        ];
+        
+        for (let i = 0; i < Math.min(3, mainDataSorted.length); i++) {
+          const item = mainDataSorted[i];
           const li = document.createElement('li');
-          li.innerHTML = `<span class="medal ${medalColors[i]}">${medals[i]}</span> ${item.nama} → <strong>${item.kesalahan}</strong>`;
+          li.className = 'rank-item';
+          li.innerHTML = `
+            <div class="rank-number">${i+1}</div>
+            <div class="rank-medal" style="background: ${medals[i].color}">${medals[i].icon}</div>
+            <div class="rank-name">${item.nama}</div>
+            <div class="rank-value">${item.kesalahan}</div>
+          `;
           rankingList.appendChild(li);
         }
-
+        
+        // Tampilkan special CS
+        const specialList = document.getElementById('specialList');
+        specialList.innerHTML = '';
+        specialData.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.className = 'special-item';
+          li.innerHTML = `
+            <div class="special-item-number">${index+1}</div>
+            <div>${item.nama}</div>
+            <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
+          `;
+          specialList.appendChild(li);
+        });
+        
         // Tampilkan tabel
         const tbody = document.getElementById('csBody');
         tbody.innerHTML = '';
         let count = 0;
-
-        data.forEach(item => {
+        
+        mainDataSorted.forEach(item => {
           count++;
           const tr = document.createElement('tr');
-          const dangerClass = item.kesalahan >= 25 ? 'danger' : '';
-          const highlightClass = item.kesalahan <= 5 ? 'highlight' : '';
-
           tr.innerHTML = `
             <td>${count}</td>
             <td>${item.nama}</td>
-            <td class="${dangerClass} ${highlightClass}">${item.kesalahan}</td>
+            <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
+            <td>
+              <span class="status-badge status-${item.status}">
+                ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
+              </span>
+            </td>
           `;
           tbody.appendChild(tr);
         });
-
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('csTable').style.display = 'table';
+        
+        // Tampilkan tabel jika ada data
+        if (mainDataSorted.length > 0) {
+          document.getElementById('csTable').style.display = 'table';
+        }
       })
       .catch(error => {
         document.getElementById('loading').style.display = 'none';
