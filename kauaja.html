@@ -440,7 +440,7 @@
       line-height: 1.4;
       max-height: 200px;
       overflow: auto;
-      display: none;
+      display: block; /* Selalu tampilkan debug info */
     }
     
     .modal {
@@ -609,8 +609,8 @@
         <!-- Debug Info -->
         <div class="debug-info" id="debugInfo">
           <strong>Debug Information:</strong><br>
-          <span id="debugHeaders"></span><br>
-          <span id="debugData"></span>
+          <span id="debugPart1"></span><br>
+          <span id="debugError"></span>
         </div>
         
         <!-- Ranking -->
@@ -663,81 +663,80 @@
       'ANDI E4487475'
     ];
     
+    // Fungsi untuk membersihkan data CSV
+    function cleanCsvData(csvText) {
+      return csvText.split('\n').map(line => 
+        line.trim().replace(/^"|"$/g, '').replace(/""/g, '"')
+      );
+    }
+    
     // Fetch data dari kedua sheet
     Promise.all([
       fetch(part1CsvUrl).then(r => r.text()),
       fetch(errorCsvUrl).then(r => r.text())
     ])
     .then(([part1Text, errorText]) => {
-      // Proses data part1
-      const part1Lines = part1Text.split('\n');
-      const part1RawHeaders = part1Lines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
-      const namaCsIndex = part1RawHeaders.indexOf('nama cs');
-      const totalKesalahanIndex = part1RawHeaders.indexOf('total kesalahan');
+      // Bersihkan data
+      const part1Lines = cleanCsvData(part1Text);
+      const errorLines = cleanCsvData(errorText);
       
-      // Proses data error details (hanya kolom A dan B)
-      const errorLines = errorText.split('\n');
-      const errorRawHeaders = errorLines[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
-      const errorNamaCsIndex = errorRawHeaders.indexOf('nama cs');
-      const errorDetailIndex = errorRawHeaders.indexOf('detail kesalahan');
+      // Debug: Tampilkan data part1
+      const debugPart1 = document.getElementById('debugPart1');
+      debugPart1.innerHTML = '<strong>Part1 Sheet Data (Kolom A & B):</strong><br>';
       
-      // Debug info
-      const debugInfo = document.getElementById('debugInfo');
-      const debugHeaders = document.getElementById('debugHeaders');
-      const debugData = document.getElementById('debugData');
-      
-      debugHeaders.innerHTML = `<strong>Part1 Headers:</strong> ${part1RawHeaders.join(', ')}<br>
-                                <strong>Error Sheet Headers:</strong> ${errorRawHeaders.join(', ')}`;
-      debugData.innerHTML = `<strong>Part1 Columns:</strong> Nama CS: ${namaCsIndex}, Total Kesalahan: ${totalKesalahanIndex}<br>
-                             <strong>Error Columns:</strong> Nama CS: ${errorNamaCsIndex}, Detail: ${errorDetailIndex}`;
-      
-      if (namaCsIndex === -1 || totalKesalahanIndex === -1 || 
-          errorNamaCsIndex === -1 || errorDetailIndex === -1) {
-        debugInfo.style.display = 'block';
-        document.getElementById('error').innerText = 
-          `❌ Kolom tidak ditemukan!\n` +
-          `Pastikan nama kolom persis di kedua sheet`;
-        console.error('Kolom tidak ditemukan di salah satu sheet');
-        return;
+      for (let i = 1; i < Math.min(5, part1Lines.length); i++) {
+        const row = part1Lines[i].split(',').map(cell => cell.trim());
+        if (row.length >= 2) {
+          debugPart1.innerHTML += `Baris ${i}: ${row[0]} | ${row[1]}<br>`;
+        }
       }
       
-      // Proses data part1
+      // Debug: Tampilkan data error
+      const debugError = document.getElementById('debugError');
+      debugError.innerHTML = '<strong>Error Sheet Data (Kolom A & B):</strong><br>';
+      
+      for (let i = 1; i < Math.min(5, errorLines.length); i++) {
+        const row = errorLines[i].split(',').map(cell => cell.trim());
+        if (row.length >= 2) {
+          debugError.innerHTML += `Baris ${i}: ${row[0]} | ${row[1]}<br>`;
+        }
+      }
+      
+      // Proses data part1 (ambil kolom A dan B)
       const allData = [];
       for (let i = 1; i < part1Lines.length; i++) {
-        if (!part1Lines[i].trim()) continue;
-        const row = part1Lines[i].split(',');
-        const namaCs = row[namaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '-';
-        const totalKesalahan = parseInt(row[totalKesalahanIndex]?.replace(/"/g, '').trim()) || 0;
+        const row = part1Lines[i].split(',').map(cell => cell.trim());
+        if (row.length < 2) continue;
         
-        if (namaCs !== '-' && namaCs !== '') {
+        const namaCs = row[0].toLowerCase();
+        const totalKesalahan = parseInt(row[1]) || 0;
+        
+        if (namaCs && namaCs !== '-') {
           allData.push({ 
             nama: namaCs,
-            originalNama: row[namaCsIndex]?.replace(/"/g, '').trim(),
+            originalNama: row[0],
             kesalahan: totalKesalahan,
             status: totalKesalahan >= 25 ? 'danger' : (totalKesalahan <= 5 ? 'good' : 'caution')
           });
         }
       }
       
-      // Proses data error details (hanya kolom A dan B)
+      // Proses data error details (ambil kolom A dan B)
       const errorDetailsMap = {};
       for (let i = 1; i < errorLines.length; i++) {
-        if (!errorLines[i].trim()) continue;
-        const row = errorLines[i].split(',');
-        const namaCs = row[errorNamaCsIndex]?.replace(/"/g, '').trim().toLowerCase() || '';
-        const detail = row[errorDetailIndex]?.replace(/"/g, '').trim() || 'Tidak ada detail';
+        const row = errorLines[i].split(',').map(cell => cell.trim());
+        if (row.length < 2) continue;
         
-        if (namaCs) {
+        const namaCs = row[0].toLowerCase();
+        const detail = row[1];
+        
+        if (namaCs && namaCs !== '') {
           if (!errorDetailsMap[namaCs]) {
             errorDetailsMap[namaCs] = [];
           }
           errorDetailsMap[namaCs].push(detail);
         }
       }
-      
-      // Debug data
-      debugData.innerHTML += `<br><strong>Data Part1:</strong> ${allData.length} baris<br>
-                              <strong>Error Details:</strong> ${Object.keys(errorDetailsMap).length} CS dengan error`;
       
       // Normalisasi nama CS LINE
       const normalizedSpecialNames = specialNames.map(name => name.trim().toLowerCase());
@@ -749,9 +748,6 @@
       const mainData = allData.filter(item => 
         !normalizedSpecialNames.includes(item.nama)
       );
-      
-      debugData.innerHTML += `<br><strong>CS LINE:</strong> ${specialData.length} item<br>
-                              <strong>CS Non-LINE:</strong> ${mainData.length} item`;
       
       // Tampilkan special CS
       const specialList = document.getElementById('specialList');
@@ -825,11 +821,6 @@
       } else {
         document.getElementById('csTable').style.display = 'none';
         document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
-      }
-      
-      // Tampilkan debug info jika ada data
-      if (allData.length > 0) {
-        debugInfo.style.display = 'block';
       }
     })
     .catch(error => {
