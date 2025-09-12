@@ -405,6 +405,7 @@
       background: rgba(231,76,60,0.1);
       border-radius: 12px;
       font-weight: 500;
+      margin: 15px 0;
     }
     
     .status-badge {
@@ -440,7 +441,7 @@
       line-height: 1.4;
       max-height: 200px;
       overflow: auto;
-      display: block; /* Selalu tampilkan debug info */
+      display: block;
     }
     
     .modal {
@@ -605,39 +606,38 @@
     </div>
     
     <div class="content">
-      <div class="main-content">
-        <!-- Debug Info -->
-        <div class="debug-info" id="debugInfo">
-          <strong>Debug Information:</strong><br>
-          <span id="debugPart1"></span><br>
-          <span id="debugError"></span>
-        </div>
-        
-        <!-- Ranking -->
-        <div class="ranking">
-          <h3><i class="fas fa-trophy"></i> TOP PERFORMERS (Kesalahan Terendah)</h3>
-          <ul class="ranking-list" id="rankingList"></ul>
-        </div>
-        
-        <!-- Warning -->
-        <div class="warning">
-          <h3><i class="fas fa-exclamation-triangle"></i> PERINGATAN KRITIS</h3>
-          <p>CS dengan total kesalahan ≥25 harus segera diperhatikan dan dilakukan evaluasi!</p>
-        </div>
-        
-        <!-- Table -->
-        <table id="csTable" style="display: none;">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama CS</th>
-              <th>Total Kesalahan</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="csBody"></tbody>
-        </table>
+      <div class="debug-info" id="debugInfo">
+        <strong>Debug Information:</strong><br>
+        <span id="debugPart1"></span><br>
+        <span id="debugError"></span>
       </div>
+      
+      <div class="error" id="error"></div>
+      
+      <!-- Ranking -->
+      <div class="ranking">
+        <h3><i class="fas fa-trophy"></i> TOP PERFORMERS (Kesalahan Terendah)</h3>
+        <ul class="ranking-list" id="rankingList"></ul>
+      </div>
+      
+      <!-- Warning -->
+      <div class="warning">
+        <h3><i class="fas fa-exclamation-triangle"></i> PERINGATAN KRITIS</h3>
+        <p>CS dengan total kesalahan ≥25 harus segera diperhatikan dan dilakukan evaluasi!</p>
+      </div>
+      
+      <!-- Table -->
+      <table id="csTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama CS</th>
+            <th>Total Kesalahan</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="csBody"></tbody>
+      </table>
     </div>
   </div>
 
