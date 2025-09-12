@@ -34,6 +34,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
     
     .container {
@@ -44,6 +46,7 @@
       overflow: hidden;
       box-shadow: 0 15px 50px rgba(0,0,0,0.2);
       position: relative;
+      z-index: 2;
     }
     
     .header {
@@ -53,8 +56,8 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      padding-right: 300px;
-      z-index: 100; /* Tambahkan z-index tinggi agar tidak tertutup */
+      padding-right: 300px; /* Padding khusus untuk CS LINE */
+      z-index: 10; /* Z-index lebih tinggi */
     }
     
     .header::before {
@@ -93,11 +96,12 @@
       color: white;
       border-radius: 16px;
       padding: 15px;
-      box-shadow: var(--card-shadow);
-      z-index: 101; /* Z-index lebih tinggi dari header */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 100; /* Z-index tertinggi */
       font-size: 0.9rem;
       border: 2px solid rgba(255,255,255,0.2);
       backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
     }
     
     .special-cs h3 {
@@ -158,7 +162,7 @@
       grid-template-columns: 1fr;
       gap: 25px;
       position: relative;
-      z-index: 1; /* Pastikan content tidak menutupi header */
+      z-index: 5; /* Z-index lebih tinggi dari container */
     }
     
     .ranking {
@@ -401,6 +405,8 @@
         width: 100%;
         margin-bottom: 20px;
         z-index: auto;
+        top: auto;
+        right: auto;
       }
       
       .content {
@@ -540,6 +546,27 @@
         const specialData = allData.filter(item => specialNames.includes(item.nama));
         const mainData = allData.filter(item => !specialNames.includes(item.nama));
         
+        console.log('Special Data:', specialData);
+        console.log('Main Data:', mainData);
+        
+        // Tampilkan special CS
+        const specialList = document.getElementById('specialList');
+        specialList.innerHTML = '';
+        if (specialData.length > 0) {
+          specialData.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'special-item';
+            li.innerHTML = `
+              <div class="special-item-number">${index+1}</div>
+              <div>${item.nama}</div>
+              <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
+            `;
+            specialList.appendChild(li);
+          });
+        } else {
+          specialList.innerHTML = '<li class="special-item">Tidak ada data CS LINE</li>';
+        }
+        
         // Urutkan mainData berdasarkan kesalahan (terkecil dulu)
         const mainDataSorted = [...mainData].sort((a, b) => a.kesalahan - b.kesalahan);
         
@@ -566,44 +593,31 @@
           rankingList.appendChild(li);
         }
         
-        // Tampilkan special CS
-        const specialList = document.getElementById('specialList');
-        specialList.innerHTML = '';
-        specialData.forEach((item, index) => {
-          const li = document.createElement('li');
-          li.className = 'special-item';
-          li.innerHTML = `
-            <div class="special-item-number">${index+1}</div>
-            <div>${item.nama}</div>
-            <div class="status-badge status-${item.status}">Kesalahan: ${item.kesalahan}</div>
-          `;
-          specialList.appendChild(li);
-        });
-        
         // Tampilkan tabel
         const tbody = document.getElementById('csBody');
         tbody.innerHTML = '';
         let count = 0;
         
-        mainDataSorted.forEach(item => {
-          count++;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${count}</td>
-            <td>${item.nama}</td>
-            <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
-            <td>
-              <span class="status-badge status-${item.status}">
-                ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
-              </span>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-        
-        // Tampilkan tabel jika ada data
         if (mainDataSorted.length > 0) {
+          mainDataSorted.forEach(item => {
+            count++;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${count}</td>
+              <td>${item.nama}</td>
+              <td class="${item.status === 'danger' ? 'danger' : (item.status === 'good' ? 'highlight' : '')}">${item.kesalahan}</td>
+              <td>
+                <span class="status-badge status-${item.status}">
+                  ${item.status === 'danger' ? 'KRITIS' : (item.status === 'good' ? 'BAIK' : 'WASPADA')}
+                </span>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
           document.getElementById('csTable').style.display = 'table';
+        } else {
+          document.getElementById('csTable').style.display = 'none';
+          document.getElementById('error').innerText = 'Tidak ada data CS yang ditemukan';
         }
       })
       .catch(error => {
