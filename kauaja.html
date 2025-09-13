@@ -9,30 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4e73df;
-            --secondary-color: #6f42c1;
-            --accent-color: #e83e8c;
-            --success-color: #1cc88a;
-            --warning-color: #f6c23e;
-            --danger-color: #e74a3b;
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff6b6b;
+            --success-color: #1dd1a1;
+            --warning-color: #feca57;
+            --danger-color: #ff6b6b;
             --gold-color: #ffd700;
             --silver-color: #c0c0c0;
             --bronze-color: #cd7f32;
-            --dark-text: #2e3a59;
-            --light-text: #6c757d;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: rgba(0, 0, 0, 0.1);
-            --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-            --glass-effect: rgba(255, 255, 255, 0.05);
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 100%);
-            --gradient-success: linear-gradient(135deg, #1cc88a 0%, #00d4a3 100%);
-            --gradient-warning: linear-gradient(135deg, #f6c23e 0%, #f8a94b 100%);
-            --gradient-danger: linear-gradient(135deg, #e74a3b 0%, #ff6b6b 100%);
-            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffcc00 100%);
-            --gradient-silver: linear-gradient(135deg, #c0c0c0 0%, #a6a6a6 100%);
-            --gradient-bronze: linear-gradient(135deg, #cd7f32 0%, #b86c1b 100%);
+            --dark-text: #2d3436;
+            --light-text: #636e72;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            --glass-effect: rgba(255, 255, 255, 0.8);
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            --gradient-success: linear-gradient(135deg, #1dd1a1 0%, #00d2d3 100%);
+            --gradient-warning: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            --gradient-danger: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #f9ca24 100%);
+            --gradient-silver: linear-gradient(135deg, #c0c0c0 0%, #dfe6e9 100%);
+            --gradient-bronze: linear-gradient(135deg, #cd7f32 0%, #e17055 100%);
+            --body-gradient: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+            --text-color: #2d3436;
+            --light-bg: #ffffff;
         }
         * {
             margin: 0;
@@ -40,10 +43,10 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 100%);
+            background: var(--body-gradient);
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
-            color: white;
+            color: var(--text-color);
             padding: 20px;
             position: relative;
             overflow-x: hidden;
@@ -58,7 +61,7 @@
             height: 100%;
             background: url('https://i.imgur.com/7XcXeQx.jpg') no-repeat center center fixed;
             background-size: cover;
-            opacity: 0.15;
+            opacity: 0.05;
             z-index: -1;
         }
         .container {
@@ -66,10 +69,10 @@
         }
         .header {
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            color: white;
+            color: var(--text-color);
             padding: 2.5rem 0;
             border-radius: 25px;
             box-shadow: var(--card-shadow);
@@ -78,7 +81,7 @@
             overflow: hidden;
             text-align: center;
             animation: fadeIn 1s ease-out;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
         }
         .header::before {
             content: '';
@@ -87,44 +90,46 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(106, 17, 203, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
             transform: rotate(30deg);
         }
         .header h1 {
             font-weight: 800;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 0.5rem;
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #ffffff, #c0c0c0);
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
         .header p {
-            opacity: 0.9;
+            opacity: 0.8;
             font-weight: 400;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.6;
+            color: var(--text-color);
         }
         .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 25px;
             box-shadow: var(--card-shadow);
             transition: all 0.4s ease;
             margin-bottom: 2rem;
             overflow: hidden;
-            color: white;
+            color: var(--text-color);
             animation: slideUp 0.5s ease-out;
             position: relative;
         }
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(106, 17, 203, 0.3);
         }
         .card::before {
             content: '';
@@ -136,13 +141,13 @@
             background: var(--gradient-primary);
         }
         .card-header {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.8);
             border-bottom: 1px solid var(--glass-border);
-            color: white;
+            color: var(--text-color);
             border-radius: 25px 25px 0 0 !important;
             font-weight: 600;
             padding: 1.5rem 2rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             position: relative;
             overflow: hidden;
         }
@@ -157,6 +162,7 @@
         }
         .card-body {
             padding: 2rem;
+            background: rgba(255, 255, 255, 0.5);
         }
         .stats-grid {
             display: grid;
@@ -165,14 +171,14 @@
             margin-bottom: 2rem;
         }
         .stats-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 8px 30px 0 var(--glass-shadow);
+            box-shadow: 0 10px 25px var(--glass-shadow);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -186,26 +192,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
             z-index: -1;
         }
         .stats-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-color: rgba(106, 17, 203, 0.3);
         }
         .stats-number {
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #e0e0e0);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             animation: pulse 2s infinite;
         }
         .stats-label {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--light-text);
             font-size: 1rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -214,10 +220,11 @@
         .table-responsive {
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.7);
         }
         .table {
-            color: white;
+            color: var(--text-color);
             margin-bottom: 0;
             border-collapse: separate;
             border-spacing: 0;
@@ -245,15 +252,15 @@
         .table td {
             padding: 1.5rem 1.2rem;
             vertical-align: middle;
-            border-color: rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
             text-align: center;
         }
         .table-hover tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.9);
             transform: scale(1.01);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .cs-avatar {
             width: 55px;
@@ -267,12 +274,12 @@
             font-weight: bold;
             margin-right: 15px;
             font-size: 1.4rem;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
         }
         .cs-avatar:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         .status-badge {
             padding: 0.8rem 1.5rem;
@@ -286,17 +293,17 @@
         .status-good {
             background: var(--gradient-success);
             color: white;
-            border: 1px solid rgba(28, 200, 138, 0.3);
+            border: 1px solid rgba(29, 209, 161, 0.3);
         }
         .status-warning {
             background: var(--gradient-warning);
-            color: white;
-            border: 1px solid rgba(246, 194, 62, 0.3);
+            color: var(--text-color);
+            border: 1px solid rgba(254, 202, 87, 0.3);
         }
         .status-danger {
             background: var(--gradient-danger);
             color: white;
-            border: 1px solid rgba(231, 74, 59, 0.3);
+            border: 1px solid rgba(255, 107, 107, 0.3);
         }
         .rank-badge {
             width: 45px;
@@ -308,7 +315,7 @@
             color: white;
             font-weight: bold;
             margin-right: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
         .rank-1 {
@@ -321,16 +328,16 @@
             background: var(--gradient-bronze);
         }
         .winner-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 25px;
             transition: all 0.4s ease;
             position: relative;
             padding: 2rem;
             height: 100%;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             animation: fadeIn 1s ease-out;
             text-align: center;
@@ -344,31 +351,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
             z-index: -1;
         }
         .winner-card-1 {
             border: 2px solid var(--gold-color);
-            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.25);
         }
         .winner-card-2 {
             border: 2px solid var(--silver-color);
-            box-shadow: 0 15px 50px rgba(192, 192, 192, 0.3);
+            box-shadow: 0 15px 35px rgba(192, 192, 192, 0.25);
         }
         .winner-card-3 {
             border: 2px solid var(--bronze-color);
-            box-shadow: 0 15px 50px rgba(205, 127, 50, 0.3);
+            box-shadow: 0 15px 35px rgba(205, 127, 50, 0.25);
         }
         .winner-card:hover {
-            transform: translateY(-15px) rotateX(10deg);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
         }
         .winner-badge {
             position: absolute;
             top: -15px;
             right: 15px;
             font-size: 3rem;
-            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
             z-index: 2;
         }
         .winner-card h4 {
@@ -376,16 +383,16 @@
             margin: 1rem 0;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-color);
         }
         .winner-card h5 {
             font-weight: 700;
             margin: 0.5rem 0;
             font-size: 1.5rem;
-            color: white;
+            color: var(--text-color);
         }
         .winner-card p {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--light-text);
             font-size: 0.9rem;
             margin: 0.5rem 0;
             text-transform: uppercase;
@@ -394,31 +401,32 @@
         .refresh-btn {
             cursor: pointer;
             transition: all 0.5s ease;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
             width: 60px;
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             animation: pulse 2s infinite;
+            color: var(--primary-color);
         }
         .refresh-btn:hover {
             transform: rotate(180deg) scale(1.1);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.95);
         }
         .last-updated {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            background: rgba(0, 0, 0, 0.2);
+            color: var(--light-text);
+            background: rgba(255, 255, 255, 0.8);
             padding: 0.8rem 1.5rem;
             border-radius: 30px;
             display: inline-block;
             margin-top: 1rem;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
         }
         .last-updated:hover {
@@ -432,7 +440,7 @@
             color: var(--dark-text);
             padding: 1.2rem 1.8rem;
             border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -441,7 +449,7 @@
             opacity: 0;
             transition: transform 0.5s, opacity 0.5s;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             animation: slideIn 0.5s forwards;
         }
         .floating-notification.show {
@@ -467,7 +475,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(28, 200, 138, 0.9);
+            background: rgba(29, 209, 161, 0.9);
             color: white;
             padding: 0.8rem 1.5rem;
             border-radius: 30px;
@@ -479,7 +487,79 @@
             gap: 0.7rem;
             animation: pulse 2s infinite;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .modal-title {
+            font-weight: 700;
+        }
+        .modal-body {
+            padding: 2rem;
+            color: var(--text-color);
+        }
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 20px 20px;
+            padding: 1.5rem;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .detail-value {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .motivation-message {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .message-good {
+            background: rgba(29, 209, 161, 0.2);
+            color: #0a6847;
+            border-left: 4px solid var(--success-color);
+        }
+        .message-bad {
+            background: rgba(255, 107, 107, 0.2);
+            color: #a94442;
+            border-left: 4px solid var(--danger-color);
+        }
+        .cs-name-clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .cs-name-clickable:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
         }
         /* Animations */
         @keyframes fadeIn {
@@ -556,11 +636,18 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.8rem;
             }
+            .modal-body {
+                padding: 1.5rem;
+            }
+            .detail-item {
+                flex-direction: column;
+                text-align: center;
+            }
         }
         .floating-shape {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(106, 17, 203, 0.15);
             animation: float 6s infinite ease-in-out;
         }
         .shape-1 {
@@ -597,23 +684,24 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 20px;
             border-radius: 20px;
             font-size: 0.95rem;
-            color: white;
+            color: var(--text-color);
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
             transition: all 0.4s ease;
             animation: slideInFromRight 0.5s forwards;
             overflow: hidden;
             position: relative;
+            max-width: 280px;
         }
         .cs-line-top-right::before {
             content: '';
@@ -622,46 +710,60 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
             z-index: -1;
         }
         .cs-line-top-right:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         .cs-line-top-right strong {
             font-weight: 700;
-            font-size: 1.2rem;
-            color: #ffd700;
+            font-size: 1.3rem;
+            color: #6a11cb;
             display: flex;
             align-items: center;
             gap: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(106, 17, 203, 0.2);
         }
         .cs-line-top-right strong::before {
             content: '\f023';
             font-family: 'Font Awesome 5 Free';
             font-weight: 900;
-            color: #ffd700;
+            color: #6a11cb;
+            font-size: 1.5rem;
         }
         .cs-line-top-right div {
             font-weight: 500;
-            padding: 3px 0;
+            padding: 8px 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.3s ease;
+            color: var(--text-color);
+            border-radius: 10px;
+            padding-left: 10px;
         }
         .cs-line-top-right div:hover {
             transform: translateX(5px);
+            background: rgba(106, 17, 203, 0.1);
         }
         .cs-line-top-right div::before {
             content: '\f007';
             font-family: 'Font Awesome 5 Free';
             font-weight: 900;
-            color: #fff;
-            font-size: 0.9rem;
+            color: #6a11cb;
+            font-size: 1rem;
+            background: rgba(106, 17, 203, 0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Efek badge untuk CS LINE */
@@ -679,7 +781,42 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: 700;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Tambahan animasi untuk CS Line */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Efek glow untuk elemen tertentu */
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(106, 17, 203, 0.3);
+        }
+        
+        /* Tambahan dekorasi */
+        .decoration-circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        /* Neon effect untuk beberapa elemen */
+        .neon-text {
+            text-shadow: 0 0 5px rgba(106, 17, 203, 0.5),
+                         0 0 10px rgba(106, 17, 203, 0.3),
+                         0 0 15px rgba(106, 17, 203, 0.2);
         }
     </style>
 </head>
@@ -688,6 +825,10 @@
     <div class="floating-shape shape-2"></div>
     <div class="floating-shape shape-3"></div>
     <div class="floating-shape shape-4"></div>
+    <div class="decoration-circle" style="top: 15%; left: 10%;"></div>
+    <div class="decoration-circle" style="top: 25%; right: 12%; width: 30px; height: 30px;"></div>
+    <div class="decoration-circle" style="bottom: 20%; left: 15%; width: 25px; height: 25px;"></div>
+    
     <div class="floating-notification success" id="updateNotification">
         <i class="fas fa-check-circle notification-icon notification-success"></i>
         <div>
@@ -731,7 +872,7 @@
             </div>
             <div class="stats-card">
                 <div class="stats-number" id="averageErrors">0.0</div>
-                <div class="stats-label">Rata-rata Kesalahan</div>
+                <div class="stats-label">Rata-reta Kesalahan</div>
             </div>
             <div class="stats-card">
                 <div class="stats-number" id="criticalCount">0</div>
@@ -780,11 +921,51 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal untuk Detail CS -->
+    <div class="modal fade" id="csDetailModal" tabindex="-1" aria-labelledby="csDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="csDetailModalLabel">Detail Kesalahan CS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <div class="cs-avatar mx-auto mb-2" id="modalAvatar">R</div>
+                        <h4 id="modalName">Nama CS</h4>
+                        <div class="stats-number mt-2" id="modalErrors">0</div>
+                        <div class="stats-label">Total Kesalahan</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">Peringkat:</span>
+                        <span class="detail-value" id="modalRank">-</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="modalStatus">-</span>
+                    </div>
+                    
+                    <div class="motivation-message" id="modalMessage">
+                        <!-- Pesan motivasi akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Data dari Google Sheets
         let csData = [];
         let previousData = [];
         let autoUpdateInterval;
+        let csDetailModal = new bootstrap.Modal(document.getElementById('csDetailModal'));
         
         // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
         function getStatus(errors) {
@@ -792,6 +973,32 @@
             if (errors <= 5) return { text: "Good", class: "status-good" };
             if (errors <= 20) return { text: "Warning", class: "status-warning" };
             return { text: "Danger", class: "status-danger" };
+        }
+        
+        // Fungsi untuk mendapatkan pesan motivasi berdasarkan jumlah kesalahan
+        function getMotivationMessage(errors, name) {
+            if (errors <= 25) {
+                return `<div class="message-good">
+                    <i class="fas fa-check-circle me-2"></i>Pertahankan, ${name.split(' ')[0]}! Performa Anda sudah baik.
+                </div>`;
+            } else {
+                return `<div class="message-bad">
+                    <i class="fas fa-exclamation-circle me-2"></i>Coba lagi periode depan, ${name.split(' ')[0]}! Perbaiki kinerja Anda.
+                </div>`;
+            }
+        }
+        
+        // Fungsi untuk menampilkan detail CS
+        function showCSDetail(cs, rank) {
+            const status = getStatus(cs.errors);
+            document.getElementById('modalAvatar').textContent = cs.name.charAt(0);
+            document.getElementById('modalName').textContent = cs.name;
+            document.getElementById('modalErrors').textContent = cs.errors;
+            document.getElementById('modalRank').textContent = `#${rank}`;
+            document.getElementById('modalStatus').innerHTML = `<span class="status-badge ${status.class}">${status.text}</span>`;
+            document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.name);
+            
+            csDetailModal.show();
         }
         
         // Fungsi untuk menampilkan notifikasi
@@ -931,7 +1138,7 @@
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="cs-avatar">${cs.name.charAt(0)}</div>
-                                <div>${cs.name}</div>
+                                <div class="cs-name-clickable" onclick="showCSDetail(${JSON.stringify(cs).replace(/"/g, '&quot;')}, ${index+1})">${cs.name}</div>
                             </div>
                         </td>
                         <td>${cs.errors}</td>
