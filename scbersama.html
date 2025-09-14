@@ -51,19 +51,22 @@ overflow-x: hidden;
 100% { background-position: 0% 50%; }
 }
 
-.particle {
+/* Bubble Effect */
+.bubble {
 position: absolute;
-background: rgba(255, 255, 255, 0.1);
 border-radius: 50%;
-animation: float 15s infinite linear;
+background: rgba(255, 255, 255, 0.1);
+box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+border: 1px solid rgba(255, 255, 255, 0.18);
+animation: float 8s ease-in-out infinite;
 z-index: -1;
 }
 
 @keyframes float {
-0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-10% { opacity: 1; }
-90% { opacity: 1; }
-100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+0%, 100% { transform: translateY(0) rotate(0deg); }
+50% { transform: translateY(-20px) rotate(10deg); }
 }
 
 .container {
@@ -124,6 +127,13 @@ background: linear-gradient(135deg, #fff, #e0e0e0);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
 }
 
 .form-container {
@@ -196,6 +206,23 @@ transition: all 0.3s;
 margin-top: 10px;
 box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+position: relative;
+overflow: hidden;
+}
+
+.login-btn::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+transition: 0.5s;
+}
+
+.login-btn:hover::before {
+left: 100%;
 }
 
 .login-btn:hover {
@@ -757,15 +784,179 @@ transition: all 0.3s;
 transform: translateY(-2px);
 box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 }
+
+/* Bubble Effect Styles */
+.bubbles-container {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+overflow: hidden;
+z-index: -1;
+}
+
+.bubble {
+position: absolute;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+border: 1px solid rgba(255, 255, 255, 0.18);
+animation: float 8s ease-in-out infinite;
+}
+
+.bubble:nth-child(1) {
+width: 80px;
+height: 80px;
+left: 5%;
+animation-duration: 10s;
+animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+width: 40px;
+height: 40px;
+left: 15%;
+animation-duration: 12s;
+animation-delay: 1s;
+}
+
+.bubble:nth-child(3) {
+width: 60px;
+height: 60px;
+left: 25%;
+animation-duration: 9s;
+animation-delay: 2s;
+}
+
+.bubble:nth-child(4) {
+width: 70px;
+height: 70px;
+left: 35%;
+animation-duration: 11s;
+animation-delay: 3s;
+}
+
+.bubble:nth-child(5) {
+width: 50px;
+height: 50px;
+left: 45%;
+animation-duration: 13s;
+animation-delay: 4s;
+}
+
+.bubble:nth-child(6) {
+width: 90px;
+height: 90px;
+left: 55%;
+animation-duration: 8s;
+animation-delay: 5s;
+}
+
+.bubble:nth-child(7) {
+width: 30px;
+height: 30px;
+left: 65%;
+animation-duration: 14s;
+animation-delay: 6s;
+}
+
+.bubble:nth-child(8) {
+width: 65px;
+height: 65px;
+left: 75%;
+animation-duration: 10s;
+animation-delay: 7s;
+}
+
+.bubble:nth-child(9) {
+width: 45px;
+height: 45px;
+left: 85%;
+animation-duration: 12s;
+animation-delay: 8s;
+}
+
+.bubble:nth-child(10) {
+width: 55px;
+height: 55px;
+left: 95%;
+animation-duration: 9s;
+animation-delay: 9s;
+}
+
+/* Glow effect for buttons and cards */
+.glow-effect {
+position: relative;
+}
+
+.glow-effect::after {
+content: '';
+position: absolute;
+top: -2px;
+left: -2px;
+right: -2px;
+bottom: -2px;
+z-index: -1;
+border-radius: inherit;
+background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+background-size: 400%;
+animation: glowing 20s linear infinite;
+opacity: 0;
+transition: opacity 0.3s ease-in-out;
+filter: blur(5px);
+}
+
+.glow-effect:hover::after {
+opacity: 1;
+}
+
+@keyframes glowing {
+0% { background-position: 0 0; }
+50% { background-position: 400% 0; }
+100% { background-position: 0 0; }
+}
+
+/* Neon text effect */
+.neon-text {
+color: #fff;
+text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00de, 0 0 20px #ff00de, 0 0 25px #ff00de, 0 0 30px #ff00de, 0 0 35px #ff00de;
+animation: neon-flicker 2s infinite alternate;
+}
+
+@keyframes neon-flicker {
+0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00de, 0 0 20px #ff00de, 0 0 25px #ff00de, 0 0 30px #ff00de, 0 0 35px #ff00de;
+}
+20%, 24%, 55% {
+text-shadow: none;
+}
+}
 </style>
 </head>
 <body>
+<!-- Bubble Background -->
+<div class="bubbles-container">
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+</div>
+
 <div class="container" id="loginContainer">
 <div class="header">
 <div class="logo">
 <i class="fas fa-crystal-ball"></i>
 </div>
-<h1>Prediksi Master</h1>
+<h1 class="neon-text">Prediksi Master</h1>
 <p>Masuk untuk generator prediksi togel</p>
 </div>
 
@@ -789,7 +980,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 </div>
 </div>
 
-<button class="login-btn" id="loginBtn">
+<button class="login-btn glow-effect" id="loginBtn">
 <i class="fas fa-sign-in-alt"></i> Masuk ke Sistem
 </button>
 
@@ -807,8 +998,8 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 
 <div class="dashboard" id="dashboard">
 <div class="dashboard-header">
-<h2><i class="fas fa-chart-line"></i> Generator Prediksi Togel</h2>
-<p>Selamat datang! Pilih mode generator prediksi</p>
+<h2 class="neon-text"><i class="fas fa-chart-line"></i> SIKIK AYA </h2>
+<p>WELCOME TO THE JUNGLE</p>
 </div>
 
 <div class="dashboard-content">
@@ -877,7 +1068,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 <option value="KINGKONG 4D MALAM">KINGKONG 4D MALAM</option>
 </select>
 
-<button class="generate-btn" id="generateBtn">
+<button class="generate-btn glow-effect" id="generateBtn">
 <i class="fas fa-sync-alt"></i> Generate Prediksi
 </button>
 
@@ -885,7 +1076,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 <p style="text-align: center; opacity: 0.7;">Pilih pasaran dan klik Generate untuk melihat prediksi</p>
 </div>
 
-<button class="copy-btn" id="copyBtn">
+<button class="copy-btn glow-effect" id="copyBtn">
 <i class="fas fa-copy"></i> Salin Prediksi
 </button>
 </div>
@@ -895,7 +1086,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 <h3><i class="fas fa-dice"></i> Generator Semua Pasaran</h3>
 </div>
 
-<button class="generate-all-btn" id="generateAllBtn">
+<button class="generate-all-btn glow-effect" id="generateAllBtn">
 <i class="fas fa-sync-alt"></i> Generate Semua Prediksi
 </button>
 
@@ -903,7 +1094,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 <p style="text-align: center; opacity: 0.7;">Klik "Generate Semua Prediksi" untuk menampilkan semua prediksi</p>
 </div>
 
-<button class="copy-all-btn" id="copyAllBtn">
+<button class="copy-all-btn glow-effect" id="copyAllBtn">
 <i class="fas fa-copy"></i> Salin Semua Prediksi
 </button>
 </div>
@@ -929,7 +1120,7 @@ box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
 </div>
 </div>
 
-<button class="logout-btn" id="logoutBtn">
+<button class="logout-btn glow-effect" id="logoutBtn">
 <i class="fas fa-sign-out-alt"></i> Logout
 </button>
 </div>
@@ -943,17 +1134,17 @@ const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'K
 
 // Data semua pasaran - FIXED: Added quotes around all pasaran names
 const semuaPasaran = [
-"TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
-"NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
-"CALIFORNIA", "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
-"KENTUCKY EVENING", "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
-"POIPET12", "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
-"BRUNEI 14", "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
-"TOTO MACAU SORE", "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE", "MAGNUM4D",
-"CHELSEA19", "TOTO MACAU MALAM I", "POIPET19", "PCSO", "TOTOMALI2030",
-"HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA", "BRUNEI 21",
-"TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III", "TOTOMALI2330",
-"JAKARTA 2330", "KINGKONG 4D MALAM"
+TOTO MACAU PAGI, "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
+NEW YORK MIDDAY, "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
+CALIFORNIA, "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
+KENTUCKY EVENING, "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
+POIPET12, "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
+BRUNEI 14, "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
+TOTO MACAU SORE, "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE", "MAGNUM4D",
+CHELSEA19, "TOTO MACAU MALAM I", "POIPET19", "PCSO", "TOTOMALI2030",
+HUAHIN 2100, "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA", "BRUNEI 21",
+TOTOMACAU MALAM II, "POIPET22", "HONGKONG", "TOTO MACAU MALAM III", "TOTOMALI2330",
+JAKARTA 2330, "KINGKONG 4D MALAM"
 ];
 
 // Data login pribadi
@@ -962,45 +1153,30 @@ username: "myprediksi",
 password: "rahasia123"
 };
 
-// Fungsi untuk membuat partikel
-function createParticles() {
-for (let i = 0; i < 20; i++) {
-const particle = document.createElement('div');
-particle.classList.add('particle');
+// Fungsi untuk membuat bubble effect
+function createBubbles() {
+const bubblesContainer = document.querySelector('.bubbles-container');
+for (let i = 0; i < 15; i++) {
+const bubble = document.createElement('div');
+bubble.classList.add('bubble');
 
-const size = Math.random() * 15 + 5;
-particle.style.width = `${size}px`;
-particle.style.height = `${size}px`;
+// Random size
+const size = Math.random() * 60 + 20;
+bubble.style.width = `${size}px`;
+bubble.style.height = `${size}px`;
 
-particle.style.left = `${Math.random() * 100}%`;
-particle.style.top = `${Math.random() * 100}%`;
+// Random position
+bubble.style.left = `${Math.random() * 100}%`;
+bubble.style.top = `${Math.random() * 100}%`;
 
-const duration = Math.random() * 20 + 10;
-particle.style.animationDuration = `${duration}s`;
+// Random animation duration
+const duration = Math.random() * 10 + 5;
+bubble.style.animationDuration = `${duration}s`;
 
-particle.style.animationDelay = `${Math.random() * 5}s`;
+// Random animation delay
+bubble.style.animationDelay = `${Math.random() * 5}s`;
 
-document.body.appendChild(particle);
-}
-
-// Tambahkan bentuk mengambang
-for (let i = 0; i < 5; i++) {
-const shape = document.createElement('div');
-shape.classList.add('floating-shape');
-
-const size = Math.random() * 100 + 50;
-shape.style.width = `${size}px`;
-shape.style.height = `${size}px`;
-
-shape.style.left = `${Math.random() * 100}%`;
-shape.style.top = `${Math.random() * 100}%`;
-
-const duration = Math.random() * 30 + 20;
-shape.style.animationDuration = `${duration}s`;
-
-shape.style.animationDelay = `${Math.random() * 10}s`;
-
-document.body.appendChild(shape);
+bubblesContainer.appendChild(bubble);
 }
 }
 
@@ -1287,7 +1463,7 @@ document.getElementById('allGenerator').style.display = 'block';
 
 // Periksa status login saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
-createParticles();
+createBubbles();
 checkLoginStatus();
 });
 </script>
