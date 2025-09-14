@@ -998,8 +998,8 @@ text-shadow: none;
 
 <div class="dashboard" id="dashboard">
 <div class="dashboard-header">
-<h2 class="neon-text"><i class="fas fa-chart-line"></i> SIKIK AYA </h2>
-<p>WELCOME TO THE JUNGLE</p>
+<h2 class="neon-text"><i class="fas fa-chart-line"></i> Generator Prediksi Togel</h2>
+<p>Selamat datang! Pilih mode generator prediksi</p>
 </div>
 
 <div class="dashboard-content">
@@ -1134,17 +1134,17 @@ const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'K
 
 // Data semua pasaran - FIXED: Added quotes around all pasaran names
 const semuaPasaran = [
-TOTO MACAU PAGI, "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
-NEW YORK MIDDAY, "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
-CALIFORNIA, "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
-KENTUCKY EVENING, "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
-POIPET12, "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
-BRUNEI 14, "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
-TOTO MACAU SORE, "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE", "MAGNUM4D",
-CHELSEA19, "TOTO MACAU MALAM I", "POIPET19", "PCSO", "TOTOMALI2030",
-HUAHIN 2100, "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA", "BRUNEI 21",
-TOTOMACAU MALAM II, "POIPET22", "HONGKONG", "TOTO MACAU MALAM III", "TOTOMALI2330",
-JAKARTA 2330, "KINGKONG 4D MALAM"
+"TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
+"NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
+"CALIFORNIA", "FLORIDA EVENING", "OREGON09", "BANGKOK 0930", "NEW YORK EVENING",
+"KENTUCKY EVENING", "CAROLINA EVENING", "TOTOCAMBODIA", "CHELSEA 11", "OREGON12",
+"POIPET12", "TOTO MACAU SIANG", "BULLSEYE", "SYDNEY", "JAKARTA 1400",
+"BRUNEI 14", "CHELSEA 15", "TOTO MACAU 5D SORE", "POIPET15", "TOTOMALI1530",
+"TOTO MACAU SORE", "HUAHIN 1630", "KINGKONG 4D SORE", "SINGAPORE", "MAGNUM4D",
+"CHELSEA19", "TOTO MACAU MALAM I", "POIPET19", "PCSO", "TOTOMALI2030",
+"HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA", "BRUNEI 21",
+"TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III", "TOTOMALI2330",
+"JAKARTA 2330", "KINGKONG 4D MALAM"
 ];
 
 // Data login pribadi
@@ -1159,23 +1159,23 @@ const bubblesContainer = document.querySelector('.bubbles-container');
 for (let i = 0; i < 15; i++) {
 const bubble = document.createElement('div');
 bubble.classList.add('bubble');
-
+  
 // Random size
 const size = Math.random() * 60 + 20;
 bubble.style.width = `${size}px`;
 bubble.style.height = `${size}px`;
-
+  
 // Random position
 bubble.style.left = `${Math.random() * 100}%`;
 bubble.style.top = `${Math.random() * 100}%`;
-
+  
 // Random animation duration
 const duration = Math.random() * 10 + 5;
 bubble.style.animationDuration = `${duration}s`;
-
+  
 // Random animation delay
 bubble.style.animationDelay = `${Math.random() * 5}s`;
-
+  
 bubblesContainer.appendChild(bubble);
 }
 }
