@@ -3,952 +3,1089 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laporan Kesalahan CS Line Togel</title>
+<title>Kesalahan Livechat periode 3 Situs LINETOGEL</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root {
---primary-color: #6a11cb;
---secondary-color: #2575fc;
---accent-color: #ff6b6b;
---success-color: #1dd1a1;
---warning-color: #feca57;
---danger-color: #ff6b6b;
---gold-color: #ffd700;
---silver-color: #c0c0c0;
---bronze-color: #cd7f32;
---dark-text: #2d3436;
---light-text: #636e72;
---glass-bg: rgba(255, 255, 255, 0.9);
---glass-border: rgba(255, 255, 255, 0.7);
---glass-shadow: rgba(0, 0, 0, 0.08);
---card-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
---glass-effect: rgba(255, 255, 255, 0.8);
---gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
---gradient-secondary: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
---gradient-success: linear-gradient(135deg, #1dd1a1 0%, #00d2d3 100%);
---gradient-warning: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
---gradient-danger: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
---gradient-gold: linear-gradient(135deg, #ffd700 0%, #f9ca24 100%);
---gradient-silver: linear-gradient(135deg, #c0c0c0 0%, #dfe6e9 100%);
---gradient-bronze: linear-gradient(135deg, #cd7f32 0%, #e17055 100%);
---body-gradient: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
---text-color: #2d3436;
---light-bg: #ffffff;
+  --primary-color: #6a11cb;
+  --secondary-color: #2575fc;
+  --accent-color: #ff6b6b;
+  --success-color: #1dd1a1;
+  --warning-color: #feca57;
+  --danger-color: #ff6b6b;
+  --gold-color: #ffd700;
+  --silver-color: #c0c0c0;
+  --bronze-color: #cd7f32;
+  --dark-text: #2d3436;
+  --light-text: #636e72;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  --glass-effect: rgba(255, 255, 255, 0.8);
+  --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  --gradient-secondary: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+  --gradient-success: linear-gradient(135deg, #1dd1a1 0%, #00d2d3 100%);
+  --gradient-warning: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+  --gradient-danger: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  --gradient-gold: linear-gradient(135deg, #ffd700 0%, #f9ca24 100%);
+  --gradient-silver: linear-gradient(135deg, #c0c0c0 0%, #dfe6e9 100%);
+  --gradient-bronze: linear-gradient(135deg, #cd7f32 0%, #e17055 100%);
+  --body-gradient: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+  --text-color: #2d3436;
+  --light-bg: #ffffff;
 }
+
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 body {
-background: var(--body-gradient);
-min-height: 100vh;
-font-family: 'Poppins', sans-serif;
-color: var(--text-color);
-padding: 20px;
-position: relative;
-overflow-x: hidden;
-background-attachment: fixed;
+  background: var(--body-gradient);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+  background-attachment: fixed;
 }
+
 body::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: url('https://i.imgur.com/7XcXeQx.jpg') no-repeat center center fixed;
-background-size: cover;
-opacity: 0.05;
-z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.imgur.com/7XcXeQx.jpg') no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.05;
+  z-index: -1;
 }
+
 .container {
-max-width: 1400px;
+  max-width: 1400px;
 }
+
 .header {
-background: var(--glass-bg);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid var(--glass-border);
-color: var(--text-color);
-padding: 2.5rem 0;
-border-radius: 25px;
-box-shadow: var(--card-shadow);
-margin-bottom: 2.5rem;
-position: relative;
-overflow: hidden;
-text-align: center;
-animation: fadeIn 1s ease-out;
-background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-color);
+  padding: 2.5rem 0;
+  border-radius: 25px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
 }
+
 .header::before {
-content: '';
-position: absolute;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
-background: radial-gradient(circle, rgba(106, 17, 203, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-transform: rotate(30deg);
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(106, 17, 203, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: rotate(30deg);
 }
+
 .header h1 {
-font-weight: 800;
-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-margin-bottom: 0.5rem;
-font-size: 2.8rem;
-background: linear-gradient(to right, #6a11cb, #2575fc);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-letter-spacing: 1px;
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+  font-size: 2.8rem;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
+
 .header p {
-opacity: 0.8;
-font-weight: 400;
-font-size: 1.2rem;
-max-width: 800px;
-margin: 0 auto;
-line-height: 1.6;
-color: var(--text-color);
+  opacity: 0.8;
+  font-weight: 400;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--text-color);
 }
+
 .card {
-background: var(--glass-bg);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid var(--glass-border);
-border-radius: 25px;
-box-shadow: var(--card-shadow);
-transition: all 0.4s ease;
-margin-bottom: 2rem;
-overflow: hidden;
-color: var(--text-color);
-animation: slideUp 0.5s ease-out;
-position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 25px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.4s ease;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  color: var(--text-color);
+  animation: slideUp 0.5s ease-out;
+  position: relative;
 }
+
 .card:hover {
-transform: translateY(-8px);
-box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-border-color: rgba(106, 17, 203, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(106, 17, 203, 0.3);
 }
+
 .card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 5px;
-background: var(--gradient-primary);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--gradient-primary);
 }
+
 .card-header {
-background: rgba(255, 255, 255, 0.8);
-border-bottom: 1px solid var(--glass-border);
-color: var(--text-color);
-border-radius: 25px 25px 0 0 !important;
-font-weight: 600;
-padding: 1.5rem 2rem;
-font-size: 1.3rem;
-position: relative;
-overflow: hidden;
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-color);
+  border-radius: 25px 25px 0 0 !important;
+  font-weight: 600;
+  padding: 1.5rem 2rem;
+  font-size: 1.3rem;
+  position: relative;
+  overflow: hidden;
 }
+
 .card-header::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 3px;
-background: var(--gradient-primary);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-primary);
 }
+
 .card-body {
-padding: 2rem;
-background: rgba(255, 255, 255, 0.5);
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.5);
 }
+
 .stats-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-gap: 2rem;
-margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
+
 .stats-card {
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid var(--glass-border);
-border-radius: 20px;
-padding: 2rem;
-text-align: center;
-box-shadow: 0 10px 25px var(--glass-shadow);
-transition: all 0.4s ease;
-position: relative;
-overflow: hidden;
-animation: fadeIn 1s ease-out;
-cursor: pointer;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 25px var(--glass-shadow);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 1s ease-out;
+  cursor: pointer;
 }
+
 .stats-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
 }
+
 .stats-card:hover {
-transform: translateY(-8px);
-box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-border-color: rgba(106, 17, 203, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-color: rgba(106, 17, 203, 0.3);
 }
+
 .stats-number {
-font-size: 3.5rem;
-font-weight: 800;
-margin-bottom: 1rem;
-background: linear-gradient(135deg, #6a11cb, #2575fc);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-animation: pulse 2s infinite;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: pulse 2s infinite;
 }
+
 .stats-label {
-color: var(--light-text);
-font-size: 1rem;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 1px;
+  color: var(--light-text);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
 .table-responsive {
-border-radius: 20px;
-overflow: hidden;
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.7);
 }
+
 .table {
-color: var(--text-color);
-margin-bottom: 0;
-border-collapse: separate;
-border-spacing: 0;
-width: 100%;
+  color: var(--text-color);
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
 }
+
 .table th {
-background: var(--gradient-primary);
-color: white;
-border: none;
-padding: 1.5rem 1.2rem;
-font-weight: 600;
-font-size: 1rem;
-text-align: center;
-position: relative;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  position: relative;
 }
+
 .table th::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 0;
-width: 100%;
-height: 2px;
-background: rgba(255, 255, 255, 0.2);
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
 }
+
 .table td {
-padding: 1.5rem 1.2rem;
-vertical-align: middle;
-border-color: rgba(0, 0, 0, 0.05);
-background: rgba(255, 255, 255, 0.5);
-transition: all 0.3s ease;
-text-align: center;
+  padding: 1.5rem 1.2rem;
+  vertical-align: middle;
+  border-color: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  text-align: center;
 }
+
 .table-hover tbody tr:hover td {
-background: rgba(255, 255, 255, 0.9);
-transform: scale(1.01);
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
 .cs-avatar {
-width: 55px;
-height: 55px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-weight: bold;
-margin-right: 15px;
-font-size: 1.4rem;
-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-transition: all 0.3s ease;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-right: 15px;
+  font-size: 1.4rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
+
 .cs-avatar:hover {
-transform: scale(1.1);
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
+
 .status-badge {
-padding: 0.8rem 1.5rem;
-border-radius: 30px;
-font-weight: 600;
-font-size: 0.9rem;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-transition: all 0.3s ease;
-display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: inline-block;
 }
+
 .status-good {
-background: var(--gradient-success);
-color: white;
-border: 1px solid rgba(29, 209, 161, 0.3);
+  background: var(--gradient-success);
+  color: white;
+  border: 1px solid rgba(29, 209, 161, 0.3);
 }
+
 .status-warning {
-background: var(--gradient-warning);
-color: var(--text-color);
-border: 1px solid rgba(254, 202, 87, 0.3);
+  background: var(--gradient-warning);
+  color: var(--text-color);
+  border: 1px solid rgba(254, 202, 87, 0.3);
 }
+
 .status-danger {
-background: var(--gradient-danger);
-color: white;
-border: 1px solid rgba(255, 107, 107, 0.3);
+  background: var(--gradient-danger);
+  color: white;
+  border: 1px solid rgba(255, 107, 107, 0.3);
 }
+
 .rank-badge {
-width: 45px;
-height: 45px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-weight: bold;
-margin-right: 15px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-transition: all 0.3s ease;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-right: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
+
 .rank-1 {
-background: var(--gradient-gold);
+  background: var(--gradient-gold);
 }
+
 .rank-2 {
-background: var(--gradient-silver);
+  background: var(--gradient-silver);
 }
+
 .rank-3 {
-background: var(--gradient-bronze);
+  background: var(--gradient-bronze);
 }
+
 .winner-card {
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid var(--glass-border);
-border-radius: 25px;
-transition: all 0.4s ease;
-position: relative;
-padding: 2rem;
-height: 100%;
-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-overflow: hidden;
-animation: fadeIn 1s ease-out;
-text-align: center;
-transform-style: preserve-3d;
-perspective: 1000px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 25px;
+  transition: all 0.4s ease;
+  position: relative;
+  padding: 2rem;
+  height: 100%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeIn 1s ease-out;
+  text-align: center;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
+
 .winner-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
 }
+
 .winner-card-1 {
-border: 2px solid var(--gold-color);
-box-shadow: 0 15px 35px rgba(255, 215, 0, 0.25);
+  border: 2px solid var(--gold-color);
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.25);
 }
+
 .winner-card-2 {
-border: 2px solid var(--silver-color);
-box-shadow: 0 15px 35px rgba(192, 192, 192, 0.25);
+  border: 2px solid var(--silver-color);
+  box-shadow: 0 15px 35px rgba(192, 192, 192, 0.25);
 }
+
 .winner-card-3 {
-border: 2px solid var(--bronze-color);
-box-shadow: 0 15px 35px rgba(205, 127, 50, 0.25);
+  border: 2px solid var(--bronze-color);
+  box-shadow: 0 15px 35px rgba(205, 127, 50, 0.25);
 }
+
 .winner-card:hover {
-transform: translateY(-10px) rotateX(5deg);
-box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
 }
+
 .winner-badge {
-position: absolute;
-top: -15px;
-right: 15px;
-font-size: 3rem;
-filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
-z-index: 2;
+  position: absolute;
+  top: -15px;
+  right: 15px;
+  font-size: 3rem;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
+  z-index: 2;
 }
+
 .winner-card h4 {
-font-weight: 700;
-margin: 1rem 0;
-text-transform: uppercase;
-letter-spacing: 1px;
-color: var(--text-color);
+  font-weight: 700;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-color);
 }
+
 .winner-card h5 {
-font-weight: 700;
-margin: 0.5rem 0;
-font-size: 1.5rem;
-color: var(--text-color);
+  font-weight: 700;
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--text-color);
 }
+
 .winner-card p {
-color: var(--light-text);
-font-size: 0.9rem;
-margin: 0.5rem 0;
-text-transform: uppercase;
-letter-spacing: 1px;
+  color: var(--light-text);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
 .refresh-btn {
-cursor: pointer;
-transition: all 0.5s ease;
-background: rgba(255, 255, 255, 0.8);
-border-radius: 50%;
-width: 60px;
-height: 60px;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-border: 1px solid rgba(255, 255, 255, 0.6);
-animation: pulse 2s infinite;
-color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.5s ease;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  animation: pulse 2s infinite;
+  color: var(--primary-color);
 }
+
 .refresh-btn:hover {
-transform: rotate(180deg) scale(1.1);
-background: rgba(255, 255, 255, 0.95);
+  transform: rotate(180deg) scale(1.1);
+  background: rgba(255, 255, 255, 0.95);
 }
+
 .last-updated {
-font-size: 1rem;
-color: var(--light-text);
-background: rgba(255, 255, 255, 0.8);
-padding: 0.8rem 1.5rem;
-border-radius: 30px;
-display: inline-block;
-margin-top: 1rem;
-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.6);
-transition: all 0.3s ease;
+  font-size: 1rem;
+  color: var(--light-text);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  display: inline-block;
+  margin-top: 1rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
 }
+
 .last-updated:hover {
-transform: scale(1.05);
+  transform: scale(1.05);
 }
+
 .floating-notification {
-position: fixed;
-top: 20px;
-right: 20px;
-background: rgba(255, 255, 255, 0.95);
-color: var(--dark-text);
-padding: 1.2rem 1.8rem;
-border-radius: 18px;
-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-z-index: 1000;
-display: flex;
-align-items: center;
-gap: 1rem;
-transform: translateX(100%);
-opacity: 0;
-transition: transform 0.5s, opacity 0.5s;
-backdrop-filter: blur(10px);
-border: 1px solid rgba(255, 255, 255, 0.4);
-animation: slideIn 0.5s forwards;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--dark-text);
+  padding: 1.2rem 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: slideIn 0.5s forwards;
 }
+
 .floating-notification.show {
-transform: translateX(0);
-opacity: 1;
+  transform: translateX(0);
+  opacity: 1;
 }
+
 .floating-notification.success {
-border-left: 4px solid var(--success-color);
+  border-left: 4px solid var(--success-color);
 }
+
 .floating-notification.error {
-border-left: 4px solid var(--danger-color);
+  border-left: 4px solid var(--danger-color);
 }
+
 .notification-icon {
-font-size: 1.8rem;
+  font-size: 1.8rem;
 }
+
 .notification-success {
-color: var(--success-color);
+  color: var(--success-color);
 }
+
 .notification-error {
-color: var(--danger-color);
+  color: var(--danger-color);
 }
+
 .auto-update-indicator {
-position: fixed;
-bottom: 20px;
-right: 20px;
-background: rgba(29, 209, 161, 0.9);
-color: white;
-padding: 0.8rem 1.5rem;
-border-radius: 30px;
-font-size: 0.9rem;
-box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-z-index: 1000;
-display: flex;
-align-items: center;
-gap: 0.7rem;
-animation: pulse 2s infinite;
-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.4);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(29, 209, 161, 0.9);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  animation: pulse 2s infinite;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
+
 /* Modal Styles */
 .modal-content {
-border-radius: 20px;
-border: none;
-box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
+
 .modal-header {
-background: var(--gradient-primary);
-color: white;
-border-radius: 20px 20px 0 0;
-padding: 1.5rem;
-border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 20px 20px 0 0;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .modal-title {
-font-weight: 700;
+  font-weight: 700;
 }
+
 .modal-body {
-padding: 2rem;
-color: var(--text-color);
+  padding: 2rem;
+  color: var(--text-color);
 }
+
 .modal-footer {
-border-top: 1px solid rgba(0, 0, 0, 0.1);
-border-radius: 0 0 20px 20px;
-padding: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 20px 20px;
+  padding: 1.5rem;
 }
+
 .detail-item {
-display: flex;
-justify-content: space-between;
-margin-bottom: 1rem;
-padding: 1rem;
-background: rgba(255, 255, 255, 0.8);
-border-radius: 15px;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
+
 .detail-label {
-font-weight: 600;
-color: var(--text-color);
+  font-weight: 600;
+  color: var(--text-color);
 }
+
 .detail-value {
-font-weight: 700;
-color: var(--primary-color);
+  font-weight: 700;
+  color: var(--primary-color);
 }
+
 .motivation-message {
-text-align: center;
-padding: 1.5rem;
-margin-top: 1.5rem;
-border-radius: 15px;
-font-weight: 600;
-font-size: 1.1rem;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
+
 .message-good {
-background: rgba(29, 209, 161, 0.2);
-color: #0a6847;
-border-left: 4px solid var(--success-color);
+  background: rgba(29, 209, 161, 0.2);
+  color: #0a6847;
+  border-left: 4px solid var(--success-color);
 }
+
 .message-bad {
-background: rgba(255, 107, 107, 0.2);
-color: #a94442;
-border-left: 4px solid var(--danger-color);
+  background: rgba(255, 107, 107, 0.2);
+  color: #a94442;
+  border-left: 4px solid var(--danger-color);
 }
+
 .cs-name-clickable {
-cursor: pointer;
-transition: all 0.3s ease;
-font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
 }
+
 .cs-name-clickable:hover {
-color: var(--primary-color);
-transform: translateX(5px);
+  color: var(--primary-color);
+  transform: translateX(5px);
 }
+
 /* Animations */
 @keyframes fadeIn {
-from { opacity: 0; }
-to { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
+
 @keyframes slideUp {
-from { transform: translateY(20px); opacity: 0; }
-to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
+
 @keyframes pulse {
-0% { transform: scale(1); }
-50% { transform: scale(1.05); }
-100% { transform: scale(1); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
+
 @keyframes float {
-0% { transform: translateY(0px); }
-50% { transform: translateY(-10px); }
-100% { transform: translateY(0px); }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
+
 @keyframes slideIn {
-from { transform: translateX(100%); opacity: 0; }
-to { transform: translateX(0); opacity: 1; }
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
+
 /* Responsive styles */
 @media (max-width: 768px) {
-.header {
-padding: 2rem 0;
+  .header {
+    padding: 2rem 0;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+  }
+  
+  .card-header {
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .table td, .table th {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stats-card {
+    padding: 1.5rem;
+  }
+  
+  .stats-number {
+    font-size: 2.5rem;
+  }
+  
+  .cs-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .rank-badge {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .refresh-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .last-updated {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .floating-notification, .auto-update-indicator {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    text-align: center;
+  }
 }
-.header h1 {
-font-size: 2rem;
-}
-.header p {
-font-size: 0.9rem;
-}
-.card-header {
-padding: 1.2rem 1.5rem;
-font-size: 1rem;
-}
-.card-body {
-padding: 1.5rem;
-}
-.table td, .table th {
-padding: 1rem;
-}
-.stats-grid {
-grid-template-columns: 1fr;
-gap: 1rem;
-}
-.stats-card {
-padding: 1.5rem;
-}
-.stats-number {
-font-size: 2.5rem;
-}
-.cs-avatar {
-width: 45px;
-height: 45px;
-font-size: 1.2rem;
-}
-.rank-badge {
-width: 35px;
-height: 35px;
-}
-.refresh-btn {
-width: 50px;
-height: 50px;
-}
-.last-updated {
-padding: 0.6rem 1rem;
-font-size: 0.8rem;
-}
-.floating-notification, .auto-update-indicator {
-padding: 0.6rem 1rem;
-font-size: 0.8rem;
-}
-.modal-body {
-padding: 1.5rem;
-}
-.detail-item {
-flex-direction: column;
-text-align: center;
-}
-}
+
 .floating-shape {
-position: absolute;
-border-radius: 50%;
-background: rgba(106, 17, 203, 0.15);
-animation: float 6s infinite ease-in-out;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(106, 17, 203, 0.15);
+  animation: float 6s infinite ease-in-out;
 }
+
 .shape-1 {
-width: 80px;
-height: 80px;
-top: 10%;
-left: 5%;
-animation-delay: 0s;
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
 }
+
 .shape-2 {
-width: 50px;
-height: 50px;
-top: 20%;
-right: 5%;
-animation-delay: 1s;
+  width: 50px;
+  height: 50px;
+  top: 20%;
+  right: 5%;
+  animation-delay: 1s;
 }
+
 .shape-3 {
-width: 70px;
-height: 70px;
-bottom: 15%;
-left: 8%;
-animation-delay: 2s;
+  width: 70px;
+  height: 70px;
+  bottom: 15%;
+  left: 8%;
+  animation-delay: 2s;
 }
+
 .shape-4 {
-width: 60px;
-height: 60px;
-bottom: 25%;
-right: 7%;
-animation-delay: 3s;
+  width: 60px;
+  height: 60px;
+  bottom: 25%;
+  right: 7%;
+  animation-delay: 3s;
 }
 
 /* CS LINE di kanan atas - Diperindah */
 .cs-line-top-right {
-position: absolute;
-top: 20px;
-right: 20px;
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-padding: 20px;
-border-radius: 20px;
-font-size: 0.95rem;
-color: var(--text-color);
-z-index: 100;
-display: flex;
-flex-direction: column;
-gap: 12px;
-border: 1px solid rgba(255, 255, 255, 0.7);
-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-transition: all 0.4s ease;
-animation: slideInFromRight 0.5s forwards;
-overflow: hidden;
-position: relative;
-max-width: 280px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  animation: slideInFromRight 0.5s forwards;
+  overflow: hidden;
+  position: relative;
+  max-width: 280px;
 }
+
 .cs-line-top-right::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
 }
+
 .cs-line-top-right:hover {
-transform: translateY(-5px);
-box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
+
 .cs-line-top-right strong {
-font-weight: 700;
-font-size: 1.3rem;
-color: #6a11cb;
-display: flex;
-align-items: center;
-gap: 10px;
-text-transform: uppercase;
-letter-spacing: 1px;
-padding-bottom: 10px;
-border-bottom: 2px solid rgba(106, 17, 203, 0.2);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #6a11cb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(106, 17, 203, 0.2);
 }
+
 .cs-line-top-right strong::before {
-content: '\f023';
-font-family: 'Font Awesome 5 Free';
-font-weight: 900;
-color: #6a11cb;
-font-size: 1.5rem;
+  content: '\f023';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #6a11cb;
+  font-size: 1.5rem;
 }
+
 .cs-line-top-right div {
-font-weight: 500;
-padding: 8px 0;
-display: flex;
-align-items: center;
-gap: 12px;
-transition: all 0.3s ease;
-color: var(--text-color);
-border-radius: 10px;
-padding-left: 10px;
+  font-weight: 500;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+  border-radius: 10px;
+  padding-left: 10px;
 }
+
 .cs-line-top-right div:hover {
-transform: translateX(5px);
-background: rgba(106, 17, 203, 0.1);
+  transform: translateX(5px);
+  background: rgba(106, 17, 203, 0.1);
 }
+
 .cs-line-top-right div::before {
-content: '\f007';
-font-family: 'Font Awesome 5 Free';
-font-weight: 900;
-color: #6a11cb;
-font-size: 1rem;
-background: rgba(106, 17, 203, 0.1);
-width: 30px;
-height: 30px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
+  content: '\f007';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #6a11cb;
+  font-size: 1rem;
+  background: rgba(106, 17, 203, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Efek badge untuk CS LINE */
 .cs-badge {
-position: absolute;
-top: -10px;
-right: -10px;
-background: var(--gradient-danger);
-color: white;
-width: 30px;
-height: 30px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.8rem;
-font-weight: 700;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--gradient-danger);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Tambahan animasi untuk CS Line */
 @keyframes slideInFromRight {
-from {
-transform: translateX(100px);
-opacity: 0;
-}
-to {
-transform: translateX(0);
-opacity: 1;
-}
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Efek glow untuk elemen tertentu */
 .glow-effect {
-box-shadow: 0 0 20px rgba(106, 17, 203, 0.3);
+  box-shadow: 0 0 20px rgba(106, 17, 203, 0.3);
 }
 
 /* Tambahan dekorasi */
 .decoration-circle {
-position: absolute;
-width: 20px;
-height: 20px;
-border-radius: 50%;
-background: var(--primary-color);
-opacity: 0.2;
-z-index: -1;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  opacity: 0.2;
+  z-index: -1;
 }
 
 /* Neon effect untuk beberapa elemen */
 .neon-text {
-text-shadow: 0 0 5px rgba(106, 17, 203, 0.5),
-0 0 10px rgba(106, 17, 203, 0.3),
-0 0 15px rgba(106, 17, 203, 0.2);
+  text-shadow: 0 0 5px rgba(106, 17, 203, 0.5),
+               0 0 10px rgba(106, 17, 203, 0.3),
+               0 0 15px rgba(106, 17, 203, 0.2);
 }
 
 /* Search and Filter Styles */
 .search-container {
-display: flex;
-gap: 15px;
-margin-bottom: 20px;
-flex-wrap: wrap;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
+
 .search-box {
-flex: 1;
-min-width: 250px;
-position: relative;
+  flex: 1;
+  min-width: 250px;
+  position: relative;
 }
+
 .search-box input {
-width: 100%;
-padding: 12px 20px;
-border-radius: 50px;
-border: 1px solid rgba(106, 17, 203, 0.2);
-background: rgba(255, 255, 255, 0.8);
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-transition: all 0.3s ease;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
+
 .search-box input:focus {
-outline: none;
-border-color: #6a11cb;
-box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
 }
+
 .search-box i {
-position: absolute;
-right: 20px;
-top: 50%;
-transform: translateY(-50%);
-color: #6a11cb;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6a11cb;
 }
+
 .filter-select {
-min-width: 180px;
-padding: 12px 20px;
-border-radius: 50px;
-border: 1px solid rgba(106, 17, 203, 0.2);
-background: rgba(255, 255, 255, 0.8);
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-appearance: none;
-background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236a11cb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-background-repeat: no-repeat;
-background-position: right 1rem center;
-background-size: 1em;
+  min-width: 180px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236a11cb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
 }
+
 .filter-select:focus {
-outline: none;
-border-color: #6a11cb;
-box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
 }
 
 /* Chart container */
 .chart-container {
-position: relative;
-height: 300px;
-margin-bottom: 30px;
-background: rgba(255, 255, 255, 0.7);
-border-radius: 20px;
-padding: 20px;
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  height: 300px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Tabs for additional views */
 .nav-tabs {
-border-bottom: 2px solid rgba(106, 17, 203, 0.2);
-margin-bottom: 20px;
+  border-bottom: 2px solid rgba(106, 17, 203, 0.2);
+  margin-bottom: 20px;
 }
+
 .nav-tabs .nav-link {
-border: none;
-color: var(--light-text);
-font-weight: 500;
-padding: 12px 25px;
-border-radius: 10px 10px 0 0;
-transition: all 0.3s ease;
+  border: none;
+  color: var(--light-text);
+  font-weight: 500;
+  padding: 12px 25px;
+  border-radius: 10px 10px 0 0;
+  transition: all 0.3s ease;
 }
+
 .nav-tabs .nav-link.active {
-color: #6a11cb;
-background: rgba(106, 17, 203, 0.1);
-border-bottom: 3px solid #6a11cb;
+  color: #6a11cb;
+  background: rgba(106, 17, 203, 0.1);
+  border-bottom: 3px solid #6a11cb;
 }
+
 .nav-tabs .nav-link:hover {
-border: none;
-color: #6a11cb;
-background: rgba(106, 17, 203, 0.05);
+  border: none;
+  color: #6a11cb;
+  background: rgba(106, 17, 203, 0.05);
 }
 
 /* History panel */
 .history-panel {
-max-height: 300px;
-overflow-y: auto;
-padding-right: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
 }
+
 .history-item {
-background: rgba(255, 255, 255, 0.8);
-border-radius: 15px;
-padding: 15px;
-margin-bottom: 15px;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-border-left: 4px solid #6a11cb;
-transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #6a11cb;
+  transition: all 0.3s ease;
 }
+
 .history-item:hover {
-transform: translateX(5px);
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
+
 .history-time {
-font-size: 0.8rem;
-color: var(--light-text);
-margin-bottom: 5px;
+  font-size: 0.8rem;
+  color: var(--light-text);
+  margin-bottom: 5px;
 }
+
 .history-content {
-font-weight: 500;
+  font-weight: 500;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-width: 8px;
+  width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-background: rgba(106, 17, 203, 0.1);
-border-radius: 10px;
+  background: rgba(106, 17, 203, 0.1);
+  border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
-background: rgba(106, 17, 203, 0.3);
-border-radius: 10px;
+  background: rgba(106, 17, 203, 0.3);
+  border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-background: rgba(106, 17, 203, 0.5);
+  background: rgba(106, 17, 203, 0.5);
+}
+
+/* Penyesuaian untuk tampilan mobile */
+@media (max-width: 992px) {
+  .cs-line-top-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    max-width: 100%;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .header {
+    padding-top: 5rem;
+  }
 }
 </style>
 </head>
@@ -962,209 +1099,211 @@ background: rgba(106, 17, 203, 0.5);
 <div class="decoration-circle" style="bottom: 20%; left: 15%; width: 25px; height: 25px;"></div>
 
 <div class="floating-notification success" id="updateNotification">
-<i class="fas fa-check-circle notification-icon notification-success"></i>
-<div>
-<strong>Data Diperbarui!</strong>
-<div>Data terbaru telah berhasil diambil</div>
+  <i class="fas fa-check-circle notification-icon notification-success"></i>
+  <div>
+    <strong>Data Diperbarui!</strong>
+    <div>Data terbaru telah berhasil diambil</div>
+  </div>
 </div>
-</div>
+
 <div class="auto-update-indicator" id="autoUpdateIndicator">
-<i class="fas fa-sync-alt"></i> Auto-update aktif
+  <i class="fas fa-sync-alt"></i> Auto-update aktif
 </div>
+
 <div class="container">
-<div class="header text-center mb-5">
-<h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>Laporan Kesalahan CS Line Togel</h1>
-<p class="lead">Monitoring dan evaluasi performa customer service</p>
+  <!-- CS LINE di kanan atas -->
+  <div class="cs-line-top-right">
+    <strong>CS LINE</strong>
+    <div>CHARLIE</div>
+    <div>ANDI</div>
+    <div>RINAL ABDILLAH NASUTION</div>
+  </div>
 
-<!-- CS LINE di kanan atas -->
-<div class="cs-line-top-right">
-<strong>CS LINE</strong>
-<div>CHARLIE</div>
-<div>ANDI</div>
-<div>RINAL ABDILLAH NASUTION</div>
-</div>
+  <div class="header text-center mb-5">
+    <h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>Laporan Kesalahan CS Line Togel</h1>
+    <p class="lead">Monitoring dan evaluasi performa customer service</p>
 
-<div class="d-flex justify-content-center align-items-center mt-4">
-<div class="refresh-btn me-3" id="refreshBtn">
-<i class="fas fa-sync-alt"></i>
-</div>
-<div class="last-updated" id="lastUpdated">
-<i class="fas fa-clock me-1"></i>Terakhir diperbarui: -
-</div>
-</div>
-</div>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+      <div class="refresh-btn me-3" id="refreshBtn">
+        <i class="fas fa-sync-alt"></i>
+      </div>
+      <div class="last-updated" id="lastUpdated">
+        <i class="fas fa-clock me-1"></i>Terakhir diperbarui: -
+      </div>
+    </div>
+  </div>
 
-<ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
-<li class="nav-item" role="presentation">
-<button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
-<i class="fas fa-chart-pie me-2"></i>Ringkasan
-</button>
-</li>
-<li class="nav-item" role="presentation">
-<button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">
-<i class="fas fa-table me-2"></i>Detail Data
-</button>
-</li>
-<li class="nav-item" role="presentation">
-<button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">
-<i class="fas fa-history me-2"></i>Riwayat
-</button>
-</li>
-</ul>
+  <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
+        <i class="fas fa-chart-pie me-2"></i>Ringkasan
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">
+        <i class="fas fa-table me-2"></i>Detail Data
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">
+        <i class="fas fa-history me-2"></i>Riwayat
+      </button>
+    </li>
+  </ul>
 
-<div class="tab-content" id="dashboardTabContent">
-<div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-<div class="stats-grid">
-<div class="stats-card">
-<div class="stats-number" id="totalErrors">0</div>
-<div class="stats-label">Total Kesalahan</div>
-</div>
-<div class="stats-card">
-<div class="stats-number" id="totalCS">0</div>
-<div class="stats-label">Jumlah CS</div>
-</div>
-<div class="stats-card">
-<div class="stats-number" id="averageErrors">0.0</div>
-<div class="stats-label">Rata-rata Kesalahan</div>
-</div>
-<div class="stats-card">
-<div class="stats-number" id="criticalCount">0</div>
-<div class="stats-label">CS Status Danger</div>
-</div>
-</div>
+  <div class="tab-content" id="dashboardTabContent">
+    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+      <div class="stats-grid">
+        <div class="stats-card">
+          <div class="stats-number" id="totalErrors">0</div>
+          <div class="stats-label">Total Kesalahan</div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-number" id="totalCS">0</div>
+          <div class="stats-label">Jumlah CS</div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-number" id="averageErrors">0.0</div>
+          <div class="stats-label">Rata-rata Kesalahan</div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-number" id="criticalCount">0</div>
+          <div class="stats-label">CS Status Danger</div>
+        </div>
+      </div>
 
-<div class="row mb-4">
-<div class="col-md-12">
-<div class="card">
-<div class="card-header text-center">
-<i class="fas fa-chart-bar me-2"></i>Distribusi Kesalahan CS
-</div>
-<div class="card-body">
-<div class="chart-container">
-<canvas id="errorDistributionChart"></canvas>
-</div>
-</div>
-</div>
-</div>
-</div>
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header text-center">
+              <i class="fas fa-chart-bar me-2"></i>Distribusi Kesalahan CS
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="errorDistributionChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div class="row mb-4">
-<div class="col-md-12">
-<div class="card">
-<div class="card-header text-center">
-<i class="fas fa-trophy me-2"></i>Top 3 Performa Terbaik
-</div>
-<div class="card-body">
-<div class="row" id="top3Container">
-<!-- Data akan diisi oleh JavaScript -->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header text-center">
+              <i class="fas fa-trophy me-2"></i>Top 3 Performa Terbaik
+            </div>
+            <div class="card-body">
+              <div class="row" id="top3Container">
+                <!-- Data akan diisi oleh JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-<div class="card-header text-center d-flex justify-content-between align-items-center">
-<span><i class="fas fa-list me-2"></i>Daftar Lengkap Kesalahan CS</span>
-<span class="badge bg-danger" id="csCount">0 CS</span>
-</div>
-<div class="card-body">
-<div class="search-container">
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="Cari nama CS...">
-<i class="fas fa-search"></i>
-</div>
-<select class="filter-select" id="statusFilter">
-<option value="all">Semua Status</option>
-<option value="good">Good</option>
-<option value="warning">Warning</option>
-<option value="danger">Danger</option>
-</select>
-</div>
-<div class="table-responsive">
-<table class="table table-hover" id="csTable">
-<thead>
-<tr>
-<th>Peringkat</th>
-<th>Nama CS</th>
-<th>Total Kesalahan</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody id="csTableBody">
-<!-- Data akan diisi oleh JavaScript -->
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header text-center d-flex justify-content-between align-items-center">
+              <span><i class="fas fa-list me-2"></i>Daftar Lengkap Kesalahan CS</span>
+              <span class="badge bg-danger" id="csCount">0 CS</span>
+            </div>
+            <div class="card-body">
+              <div class="search-container">
+                <div class="search-box">
+                  <input type="text" id="searchInput" placeholder="Cari nama CS...">
+                  <i class="fas fa-search"></i>
+                </div>
+                <select class="filter-select" id="statusFilter">
+                  <option value="all">Semua Status</option>
+                  <option value="good">Good</option>
+                  <option value="warning">Warning</option>
+                  <option value="danger">Danger</option>
+                </select>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover" id="csTable">
+                  <thead>
+                    <tr>
+                      <th>Peringkat</th>
+                      <th>Nama CS</th>
+                      <th>Total Kesalahan</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="csTableBody">
+                    <!-- Data akan diisi oleh JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-<div class="row">
-<div class="col-md-12">
-<div class="card">
-<div class="card-header text-center">
-<i class="fas fa-history me-2"></i>Riwayat Perubahan Data
-</div>
-<div class="card-body">
-<div class="history-panel" id="historyPanel">
-<!-- Riwayat akan diisi oleh JavaScript -->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header text-center">
+              <i class="fas fa-history me-2"></i>Riwayat Perubahan Data
+            </div>
+            <div class="card-body">
+              <div class="history-panel" id="historyPanel">
+                <!-- Riwayat akan diisi oleh JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Modal untuk Detail CS -->
 <div class="modal fade" id="csDetailModal" tabindex="-1" aria-labelledby="csDetailModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="csDetailModalLabel">Detail Kesalahan CS</h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-<div class="text-center mb-4">
-<div class="cs-avatar mx-auto mb-2" id="modalAvatar">R</div>
-<h4 id="modalName">Nama CS</h4>
-<div class="stats-number mt-2" id="modalErrors">0</div>
-<div class="stats-label">Total Kesalahan</div>
-</div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="csDetailModalLabel">Detail Kesalahan CS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-4">
+          <div class="cs-avatar mx-auto mb-2" id="modalAvatar">R</div>
+          <h4 id="modalName">Nama CS</h4>
+          <div class="stats-number mt-2" id="modalErrors">0</div>
+          <div class="stats-label">Total Kesalahan</div>
+        </div>
 
-<div class="detail-item">
-<span class="detail-label">Peringkat:</span>
-<span class="detail-value" id="modalRank">-</span>
-</div>
+        <div class="detail-item">
+          <span class="detail-label">Peringkat:</span>
+          <span class="detail-value" id="modalRank">-</span>
+        </div>
 
-<div class="detail-item">
-<span class="detail-label">Status:</span>
-<span class="detail-value" id="modalStatus">-</span>
-</div>
+        <div class="detail-item">
+          <span class="detail-label">Status:</span>
+          <span class="detail-value" id="modalStatus">-</span>
+        </div>
 
-<div class="detail-item">
-<span class="detail-label">Performa:</span>
-<span class="detail-value" id="modalPerformance">-</span>
-</div>
+        <div class="detail-item">
+          <span class="detail-label">Performa:</span>
+          <span class="detail-value" id="modalPerformance">-</span>
+        </div>
 
-<div class="motivation-message" id="modalMessage">
-<!-- Pesan motivasi akan diisi oleh JavaScript -->
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-</div>
-</div>
-</div>
+        <div class="motivation-message" id="modalMessage">
+          <!-- Pesan motivasi akan diisi oleh JavaScript -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1179,424 +1318,433 @@ let historyData = [];
 
 // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
 function getStatus(errors) {
-if (errors === 0) return { text: "Excellent", class: "status-good" };
-if (errors <= 5) return { text: "Good", class: "status-good" };
-if (errors <= 20) return { text: "Warning", class: "status-warning" };
-return { text: "Danger", class: "status-danger" };
+  if (errors === 0) return { text: "Excellent", class: "status-good" };
+  if (errors <= 5) return { text: "Good", class: "status-good" };
+  if (errors <= 20) return { text: "Warning", class: "status-warning" };
+  return { text: "Danger", class: "status-danger" };
 }
 
 // Fungsi untuk mendapatkan pesan motivasi berdasarkan jumlah kesalahan
 function getMotivationMessage(errors, name) {
-if (errors <= 25) {
-return `<div class="message-good">
-<i class="fas fa-check-circle me-2"></i>Pertahankan, ${name.split(' ')[0]}! Performa Anda sudah baik.
-</div>`;
-} else {
-return `<div class="message-bad">
-<i class="fas fa-exclamation-circle me-2"></i>Coba lagi periode depan, ${name.split(' ')[0]}! Perbaiki kinerja Anda.
-</div>`;
-}
+  if (errors <= 25) {
+    return `<div class="message-good">
+      <i class="fas fa-check-circle me-2"></i>Pertahankan, ${name.split(' ')[0]}! Performa Anda sudah baik.
+    </div>`;
+  } else {
+    return `<div class="message-bad">
+      <i class="fas fa-exclamation-circle me-2"></i>Coba lagi periode depan, ${name.split(' ')[0]}! Perbaiki kinerja Anda.
+    </div>`;
+  }
 }
 
 // Fungsi untuk mendapatkan performa berdasarkan peringkat
 function getPerformance(rank, totalCS) {
-const percentage = (rank / totalCS) * 100;
-if (percentage <= 10) return "Top 10%";
-if (percentage <= 25) return "Top 25%";
-if (percentage <= 50) return "Rata-rata";
-if (percentage <= 75) return "Di bawah rata-rata";
-return "Perlu peningkatan";
+  const percentage = (rank / totalCS) * 100;
+  if (percentage <= 10) return "Top 10%";
+  if (percentage <= 25) return "Top 25%";
+  if (percentage <= 50) return "Rata-rata";
+  if (percentage <= 75) return "Di bawah rata-rata";
+  return "Perlu peningkatan";
 }
 
 // Fungsi untuk menampilkan detail CS
 function showCSDetail(cs, rank) {
-const status = getStatus(cs.errors);
-const performance = getPerformance(rank, csData.length);
+  const status = getStatus(cs.errors);
+  const performance = getPerformance(rank, csData.length);
 
-document.getElementById('modalAvatar').textContent = cs.name.charAt(0);
-document.getElementById('modalName').textContent = cs.name;
-document.getElementById('modalErrors').textContent = cs.errors;
-document.getElementById('modalRank').textContent = `#${rank}`;
-document.getElementById('modalStatus').innerHTML = `<span class="status-badge ${status.class}">${status.text}</span>`;
-document.getElementById('modalPerformance').textContent = performance;
-document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.name);
+  document.getElementById('modalAvatar').textContent = cs.name.charAt(0);
+  document.getElementById('modalName').textContent = cs.name;
+  document.getElementById('modalErrors').textContent = cs.errors;
+  document.getElementById('modalRank').textContent = `#${rank}`;
+  document.getElementById('modalStatus').innerHTML = `<span class="status-badge ${status.class}">${status.text}</span>`;
+  document.getElementById('modalPerformance').textContent = performance;
+  document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.name);
 
-csDetailModal.show();
+  csDetailModal.show();
 }
 
 // Fungsi untuk menampilkan notifikasi
 function showNotification(type, message) {
-const notification = document.getElementById('updateNotification');
-const icon = notification.querySelector('.notification-icon');
-const strong = notification.querySelector('strong');
-const div = notification.querySelector('div');
-notification.className = `floating-notification ${type}`;
-icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} notification-icon notification-${type}`;
-strong.textContent = type === 'success' ? 'Data Diperbarui!' : 'Error!';
-div.innerHTML = message;
-notification.classList.add('show');
-setTimeout(() => {
-notification.classList.remove('show');
-}, 3000);
+  const notification = document.getElementById('updateNotification');
+  const icon = notification.querySelector('.notification-icon');
+  const strong = notification.querySelector('strong');
+  const div = notification.querySelector('div');
+  notification.className = `floating-notification ${type}`;
+  icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} notification-icon notification-${type}`;
+  strong.textContent = type === 'success' ? 'Data Diperbarui!' : 'Error!';
+  div.innerHTML = message;
+  notification.classList.add('show');
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 3000);
 }
 
 // Fungsi untuk menambahkan riwayat
 function addHistory(message) {
-const now = new Date();
-const timeString = now.toLocaleTimeString('id-ID');
-const dateString = now.toLocaleDateString('id-ID', {
-weekday: 'long',
-year: 'numeric',
-month: 'long',
-day: 'numeric'
-});
+  const now = new Date();
+  const timeString = now.toLocaleTimeString('id-ID');
+  const dateString = now.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
-historyData.unshift({
-time: `${dateString} ${timeString}`,
-message: message
-});
+  historyData.unshift({
+    time: `${dateString} ${timeString}`,
+    message: message
+  });
 
-// Batasi riwayat hingga 10 item
-if (historyData.length > 10) {
-historyData.pop();
-}
+  // Batasi riwayat hingga 10 item
+  if (historyData.length > 10) {
+    historyData.pop();
+  }
 
-renderHistory();
+  renderHistory();
 }
 
 // Fungsi untuk merender riwayat
 function renderHistory() {
-const historyPanel = document.getElementById('historyPanel');
-historyPanel.innerHTML = historyData.map(item => `
-<div class="history-item">
-<div class="history-time">${item.time}</div>
-<div class="history-content">${item.message}</div>
-</div>
-`).join('');
+  const historyPanel = document.getElementById('historyPanel');
+  historyPanel.innerHTML = historyData.map(item => `
+    <div class="history-item">
+      <div class="history-time">${item.time}</div>
+      <div class="history-content">${item.message}</div>
+    </div>
+  `).join('');
+}
+
+// Fungsi untuk parsing baris CSV
+function parseCSVRow(row) {
+  const values = [];
+  let current = '';
+  let inQuote = false;
+
+  for (let i = 0; i < row.length; i++) {
+    const char = row[i];
+    if (char === '"') {
+      // Jika kita berada dalam quote, dan karakter berikutnya juga quote (escape)
+      if (inQuote && i + 1 < row.length && row[i + 1] === '"') {
+        current += '"';
+        i++; // Lewati karakter quote berikutnya
+      } else {
+        inQuote = !inQuote;
+      }
+    } else if (char === ',' && !inQuote) {
+      values.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  values.push(current);
+
+  return values.map(value => value.trim());
+}
+
+// Fungsi untuk parsing CSV
+function parseCSV(csv) {
+  const rows = csv.split(/\r?\n/).filter(row => row.trim() !== '');
+  if (rows.length === 0) return { headers: [], data: [] };
+
+  const headers = parseCSVRow(rows[0]);
+  const data = [];
+
+  for (let i = 1; i < rows.length; i++) {
+    const row = parseCSVRow(rows[i]);
+    data.push(row);
+  }
+
+  return { headers, data };
 }
 
 // Fungsi untuk memuat data dari Google Sheets
 async function fetchDataFromSheet() {
-try {
-// URL Google Sheets yang sudah dipublikasikan
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
-const response = await fetch(sheetUrl);
-if (!response.ok) {
-throw new Error(`HTTP error! status: ${response.status}`);
-}
-const csvData = await response.text();
+  try {
+    // URL Google Sheets yang sudah dipublikasikan
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1WMbp6aWmubH5R0lAtIMMQbKDuzfCmh4qrUCEBxqZK9E/gviz/tq?tqx=out:csv&sheet=part1';
+    const response = await fetch(sheetUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const csvData = await response.text();
 
-// Parsing CSV dengan fungsi yang lebih andal
-const parsedData = parseCSV(csvData);
+    // Parsing CSV dengan fungsi yang lebih andal
+    const parsedData = parseCSV(csvData);
 
-const headers = parsedData.headers;
-const rows = parsedData.data;
+    const headers = parsedData.headers;
+    const rows = parsedData.data;
 
-// Cari indeks kolom yang benar
-const nameIndex = headers.findIndex(header =>
-header.toLowerCase().includes('nama') || header.toLowerCase().includes('cs')
-);
-const errorIndex = headers.findIndex(header =>
-header.toLowerCase().includes('total') || header.toLowerCase().includes('kesalahan')
-);
+    // Cari indeks kolom yang benar
+    const nameIndex = headers.findIndex(header =>
+      header.toLowerCase().includes('nama') || header.toLowerCase().includes('cs')
+    );
+    const errorIndex = headers.findIndex(header =>
+      header.toLowerCase().includes('total') || header.toLowerCase().includes('kesalahan')
+    );
 
-// Jika tidak menemukan kolom yang sesuai, gunakan kolom pertama dan kedua
-const finalNameIndex = nameIndex !== -1 ? nameIndex : 0;
-const finalErrorIndex = errorIndex !== -1 ? errorIndex : 1;
+    // Jika tidak menemukan kolom yang sesuai, gunakan kolom pertama dan kedua
+    const finalNameIndex = nameIndex !== -1 ? nameIndex : 0;
+    const finalErrorIndex = errorIndex !== -1 ? errorIndex : 1;
 
-const data = [];
-for (let i = 0; i < rows.length; i++) {
-const row = rows[i];
-if (row.length <= Math.max(finalNameIndex, finalErrorIndex)) continue;
+    const data = [];
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length <= Math.max(finalNameIndex, finalErrorIndex)) continue;
 
-const name = row[finalNameIndex] || 'Tidak Diketahui';
-const errors = parseInt(row[finalErrorIndex]) || 0;
-data.push({ name, errors });
-}
+      const name = row[finalNameIndex] || 'Tidak Diketahui';
+      const errors = parseInt(row[finalErrorIndex]) || 0;
+      data.push({ name, errors });
+    }
 
-// Simpan data sebelumnya untuk perbandingan
-previousData = [...csData];
+    // Simpan data sebelumnya untuk perbandingan
+    previousData = [...csData];
 
-// Filter CS tertentu yang ingin dihilangkan
-csData = data.filter(cs =>
-!cs.name.includes("RINAL ABDILLAH NASUTION") &&
-!cs.name.includes("ANDI") &&
-!cs.name.includes("CHARLIE")
-);
+    // Filter CS tertentu yang ingin dihilangkan
+    csData = data.filter(cs =>
+      !cs.name.includes("RINAL ABDILLAH NASUTION") &&
+      !cs.name.includes("ANDI") &&
+      !cs.name.includes("CHARLIE")
+    );
 
-renderData();
-showNotification('success', 'Data terbaru telah berhasil diambil');
-addHistory('Data diperbarui dari Google Sheets');
-} catch (error) {
-console.error('Error fetching data:', error);
-showNotification('error', 'Gagal memuat data: ' + error.message);
-addHistory('Gagal memuat data: ' + error.message);
+    renderData();
+    showNotification('success', 'Data terbaru telah berhasil diambil');
+    addHistory('Data diperbarui dari Google Sheets');
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    showNotification('error', 'Gagal memuat data: ' + error.message);
+    addHistory('Gagal memuat data: ' + error.message);
 
-// Jika tidak ada data sebelumnya, tampilkan pesan error
-if (csData.length === 0) {
-document.getElementById('totalErrors').textContent = 'Error';
-document.getElementById('totalCS').textContent = 'Error';
-document.getElementById('averageErrors').textContent = 'Error';
-document.getElementById('criticalCount').textContent = 'Error';
-document.getElementById('csCount').textContent = 'Error';
-}
-}
+    // Jika tidak ada data sebelumnya, tampilkan pesan error
+    if (csData.length === 0) {
+      document.getElementById('totalErrors').textContent = 'Error';
+      document.getElementById('totalCS').textContent = 'Error';
+      document.getElementById('averageErrors').textContent = 'Error';
+      document.getElementById('criticalCount').textContent = 'Error';
+      document.getElementById('csCount').textContent = 'Error';
+    }
+  }
 }
 
 // Fungsi untuk merender data
 function renderData() {
-// Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar)
-const sortedData = [...csData].sort((a, b) => a.errors - b.errors);
+  // Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar)
+  const sortedData = [...csData].sort((a, b) => a.errors - b.errors);
 
-// Hitung statistik
-const totalErrors = sortedData.reduce((sum, cs) => sum + cs.errors, 0);
-const totalCS = sortedData.length;
-const averageErrors = totalCS > 0 ? (totalErrors / totalCS).toFixed(1) : 0;
-const criticalCount = sortedData.filter(cs => cs.errors > 25).length;
+  // Hitung statistik
+  const totalErrors = sortedData.reduce((sum, cs) => sum + cs.errors, 0);
+  const totalCS = sortedData.length;
+  const averageErrors = totalCS > 0 ? (totalErrors / totalCS).toFixed(1) : 0;
+  const criticalCount = sortedData.filter(cs => cs.errors > 25).length;
 
-// Update statistik
-document.getElementById('totalErrors').textContent = totalErrors;
-document.getElementById('totalCS').textContent = totalCS;
-document.getElementById('averageErrors').textContent = averageErrors;
-document.getElementById('criticalCount').textContent = criticalCount;
-document.getElementById('csCount').textContent = `${totalCS} CS`;
+  // Update statistik
+  document.getElementById('totalErrors').textContent = totalErrors;
+  document.getElementById('totalCS').textContent = totalCS;
+  document.getElementById('averageErrors').textContent = averageErrors;
+  document.getElementById('criticalCount').textContent = criticalCount;
+  document.getElementById('csCount').textContent = `${totalCS} CS`;
 
-// Update waktu terakhir
-document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
+  // Update waktu terakhir
+  document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
 
-// Render top 3
-const top3 = sortedData.slice(0, 3);
-const top3Html = top3.map((cs, index) => {
-const status = getStatus(cs.errors);
-const shortName = cs.name.split(' ')[0];
-return `
-<div class="col-md-4 mb-3">
-<div class="winner-card winner-card-${index+1} text-center p-3">
-<div class="winner-badge">${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
-<h4>Juara ${index+1}</h4>
-<div class="cs-avatar mx-auto mb-2">${shortName.charAt(0)}</div>
-<h5>${shortName}</h5>
-<p class="mb-1 text-truncate">${cs.name.split(' ').slice(1).join(' ')}</p>
-<div class="stats-number ${cs.errors === 0 ? 'text-success' : 'text-primary'}">${cs.errors}</div>
-<div class="stats-label">Kesalahan</div>
-<span class="status-badge ${status.class}">${status.text}</span>
-</div>
-</div>
-`;
-}).join('');
-document.getElementById('top3Container').innerHTML = top3Html;
+  // Render top 3
+  const top3 = sortedData.slice(0, 3);
+  const top3Html = top3.map((cs, index) => {
+    const status = getStatus(cs.errors);
+    const shortName = cs.name.split(' ')[0];
+    return `
+      <div class="col-md-4 mb-3">
+        <div class="winner-card winner-card-${index+1} text-center p-3">
+          <div class="winner-badge">${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
+          <h4>Juara ${index+1}</h4>
+          <div class="cs-avatar mx-auto mb-2">${shortName.charAt(0)}</div>
+          <h5>${shortName}</h5>
+          <p class="mb-1 text-truncate">${cs.name.split(' ').slice(1).join(' ')}</p>
+          <div class="stats-number ${cs.errors === 0 ? 'text-success' : 'text-primary'}">${cs.errors}</div>
+          <div class="stats-label">Kesalahan</div>
+          <span class="status-badge ${status.class}">${status.text}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('top3Container').innerHTML = top3Html;
 
-// Render tabel
-const tableHtml = sortedData.map((cs, index) => {
-const status = getStatus(cs.errors);
-let rankBadge = `<div class="rank-badge">${index+1}</div>`;
-if (index === 0) rankBadge = `<div class="rank-badge rank-1">1</div>`;
-else if (index === 1) rankBadge = `<div class="rank-badge rank-2">2</div>`;
-else if (index === 2) rankBadge = `<div class="rank-badge rank-3">3</div>`;
-return `
-<tr>
-<td>${rankBadge}</td>
-<td>
-<div class="d-flex align-items-center">
-<div class="cs-avatar">${cs.name.charAt(0)}</div>
-<div class="cs-name-clickable" onclick="showCSDetail(${JSON.stringify(cs).replace(/"/g, '&quot;')}, ${index+1})">${cs.name}</div>
-</div>
-</td>
-<td>${cs.errors}</td>
-<td><span class="status-badge ${status.class}">${status.text}</span></td>
-</tr>
-`;
-}).join('');
-document.getElementById('csTableBody').innerHTML = tableHtml;
+  // Render tabel
+  const tableHtml = sortedData.map((cs, index) => {
+    const status = getStatus(cs.errors);
+    let rankBadge = `<div class="rank-badge">${index+1}</div>`;
+    if (index === 0) rankBadge = `<div class="rank-badge rank-1">1</div>`;
+    else if (index === 1) rankBadge = `<div class="rank-badge rank-2">2</div>`;
+    else if (index === 2) rankBadge = `<div class="rank-badge rank-3">3</div>`;
+    return `
+      <tr>
+        <td>${rankBadge}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="cs-avatar">${cs.name.charAt(0)}</div>
+            <div class="cs-name-clickable" onclick="showCSDetail(${JSON.stringify(cs).replace(/"/g, '&quot;')}, ${index+1})">${cs.name}</div>
+          </div>
+        </td>
+        <td>${cs.errors}</td>
+        <td><span class="status-badge ${status.class}">${status.text}</span></td>
+      </tr>
+    `;
+  }).join('');
+  document.getElementById('csTableBody').innerHTML = tableHtml;
 
-// Render chart distribusi kesalahan
-renderErrorDistributionChart(sortedData);
+  // Render chart distribusi kesalahan
+  renderErrorDistributionChart(sortedData);
 }
 
 // Fungsi untuk merender chart distribusi kesalahan
 function renderErrorDistributionChart(data) {
-const ctx = document.getElementById('errorDistributionChart').getContext('2d');
+  const ctx = document.getElementById('errorDistributionChart').getContext('2d');
 
-// Hancurkan chart sebelumnya jika ada
-if (errorDistributionChart) {
-errorDistributionChart.destroy();
-}
+  // Hancurkan chart sebelumnya jika ada
+  if (errorDistributionChart) {
+    errorDistributionChart.destroy();
+  }
 
-// Siapkan data untuk chart
-const labels = data.map(cs => {
-const names = cs.name.split(' ');
-return names.length > 1 ? `${names[0]} ${names[1].charAt(0)}.` : names[0];
-});
-const errors = data.map(cs => cs.errors);
-const backgroundColors = data.map(cs => {
-const status = getStatus(cs.errors);
-if (status.class === 'status-good') return 'rgba(29, 209, 161, 0.7)';
-if (status.class === 'status-warning') return 'rgba(254, 202, 87, 0.7)';
-return 'rgba(255, 107, 107, 0.7)';
-});
+  // Siapkan data untuk chart
+  const labels = data.map(cs => {
+    const names = cs.name.split(' ');
+    return names.length > 1 ? `${names[0]} ${names[1].charAt(0)}.` : names[0];
+  });
+  const errors = data.map(cs => cs.errors);
+  const backgroundColors = data.map(cs => {
+    const status = getStatus(cs.errors);
+    if (status.class === 'status-good') return 'rgba(29, 209, 161, 0.7)';
+    if (status.class === 'status-warning') return 'rgba(254, 202, 87, 0.7)';
+    return 'rgba(255, 107, 107, 0.7)';
+  });
 
-// Buat chart baru
-errorDistributionChart = new Chart(ctx, {
-type: 'bar',
-data: {
-labels: labels,
-datasets: [{
-label: 'Jumlah Kesalahan',
-data: errors,
-backgroundColor: backgroundColors,
-borderColor: 'rgba(106, 17, 203, 0.8)',
-borderWidth: 1
-}]
-},
-options: {
-responsive: true,
-maintainAspectRatio: false,
-scales: {
-y: {
-beginAtZero: true,
-title: {
-display: true,
-text: 'Jumlah Kesalahan'
-}
-},
-x: {
-ticks: {
-maxRotation: 45,
-minRotation: 45
-}
-}
-},
-plugins: {
-legend: {
-display: false
-},
-tooltip: {
-callbacks: {
-label: function(context) {
-return `Kesalahan: ${context.raw}`;
-},
-afterLabel: function(context) {
-const cs = data[context.dataIndex];
-const status = getStatus(cs.errors);
-return `Status: ${status.text}`;
-}
-}
-}
-}
-}
-});
+  // Buat chart baru
+  errorDistributionChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Jumlah Kesalahan',
+        data: errors,
+        backgroundColor: backgroundColors,
+        borderColor: 'rgba(106, 17, 203, 0.8)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Jumlah Kesalahan'
+          }
+        },
+        x: {
+          ticks: {
+            maxRotation: 45,
+            minRotation: 45
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `Kesalahan: ${context.raw}`;
+            },
+            afterLabel: function(context) {
+              const cs = data[context.dataIndex];
+              const status = getStatus(cs.errors);
+              return `Status: ${status.text}`;
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 // Fungsi untuk memulai auto-update
 function startAutoUpdate() {
-// Hapus interval sebelumnya jika ada
-if (autoUpdateInterval) {
-clearInterval(autoUpdateInterval);
-}
-// Set interval untuk auto-update setiap 2 menit
-autoUpdateInterval = setInterval(fetchDataFromSheet, 120000);
-// Tampilkan indikator auto-update
-document.getElementById('autoUpdateIndicator').style.display = 'flex';
+  // Hapus interval sebelumnya jika ada
+  if (autoUpdateInterval) {
+    clearInterval(autoUpdateInterval);
+  }
+  // Set interval untuk auto-update setiap 2 menit
+  autoUpdateInterval = setInterval(fetchDataFromSheet, 120000);
+  // Tampilkan indikator auto-update
+  document.getElementById('autoUpdateIndicator').style.display = 'flex';
 }
 
 // Fungsi untuk menghentikan auto-update
 function stopAutoUpdate() {
-if (autoUpdateInterval) {
-clearInterval(autoUpdateInterval);
-autoUpdateInterval = null;
-}
-// Sembunyikan indikator auto-update
-document.getElementById('autoUpdateIndicator').style.display = 'none';
-}
-
-// Fungsi untuk parsing CSV yang lebih andal
-function parseCSV(csv) {
-const rows = csv.split(/\r?\n/).filter(row => row.trim() !== '');
-if (rows.length === 0) return { headers: [], data: [] };
-
-const headers = rows[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
-const data = [];
-
-for (let i = 1; i < rows.length; i++) {
-const row = rows[i];
-const values = [];
-let current = '';
-let inQuote = false;
-
-for (let j = 0; j < row.length; j++) {
-if (row[j] === '"' && (j === 0 || row[j-1] !== '\\')) {
-inQuote = !inQuote;
-} else if (row[j] === ',' && !inQuote) {
-values.push(current);
-current = '';
-} else {
-current += row[j];
-}
-}
-values.push(current);
-
-// Hapus tanda kutip di awal dan akhir jika ada
-const cleanValues = values.map(value => value.trim().replace(/^"|"$/g, ''));
-data.push(cleanValues);
-}
-
-return { headers, data };
+  if (autoUpdateInterval) {
+    clearInterval(autoUpdateInterval);
+    autoUpdateInterval = null;
+  }
+  // Sembunyikan indikator auto-update
+  document.getElementById('autoUpdateIndicator').style.display = 'none';
 }
 
 // Fungsi untuk memfilter tabel
 function filterTable() {
-const searchText = document.getElementById('searchInput').value.toLowerCase();
-const statusFilter = document.getElementById('statusFilter').value;
-const rows = document.querySelectorAll('#csTableBody tr');
+  const searchText = document.getElementById('searchInput').value.toLowerCase();
+  const statusFilter = document.getElementById('statusFilter').value;
+  const rows = document.querySelectorAll('#csTableBody tr');
 
-rows.forEach(row => {
-const name = row.querySelector('.cs-name-clickable').textContent.toLowerCase();
-const status = row.querySelector('.status-badge').classList.contains('status-good') ? 'good' :
-row.querySelector('.status-badge').classList.contains('status-warning') ? 'warning' : 'danger';
+  rows.forEach(row => {
+    const name = row.querySelector('.cs-name-clickable').textContent.toLowerCase();
+    const status = row.querySelector('.status-badge').classList.contains('status-good') ? 'good' :
+      row.querySelector('.status-badge').classList.contains('status-warning') ? 'warning' : 'danger';
 
-const nameMatch = name.includes(searchText);
-const statusMatch = statusFilter === 'all' || status === statusFilter;
+    const nameMatch = name.includes(searchText);
+    const statusMatch = statusFilter === 'all' || status === statusFilter;
 
-row.style.display = (nameMatch && statusMatch) ? '' : 'none';
-});
+    row.style.display = (nameMatch && statusMatch) ? '' : 'none';
+  });
 }
 
 // Event listener saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
-// Muat data pertama kali
-fetchDataFromSheet();
-// Mulai auto-update
-startAutoUpdate();
+  // Muat data pertama kali
+  fetchDataFromSheet();
+  // Mulai auto-update
+  startAutoUpdate();
 
-// Event listener untuk tombol refresh
-document.getElementById('refreshBtn').addEventListener('click', function() {
-fetchDataFromSheet();
-});
+  // Event listener untuk tombol refresh
+  document.getElementById('refreshBtn').addEventListener('click', function() {
+    fetchDataFromSheet();
+  });
 
-// Event listener untuk pencarian dan filter
-document.getElementById('searchInput').addEventListener('input', filterTable);
-document.getElementById('statusFilter').addEventListener('change', filterTable);
+  // Event listener untuk pencarian dan filter
+  document.getElementById('searchInput').addEventListener('input', filterTable);
+  document.getElementById('statusFilter').addEventListener('change', filterTable);
 
-// Inisialisasi tab Bootstrap
-const triggerTabList = [].slice.call(document.querySelectorAll('#dashboardTabs button'));
-triggerTabList.forEach(function (triggerEl) {
-new bootstrap.Tab(triggerEl);
-});
+  // Inisialisasi tab Bootstrap
+  const triggerTabList = [].slice.call(document.querySelectorAll('#dashboardTabs button'));
+  triggerTabList.forEach(function (triggerEl) {
+    new bootstrap.Tab(triggerEl);
+  });
 });
 
 // Handle visibilitas halaman untuk mengoptimalkan auto-update
 document.addEventListener('visibilitychange', function() {
-if (document.hidden) {
-// Hentikan auto-update ketika tab tidak aktif
-stopAutoUpdate();
-} else {
-// Lanjutkan auto-update ketika tab aktif kembali
-startAutoUpdate();
-// Perbarui data
-fetchDataFromSheet();
-}
+  if (document.hidden) {
+    // Hentikan auto-update ketika tab tidak aktif
+    stopAutoUpdate();
+  } else {
+    // Lanjutkan auto-update ketika tab aktif kembali
+    startAutoUpdate();
+    // Perbarui data
+    fetchDataFromSheet();
+  }
 });
 </script>
 </body>
 </html>
-
