@@ -22,9 +22,9 @@
   --dark-text: #ffffff;
   --light-text: #e2e8f0;
   --muted-text: #94a3b8;
-  --glass-bg: rgba(15, 23, 42, 0.85);
-  --glass-border: rgba(100, 116, 139, 0.3);
-  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(100, 116, 139, 0.2);
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
@@ -54,6 +54,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Latar belakang baru dengan gambar */
 body::before {
   content: '';
   position: fixed;
@@ -61,12 +62,41 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
-    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
-    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, rgba(2, 6, 23, 1) 100%);
-  background-size: 100% 100%;
+  background-image: url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -3;
+}
+
+/* Overlay gelap untuk memastikan teks terbaca */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 50%, rgba(15, 23, 42, 0.85) 100%);
+  z-index: -2;
+}
+
+/* Efek cahaya dinamis */
+body .light-effect {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
   z-index: -1;
+  animation: lightMove 20s linear infinite;
+}
+
+@keyframes lightMove {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .container {
@@ -99,14 +129,38 @@ body::before {
   background: var(--gradient-primary);
 }
 
+/* Efek cahaya pada header */
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  z-index: -1;
+  animation: headerGlow 10s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
 .header h1 {
   font-weight: 700;
   margin-bottom: 0.5rem;
   font-size: 2.2rem;
-  background: linear-gradient(to right, #a5b4fc, #c7d2fe);
+  background: linear-gradient(to right, #a5b4fc, #c7d2fe, #ddd6fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  animation: textShine 3s ease-in-out infinite;
+}
+
+@keyframes textShine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .header p {
@@ -129,11 +183,31 @@ body::before {
   transition: all 0.3s ease;
   margin-bottom: 1.5rem;
   overflow: hidden;
+  position: relative;
+}
+
+/* Efek cahaya pada kartu */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .card-header {
@@ -145,6 +219,7 @@ body::before {
   position: relative;
   color: var(--dark-text);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .card-header::before {
@@ -160,6 +235,8 @@ body::before {
 .card-body {
   padding: 1.5rem;
   background: rgba(30, 41, 59, 0.5);
+  position: relative;
+  z-index: 2;
 }
 
 .stats-grid {
@@ -181,7 +258,26 @@ body::before {
   overflow: hidden;
 }
 
+/* Efek cahaya pada kartu statistik */
 .stats-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stats-card:hover::before {
+  opacity: 1;
+}
+
+.stats-card::after {
   content: '';
   position: absolute;
   top: 0;
@@ -204,6 +300,8 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  position: relative;
+  z-index: 2;
 }
 
 .stats-label {
@@ -213,6 +311,8 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .table-responsive {
@@ -402,7 +502,26 @@ body::before {
   overflow: hidden;
 }
 
+/* Efek cahaya pada kartu pemenang */
 .winner-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.winner-card:hover::before {
+  opacity: 1;
+}
+
+.winner-card::after {
   content: '';
   position: absolute;
   top: 0;
@@ -434,11 +553,15 @@ body::before {
 .winner-card h4, .winner-card h5, .winner-card p {
   color: var(--dark-text);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .winner-card .small {
   color: var(--light-text);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .refresh-btn {
@@ -570,7 +693,7 @@ body::before {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   color: var(--dark-text);
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a5b4fc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
@@ -832,7 +955,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2;
+  z-index: -1;
   overflow: hidden;
 }
 
@@ -852,6 +975,44 @@ body::before {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
   }
+}
+
+/* Geometric shapes background */
+.shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  opacity: 0.05;
+}
+
+.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid rgba(99, 102, 241, 0.3);
+}
+
+.shape-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.3);
+}
+
+.shape-square {
+  width: 70px;
+  height: 70px;
+  background: rgba(236, 72, 153, 0.3);
+  transform: rotate(45deg);
 }
 
 /* Responsive styles */
@@ -942,6 +1103,12 @@ body::before {
 </style>
 </head>
 <body>
+<!-- Efek cahaya dinamis -->
+<div class="light-effect"></div>
+
+<!-- Geometric shapes background -->
+<div class="shapes" id="shapes"></div>
+
 <!-- Floating particles background -->
 <div class="particles" id="particles"></div>
 
@@ -1196,6 +1363,54 @@ let csDetailModal = new bootstrap.Modal(document.getElementById('csDetailModal')
 let errorDistributionChart = null;
 let historyData = [];
 
+// Fungsi untuk membuat bentuk geometris latar belakang
+function createShapes() {
+  const shapesContainer = document.getElementById('shapes');
+  const shapes = ['triangle', 'circle', 'square'];
+  const numberOfShapes = 15;
+  
+  for (let i = 0; i < numberOfShapes; i++) {
+    const shape = document.createElement('div');
+    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+    shape.classList.add('shape', `shape-${shapeType}`);
+    
+    // Random position
+    const posX = Math.random() * 100;
+    const posY = Math.random() * 100;
+    
+    // Random size
+    const size = Math.random() * 100 + 50;
+    
+    // Random rotation
+    const rotation = Math.random() * 360;
+    
+    shape.style.left = `${posX}%`;
+    shape.style.top = `${posY}%`;
+    shape.style.transform = `rotate(${rotation}deg)`;
+    
+    if (shapeType === 'triangle') {
+      shape.style.borderLeftWidth = `${size/2}px`;
+      shape.style.borderRightWidth = `${size/2}px`;
+      shape.style.borderBottomWidth = `${size}px`;
+    } else {
+      shape.style.width = `${size}px`;
+      shape.style.height = `${size}px`;
+    }
+    
+    // Random animation duration and delay
+    const duration = Math.random() * 30 + 20;
+    const delay = Math.random() * 5;
+    
+    shape.style.animationDuration = `${duration}s`;
+    shape.style.animationDelay = `${delay}s`;
+    shape.style.animationName = 'float';
+    shape.style.animationTimingFunction = 'linear';
+    shape.style.animationIterationCount = 'infinite';
+    
+    shapesContainer.appendChild(shape);
+  }
+}
+
 // Fungsi untuk membuat partikel latar belakang
 function createParticles() {
   const particlesContainer = document.getElementById('particles');
@@ -1224,6 +1439,27 @@ function createParticles() {
     
     particlesContainer.appendChild(particle);
   }
+}
+
+// Fungsi untuk efek cahaya mengikuti mouse
+function setupMouseLightEffect() {
+  const cards = document.querySelectorAll('.card, .stats-card, .winner-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      
+      card.style.setProperty('--mouse-x', `${x}%`);
+      card.style.setProperty('--mouse-y', `${y}%`);
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mouse-x', '50%');
+      card.style.setProperty('--mouse-y', '50%');
+    });
+  });
 }
 
 // Fungsi untuk menghitung bonus berdasarkan kesalahan
@@ -1750,8 +1986,14 @@ function filterTable() {
 
 // Event listener saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
+  // Buat bentuk geometris latar belakang
+  createShapes();
+  
   // Buat partikel latar belakang
   createParticles();
+  
+  // Setup efek cahaya mengikuti mouse
+  setupMouseLightEffect();
   
   // Muat data pertama kali
   fetchDataFromSheet();
