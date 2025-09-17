@@ -831,6 +831,26 @@
             font-size: 1.5rem;
             color: var(--light);
         }
+
+        /* Copy Feedback Animation */
+        .copy-feedback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -906,6 +926,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/1XpbLm6q/k-QSkuz-ZTg-Sn3-Wr-Rq-HJQ.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/1XpbLm6q/k-QSkuz-ZTg-Sn3-Wr-Rq-HJQ.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -956,6 +979,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1023,6 +1049,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1080,6 +1109,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/ZncV8CpV/z-VQCGib2-Su-Of1-Bt-Wy-Gl-Rug.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/ZncV8CpV/z-VQCGib2-Su-Of1-Bt-Wy-Gl-Rug.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                     <div class="image-item" onclick="openModal('https://i.postimg.cc/hGdsCCVJ/n9-Vu-X7-Bt-Tim-OUAwmak-F7-ZA.png', 'Contoh 2D Tengah')">
@@ -1091,6 +1123,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/hGdsCCVJ/n9-Vu-X7-Bt-Tim-OUAwmak-F7-ZA.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/hGdsCCVJ/n9-Vu-X7-Bt-Tim-OUAwmak-F7-ZA.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1140,6 +1175,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/bNwTXYQf/F31-HTOGATe-glu5-Yb-Kc-Wb-Q.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/bNwTXYQf/F31-HTOGATe-glu5-Yb-Kc-Wb-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1203,6 +1241,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/qRX8SqQn/Iv-Py-a-Pq-Se-SSa6-Cqr-P36-LQ.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/qRX8SqQn/Iv-Py-a-Pq-Se-SSa6-Cqr-P36-LQ.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1257,6 +1298,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/5yDKN6d0/Dv8m-Wu-JYSW2-QFta-Cl-D3u7-Q.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/5yDKN6d0/Dv8m-Wu-JYSW2-QFta-Cl-D3u7-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1309,6 +1353,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/63mYYyQ0/t4e-WR6-TKT7-CQ-ay-Vx-L4-Bo-A.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/63mYYyQ0/t4e-WR6-TKT7-CQ-ay-Vx-L4-Bo-A.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1414,6 +1461,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/Fs3XkQPq/rc-UUGYMWT-Gcb-S1-CLw-G97-Q.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/Fs3XkQPq/rc-UUGYMWT-Gcb-S1-CLw-G97-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                     <div class="image-item" onclick="openModal('https://i.postimg.cc/BvZrzPq9/780-UBl-APQQKw-PAu5w6-WKa-A.png', 'Struktur SHIO')">
@@ -1425,6 +1475,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/BvZrzPq9/780-UBl-APQQKw-PAu5w6-WKa-A.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/BvZrzPq9/780-UBl-APQQKw-PAu5w6-WKa-A.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1486,6 +1539,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/sDFtrNVJ/Vpdb-Gyh1-QVOvbr-DNPa-Yf-Q.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/sDFtrNVJ/Vpdb-Gyh1-QVOvbr-DNPa-Yf-Q.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1549,6 +1605,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/0qTCZffz/placeholder-image.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/0qTCZffz/placeholder-image.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1604,6 +1663,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/PqkWf1C9/2w-SJVaia-T227-Ly-N-b-Z8u-JA.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/PqkWf1C9/2w-SJVaia-T227-Ly-N-b-Z8u-JA.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1649,6 +1711,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/3N6GsGML/g-JRGLLTHSwe8e3-JJ0ay-ng.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/3N6GsGML/g-JRGLLTHSwe8e3-JJ0ay-ng.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1682,6 +1747,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/KYNMZwS3/g0qhxx-A7-Qq-KVWVmkk-QXrg-A.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/KYNMZwS3/g0qhxx-A7-Qq-KVWVmkk-QXrg-A.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1742,6 +1810,9 @@
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/C5f5f6tN/zcq-MNI-8-QGGTl4-Rb6-KFOQg.png')">
                                 <i class="fas fa-download"></i> Download
                             </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/C5f5f6tN/zcq-MNI-8-QGGTl4-Rb6-KFOQg.png', event)">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1787,6 +1858,9 @@
                             </button>
                             <button class="download-btn" onclick="event.stopPropagation(); downloadImage('https://i.postimg.cc/VNpdL8Z6/3-Jbo-KOL2-R3i44-O-Gij-BKyg.png')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyGalleryImage('https://i.postimg.cc/VNpdL8Z6/3-Jbo-KOL2-R3i44-O-Gij-BKyg.png', event)">
+                                <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
                     </div>
@@ -1977,7 +2051,60 @@
                 });
         }
 
-        // Fungsi untuk menyalin gambar
+        // Fungsi untuk menyalin gambar dari galeri
+        function copyGalleryImage(imageUrl, event) {
+            event.stopPropagation(); // Mencegah modal terbuka
+            
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Create a canvas element
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+                    
+                    img.onload = function() {
+                        // Set canvas dimensions to match the image
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        
+                        // Draw the image on the canvas
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // Convert canvas to blob
+                        canvas.toBlob(function(blob) {
+                            try {
+                                // Check if Clipboard API is available
+                                if (navigator.clipboard && navigator.clipboard.write) {
+                                    const item = new ClipboardItem({ 'image/png': blob });
+                                    navigator.clipboard.write([item])
+                                        .then(() => {
+                                            showNotification('Gambar berhasil disalin ke clipboard!');
+                                        })
+                                        .catch(err => {
+                                            console.error('Error copying image: ', err);
+                                            showNotification('Gagal menyalin gambar. Silakan coba download.');
+                                        });
+                                } else {
+                                    // Fallback for browsers that don't support Clipboard API
+                                    showNotification('Browser Anda tidak mendukung fitur salin gambar');
+                                }
+                            } catch (err) {
+                                console.error('Error in copyGalleryImage: ', err);
+                                showNotification('Gagal menyalin gambar');
+                            }
+                        }, 'image/png');
+                    };
+                    
+                    img.src = URL.createObjectURL(blob);
+                })
+                .catch(error => {
+                    console.error('Error fetching image:', error);
+                    showNotification('Gagal menyalin gambar');
+                });
+        }
+
+        // Fungsi untuk menyalin gambar dari modal
         function copyImage() {
             if (!currentImageUrl) return;
             
@@ -2006,7 +2133,7 @@
                             })
                             .catch(err => {
                                 console.error('Error copying image: ', err);
-                                showNotification('Gagal menyalin gambar');
+                                showNotification('Gagal menyalin gambar. Silakan coba download.');
                             });
                     } else {
                         // Fallback for browsers that don't support Clipboard API
