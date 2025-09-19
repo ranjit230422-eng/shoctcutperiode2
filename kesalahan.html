@@ -1553,8 +1553,8 @@ function formatRupiah(amount) {
 }
 
 // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
-function getStatus(errors) {
-  // Hitung total penalty (kesalahan)
+function getStatus(errors, percent) {
+  // Hitung total penalty (kesalahan + persentase)
   let totalPenalty = 0;
   
   if (errors <= 25) {
@@ -1571,12 +1571,11 @@ function getStatus(errors) {
     totalPenalty = 100;
   }
   
-  totalPenalty ;
+  totalPenalty += percent;
   
-  function getStatus(errors) {
-  if (errors <= 19) return { text: "Good", class: "status-good" };
-  if (errors <= 25) return { text: "Warning", class: "status-warning" };
-  if (errors <= 40) return { text: "Danger", class: "status-danger" };
+  if (totalPenalty === 0) return { text: "Excellent", class: "status-good" };
+  if (totalPenalty <= 15) return { text: "Good", class: "status-good" };
+  if (totalPenalty <= 40) return { text: "Warning", class: "status-warning" };
   return { text: "Danger", class: "status-danger" };
 }
 
@@ -2117,9 +2116,3 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
-
-
-
-
-
-
