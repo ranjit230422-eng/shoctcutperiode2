@@ -692,7 +692,7 @@ body .light-effect {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   color: var(--dark-text);
   appearance: none;
-  background-image: url("https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a5b4fc' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
@@ -1368,7 +1368,7 @@ body .light-effect {
           </div>
           
           <div class="bonus-rule" id="modalBonusRule">
-            Aturan: 1-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000
+            Aturan: 0-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000
           </div>
         </div>
 
@@ -1503,11 +1503,19 @@ function setupMouseLightEffect() {
   });
 }
 
-// Fungsi untuk menghitung bonus berdasarkan kesalahan dan persentase
-function calculateBonus(errors, percent) {
+// Fungsi untuk mengatur status berdasarkan jumlah kesalahan
+function getStatus(errors) {
+  if (errors <= 19) return { text: "Good", class: "status-good" };
+  if (errors <= 25) return { text: "Warning", class: "status-warning" };
+  if (errors <= 40) return { text: "Danger", class: "status-danger" };
+  return { text: "Danger", class: "status-danger" };
+}
+
+// Fungsi untuk menghitung bonus berdasarkan kesalahan
+function calculateBonus(errors, percent, fatalDetails) {
   const fullBonus = 30000000; // Rp 30,000,000
   
-  // Hitung potongan berdasarkan kesalahan
+  // Hitung potongan berdasarkan kesalahan dengan aturan baru
   let errorPenalty = 0;
   if (errors <= 25) {
     errorPenalty = 0;
@@ -1524,15 +1532,22 @@ function calculateBonus(errors, percent) {
   }
   
   // Tambahkan potongan dari persentase
-  const totalPenalty = Math.min(errorPenalty + percent, 100);
+  const percentPenalty = percent || 0;
+  
+  // Total potongan adalah gabungan dari kesalahan dan persentase
+  const totalPenalty = Math.min(errorPenalty + percentPenalty, 100);
   
   const cutAmount = fullBonus * (totalPenalty / 100);
   const finalBonus = totalPenalty >= 100 ? 5000000 : fullBonus - cutAmount;
   
-  let rule = "Aturan: 1-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000";
+  let rule = "Aturan: 0-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000";
   
   if (percent > 0) {
-    rule += ` + ${percent}% potongan dari persentase`;
+    rule += `<br>Potongan Persentase: ${percent}%`;
+  }
+  
+  if (fatalDetails && fatalDetails.length > 0) {
+    rule += `<br>Kesalahan Fatal: ${fatalDetails.join(', ')}`;
   }
   
   return {
@@ -1552,36 +1567,9 @@ function formatRupiah(amount) {
   }).format(amount);
 }
 
-// Fungsi untuk mengatur status berdasarkan jumlah kesalahan
-function getStatus(errors, percent) {
-  // Hitung total penalty (kesalahan + persentase)
-  let totalPenalty = 0;
-  
-  if (errors <= 25) {
-    totalPenalty = 0;
-  } else if (errors <= 40) {
-    totalPenalty = 15;
-  } else if (errors <= 55) {
-    totalPenalty = 30;
-  } else if (errors <= 70) {
-    totalPenalty = 50;
-  } else if (errors <= 85) {
-    totalPenalty = 75;
-  } else {
-    totalPenalty = 100;
-  }
-  
-  totalPenalty += percent;
-  
-  if (totalPenalty === 0) return { text: "Excellent", class: "status-good" };
-  if (totalPenalty <= 15) return { text: "Good", class: "status-good" };
-  if (totalPenalty <= 40) return { text: "Warning", class: "status-warning" };
-  return { text: "Danger", class: "status-danger" };
-}
-
 // Fungsi untuk mendapatkan pesan motivasi berdasarkan jumlah kesalahan
-function getMotivationMessage(errors, percent, name) {
-  const bonusInfo = calculateBonus(errors, percent);
+function getMotivationMessage(errors, percent, fatalDetails, name) {
+  const bonusInfo = calculateBonus(errors, percent, fatalDetails);
   
   if (bonusInfo.cutPercentage === 0) {
     return `<div class="alert alert-success">
@@ -1610,9 +1598,9 @@ function getPerformance(rank, totalCS) {
 
 // Fungsi untuk menampilkan detail CS
 function showCSDetail(cs, rank) {
-  const status = getStatus(cs.errors, cs.percent);
+  const status = getStatus(cs.errors);
   const performance = getPerformance(rank, csData.length);
-  const bonusInfo = calculateBonus(cs.errors, cs.percent);
+  const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
 
   document.getElementById('modalAvatar').textContent = cs.name.charAt(0);
   document.getElementById('modalName').textContent = cs.name;
@@ -1627,7 +1615,7 @@ function showCSDetail(cs, rank) {
   document.getElementById('modalBonusCut').textContent = 
     `${bonusInfo.cutPercentage}% (${formatRupiah(bonusInfo.cutAmount)})`;
   document.getElementById('modalBonusFinal').textContent = formatRupiah(bonusInfo.finalBonus);
-  document.getElementById('modalBonusRule').textContent = bonusInfo.rule;
+  document.getElementById('modalBonusRule').innerHTML = bonusInfo.rule;
   
   // Update detail kesalahan fatal
   const fatalContent = document.getElementById('fatalContent');
@@ -1640,7 +1628,7 @@ function showCSDetail(cs, rank) {
     document.getElementById('fatalDetails').style.display = 'none';
   }
   
-  document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.percent, cs.name);
+  document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.percent, cs.fatalDetails, cs.name);
 
   csDetailModal.show();
 }
@@ -1838,7 +1826,7 @@ async function fetchDataFromSheet() {
 
 // Fungsi untuk merender data
 function renderData() {
-  // Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar) - TANPA memperhitungkan persentase
+  // Urutkan data berdasarkan jumlah kesalahan (dari terkecil ke terbesar)
   const sortedData = [...csData].sort((a, b) => a.errors - b.errors);
 
   // Hitung statistik
@@ -1848,7 +1836,7 @@ function renderData() {
   const averageErrors = totalCS > 0 ? (totalErrors / totalCS).toFixed(1) : 0;
   const averagePercent = totalCS > 0 ? (totalPercent / totalCS).toFixed(1) : 0;
   const criticalCount = sortedData.filter(cs => {
-    const status = getStatus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
     return status.class === 'status-danger';
   }).length;
 
@@ -1863,12 +1851,12 @@ function renderData() {
   // Update waktu terakhir
   document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
 
-  // Render top 3 (hanya berdasarkan kesalahan, tanpa persentase)
+  // Render top 3
   const top3 = sortedData.slice(0, 3);
   const top3Html = top3.map((cs, index) => {
-    const status = getStatus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
     const shortName = cs.name.split(' ')[0];
-    const bonusInfo = calculateBonus(cs.errors, cs.percent);
+    const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
     return `
       <div class="col-md-4 mb-3">
         <div class="winner-card winner-card-${index+1} text-center p-3">
@@ -1891,8 +1879,8 @@ function renderData() {
 
   // Render tabel
   const tableHtml = sortedData.map((cs, index) => {
-    const status = getStatus(cs.errors, cs.percent);
-    const bonusInfo = calculateBonus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
+    const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
     let bonusCutText = "";
     
     if (bonusInfo.cutPercentage === 0) {
@@ -1946,7 +1934,7 @@ function renderErrorDistributionChart(data) {
   });
   const errors = data.map(cs => cs.errors);
   const backgroundColors = data.map(cs => {
-    const status = getStatus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
     if (status.class === 'status-good') return 'rgba(16, 185, 129, 0.7)';
     if (status.class === 'status-warning') return 'rgba(245, 158, 11, 0.7)';
     return 'rgba(239, 68, 68, 0.7)';
@@ -2007,8 +1995,8 @@ function renderErrorDistributionChart(data) {
             },
             afterLabel: function(context) {
               const cs = data[context.dataIndex];
-              const status = getStatus(cs.errors, cs.percent);
-              const bonusInfo = calculateBonus(cs.errors, cs.percent);
+              const status = getStatus(cs.errors);
+              const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
               return `Status: ${status.text}\nBonus: ${formatRupiah(bonusInfo.finalBonus)}`;
             }
           },
