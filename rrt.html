@@ -960,7 +960,7 @@ body::after {
         <!-- Tambahan statistik untuk Persentase -->
         <div class="stats-card">
           <div class="stats-number" id="averagePercent">0%</div>
-          <div class="stats-label">Rata-rata Persentase</div>
+          <div class="stats-label">Rata-rata Persentase Fatal</div>
         </div>
       </div>
 
@@ -1023,7 +1023,7 @@ body::after {
                       <th>Peringkat</th>
                       <th>Nama CS</th>
                       <th>Total Kesalahan</th>
-                      <th>Persentase</th>
+                      <th>Fatal</th>
                       <th>Status</th>
                       <th>Potongan Bonus</th>
                     </tr>
@@ -1073,7 +1073,7 @@ body::after {
           <div class="stats-number mt-2" id="modalErrors">0</div>
           <div class="stats-label">Total Kesalahan</div>
           <div class="stats-number mt-2" id="modalPercent">0%</div>
-          <div class="stats-label">Persentase</div>
+          <div class="stats-label">Fatal</div>
         </div>
 
         <div class="detail-item">
@@ -1515,7 +1515,7 @@ function renderData() {
           <div class="stats-number ${cs.errors === 0 ? 'text-success' : 'text-primary'}">${cs.errors}</div>
           <div class="stats-label">Kesalahan</div>
           <div class="stats-number">${cs.percent}%</div>
-          <div class="stats-label">Persentase</div>
+          <div class="stats-label">Fatal</div>
           <span class="status-badge ${status.class}">${status.text}</span>
           <div class="mt-2 small">Bonus: ${formatRupiah(bonusInfo.finalBonus)}</div>
         </div>
@@ -1738,3 +1738,4 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
