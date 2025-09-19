@@ -81,23 +81,6 @@ body::after {
   z-index: -2;
 }
 
-/* Efek cahaya dinamis */
-body .light-effect {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-  z-index: -1;
-  animation: lightMove 20s linear infinite;
-}
-
-@keyframes lightMove {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -128,24 +111,6 @@ body .light-effect {
   background: var(--gradient-primary);
 }
 
-/* Efek cahaya pada header */
-.header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-  z-index: -1;
-  animation: headerGlow 10s ease-in-out infinite;
-}
-
-@keyframes headerGlow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-}
-
 .header h1 {
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -154,12 +119,6 @@ body .light-effect {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
-  animation: textShine 3s ease-in-out infinite;
-}
-
-@keyframes textShine {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
 .header p {
@@ -179,34 +138,9 @@ body .light-effect {
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   box-shadow: var(--card-shadow);
-  transition: all 0.3s ease;
   margin-bottom: 1.5rem;
   overflow: hidden;
   position: relative;
-}
-
-/* Efek cahaya pada kartu */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.1) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.card:hover::before {
-  opacity: 1;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .card-header {
@@ -252,28 +186,8 @@ body .light-effect {
   padding: 1.5rem;
   text-align: center;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-
-/* Efek cahaya pada kartu statistik */
-.stats-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.15) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.stats-card:hover::before {
-  opacity: 1;
 }
 
 .stats-card::after {
@@ -284,11 +198,6 @@ body .light-effect {
   width: 100%;
   height: 3px;
   background: var(--gradient-primary);
-}
-
-.stats-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .stats-number {
@@ -358,7 +267,6 @@ body .light-effect {
 .cs-name-container {
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
 }
 
 .cs-avatar {
@@ -374,55 +282,17 @@ body .light-effect {
   margin-right: 12px;
   font-size: 1.1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-
-.cs-avatar::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transform: rotate(45deg);
-  transition: all 0.6s ease;
-}
-
-.cs-avatar:hover::before {
-  animation: shine 1.5s infinite;
-}
-
-@keyframes shine {
-  0% { left: -50%; }
-  100% { left: 100%; }
 }
 
 .cs-name {
   font-weight: 600;
   color: var(--dark-text);
-  transition: all 0.3s ease;
   position: relative;
   padding: 5px 0;
   cursor: pointer;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.cs-name::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(135deg, #a5b4fc, #c7d2fe);
-  transition: width 0.3s ease;
-}
-
-.cs-name:hover::after {
-  width: 100%;
 }
 
 .cs-name:hover {
@@ -465,12 +335,7 @@ body .light-effect {
   margin-right: 10px;
   font-size: 0.9rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.rank-badge:hover {
-  transform: scale(1.1);
 }
 
 .rank-1 {
@@ -492,32 +357,12 @@ body .light-effect {
   background: rgba(30, 41, 59, 0.9);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  transition: all 0.3s ease;
   padding: 1.5rem;
   height: 100%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
   overflow: hidden;
-}
-
-/* Efek cahaya pada kartu pemenang */
-.winner-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.15) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.winner-card:hover::before {
-  opacity: 1;
 }
 
 .winner-card::after {
@@ -545,10 +390,6 @@ body .light-effect {
   box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
 }
 
-.winner-card:hover {
-  transform: translateY(-5px);
-}
-
 .winner-card h4, .winner-card h5, .winner-card p {
   color: var(--dark-text);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -565,7 +406,6 @@ body .light-effect {
 
 .refresh-btn {
   cursor: pointer;
-  transition: all 0.3s ease;
   background: rgba(30, 41, 59, 0.8);
   border-radius: 50%;
   width: 50px;
@@ -579,7 +419,6 @@ body .light-effect {
 }
 
 .refresh-btn:hover {
-  transform: rotate(180deg);
   background: rgba(51, 65, 85, 0.9);
 }
 
@@ -633,7 +472,6 @@ body .light-effect {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s ease;
   border-radius: 8px;
   padding: 8px;
   color: var(--dark-text);
@@ -692,7 +530,7 @@ body .light-effect {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   color: var(--dark-text);
   appearance: none;
-  background-image: url("https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a5b4fc' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
@@ -872,11 +710,6 @@ body .light-effect {
   border: 5px solid rgba(165, 180, 252, 0.3);
   border-radius: 50%;
   border-top-color: #a5b4fc;
-  animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .detail-item {
@@ -957,84 +790,6 @@ body .light-effect {
   color: var(--light-text);
   font-size: 0.9rem;
   line-height: 1.5;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(15px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* Floating particles background */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(165, 180, 252, 0.1);
-  animation: float 15s infinite linear;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-1000px) rotate(720deg);
-    opacity: 0;
-  }
-}
-
-/* Geometric shapes background */
-.shapes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.shape {
-  position: absolute;
-  opacity: 0.05;
-}
-
-.shape-triangle {
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 100px solid rgba(99, 102, 241, 0.3);
-}
-
-.shape-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(139, 92, 246, 0.3);
-}
-
-.shape-square {
-  width: 70px;
-  height: 70px;
-  background: rgba(236, 72, 153, 0.3);
-  transform: rotate(45deg);
 }
 
 /* Responsive styles */
@@ -1125,15 +880,6 @@ body .light-effect {
 </style>
 </head>
 <body>
-<!-- Efek cahaya dinamis -->
-<div class="light-effect"></div>
-
-<!-- Geometric shapes background -->
-<div class="shapes" id="shapes"></div>
-
-<!-- Floating particles background -->
-<div class="particles" id="particles"></div>
-
 <!-- Loading indicator -->
 <div class="loading-indicator" id="loadingIndicator" style="display: none;">
   <div class="loading-spinner"></div>
@@ -1368,7 +1114,7 @@ body .light-effect {
           </div>
           
           <div class="bonus-rule" id="modalBonusRule">
-            Aturan: 1-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000
+            Aturan: 0-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000
           </div>
         </div>
 
@@ -1404,110 +1150,19 @@ let csDetailModal = new bootstrap.Modal(document.getElementById('csDetailModal')
 let errorDistributionChart = null;
 let historyData = [];
 
-// Fungsi untuk membuat bentuk geometris latar belakang
-function createShapes() {
-  const shapesContainer = document.getElementById('shapes');
-  const shapes = ['triangle', 'circle', 'square'];
-  const numberOfShapes = 15;
-  
-  for (let i = 0; i < numberOfShapes; i++) {
-    const shape = document.createElement('div');
-    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-    shape.classList.add('shape', `shape-${shapeType}`);
-    
-    // Random position
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    
-    // Random size
-    const size = Math.random() * 100 + 50;
-    
-    // Random rotation
-    const rotation = Math.random() * 360;
-    
-    shape.style.left = `${posX}%`;
-    shape.style.top = `${posY}%`;
-    shape.style.transform = `rotate(${rotation}deg)`;
-    
-    if (shapeType === 'triangle') {
-      shape.style.borderLeftWidth = `${size/2}px`;
-      shape.style.borderRightWidth = `${size/2}px`;
-      shape.style.borderBottomWidth = `${size}px`;
-    } else {
-      shape.style.width = `${size}px`;
-      shape.style.height = `${size}px`;
-    }
-    
-    // Random animation duration and delay
-    const duration = Math.random() * 30 + 20;
-    const delay = Math.random() * 5;
-    
-    shape.style.animationDuration = `${duration}s`;
-    shape.style.animationDelay = `${delay}s`;
-    shape.style.animationName = 'float';
-    shape.style.animationTimingFunction = 'linear';
-    shape.style.animationIterationCount = 'infinite';
-    
-    shapesContainer.appendChild(shape);
-  }
+// Fungsi untuk mengatur status berdasarkan jumlah kesalahan
+function getStatus(errors) {
+  if (errors <= 19) return { text: "Good", class: "status-good" };
+  if (errors <= 25) return { text: "Warning", class: "status-warning" };
+  if (errors <= 40) return { text: "Danger", class: "status-danger" };
+  return { text: "Danger", class: "status-danger" };
 }
 
-// Fungsi untuk membuat partikel latar belakang
-function createParticles() {
-  const particlesContainer = document.getElementById('particles');
-  const numberOfParticles = 30;
-  
-  for (let i = 0; i < numberOfParticles; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    
-    // Random size and position
-    const size = Math.random() * 20 + 5;
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${posX}%`;
-    particle.style.top = `${posY}%`;
-    
-    // Random animation duration and delay
-    const duration = Math.random() * 20 + 10;
-    const delay = Math.random() * 5;
-    
-    particle.style.animationDuration = `${duration}s`;
-    particle.style.animationDelay = `${delay}s`;
-    
-    particlesContainer.appendChild(particle);
-  }
-}
-
-// Fungsi untuk efek cahaya mengikuti mouse
-function setupMouseLightEffect() {
-  const cards = document.querySelectorAll('.card, .stats-card, .winner-card');
-  
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      
-      card.style.setProperty('--mouse-x', `${x}%`);
-      card.style.setProperty('--mouse-y', `${y}%`);
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.setProperty('--mouse-x', '50%');
-      card.style.setProperty('--mouse-y', '50%');
-    });
-  });
-}
-
-// Fungsi untuk menghitung bonus berdasarkan kesalahan saja
-function calculateBonus(errors, percent) {
+// Fungsi untuk menghitung bonus berdasarkan kesalahan
+function calculateBonus(errors, percent, fatalDetails) {
   const fullBonus = 30000000; // Rp 30,000,000
   
-  // Hitung potongan berdasarkan kesalahan saja
+  // Hitung potongan berdasarkan kesalahan dengan aturan baru
   let errorPenalty = 0;
   if (errors <= 25) {
     errorPenalty = 0;
@@ -1523,13 +1178,27 @@ function calculateBonus(errors, percent) {
     errorPenalty = 100;
   }
   
-  const cutAmount = fullBonus * (errorPenalty / 100);
-  const finalBonus = errorPenalty >= 100 ? 5000000 : fullBonus - cutAmount;
+  // Tambahkan potongan dari persentase
+  const percentPenalty = percent || 0;
   
-  const rule = "Aturan: 1-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000";
+  // Total potongan adalah gabungan dari kesalahan dan persentase
+  const totalPenalty = Math.min(errorPenalty + percentPenalty, 100);
+  
+  const cutAmount = fullBonus * (totalPenalty / 100);
+  const finalBonus = totalPenalty >= 100 ? 5000000 : fullBonus - cutAmount;
+  
+  let rule = "Aturan: 0-25 kesalahan = 100% bonus, 26-40 = potong 15%, 41-55 = potong 30%, 56-70 = potong 50%, 71-85 = potong 75%, 86+ = Rp 5,000,000";
+  
+  if (percent > 0) {
+    rule += `<br>Potongan Persentase: ${percent}%`;
+  }
+  
+  if (fatalDetails && fatalDetails.length > 0) {
+    rule += `<br>Kesalahan Fatal: ${fatalDetails.join(', ')}`;
+  }
   
   return {
-    cutPercentage: errorPenalty,
+    cutPercentage: totalPenalty,
     cutAmount: cutAmount,
     finalBonus: finalBonus,
     rule: rule
@@ -1545,17 +1214,9 @@ function formatRupiah(amount) {
   }).format(amount);
 }
 
-// Fungsi untuk mengatur status berdasarkan jumlah kesalahan saja
-function getStatus(errors) {
-  if (errors <= 19) return { text: "Good", class: "status-good" };
-  if (errors <= 25) return { text: "Warning", class: "status-warning" };
-  if (errors <= 40) return { text: "Danger", class: "status-danger" };
-  return { text: "Danger", class: "status-danger" };
-}
-
-// Fungsi untuk mendapatkan pesan motivasi berdasarkan jumlah kesalahan saja
-function getMotivationMessage(errors,percent, name) {
-  const bonusInfo = calculateBonus(errors, percent);
+// Fungsi untuk mendapatkan pesan motivasi berdasarkan jumlah kesalahan
+function getMotivationMessage(errors, percent, fatalDetails, name) {
+  const bonusInfo = calculateBonus(errors, percent, fatalDetails);
   
   if (bonusInfo.cutPercentage === 0) {
     return `<div class="alert alert-success">
@@ -1584,9 +1245,9 @@ function getPerformance(rank, totalCS) {
 
 // Fungsi untuk menampilkan detail CS
 function showCSDetail(cs, rank) {
-  const status = getStatus(cs.errors, cs.percent);
+  const status = getStatus(cs.errors);
   const performance = getPerformance(rank, csData.length);
-  const bonusInfo = calculateBonus(cs.errors, cs.percent);
+  const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
 
   document.getElementById('modalAvatar').textContent = cs.name.charAt(0);
   document.getElementById('modalName').textContent = cs.name;
@@ -1601,7 +1262,7 @@ function showCSDetail(cs, rank) {
   document.getElementById('modalBonusCut').textContent = 
     `${bonusInfo.cutPercentage}% (${formatRupiah(bonusInfo.cutAmount)})`;
   document.getElementById('modalBonusFinal').textContent = formatRupiah(bonusInfo.finalBonus);
-  document.getElementById('modalBonusRule').textContent = bonusInfo.rule;
+  document.getElementById('modalBonusRule').innerHTML = bonusInfo.rule;
   
   // Update detail kesalahan fatal
   const fatalContent = document.getElementById('fatalContent');
@@ -1614,7 +1275,7 @@ function showCSDetail(cs, rank) {
     document.getElementById('fatalDetails').style.display = 'none';
   }
   
-  document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.name);
+  document.getElementById('modalMessage').innerHTML = getMotivationMessage(cs.errors, cs.percent, cs.fatalDetails, cs.name);
 
   csDetailModal.show();
 }
@@ -1837,12 +1498,12 @@ function renderData() {
   // Update waktu terakhir
   document.getElementById('lastUpdated').innerHTML = `<i class="fas fa-clock me-1"></i>Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
 
-  // Render top 3 (hanya berdasarkan kesalahan)
+  // Render top 3
   const top3 = sortedData.slice(0, 3);
   const top3Html = top3.map((cs, index) => {
-    const status = getStatus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
     const shortName = cs.name.split(' ')[0];
-    const bonusInfo = calculateBonus(cs.errors, cs.percent);
+    const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
     return `
       <div class="col-md-4 mb-3">
         <div class="winner-card winner-card-${index+1} text-center p-3">
@@ -1865,8 +1526,8 @@ function renderData() {
 
   // Render tabel
   const tableHtml = sortedData.map((cs, index) => {
-    const status = getStatus(cs.errors, cs.percent);
-    const bonusInfo = calculateBonus(cs.errors, cs.percent);
+    const status = getStatus(cs.errors);
+    const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
     let bonusCutText = "";
     
     if (bonusInfo.cutPercentage === 0) {
@@ -1966,7 +1627,7 @@ function renderErrorDistributionChart(data) {
             textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
           },
           grid: {
-            color: 'rgable(255, 255, 255, 0.1)'
+            color: 'rgba(255, 255, 255, 0.1)'
           }
         }
       },
@@ -1981,8 +1642,8 @@ function renderErrorDistributionChart(data) {
             },
             afterLabel: function(context) {
               const cs = data[context.dataIndex];
-              const status = getStatus(cs.errors, cs.percent);
-              const bonusInfo = calculateBonus(cs.errors, cs.percent);
+              const status = getStatus(cs.errors);
+              const bonusInfo = calculateBonus(cs.errors, cs.percent, cs.fatalDetails);
               return `Status: ${status.text}\nBonus: ${formatRupiah(bonusInfo.finalBonus)}`;
             }
           },
@@ -2041,15 +1702,6 @@ function filterTable() {
 
 // Event listener saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
-  // Buat bentuk geometris latar belakang
-  createShapes();
-  
-  // Buat partikel latar belakang
-  createParticles();
-  
-  // Setup efek cahaya mengikuti mouse
-  setupMouseLightEffect();
-  
   // Muat data pertama kali
   fetchDataFromSheet();
   // Mulai auto-update
@@ -2057,11 +1709,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Event listener untuk tombol refresh
   document.getElementById('refreshBtn').addEventListener('click', function() {
-    this.classList.add('rotating');
     fetchDataFromSheet();
-    setTimeout(() => {
-      this.classList.remove('rotating');
-    }, 1000);
   });
 
   // Event listener untuk pencarian dan filter
@@ -2090,6 +1738,3 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
-
-
-
