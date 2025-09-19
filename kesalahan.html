@@ -1575,6 +1575,7 @@ function getStatus(errors) {
   
   if (totalPenalty === 0) return { text: "Excellent", class: "status-good" };
   if (totalPenalty <= 15) return { text: "Good", class: "status-good" };
+  if (totalPenalty <= 25) return { text: "good", class: "status-good" };
   if (totalPenalty <= 30) return { text: "warning", class: "status-warning" };
   if (totalPenalty <= 40) return { text: "danger", class: "status-danger" };
   return { text: "Danger", class: "status-danger" };
@@ -2117,6 +2118,7 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
 
 
 
