@@ -1571,7 +1571,7 @@ function getStatus(errors, percent) {
     totalPenalty = 100;
   }
   
-  totalPenalty += percent;
+  totalPenalty ;
   
   if (totalPenalty === 0) return { text: "Excellent", class: "status-good" };
   if (totalPenalty <= 15) return { text: "Good", class: "status-good" };
@@ -2117,4 +2117,5 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
 
