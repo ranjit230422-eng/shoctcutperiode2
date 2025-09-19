@@ -1553,8 +1553,8 @@ function formatRupiah(amount) {
 }
 
 // Fungsi untuk mengatur status berdasarkan jumlah kesalahan
-function getStatus(errors, percent) {
-  // Hitung total penalty (kesalahan + persentase)
+function getStatus(errors) {
+  // Hitung total penalty (kesalahan)
   let totalPenalty = 0;
   
   if (errors <= 25) {
@@ -2117,5 +2117,6 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
 
 
