@@ -1584,7 +1584,7 @@ function getPerformance(rank, totalCS) {
 
 // Fungsi untuk menampilkan detail CS
 function showCSDetail(cs, rank) {
-  const status = getStatus(cs.errors);
+  const status = getStatus(cs.errors, cs.percent);
   const performance = getPerformance(rank, csData.length);
   const bonusInfo = calculateBonus(cs.errors, cs.percent);
 
@@ -1840,7 +1840,7 @@ function renderData() {
   // Render top 3 (hanya berdasarkan kesalahan)
   const top3 = sortedData.slice(0, 3);
   const top3Html = top3.map((cs, index) => {
-    const status = getStatus(cs.errors);
+    const status = getStatus(cs.errors, cs.percent);
     const shortName = cs.name.split(' ')[0];
     const bonusInfo = calculateBonus(cs.errors, cs.percent);
     return `
@@ -1865,7 +1865,7 @@ function renderData() {
 
   // Render tabel
   const tableHtml = sortedData.map((cs, index) => {
-    const status = getStatus(cs.errors);
+    const status = getStatus(cs.errors, cs.percent);
     const bonusInfo = calculateBonus(cs.errors, cs.percent);
     let bonusCutText = "";
     
@@ -1981,7 +1981,7 @@ function renderErrorDistributionChart(data) {
             },
             afterLabel: function(context) {
               const cs = data[context.dataIndex];
-              const status = getStatus(cs.errors);
+              const status = getStatus(cs.errors, cs.percent);
               const bonusInfo = calculateBonus(cs.errors, cs.percent);
               return `Status: ${status.text}\nBonus: ${formatRupiah(bonusInfo.finalBonus)}`;
             }
@@ -2090,3 +2090,4 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
