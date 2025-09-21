@@ -689,6 +689,44 @@ header::before {
 .logout-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  background: var(--gradient-success);
+  color: white;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification.error {
+  background: var(--gradient-danger);
+}
 </style>
 </head>
 <body>
@@ -942,6 +980,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const tabs = document.querySelectorAll('.tab');
   const tabContents = document.querySelectorAll('.tab-content');
 
+  // Cek status login
+  function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+    if (isLoggedIn) {
+      loginSection.style.display = 'none';
+      adminContent.style.display = 'block';
+      updateAdminData();
+    }
+  }
+
   // Toggle password visibility
   togglePassword.addEventListener('click', function() {
     const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -961,6 +1009,9 @@ document.addEventListener('DOMContentLoaded', function() {
       adminContent.style.display = 'block';
       loginError.style.display = 'none';
       
+      // Simpan status login di localStorage
+      localStorage.setItem('adminLoggedIn', 'true');
+      
       // Update data admin
       updateAdminData();
     } else {
@@ -977,6 +1028,7 @@ document.addEventListener('DOMContentLoaded', function() {
     adminUsername.value = '';
     adminPassword.value = '';
     loginError.style.display = 'none';
+    localStorage.removeItem('adminLoggedIn');
   });
 
   // Event listener untuk tekan Enter pada form login
@@ -986,43 +1038,74 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Inisialisasi data absensi jika belum ada
-  function initializeAttendanceData() {
-    const today = new Date().toLocaleDateString('id-ID');
-    const lastReset = localStorage.getItem('lastResetDate');
-
-    // Reset data jika sudah berganti hari
-    if (lastReset !== today) {
-      const initialAttendance = {};
-
-      for (const staff in staffData) {
-        initialAttendance[staff] = {
-          checkIn: null,
-          checkOut: null,
-          lastAttendance: null,
-          history: []
-        };
+  // Fungsi untuk mengambil data absensi dari URL
+  async function fetchAttendanceData() {
+    try {
+      // Menampilkan indikator loading
+      refreshBtn.innerHTML = '<span class="loading"></span> Memuat...';
+      
+      // Mengambil data dari URL yang diberikan
+      const response = await fetch('https://shoctcutperiode2.vercel.app/daftarabsen.html');
+      const text = await response.text();
+      
+      // Parsing data dari HTML (contoh sederhana, perlu disesuaikan dengan struktur HTML yang sebenarnya)
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      
+      // Di sini Anda perlu menyesuaikan dengan struktur HTML dari halaman daftarabsen.html
+      // Contoh jika data ada dalam tabel dengan ID tertentu:
+      const rows = doc.querySelectorAll('table tr');
+      
+      // Reset data absensi untuk hari ini
+      const today = new Date().toLocaleDateString('id-ID');
+      const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+      
+      // Jika belum ada data untuk hari ini, inisialisasi
+      if (!attendanceData[today]) {
+        attendanceData[today] = {};
+        
+        for (const staff in staffData) {
+          attendanceData[today][staff] = {
+            checkIn: null,
+            checkOut: null,
+            status: 'absent'
+          };
+        }
       }
-
-      localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
-      localStorage.setItem('lastResetDate', today);
-    }
-
-    // Pastikan data ada
-    if (!localStorage.getItem('attendanceData')) {
-      const initialAttendance = {};
-
-      for (const staff in staffData) {
-        initialAttendance[staff] = {
-          checkIn: null,
-          checkOut: null,
-          lastAttendance: null,
-          history: []
-        };
-      }
-
-      localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
-      localStorage.setItem('lastResetDate', today);
+      
+      // Proses data dari halaman daftarabsen.html (contoh, perlu disesuaikan)
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 3) {
+          const name = cells[0].textContent.trim();
+          const checkIn = cells[1].textContent.trim();
+          const checkOut = cells[2].textContent.trim();
+          
+          // Jika staff ada dalam data kita, update status
+          if (staffData[name] && attendanceData[today][name]) {
+            attendanceData[today][name].checkIn = checkIn || null;
+            attendanceData[today][name].checkOut = checkOut || null;
+            attendanceData[today][name].status = checkIn ? 'present' : 'absent';
+          }
+        }
+      });
+      
+      // Simpan data ke localStorage
+      localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+      localStorage.setItem('lastAttendanceFetch', new Date().toISOString());
+      
+      // Kembalikan tampilan tombol refresh
+      refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+      
+      return attendanceData[today];
+    } catch (error) {
+      console.error('Error fetching attendance data:', error);
+      refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+      
+      // Jika gagal mengambil data, gunakan data dari localStorage
+      const today = new Date().toLocaleDateString('id-ID');
+      const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+      return attendanceData[today] || {};
     }
   }
 
@@ -1038,11 +1121,6 @@ document.addEventListener('DOMContentLoaded', function() {
     currentTimeElem.textContent = now.toLocaleTimeString('id-ID');
   }
 
-  // Jalankan pertama kali dan set interval
-  initializeAttendanceData();
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
-
   // Highlight text based on search
   function highlightText(text, searchTerm) {
     if (!searchTerm) return text;
@@ -1052,12 +1130,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Update data admin
-  function updateAdminData() {
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
-    const todayStr = new Date().toLocaleDateString('id-ID');
+  async function updateAdminData() {
+    const today = new Date().toLocaleDateString('id-ID');
     const searchTerm = searchInput.value.toLowerCase();
     const activeTab = document.querySelector('.tab.active').getAttribute('data-tab');
 
+    // Ambil data absensi terbaru
+    const attendanceData = await fetchAttendanceData();
+    
     let presentCount = 0;
     const totalStaff = Object.keys(staffData).length;
     let displayedCount = 0;
@@ -1077,7 +1157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         continue;
       }
 
-      const hasAttended = attendanceData[staff].lastAttendance === todayStr;
+      const hasAttended = attendanceData[staff] && attendanceData[staff].status === 'present';
       
       if (hasAttended) {
         presentCount++;
@@ -1138,18 +1218,38 @@ document.addEventListener('DOMContentLoaded', function() {
   // Event listener untuk refresh data
   refreshBtn.addEventListener('click', function() {
     updateAdminData();
-    // Animasi tombol refresh
-    refreshBtn.querySelector('i').classList.add('fa-spin');
-    setTimeout(() => {
-      refreshBtn.querySelector('i').classList.remove('fa-spin');
-    }, 1000);
   });
 
   // Event listener untuk export data
   exportBtn.addEventListener('click', function() {
-    // Dalam implementasi nyata, ini akan mengekspor data ke CSV atau Excel
-    alert('Fitur export data akan mengunduh laporan absensi dalam format CSV');
+    exportToCSV();
   });
+
+  // Fungsi untuk mengekspor data ke CSV
+  function exportToCSV() {
+    const today = new Date().toLocaleDateString('id-ID');
+    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+    const todayData = attendanceData[today] || {};
+    
+    let csvContent = "Nama Staff,ID Staff,Status,Check-In,Check-Out\n";
+    
+    for (const staff in staffData) {
+      const staffAttendance = todayData[staff] || { status: 'absent' };
+      const status = staffAttendance.status === 'present' ? 'SUDAH ABSEN' : 'BELUM ABSEN';
+      const checkIn = staffAttendance.checkIn || '-';
+      const checkOut = staffAttendance.checkOut || '-';
+      
+      csvContent += `"${staff}","${staffData[staff].id}","${status}","${checkIn}","${checkOut}"\n`;
+    }
+    
+    const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `laporan_absensi_${today.replace(/\//g, '-')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
   // Event listener untuk pencarian
   searchInput.addEventListener('input', function() {
@@ -1173,8 +1273,12 @@ document.addEventListener('DOMContentLoaded', function() {
       updateAdminData();
     });
   });
+
+  // Inisialisasi
+  checkLoginStatus();
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
 });
 </script>
 </body>
-
 </html>
