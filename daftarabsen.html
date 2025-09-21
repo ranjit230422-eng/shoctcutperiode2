@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absensi Staff Linetogel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+--primary: #ff6b6b;
+--secondary: #4ecdc4;
+--success: #1dd1a1;
+--danger: #ff9ff3;
+--warning: #feca57;
+--info: #54a0ff;
+--light: #f8f9fa;
+--dark: #222f3e;
+--card-bg: rgba(255, 255, 255, 0.95);
+--text: #2d3436;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background-image: url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+color: var(--text);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.container {
+width: 100%;
+max-width: 1200px;
+background: rgba(255, 255, 255, 0.88);
+border-radius: 20px;
+box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+overflow: hidden;
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+header {
+background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+color: white;
+padding: 25px;
+text-align: center;
+position: relative;
+border-bottom: 5px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo {
+font-size: 32px;
+font-weight: bold;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo i {
+margin-right: 15px;
+font-size: 36px;
+}
+
+.date-display {
+font-size: 20px;
+margin: 15px 0;
+font-weight: 500;
+}
+
+.time-display {
+font-size: 42px;
+font-weight: bold;
+font-family: 'Courier New', monospace;
+background: rgba(0, 0, 0, 0.25);
+padding: 8px 20px;
+border-radius: 12px;
+display: inline-block;
+margin: 15px 0;
+letter-spacing: 2px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+display: flex;
+flex-wrap: wrap;
+padding: 25px;
+}
+
+.left-panel {
+flex: 1;
+min-width: 350px;
+padding: 20px;
+}
+
+.right-panel {
+flex: 2;
+min-width: 400px;
+padding: 20px;
+border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card {
+background: var(--card-bg);
+border-radius: 15px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+padding: 25px;
+margin-bottom: 25px;
+transition: transform 0.3s, box-shadow 0.3s;
+border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+transform: translateY(-5px);
+box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 20px;
+color: var(--primary);
+display: flex;
+align-items: center;
+padding-bottom: 10px;
+border-bottom: 2px solid var(--secondary);
+}
+
+.card-title i {
+margin-right: 12px;
+font-size: 24px;
+}
+
+.login-form input {
+width: 100%;
+padding: 14px 18px;
+margin-bottom: 18px;
+border: 2px solid #e0e0e0;
+border-radius: 10px;
+font-size: 16px;
+transition: all 0.3s;
+background: rgba(255, 255, 255, 0.9);
+}
+
+.login-form input:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+outline: none;
+}
+
+.btn {
+padding: 14px 22px;
+border: none;
+border-radius: 10px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn i {
+margin-right: 10px;
+}
+
+.btn-primary {
+background: linear-gradient(to right, var(--primary), #ff8c8c);
+color: white;
+}
+
+.btn-primary:hover {
+background: linear-gradient(to right, #ff5252, var(--primary));
+transform: translateY(-3px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success {
+background: linear-gradient(to right, var(--success), #2ecc71);
+color: white;
+}
+
+.btn-success:hover {
+background: linear-gradient(to right, #16a085, var(--success));
+transform: translateY(-3px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger {
+background: linear-gradient(to right, var(--danger), #fd79a8);
+color: white;
+}
+
+.btn-danger:hover {
+background: linear-gradient(to right, #e84393, var(--danger));
+transform: translateY(-3px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.attendance-actions {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 18px;
+margin-top: 25px;
+}
+
+.attendance-status {
+text-align: center;
+padding: 18px;
+border-radius: 12px;
+margin-top: 25px;
+font-weight: 500;
+font-size: 16px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-success {
+background: rgba(29, 209, 161, 0.2);
+color: #16a085;
+border: 1px solid rgba(29, 209, 161, 0.3);
+}
+
+.status-warning {
+background: rgba(254, 202, 87, 0.2);
+color: #f39c12;
+border: 1px solid rgba(254, 202, 87, 0.3);
+}
+
+.status-error {
+background: rgba(255, 159, 243, 0.2);
+color: #e84393;
+border: 1px solid rgba(255, 159, 243, 0.3);
+}
+
+.user-info {
+display: flex;
+align-items: center;
+padding: 15px;
+background: linear-gradient(to right, rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.1));
+border-radius: 12px;
+margin-bottom: 25px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-info i {
+font-size: 28px;
+margin-right: 18px;
+color: var(--primary);
+}
+
+.user-details h3 {
+margin: 0;
+font-size: 20px;
+color: var(--dark);
+}
+
+.user-details p {
+margin: 5px 0 0;
+color: #636e72;
+}
+
+.attendance-history-table {
+width: 100%;
+margin-top: 20px;
+font-size: 14px;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-history-table th {
+background: linear-gradient(to right, var(--secondary), var(--info));
+color: white;
+font-weight: 600;
+text-transform: uppercase;
+font-size: 14px;
+padding: 12px 15px;
+}
+
+.attendance-history-table td {
+padding: 12px 15px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.time-detail {
+font-family: 'Courier New', monospace;
+font-weight: bold;
+color: var(--primary);
+font-size: 15px;
+}
+
+.hidden {
+display: none;
+}
+
+.today-attendance {
+margin-top: 25px;
+padding: 20px;
+background: linear-gradient(to right, rgba(84, 160, 255, 0.1), rgba(78, 205, 196, 0.1));
+border-radius: 12px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.attendance-record {
+display: flex;
+justify-content: space-between;
+margin-bottom: 12px;
+padding: 12px;
+background: white;
+border-radius: 10px;
+box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+border-left: 4px solid var(--primary);
+}
+
+.attendance-time {
+font-weight: bold;
+color: var(--primary);
+font-family: 'Courier New', monospace;
+font-size: 16px;
+}
+
+.stats-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 15px;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+
+.stat-box {
+background: white;
+padding: 15px;
+border-radius: 10px;
+text-align: center;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.stat-value {
+font-size: 24px;
+font-weight: bold;
+color: var(--primary);
+margin-top: 5px;
+}
+
+.staff-list {
+max-height: 300px;
+overflow-y: auto;
+margin-top: 15px;
+padding: 10px;
+background: rgba(255, 255, 255, 0.8);
+border-radius: 10px;
+border: 1px solid #e0e0e0;
+}
+
+.staff-item {
+padding: 10px 12px;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+transition: all 0.2s;
+border-radius: 6px;
+margin-bottom: 5px;
+display: flex;
+align-items: center;
+}
+
+.staff-item:hover {
+background: linear-gradient(to right, rgba(78, 205, 196, 0.15), rgba(255, 107, 107, 0.15));
+transform: translateX(5px);
+}
+
+.staff-item:last-child {
+border-bottom: none;
+margin-bottom: 0;
+}
+
+.staff-item i {
+margin-right: 10px;
+color: var(--primary);
+font-size: 14px;
+}
+
+.password-field {
+position: relative;
+}
+
+.toggle-password {
+position: absolute;
+right: 15px;
+top: 15px;
+cursor: pointer;
+color: #636e72;
+}
+
+.quick-login-title {
+font-size: 16px;
+font-weight: 600;
+margin: 20px 0 10px;
+color: var(--primary);
+display: flex;
+align-items: center;
+}
+
+.quick-login-title i {
+margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+.content {
+flex-direction: column;
+}
+
+.right-panel {
+border-left: none;
+border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.attendance-actions {
+grid-template-columns: 1fr;
+}
+
+.stats-container {
+grid-template-columns: 1fr;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo">
+<i class="fas fa-calendar-check"></i>
+SISTEM ABSENSI LINETOGEL
+</div>
+<div class="date-display" id="currentDate">Senin, 1 Januari 2023</div>
+<div class="time-display" id="currentTime">00:00:00</div>
+</header>
+
+<div class="content">
+<div class="left-panel">
+<div class="card">
+<div class="card-title">
+<i class="fas fa-sign-in-alt"></i>
+Login Staff
+</div>
+<div id="loginSection">
+<div class="login-form">
+<input type="text" id="username" placeholder="Masukkan nama staff">
+<div class="password-field">
+<input type="password" id="password" placeholder="Masukkan password">
+<span class="toggle-password" id="togglePassword">
+<i class="fas fa-eye"></i>
+</span>
+</div>
+<button class="btn btn-primary" id="loginBtn">
+<i class="fas fa-sign-in-alt"></i> Login
+</button>
+</div>
+<div id="loginError" class="attendance-status status-error hidden">
+Nama staff atau password salah
+</div>
+</div>
+
+<div id="userSection" class="hidden">
+<div class="user-info">
+<i class="fas fa-user-circle"></i>
+<div class="user-details">
+<h3 id="userName">Nama Staff</h3>
+<p id="userId">ID: -</p>
+</div>
+</div>
+
+<div class="card-title">
+<i class="fas fa-history"></i>
+Riwayat Absensi Hari Ini
+</div>
+<div id="attendanceHistory">
+<p>Belum ada absensi hari ini</p>
+</div>
+
+<div class="attendance-actions">
+<button class="btn btn-success" id="checkInBtn">
+<i class="fas fa-fingerprint"></i> Check-In
+</button>
+<button class="btn btn-danger" id="checkOutBtn">
+<i class="fas fa-sign-out-alt"></i> Check-Out
+</button>
+</div>
+
+<div id="attendanceStatus" class="attendance-status hidden"></div>
+
+<button class="btn btn-primary" id="logoutBtn" style="margin-top: 20px; width: 100%;">
+<i class="fas fa-power-off"></i> Logout
+</button>
+</div>
+</div>
+</div>
+
+<div class="right-panel">
+<div class="card">
+<div class="card-title">
+<i class="fas fa-user-clock"></i>
+Informasi Absensi Hari Ini
+</div>
+<div id="personalAttendanceInfo">
+<p>Silakan login untuk melihat informasi absensi Anda.</p>
+</div>
+<div id="todayAttendance" class="today-attendance hidden">
+<h4>Absensi Hari Ini:</h4>
+<div id="attendanceRecords"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">
+<i class="fas fa-chart-bar"></i>
+Statistik Absensi Hari Ini
+</div>
+<div class="stats-container">
+<div class="stat-box">
+<div>Total Staff</div>
+<div class="stat-value" id="totalStaff">0</div>
+</div>
+<div class="stat-box">
+<div>Sudah Absen</div>
+<div class="stat-value" id="presentCount">0</div>
+</div>
+<div class="stat-box">
+<div>Belum Absen</div>
+<div class="stat-value" id="absentCount">0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Data staff dengan password sama dengan nama staff
+const staffData = {
+WIDJAYA': { id: 'C6202945 / E7721607', password: 'WIDJAYA' },
+DAVID': { id: 'C6169860 (E6864058)', password: 'DAVID' },
+FALLEN': { id: 'C6931386 / X5362272', password: 'FALLEN' },
+CHARLIE': { id: 'C7377694', password: 'CHARLIE' },
+HARIANTO': { id: 'X2242791', password: 'HARIANTO' },
+RINAL': { id: 'C8409170', password: 'RINAL' },
+ERI': { id: 'C8493406', password: 'ERI' },
+MAHENDRAN': { id: 'C6813799', password: 'MAHENDRAN' },
+ANDHIKA': { id: 'C8543470', password: 'ANDHIKA' },
+TOMMY': { id: 'C6735321', password: 'TOMMY' },
+EGI': { id: 'C8410298', password: 'EGI' },
+RANJIT': { id: 'X1068990', password: 'RANJIT' },
+WILLY': { id: 'E0089312', password: 'WILLY' },
+ANDI': { id: 'E4487475', password: 'ANDI' },
+ALFINO': { id: 'C8493352', password: 'ALFINO' },
+AKAS': { id: 'C8490102', password: 'AKAS' },
+ARI': { id: 'C8386112', password: 'ARI' },
+PARIS': { id: 'E0237731', password: 'PARIS' },
+SAMSUL': { id: 'C7008737', password: 'SAMSUL' },
+SUHAN': { id: 'C5862955', password: 'SUHAN' },
+RAHMADI': { id: 'E0685561', password: 'RAHMADI' },
+NOVAL': { id: 'E1475015', password: 'NOVAL' },
+JONROMAN': { id: 'C8491005', password: 'JONROMAN' },
+PUTRA': { id: 'E1473204', password: 'PUTRA' },
+WILIAM': { id: 'E0227447', password: 'WILIAM' },
+FIQAL': { id: 'E1233842', password: 'FIQAL' },
+MARJOKI': { id: 'C8555336', password: 'MARJOKI' },
+DANIEL': { id: 'E0859998', password: 'DANIEL' },
+RAAZ': { id: 'C8409387', password: 'RAAZ' },
+MAHAT': { id: 'E4340773', password: 'MAHAT' },
+ANNEN': { id: 'C8486854', password: 'ANNEN' },
+MFAJAR': { id: 'C8993287', password: 'MFAJAR' },
+PUTRAR': { id: 'E1988807', password: 'PUTRAR' },
+AMRUL': { id: 'E2365928', password: 'AMRUL' },
+RAM': { id: 'E2620081', password: 'RAM' },
+BOBY': { id: 'C8991790', password: 'BOBY' },
+KIKI': { id: 'C8245909', password: 'KIKI' },
+CHARLOIPO': { id: 'E0286030', password: 'CHARLOIPO' },
+FAHRI': { id: 'E5192174', password: 'FAHRI' },
+GALI': { id: 'E377357', password: 'GALI' },
+PRIMA': { id: 'E5112965', password: 'PRIMA' },
+ROY': { id: 'C5875009', password: 'ROY' },
+RIDZKY': { id: 'E6626714', password: 'RIDZKY' },
+AGUNG': { id: 'E7089147', password: 'AGUNG' },
+MAICEL': { id: 'E5843197', password: 'MAICEL' },
+ADE': { id: 'E1475210', password: 'ADE' },
+MREZI': { id: 'E6690607', password: 'MREZI' },
+KHOIRUDDIN': { id: 'C9148103', password: 'KHOIRUDDIN' },
+BAMBANG': { id: 'E7520815', password: 'BAMBANG' },
+PUTRAI': { id: 'E7282317', password: 'PUTRAI' },
+FERA': { id: 'E7632631', password: 'FERA' },
+RIVLAN': { id: 'E6759553', password: 'RIVLAN' },
+MAULANA': { id: 'E7531570', password: 'MAULANA' },
+AHMAD': { id: 'E7631720', password: 'AHMAD' },
+ANGGARA': { id: 'E7647305', password: 'ANGGARA' },
+DIMAS': { id: 'E6937626', password: 'DIMAS' },
+GABRIEL': { id: 'E7694857', password: 'GABRIEL' },
+EGA': { id: 'E2703456', password: 'EGA' },
+ARJUN': { id: 'E7879939', password: 'ARJUN' },
+ADITYA': { id: 'X3189356', password: 'ADITYA' },
+AUDIS': { id: 'E7281571', password: 'AUDIS' },
+ADEOJI': { id: 'E8491965', password: 'ADEOJI' },
+ALFIANSYAH': { id: 'E9268104', password: 'ALFIANSYAH' },
+ANDYPUTRA': { id: 'X3618101', password: 'ANDYPUTRA' },
+JUNITA': { id: 'E2817535', password: 'JUNITA' },
+MELAN': { id: 'E0441477', password: 'MELAN' },
+LAELA': { id: 'E1517441', password: 'LAELA' },
+ISMI': { id: 'C4328372', password: 'ISMI' },
+SYARIFAH': { id: 'C4462617 / E5380676', password: 'SYARIFAH' }
+};
+
+// Referensi elemen DOM
+const loginSection = document.getElementById('loginSection');
+const userSection = document.getElementById('userSection');
+const userName = document.getElementById('userName');
+const userId = document.getElementById('userId');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const logoutBtn = document.getElementById('logoutBtn');
+const checkInBtn = document.getElementById('checkInBtn');
+const checkOutBtn = document.getElementById('checkOutBtn');
+const attendanceStatus = document.getElementById('attendanceStatus');
+const attendanceHistory = document.getElementById('attendanceHistory');
+const currentDateElem = document.getElementById('currentDate');
+const currentTimeElem = document.getElementById('currentTime');
+const totalStaffElem = document.getElementById('totalStaff');
+const presentCountElem = document.getElementById('presentCount');
+const absentCountElem = document.getElementById('absentCount');
+const personalAttendanceInfo = document.getElementById('personalAttendanceInfo');
+const todayAttendance = document.getElementById('todayAttendance');
+const attendanceRecords = document.getElementById('attendanceRecords');
+const togglePassword = document.getElementById('togglePassword');
+
+// Toggle password visibility
+togglePassword.addEventListener('click', function() {
+const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+passwordInput.setAttribute('type', type);
+this.querySelector('i').classList.toggle('fa-eye');
+this.querySelector('i').classList.toggle('fa-eye-slash');
+});
+
+// Inisialisasi data absensi jika belum ada
+function initializeAttendanceData() {
+const today = new Date().toLocaleDateString('id-ID');
+const lastReset = localStorage.getItem('lastResetDate');
+
+// Reset data jika sudah berganti hari
+if (lastReset !== today) {
+const initialAttendance = {};
+
+for (const staff in staffData) {
+initialAttendance[staff] = {
+checkIn: null,
+checkOut: null,
+lastAttendance: null,
+history: []
+};
+}
+
+localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
+localStorage.setItem('lastResetDate', today);
+}
+
+// Pastikan data ada
+if (!localStorage.getItem('attendanceData')) {
+const initialAttendance = {};
+
+for (const staff in staffData) {
+initialAttendance[staff] = {
+checkIn: null,
+checkOut: null,
+lastAttendance: null,
+history: []
+};
+}
+
+localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
+localStorage.setItem('lastResetDate', today);
+}
+}
+
+// Update waktu secara real-time
+function updateDateTime() {
+const now = new Date();
+
+// Format tanggal: Senin, 1 Januari 2023
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+currentDateElem.textContent = now.toLocaleDateString('id-ID', options);
+
+// Format waktu: 12:00:00
+currentTimeElem.textContent = now.toLocaleTimeString('id-ID');
+}
+
+// Jalankan pertama kali dan set interval
+initializeAttendanceData();
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+// Update statistik absensi
+function updateAttendanceStats() {
+const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+const todayStr = new Date().toLocaleDateString('id-ID');
+
+let presentCount = 0;
+const totalStaff = Object.keys(staffData).length;
+
+for (const staff in attendanceData) {
+if (attendanceData[staff].lastAttendance === todayStr) {
+presentCount++;
+}
+}
+
+totalStaffElem.textContent = totalStaff;
+presentCountElem.textContent = presentCount;
+absentCountElem.textContent = totalStaff - presentCount;
+}
+
+// Update riwayat absensi user
+function updateUserAttendanceHistory() {
+const currentUser = sessionStorage.getItem('currentUser');
+if (!currentUser) return;
+
+const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+const userData = attendanceData[currentUser];
+const todayStr = new Date().toLocaleDateString('id-ID');
+
+if (userData.history && userData.history.length > 0) {
+// Tampilkan hanya riwayat hari ini
+const todayHistory = userData.history.filter(record => {
+return record.date === todayStr;
+});
+
+if (todayHistory.length > 0) {
+let html = '<table class="attendance-history-table"><tr><th>Waktu</th><th>Status</th></tr>';
+
+todayHistory.forEach(record => {
+html += `<tr><td class="time-detail">${record.time}</td><td>${record.type}</td></tr>`;
+});
+
+html += '</table>';
+attendanceHistory.innerHTML = html;
+} else {
+attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
+}
+} else {
+attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
+}
+}
+
+// Update informasi absensi pribadi
+function updatePersonalAttendanceInfo() {
+const currentUser = sessionStorage.getItem('currentUser');
+if (!currentUser) {
+personalAttendanceInfo.innerHTML = '<p>Silakan login untuk melihat informasi absensi Anda.</p>';
+todayAttendance.classList.add('hidden');
+return;
+}
+
+const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+const userData = attendanceData[currentUser];
+const todayStr = new Date().toLocaleDateString('id-ID');
+
+let html = '';
+
+if (userData.lastAttendance === todayStr) {
+html += `<p>Status: <span class="staff-status status-present">SUDAH ABSEN</span></p>`;
+
+// Tampilkan absensi hari ini
+todayAttendance.classList.remove('hidden');
+attendanceRecords.innerHTML = '';
+
+if (userData.checkIn) {
+const record = document.createElement('div');
+record.className = 'attendance-record';
+record.innerHTML = `
+<span>Check-In:</span>
+<span class="attendance-time">${userData.checkIn}</span>
+`;
+attendanceRecords.appendChild(record);
+}
+
+if (userData.checkOut) {
+const record = document.createElement('div');
+record.className = 'attendance-record';
+record.innerHTML = `
+<span>Check-Out:</span>
+<span class="attendance-time">${userData.checkOut}</span>
+`;
+attendanceRecords.appendChild(record);
+}
+} else {
+html += `<p>Status: <span class="staff-status status-absent">BELUM ABSEN</span></p>`;
+todayAttendance.classList.add('hidden');
+}
+
+personalAttendanceInfo.innerHTML = html;
+}
+
+// Event listener untuk login
+loginBtn.addEventListener('click', function() {
+const username = usernameInput.value.trim().toUpperCase();
+const password = passwordInput.value.trim();
+
+if (staffData[username] && staffData[username].password === password) {
+// Login berhasil
+loginError.classList.add('hidden');
+loginSection.classList.add('hidden');
+userSection.classList.remove('hidden');
+
+// Tampilkan info user
+userName.textContent = username;
+userId.textContent = `ID: ${staffData[username].id}`;
+
+// Simpan info staff yang login
+sessionStorage.setItem('currentUser', username);
+
+// Update riwayat absensi dan info pribadi
+updateUserAttendanceHistory();
+updatePersonalAttendanceInfo();
+updateAttendanceStats();
+} else {
+// Login gagal
+loginError.classList.remove('hidden');
+}
+});
+
+// Event listener untuk logout
+logoutBtn.addEventListener('click', function() {
+sessionStorage.removeItem('currentUser');
+userSection.classList.add('hidden');
+loginSection.classList.remove('hidden');
+usernameInput.value = '';
+passwordInput.value = '';
+
+// Update info absensi
+updatePersonalAttendanceInfo();
+});
+
+// Event listener untuk check-in
+checkInBtn.addEventListener('click', function() {
+const currentUser = sessionStorage.getItem('currentUser');
+if (currentUser) {
+const now = new Date();
+const todayStr = now.toLocaleDateString('id-ID');
+const timeStr = now.toLocaleTimeString('id-ID');
+
+const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+
+if (attendanceData[currentUser].lastAttendance !== todayStr) {
+attendanceData[currentUser].checkIn = timeStr;
+attendanceData[currentUser].lastAttendance = todayStr;
+
+// Tambahkan ke riwayat
+if (!attendanceData[currentUser].history) {
+attendanceData[currentUser].history = [];
+}
+
+attendanceData[currentUser].history.push({
+date: todayStr,
+time: timeStr,
+type: 'CHECK-IN'
+});
+
+localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+
+attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
+attendanceStatus.className = "attendance-status status-success";
+attendanceStatus.classList.remove('hidden');
+
+// Perbarui tampilan
+updateUserAttendanceHistory();
+updatePersonalAttendanceInfo();
+updateAttendanceStats();
+} else {
+attendanceStatus.textContent = "Anda sudah melakukan absensi hari ini";
+attendanceStatus.className = "attendance-status status-warning";
+attendanceStatus.classList.remove('hidden');
+}
+}
+});
+
+// Event listener untuk check-out
+checkOutBtn.addEventListener('click', function() {
+const currentUser = sessionStorage.getItem('currentUser');
+if (currentUser) {
+const now = new Date();
+const todayStr = now.toLocaleDateString('id-ID');
+const timeStr = now.toLocaleTimeString('id-ID');
+
+const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+
+if (attendanceData[currentUser].lastAttendance === todayStr && !attendanceData[currentUser].checkOut) {
+attendanceData[currentUser].checkOut = timeStr;
+
+// Tambahkan ke riwayat
+attendanceData[currentUser].history.push({
+date: todayStr,
+time: timeStr,
+type: 'CHECK-OUT'
+});
+
+localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+
+attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
+attendanceStatus.className = "attendance-status status-success";
+attendanceStatus.classList.remove('hidden');
+
+// Perbarui tampilan
+updateUserAttendanceHistory();
+updatePersonalAttendanceInfo();
+} else if (attendanceData[currentUser].checkOut) {
+attendanceStatus.textContent = "Anda sudah check-out hari ini";
+attendanceStatus.className = "attendance-status status-warning";
+attendanceStatus.classList.remove('hidden');
+} else {
+attendanceStatus.textContent = "Anda belum check-in hari ini";
+attendanceStatus.className = "attendance-status status-error";
+attendanceStatus.classList.remove('hidden');
+}
+}
+});
+
+// Cek apakah user sudah login
+if (sessionStorage.getItem('currentUser')) {
+const currentUser = sessionStorage.getItem('currentUser');
+loginSection.classList.add('hidden');
+userSection.classList.remove('hidden');
+userName.textContent = currentUser;
+userId.textContent = `ID: ${staffData[currentUser].id}`;
+updateUserAttendanceHistory();
+updatePersonalAttendanceInfo();
+}
+
+// Muat data statistik
+updateAttendanceStats();
+updatePersonalAttendanceInfo();
+});
+</script>
+</body>
+</html>
