@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Master - Checker Absensi Staff</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #6C63FF;
+  --primary-dark: #564fd8;
+  --secondary: #4CC9F0;
+  --success: #36D1DC;
+  --danger: #FF6B6B;
+  --warning: #FFD166;
+  --dark: #2D3436;
+  --light: #F8F9FA;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --text: #2D3436;
+  --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #4CC9F0 100%);
+  --gradient-dark: linear-gradient(135deg, #564fd8 0%, #3a9cb5 100%);
+  --gradient-success: linear-gradient(135deg, #36D1DC 0%, #5B86E5 100%);
+  --gradient-danger: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  --gradient-warning: linear-gradient(135deg, #FFD166 0%, #FF9E6D 100%);
+  --shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.25);
+  --shadow-hover: 0 16px 48px 0 rgba(31, 38, 135, 0.35);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  background: var(--glass-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Login Section */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  padding: 30px;
+}
+
+.login-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--gradient-primary);
+}
+
+.login-logo {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo i {
+  margin-right: 15px;
+  font-size: 36px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 18px 22px;
+  margin-bottom: 22px;
+  border: 2px solid rgba(108, 99, 255, 0.1);
+  border-radius: 14px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.login-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+}
+
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  cursor: pointer;
+  color: #636e72;
+  z-index: 2;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background: var(--gradient-primary);
+  color: white;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: var(--gradient-dark);
+}
+
+.login-btn i {
+  margin-right: 10px;
+}
+
+.login-error {
+  color: var(--danger);
+  margin-top: 15px;
+  font-weight: 500;
+  display: none;
+}
+
+/* Admin Content */
+.admin-content {
+  display: none;
+}
+
+header {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, transparent 30%, rgba(255, 255, 255, 0.1) 70%);
+  opacity: 0.5;
+  transform: rotate(30deg);
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.logo i {
+  margin-right: 18px;
+  font-size: 42px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.date-display {
+  font-size: 22px;
+  margin: 18px 0;
+  font-weight: 500;
+  opacity: 0.9;
+  position: relative;
+}
+
+.time-display {
+  font-size: 52px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 15px 30px;
+  border-radius: 18px;
+  display: inline-block;
+  margin: 18px 0;
+  letter-spacing: 3px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+  padding: 35px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 35px;
+  margin-bottom: 35px;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--gradient-primary);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(108, 99, 255, 0.2);
+  position: relative;
+}
+
+.card-title i {
+  margin-right: 15px;
+  font-size: 28px;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.stat-box {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--gradient-primary);
+}
+
+.stat-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 22px;
+  border-bottom: 2px solid rgba(108, 99, 255, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tab {
+  padding: 12px 25px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  flex: 1;
+  text-align: center;
+}
+
+.tab.active {
+  color: white;
+  background: var(--gradient-primary);
+  box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.staff-table th {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 18px 15px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+}
+
+.staff-table td {
+  padding: 16px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.staff-table tr:last-child td {
+  border-bottom: none;
+}
+
+.staff-table tr {
+  transition: background 0.3s ease;
+}
+
+.staff-table tr:hover {
+  background: rgba(108, 99, 255, 0.05);
+}
+
+.status-badge {
+  padding: 8px 15px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 120px;
+  text-align: center;
+}
+
+.status-present {
+  background: rgba(54, 209, 220, 0.15);
+  color: #1890c3;
+  box-shadow: 0 2px 5px rgba(54, 209, 220, 0.2);
+}
+
+.status-absent {
+  background: rgba(255, 107, 107, 0.15);
+  color: #d11570;
+  box-shadow: 0 2px 5px rgba(255, 107, 107, 0.2);
+}
+
+.search-box {
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 16px 20px;
+  padding-left: 50px;
+  border: 2px solid rgba(108, 99, 255, 0.1);
+  border-radius: 14px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+}
+
+.search-box i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 28px;
+}
+
+.btn {
+  padding: 16px 25px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger {
+  background: var(--gradient-danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.staff-count {
+  margin: 15px 0;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.table-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  margin-top: 15px;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .staff-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    border-radius: 18px;
+  }
+  
+  header {
+    padding: 25px 20px;
+  }
+  
+  .logo {
+    font-size: 28px;
+  }
+  
+  .logo i {
+    font-size: 32px;
+    margin-right: 12px;
+  }
+  
+  .time-display {
+    font-size: 38px;
+    padding: 12px 18px;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .card {
+    padding: 25px;
+  }
+  
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Animation for table rows */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.staff-table tr {
+  animation: slideIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+.staff-table tr:nth-child(1) { animation-delay: 0.05s; }
+.staff-table tr:nth-child(2) { animation-delay: 0.1s; }
+.staff-table tr:nth-child(3) { animation-delay: 0.15s; }
+.staff-table tr:nth-child(4) { animation-delay: 0.2s; }
+.staff-table tr:nth-child(5) { animation-delay: 0.25s; }
+.staff-table tr:nth-child(6) { animation-delay: 0.3s; }
+.staff-table tr:nth-child(7) { animation-delay: 0.35s; }
+.staff-table tr:nth-child(8) { animation-delay: 0.4s; }
+.staff-table tr:nth-child(9) { animation-delay: 0.45s; }
+.staff-table tr:nth-child(10) { animation-delay: 0.5s; }
+
+/* Highlight effect for searched terms */
+.highlight {
+  background-color: rgba(255, 215, 0, 0.3);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Logout button */
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Login Section -->
+  <div class="login-container" id="loginSection">
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="fas fa-user-shield"></i>
+        ADMIN ACCESS
+      </div>
+      <div class="login-form">
+        <input type="text" id="adminUsername" placeholder="Username">
+        <div class="password-field">
+          <input type="password" id="adminPassword" placeholder="Password">
+          <span class="toggle-password" id="togglePassword">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+        <button class="login-btn" id="adminLoginBtn">
+          <i class="fas fa-unlock-alt"></i> Login
+        </button>
+        <div class="login-error" id="loginError">
+          Username atau password salah
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Content -->
+  <div class="admin-content" id="adminContent">
+    <header>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+      <div class="logo">
+        <i class="fas fa-user-shield"></i>
+        ADMIN MASTER - CHECKER ABSENSI STAFF
+      </div>
+      <div class="date-display" id="currentDate">Senin, 1 Januari 2023</div>
+      <div class="time-display" id="currentTime">00:00:00</div>
+    </header>
+
+    <div class="content">
+      <div class="card">
+        <div class="card-title">
+          <i class="fas fa-chart-bar"></i>
+          Statistik Absensi Hari Ini
+        </div>
+        <div class="stats-container">
+          <div class="stat-box">
+            <div>Total Staff</div>
+            <div class="stat-value" id="adminTotalStaff">0</div>
+          </div>
+          <div class="stat-box">
+            <div>Sudah Absen</div>
+            <div class="stat-value" id="adminPresentCount">0</div>
+          </div>
+          <div class="stat-box">
+            <div>Belum Absen</div>
+            <div class="stat-value" id="adminAbsentCount">0</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" data-tab="absent">Belum Absen</div>
+          <div class="tab" data-tab="present">Sudah Absen</div>
+          <div class="tab" data-tab="all">Semua Staff</div>
+        </div>
+
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Cari nama staff...">
+        </div>
+
+        <div class="staff-count" id="staffCount">Menampilkan 0 staff</div>
+
+        <div class="tab-content active" id="absentTab">
+          <div class="table-container">
+            <table class="staff-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Staff</th>
+                  <th>ID Staff</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="absentStaffList">
+                <!-- Data staff yang belum absen akan dimasukkan di sini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="presentTab">
+          <div class="table-container">
+            <table class="staff-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Staff</th>
+                  <th>ID Staff</th>
+                  <th>Check-In</th>
+                  <th>Check-Out</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="presentStaffList">
+                <!-- Data staff yang sudah absen akan dimasukkan di sini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="allTab">
+          <div class="table-container">
+            <table class="staff-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Staff</th>
+                  <th>ID Staff</th>
+                  <th>Status Absen</th>
+                  <th>Check-In</th>
+                  <th>Check-Out</th>
+                </tr>
+              </thead>
+              <tbody id="allStaffList">
+                <!-- Data semua staff akan dimasukkan di sini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i> Refresh Data
+          </button>
+          <button class="btn btn-danger" id="exportBtn">
+            <i class="fas fa-file-export"></i> Export Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Data staff lengkap
+  const staffData = {
+    'WIDJAYA': { id: 'C6202945 / E7721607' },
+    'DAVID': { id: 'C6169860 (E6864058)' },
+    'FALLEN': { id: 'C6931386 / X5362272' },
+    'CHARLIE': { id: 'C7377694' },
+    'HARIANTO': { id: 'X2242791' },
+    'RINAL': { id: 'C8409170' },
+    'ERI': { id: 'C8493406' },
+    'MAHENDRAN': { id: 'C6813799' },
+    'ANDHIKA': { id: 'C8543470' },
+    'TOMMY': { id: 'C6735321' },
+    'EGI': { id: 'C8410298' },
+    'RANJIT': { id: 'X1068990' },
+    'WILLY': { id: 'E0089312' },
+    'ANDI': { id: 'E4487475' },
+    'ALFINO': { id: 'C8493352' },
+    'AKAS': { id: 'C8490102' },
+    'ARI': { id: 'C8386112' },
+    'PARIS': { id: 'E0237731' },
+    'SAMSUL': { id: 'C7008737' },
+    'SUHAN': { id: 'C5862955' },
+    'RAHMADI': { id: 'E0685561' },
+    'NOVAL': { id: 'E1475015' },
+    'JONROMAN': { id: 'C8491005' },
+    'PUTRA': { id: 'E1473204' },
+    'WILIAM': { id: 'E0227447' },
+    'FIQAL': { id: 'E1233842' },
+    'MARJOKI': { id: 'C8555336' },
+    'DANIEL': { id: 'E0859998' },
+    'RAAZ': { id: 'C8409387' },
+    'MAHAT': { id: 'E4340773' },
+    'ANNEN': { id: 'C8486854' },
+    'MFAJAR': { id: 'C8993287' },
+    'PUTRAR': { id: 'E1988807' },
+    'AMRUL': { id: 'E2365928' },
+    'RAM': { id: 'E2620081' },
+    'BOBY': { id: 'C8991790' },
+    'KIKI': { id: 'C8245909' },
+    'CHARLOIPO': { id: 'E0286030' },
+    'FAHRI': { id: 'E5192174' },
+    'GALI': { id: 'E377357' },
+    'PRIMA': { id: 'E5112965' },
+    'ROY': { id: 'C5875009' },
+    'RIDZKY': { id: 'E6626714' },
+    'AGUNG': { id: 'E7089147' },
+    'MAICEL': { id: 'E5843197' },
+    'ADE': { id: 'E1475210' },
+    'MREZI': { id: 'E6690607' },
+    'KHOIRUDDIN': { id: 'C9148103' },
+    'BAMBANG': { id: 'E7520815' },
+    'PUTRAI': { id: 'E7282317' },
+    'FERA': { id: 'E7632631' },
+    'RIVLAN': { id: 'E6759553' },
+    'MAULANA': { id: 'E7531570' },
+    'AHMAD': { id: 'E7631720' },
+    'ANGGARA': { id: 'E7647305' },
+    'DIMAS': { id: 'E6937626' },
+    'GABRIEL': { id: 'E7694857' },
+    'EGA': { id: 'E2703456' },
+    'ARJUN': { id: 'E7879939' },
+    'ADITYA': { id: 'X3189356' },
+    'AUDIS': { id: 'E7281571' },
+    'ADEOJI': { id: 'E8491965' },
+    'ALFIANSYAH': { id: 'E9268104' },
+    'ANDYPUTRA': { id: 'X3618101' },
+    'JUNITA': { id: 'E2817535' },
+    'MELAN': { id: 'E0441477' },
+    'LAELA': { id: 'E1517441' },
+    'ISMI': { id: 'C4328372' },
+    'SYARIFAH': { id: 'C4462617 / E5380676' }
+  };
+
+  // Kredensial admin (hanya kapten yang bisa akses)
+  const adminCredentials = {
+    username: "kapten",
+    password: "admin123"
+  };
+
+  // Referensi elemen DOM
+  const loginSection = document.getElementById('loginSection');
+  const adminContent = document.getElementById('adminContent');
+  const adminUsername = document.getElementById('adminUsername');
+  const adminPassword = document.getElementById('adminPassword');
+  const adminLoginBtn = document.getElementById('adminLoginBtn');
+  const loginError = document.getElementById('loginError');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const togglePassword = document.getElementById('togglePassword');
+  const currentDateElem = document.getElementById('currentDate');
+  const currentTimeElem = document.getElementById('currentTime');
+  const adminTotalStaff = document.getElementById('adminTotalStaff');
+  const adminPresentCount = document.getElementById('adminPresentCount');
+  const adminAbsentCount = document.getElementById('adminAbsentCount');
+  const absentStaffList = document.getElementById('absentStaffList');
+  const presentStaffList = document.getElementById('presentStaffList');
+  const allStaffList = document.getElementById('allStaffList');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const searchInput = document.getElementById('searchInput');
+  const staffCount = document.getElementById('staffCount');
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  // Toggle password visibility
+  togglePassword.addEventListener('click', function() {
+    const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+    adminPassword.setAttribute('type', type);
+    this.querySelector('i').classList.toggle('fa-eye');
+    this.querySelector('i').classList.toggle('fa-eye-slash');
+  });
+
+  // Event listener untuk login admin
+  adminLoginBtn.addEventListener('click', function() {
+    const username = adminUsername.value.trim();
+    const password = adminPassword.value.trim();
+
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+      // Login berhasil
+      loginSection.style.display = 'none';
+      adminContent.style.display = 'block';
+      loginError.style.display = 'none';
+      
+      // Update data admin
+      updateAdminData();
+    } else {
+      // Login gagal
+      loginError.style.display = 'block';
+      adminPassword.value = '';
+    }
+  });
+
+  // Event listener untuk logout
+  logoutBtn.addEventListener('click', function() {
+    loginSection.style.display = 'flex';
+    adminContent.style.display = 'none';
+    adminUsername.value = '';
+    adminPassword.value = '';
+    loginError.style.display = 'none';
+  });
+
+  // Event listener untuk tekan Enter pada form login
+  adminPassword.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      adminLoginBtn.click();
+    }
+  });
+
+  // Inisialisasi data absensi jika belum ada
+  function initializeAttendanceData() {
+    const today = new Date().toLocaleDateString('id-ID');
+    const lastReset = localStorage.getItem('lastResetDate');
+
+    // Reset data jika sudah berganti hari
+    if (lastReset !== today) {
+      const initialAttendance = {};
+
+      for (const staff in staffData) {
+        initialAttendance[staff] = {
+          checkIn: null,
+          checkOut: null,
+          lastAttendance: null,
+          history: []
+        };
+      }
+
+      localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
+      localStorage.setItem('lastResetDate', today);
+    }
+
+    // Pastikan data ada
+    if (!localStorage.getItem('attendanceData')) {
+      const initialAttendance = {};
+
+      for (const staff in staffData) {
+        initialAttendance[staff] = {
+          checkIn: null,
+          checkOut: null,
+          lastAttendance: null,
+          history: []
+        };
+      }
+
+      localStorage.setItem('attendanceData', JSON.stringify(initialAttendance));
+      localStorage.setItem('lastResetDate', today);
+    }
+  }
+
+  // Update waktu secara real-time
+  function updateDateTime() {
+    const now = new Date();
+
+    // Format tanggal: Senin, 1 Januari 2023
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    currentDateElem.textContent = now.toLocaleDateString('id-ID', options);
+
+    // Format waktu: 12:00:00
+    currentTimeElem.textContent = now.toLocaleTimeString('id-ID');
+  }
+
+  // Jalankan pertama kali dan set interval
+  initializeAttendanceData();
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  // Highlight text based on search
+  function highlightText(text, searchTerm) {
+    if (!searchTerm) return text;
+    
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+  }
+
+  // Update data admin
+  function updateAdminData() {
+    const attendanceData = JSON.parse(localStorage.getItem('attendanceData'));
+    const todayStr = new Date().toLocaleDateString('id-ID');
+    const searchTerm = searchInput.value.toLowerCase();
+    const activeTab = document.querySelector('.tab.active').getAttribute('data-tab');
+
+    let presentCount = 0;
+    const totalStaff = Object.keys(staffData).length;
+    let displayedCount = 0;
+    
+    // Kosongkan daftar
+    absentStaffList.innerHTML = '';
+    presentStaffList.innerHTML = '';
+    allStaffList.innerHTML = '';
+
+    let counter = 1;
+
+    for (const staff in staffData) {
+      const staffNameLower = staff.toLowerCase();
+      
+      // Filter berdasarkan pencarian
+      if (searchTerm && !staffNameLower.includes(searchTerm)) {
+        continue;
+      }
+
+      const hasAttended = attendanceData[staff].lastAttendance === todayStr;
+      
+      if (hasAttended) {
+        presentCount++;
+      }
+
+      // Highlight nama staff jika ada pencarian
+      const highlightedStaff = searchTerm ? highlightText(staff, searchTerm) : staff;
+
+      // Tambahkan ke daftar sesuai dengan tab yang aktif
+      if (activeTab === 'absent' && !hasAttended) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${counter}</td>
+          <td><strong>${highlightedStaff}</strong></td>
+          <td>${staffData[staff].id}</td>
+          <td><span class="status-badge status-absent">BELUM ABSEN</span></td>
+        `;
+        absentStaffList.appendChild(row);
+        displayedCount++;
+        counter++;
+      } else if (activeTab === 'present' && hasAttended) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${counter}</td>
+          <td><strong>${highlightedStaff}</strong></td>
+          <td>${staffData[staff].id}</td>
+          <td>${attendanceData[staff].checkIn || '-'}</td>
+          <td>${attendanceData[staff].checkOut || '-'}</td>
+          <td><span class="status-badge status-present">SUDAH ABSEN</span></td>
+        `;
+        presentStaffList.appendChild(row);
+        displayedCount++;
+        counter++;
+      } else if (activeTab === 'all') {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${counter}</td>
+          <td><strong>${highlightedStaff}</strong></td>
+          <td>${staffData[staff].id}</td>
+          <td>${hasAttended ? 
+            '<span class="status-badge status-present">SUDAH</span>' : 
+            '<span class="status-badge status-absent">BELUM</span>'}</td>
+          <td>${hasAttended ? (attendanceData[staff].checkIn || '-') : '-'}</td>
+          <td>${hasAttended ? (attendanceData[staff].checkOut || '-') : '-'}</td>
+        `;
+        allStaffList.appendChild(row);
+        displayedCount++;
+        counter++;
+      }
+    }
+
+    adminTotalStaff.textContent = totalStaff;
+    adminPresentCount.textContent = presentCount;
+    adminAbsentCount.textContent = totalStaff - presentCount;
+    staffCount.textContent = `Menampilkan ${displayedCount} staff`;
+  }
+
+  // Event listener untuk refresh data
+  refreshBtn.addEventListener('click', function() {
+    updateAdminData();
+    // Animasi tombol refresh
+    refreshBtn.querySelector('i').classList.add('fa-spin');
+    setTimeout(() => {
+      refreshBtn.querySelector('i').classList.remove('fa-spin');
+    }, 1000);
+  });
+
+  // Event listener untuk export data
+  exportBtn.addEventListener('click', function() {
+    // Dalam implementasi nyata, ini akan mengekspor data ke CSV atau Excel
+    alert('Fitur export data akan mengunduh laporan absensi dalam format CSV');
+  });
+
+  // Event listener untuk pencarian
+  searchInput.addEventListener('input', function() {
+    updateAdminData();
+  });
+
+  // Event listener untuk tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      
+      // Nonaktifkan semua tab
+      tabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(tc => tc.classList.remove('active'));
+      
+      // Aktifkan tab yang dipilih
+      this.classList.add('active');
+      document.getElementById(tabId + 'Tab').classList.add('active');
+      
+      // Update data untuk tab yang dipilih
+      updateAdminData();
+    });
+  });
+});
+</script>
+</body>
+</html>
