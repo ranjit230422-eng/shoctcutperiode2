@@ -296,7 +296,7 @@ header::before {
 
 .stats-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 22px;
   margin-top: 22px;
   margin-bottom: 22px;
@@ -480,13 +480,8 @@ header::before {
   transition: all 0.3s ease;
 }
 
-.admin-btn-checkin {
+.admin-btn-absen {
   background: var(--gradient-success);
-  color: white;
-}
-
-.admin-btn-checkout {
-  background: var(--gradient-primary);
   color: white;
 }
 
@@ -684,12 +679,8 @@ Panel Admin Kapten - Monitoring Absensi Staff
 <div class="stat-value" id="adminTotalStaff">0</div>
 </div>
 <div class="stat-box">
-<div>Sudah Check-In</div>
-<div class="stat-value" id="adminCheckInCount">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Check-Out</div>
-<div class="stat-value" id="adminCheckOutCount">0</div>
+<div>Sudah Absen</div>
+<div class="stat-value" id="adminAbsenCount">0</div>
 </div>
 <div class="stat-box">
 <div>Belum Absen</div>
@@ -702,8 +693,6 @@ Panel Admin Kapten - Monitoring Absensi Staff
 <option value="all">Semua Status</option>
 <option value="present">Sudah Absen</option>
 <option value="absent">Belum Absen</option>
-<option value="checkin-only">Hanya Check-In</option>
-<option value="checkout-only">Hanya Check-Out</option>
 </select>
 
 <input type="text" id="searchStaff" placeholder="Cari nama staff...">
@@ -720,8 +709,7 @@ Panel Admin Kapten - Monitoring Absensi Staff
 <th>Nama Staff</th>
 <th>ID</th>
 <th>Status</th>
-<th>Check-In</th>
-<th>Check-Out</th>
+<th>Waktu Absen</th>
 <th>Aksi</th>
 </tr>
 </thead>
@@ -831,8 +819,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const currentTimeElem = document.getElementById('currentTime');
   const staffList = document.getElementById('staffList');
   const adminTotalStaff = document.getElementById('adminTotalStaff');
-  const adminCheckInCount = document.getElementById('adminCheckInCount');
-  const adminCheckOutCount = document.getElementById('adminCheckOutCount');
+  const adminAbsenCount = document.getElementById('adminAbsenCount');
   const adminAbsentCount = document.getElementById('adminAbsentCount');
   const statusFilter = document.getElementById('statusFilter');
   const searchStaff = document.getElementById('searchStaff');
@@ -894,8 +881,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Reset data untuk semua staff
       for (const staff in staffData) {
         attendanceData[staff] = {
-          checkIn: null,
-          checkOut: null,
+          absen: null,
           lastAttendance: null,
           history: []
         };
@@ -907,8 +893,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (const staff in staffData) {
         if (!attendanceData[staff]) {
           attendanceData[staff] = {
-            checkIn: null,
-            checkOut: null,
+            absen: null,
             lastAttendance: null,
             history: []
           };
@@ -927,8 +912,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterValue = statusFilter.value;
     const searchValue = searchStaff.value.toLowerCase();
     
-    let checkInCount = 0;
-    let checkOutCount = 0;
+    let absenCount = 0;
     let absentCount = 0;
     
     staffList.innerHTML = '';
@@ -944,22 +928,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let status = 'Belum Absen';
       let statusClass = 'status-absent';
-      let hasCheckIn = false;
-      let hasCheckOut = false;
       
       if (attendanceInfo.lastAttendance === todayStr) {
-        if (attendanceInfo.checkIn && attendanceInfo.checkOut) {
-          status = 'Sudah Check-Out';
-          statusClass = 'status-present';
-          hasCheckIn = true;
-          hasCheckOut = true;
-          checkOutCount++;
-        } else if (attendanceInfo.checkIn) {
-          status = 'Sudah Check-In';
-          statusClass = 'status-present';
-          hasCheckIn = true;
-          checkInCount++;
-        }
+        status = 'Sudah Absen';
+        statusClass = 'status-present';
+        absenCount++;
       } else {
         absentCount++;
       }
@@ -967,22 +940,16 @@ document.addEventListener('DOMContentLoaded', function() {
       // Filter berdasarkan status
       if (filterValue === 'present' && status === 'Belum Absen') continue;
       if (filterValue === 'absent' && status !== 'Belum Absen') continue;
-      if (filterValue === 'checkin-only' && (!hasCheckIn || hasCheckOut)) continue;
-      if (filterValue === 'checkout-only' && !hasCheckOut) continue;
       
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${staff}</td>
         <td>${staffInfo.id}</td>
         <td><span class="status-badge ${statusClass}">${status}</span></td>
-        <td>${attendanceInfo.checkIn || '-'}</td>
-        <td>${attendanceInfo.checkOut || '-'}</td>
+        <td>${attendanceInfo.absen || '-'}</td>
         <td class="admin-actions">
-          <button class="admin-btn admin-btn-checkin" data-staff="${staff}" data-type="checkin" ${hasCheckIn ? 'disabled' : ''}>
-            <i class="fas fa-fingerprint"></i> Check-In
-          </button>
-          <button class="admin-btn admin-btn-checkout" data-staff="${staff}" data-type="checkout" ${!hasCheckIn || hasCheckOut ? 'disabled' : ''}>
-            <i class="fas fa-sign-out-alt"></i> Check-Out
+          <button class="admin-btn admin-btn-absen" data-staff="${staff}" data-type="absen" ${status === 'Sudah Absen' ? 'disabled' : ''}>
+            <i class="fas fa-fingerprint"></i> Absenkan
           </button>
         </td>
       `;
@@ -992,22 +959,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update statistik admin
     adminTotalStaff.textContent = Object.keys(staffData).length;
-    adminCheckInCount.textContent = checkInCount;
-    adminCheckOutCount.textContent = checkOutCount;
-    adminAbsentCount.textContent = Object.keys(staffData).length - checkInCount;
+    adminAbsenCount.textContent = absenCount;
+    adminAbsentCount.textContent = absentCount;
     
     // Tambahkan event listener untuk tombol aksi admin
-    document.querySelectorAll('.admin-btn-checkin, .admin-btn-checkout').forEach(btn => {
+    document.querySelectorAll('.admin-btn-absen').forEach(btn => {
       btn.addEventListener('click', function() {
         const staffName = this.getAttribute('data-staff');
-        const actionType = this.getAttribute('data-type');
-        adminPerformAttendance(staffName, actionType);
+        adminPerformAbsen(staffName);
       });
     });
   }
   
   // Fungsi untuk admin melakukan absen atas nama staff
-  function adminPerformAttendance(staffName, type) {
+  function adminPerformAbsen(staffName) {
     const now = new Date();
     const todayStr = now.toLocaleDateString('id-ID');
     const timeStr = now.toLocaleTimeString('id-ID');
@@ -1017,69 +982,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Pastikan objek staff ada
     if (!attendanceData[staffName]) {
       attendanceData[staffName] = {
-        checkIn: null,
-        checkOut: null,
+        absen: null,
         lastAttendance: null,
         history: []
       };
     }
     
-    if (type === 'checkin') {
-      // Cek apakah sudah check-in hari ini
-      if (attendanceData[staffName].lastAttendance === todayStr && attendanceData[staffName].checkIn) {
-        showToast(`${staffName} sudah check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkIn = timeStr;
-      attendanceData[staffName].lastAttendance = todayStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-IN (by Admin)'
-      });
-      
-      showToast(`Check-in berhasil untuk ${staffName} pada ${timeStr}`);
-    } 
-    else if (type === 'checkout') {
-      // Cek apakah sudah check-out hari ini
-      if (attendanceData[staffName].checkOut) {
-        showToast(`${staffName} sudah check-out hari ini`, true);
-        return;
-      }
-      
-      // Cek apakah sudah check-in
-      if (!attendanceData[staffName].checkIn || attendanceData[staffName].lastAttendance !== todayStr) {
-        showToast(`${staffName} belum check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkOut = timeStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-OUT (by Admin)'
-      });
-      
-      showToast(`Check-out berhasil untuk ${staffName} pada ${timeStr}`);
+    // Cek apakah sudah absen hari ini
+    if (attendanceData[staffName].lastAttendance === todayStr && attendanceData[staffName].absen) {
+      showToast(`${staffName} sudah absen hari ini`, true);
+      return;
     }
+    
+    attendanceData[staffName].absen = timeStr;
+    attendanceData[staffName].lastAttendance = todayStr;
+    
+    // Tambahkan ke riwayat
+    if (!attendanceData[staffName].history) {
+      attendanceData[staffName].history = [];
+    }
+    
+    attendanceData[staffName].history.push({
+      date: todayStr,
+      time: timeStr,
+      type: 'ABSEN (by Admin)'
+    });
     
     localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
     
     // Perbarui tampilan
     updateStaffList();
+    
+    showToast(`Absen berhasil untuk ${staffName} pada ${timeStr}`);
   }
   
   // Fungsi untuk export data absensi
@@ -1087,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
     const todayStr = new Date().toLocaleDateString('id-ID');
     
-    let csvContent = "Nama Staff,ID,Status,Check-In,Check-Out\n";
+    let csvContent = "Nama Staff,ID,Status,Waktu Absen\n";
     
     for (const staff in staffData) {
       const staffInfo = staffData[staff];
@@ -1096,14 +1030,10 @@ document.addEventListener('DOMContentLoaded', function() {
       let status = 'Belum Absen';
       
       if (attendanceInfo.lastAttendance === todayStr) {
-        if (attendanceInfo.checkIn && attendanceInfo.checkOut) {
-          status = 'Sudah Check-Out';
-        } else if (attendanceInfo.checkIn) {
-          status = 'Sudah Check-In';
-        }
+        status = 'Sudah Absen';
       }
       
-      csvContent += `"${staff}","${staffInfo.id}","${status}","${attendanceInfo.checkIn || '-'}","${attendanceInfo.checkOut || '-'}"\n`;
+      csvContent += `"${staff}","${staffInfo.id}","${status}","${attendanceInfo.absen || '-'}"\n`;
     }
     
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
