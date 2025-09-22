@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Bonus Line Togel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #0f0f0f);
             color: #e0e0e0;
             line-height: 1.7;
             min-height: 100vh;
@@ -22,17 +23,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(50, 50, 70, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(70, 50, 70, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(50, 70, 80, 0.2) 0%, transparent 50%);
+            z-index: -1;
         }
         
         .container {
             max-width: 1600px;
             width: 100%;
-            background: rgba(30, 30, 46, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(15, 15, 20, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(50, 50, 60, 0.3);
+            backdrop-filter: blur(10px);
         }
         
         .container::before {
@@ -42,17 +60,18 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #ff9a00, #2196f3, #4caf50, #9c27b0, #ff5722);
+            background: linear-gradient(90deg, #4a4a4a, #2a2a3a, #3a3a4a, #4a4a5a, #3a3a4a);
+            box-shadow: 0 0 20px rgba(100, 100, 120, 0.3);
         }
         
         header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(15, 15, 25, 0.95));
             color: white;
-            padding: 35px 30px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(50, 50, 60, 0.3);
         }
         
         header::before {
@@ -62,53 +81,63 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(26, 109, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(50, 50, 70, 0.1) 0%, transparent 70%);
             transform: rotate(30deg);
         }
         
         h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+            font-size: 42px;
+            margin-bottom: 15px;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
             position: relative;
-            background: linear-gradient(90deg, #ff9a00, #ff6a00, #9c27b0, #ff5722);
+            background: linear-gradient(90deg, #9a9a9a, #6a6a6a, #8a8a8a, #7a7a7a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
         
         .subtitle {
-            font-size: 18px;
-            opacity: 0.8;
+            font-size: 20px;
+            opacity: 0.9;
             font-weight: 300;
             position: relative;
             color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .bonus-columns {
             display: flex;
-            gap: 20px;
-            padding: 30px;
+            gap: 25px;
+            padding: 35px;
         }
         
         .bonus-column {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
         
         .column-title {
             text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-size: 22px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .column-title:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
         }
         
         .column-title::before {
@@ -118,7 +147,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(50, 50, 60, 0.1), rgba(40, 40, 50, 0.05));
             z-index: 1;
         }
         
@@ -128,77 +157,93 @@
         }
         
         .live-games .column-title {
-            background: linear-gradient(135deg, #1a6dff, #0d4cb5);
-            box-shadow: 0 5px 15px rgba(26, 109, 255, 0.3);
+            background: linear-gradient(135deg, #3a3a4a, #2a2a3a);
         }
         
         .slot-games .column-title {
-            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
-            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+            background: linear-gradient(135deg, #4a3a4a, #3a2a3a);
         }
         
         .rolling-games .column-title {
-            background: linear-gradient(135deg, #ff5722, #e64a19);
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            background: linear-gradient(135deg, #4a3a3a, #3a2a2a);
         }
         
         .bonus-section {
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            background: rgba(40, 40, 60, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid rgba(50, 50, 60, 0.2);
+            position: relative;
+        }
+        
+        .bonus-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(50, 50, 60, 0.05), transparent);
+            z-index: 1;
+            pointer-events: none;
         }
         
         .bonus-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            background: rgba(45, 45, 65, 0.8);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
         
         .section-header {
-            padding: 18px 20px;
+            padding: 22px 25px;
             display: flex;
             align-items: center;
             color: white;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(50, 50, 60, 0.2);
+            position: relative;
+            z-index: 2;
         }
         
         .akan .section-header {
-            background: linear-gradient(135deg, #ff6a00, #ff3d00);
+            background: linear-gradient(135deg, #4a3a2a, #3a2a1a);
         }
         
         .sedang .section-header {
-            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            background: linear-gradient(135deg, #2a3a4a, #1a2a3a);
         }
         
         .sudah .section-header {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            background: linear-gradient(135deg, #3a4a2a, #2a3a1a);
         }
         
         .status-icon {
-            width: 36px;
-            height: 36px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-right: 15px;
+            font-size: 18px;
+            background: rgba(50, 50, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s;
+        }
+        
+        .bonus-section:hover .status-icon {
+            transform: scale(1.1);
         }
         
         .bonus-content {
-            padding: 20px;
+            padding: 25px;
             position: relative;
+            z-index: 2;
         }
         
         .text-content {
-            /* Konten teks yang akan disalin */
             white-space: pre-line;
         }
         
@@ -207,60 +252,75 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
+            width: 6px;
             height: 100%;
+            border-radius: 0 3px 3px 0;
         }
         
         .akan .bonus-content::before {
-            background: linear-gradient(to bottom, #ff6a00, #ff3d00);
+            background: linear-gradient(to bottom, #6a5a3a, #5a4a2a);
         }
         
         .sedang .bonus-content::before {
-            background: linear-gradient(to bottom, #1565c0, #0d47a1);
+            background: linear-gradient(to bottom, #3a4a5a, #2a3a4a);
         }
         
         .sudah .bonus-content::before {
-            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+            background: linear-gradient(to bottom, #4a5a3a, #3a4a2a);
         }
         
         .bonus-content p {
-            margin-bottom: 12px;
-            font-size: 15px;
+            margin-bottom: 15px;
+            font-size: 16px;
             color: #d0d0d0;
             text-align: left;
-        }
-        
-        .bonus-list {
-            margin: 15px 0;
+            line-height: 1.8;
+            position: relative;
             padding-left: 20px;
         }
         
-        .bonus-list li {
-            margin-bottom: 8px;
-            font-size: 14.5px;
-            color: #d0d0d0;
-            text-align: left;
-            position: relative;
-            padding-left: 10px;
-        }
-        
-        .bonus-list li::before {
+        .bonus-content p::before {
             content: '•';
             position: absolute;
             left: 0;
-            color: #ff9800;
+            color: #a0a0a0;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .bonus-list {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+        
+        .bonus-list li {
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #d0d0d0;
+            text-align: left;
+            position: relative;
+            padding-left: 15px;
+            line-height: 1.7;
+        }
+        
+        .bonus-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #a0a0a0;
             font-weight: bold;
         }
         
         .note-box {
-            background: linear-gradient(to right, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.15));
-            border-left: 4px solid #ff9800;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 14px;
+            background: linear-gradient(to right, rgba(100, 100, 80, 0.15), rgba(100, 100, 80, 0.1));
+            border-left: 4px solid #a0a080;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 15px;
             position: relative;
-            border: 1px solid rgba(255, 152, 0, 0.2);
+            border: 1px solid rgba(100, 100, 80, 0.2);
+            box-shadow: 0 5px 15px rgba(100, 100, 80, 0.1);
         }
         
         .note-box::before {
@@ -271,51 +331,55 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #ff9800;
-            font-size: 16px;
-            text-shadow: 0 0 5px rgba(255, 152, 0, 0.5);
+            color: #a0a080;
+            font-size: 20px;
         }
         
         .note-box p {
-            margin-left: 30px;
+            margin-left: 35px;
             margin-bottom: 0;
-            color: #ffcc80;
+            color: #c0c0a0;
             text-align: left;
+            padding-left: 0;
+        }
+        
+        .note-box p::before {
+            display: none;
         }
         
         .copy-section {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            padding-top: 15px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            border-top: 1px dashed rgba(70, 70, 80, 0.2);
         }
         
         .copy-btn {
-            background: linear-gradient(135deg, #1a6dff, #0d4cb5);
+            background: linear-gradient(135deg, #3a3a4a, #2a2a3a);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(26, 109, 255, 0.3);
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(30, 30, 40, 0.6);
             position: relative;
             overflow: hidden;
         }
         
         .slot-games .copy-btn {
-            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
-            box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
+            background: linear-gradient(135deg, #4a3a4a, #3a2a3a);
+            box-shadow: 0 5px 15px rgba(50, 30, 50, 0.6);
         }
         
         .rolling-games .copy-btn {
-            background: linear-gradient(135deg, #ff5722, #e64a19);
-            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+            background: linear-gradient(135deg, #4a3a3a, #3a2a2a);
+            box-shadow: 0 5px 15px rgba(50, 30, 30, 0.6);
         }
         
         .copy-btn::before {
@@ -325,7 +389,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.2), transparent);
             transition: 0.5s;
         }
         
@@ -334,16 +398,16 @@
         }
         
         .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(26, 109, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(50, 50, 60, 0.8);
         }
         
         .slot-games .copy-btn:hover {
-            box-shadow: 0 6px 15px rgba(156, 39, 176, 0.5);
+            box-shadow: 0 8px 20px rgba(70, 50, 70, 0.8);
         }
         
         .rolling-games .copy-btn:hover {
-            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
+            box-shadow: 0 8px 20px rgba(70, 50, 50, 0.8);
         }
         
         .copy-btn:active {
@@ -353,99 +417,124 @@
         /* Bagian Pesan Tambahan */
         .additional-messages {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            padding: 0 30px 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 0 35px 35px;
         }
         
         .message-card {
-            background: rgba(40, 40, 60, 0.7);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: rgba(25, 25, 35, 0.8);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(50, 50, 60, 0.2);
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(50, 50, 60, 0.05), transparent);
+            z-index: 1;
+            pointer-events: none;
         }
         
         .message-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            background: rgba(45, 45, 65, 0.8);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
         
         .message-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(70, 70, 80, 0.2);
             text-align: center;
-            color: #ffcc80;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #c0c0a0;
+            position: relative;
+            z-index: 2;
         }
         
         .message-content {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.8;
             color: #d0d0d0;
             flex-grow: 1;
+            position: relative;
+            z-index: 2;
         }
         
         .message-content p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .message-content p::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #a0a0a0;
+            font-weight: bold;
+            font-size: 20px;
         }
         
         .message-card:nth-child(1) {
-            border-top: 4px solid #ff6a00;
+            border-top: 5px solid #5a4a3a;
         }
         
         .message-card:nth-child(2) {
-            border-top: 4px solid #2196f3;
+            border-top: 5px solid #3a4a5a;
         }
         
         .message-card:nth-child(3) {
-            border-top: 4px solid #4caf50;
+            border-top: 5px solid #3a5a4a;
         }
         
         .message-card:nth-child(4) {
-            border-top: 4px solid #9c27b0;
+            border-top: 5px solid #4a3a5a;
         }
         
         .message-card:nth-child(5) {
-            border-top: 4px solid #ff5722;
+            border-top: 5px solid #5a3a3a;
         }
         
         .footer {
             text-align: center;
-            padding: 20px;
-            background: rgba(20, 20, 35, 0.8);
-            color: #8a8a8a;
+            padding: 25px;
+            background: rgba(10, 10, 15, 0.9);
+            color: #7a7a7a;
             font-size: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(50, 50, 60, 0.1);
         }
         
         .floating-notification {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            background: linear-gradient(135deg, #3a4a2a, #2a3a1a);
             color: white;
-            padding: 15px 25px;
+            padding: 18px 30px;
             border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             opacity: 0;
             transition: all 0.4s;
             z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(100, 100, 100, 0.2);
+            font-weight: 500;
         }
         
         .floating-notification.show {
@@ -453,20 +542,211 @@
             opacity: 1;
         }
         
-        .glow {
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(150, 150, 170, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Tambahan animasi dan efek visual */
+        .glow-effect {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            background: radial-gradient(circle at center, rgba(26, 109, 255, 0.1) 0%, transparent 70%);
             pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(80, 80, 100, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -150px;
+            left: -150px;
+            animation: moveGlow 15s infinite alternate;
+        }
+        
+        @keyframes moveGlow {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(calc(100vw - 300px), calc(100vh - 300px));
+            }
+        }
+        
+        .bonus-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bonus-section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(100, 100, 120, 0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .bonus-section:hover::after {
+            animation: shine 0.5s ease-in-out;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(100, 100, 120, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(100, 100, 120, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(100, 100, 120, 0);
+            }
+        }
+        
+        /* Efek hover pada ikon */
+        .status-icon {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .status-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
             z-index: -1;
+            opacity: 0.7;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+        
+        .bonus-section:hover .status-icon::after {
+            transform: scale(1.2);
+            opacity: 0.4;
+        }
+        
+        /* Efek teks berbayang */
+        h1 {
+            text-shadow: 0 0 10px rgba(150, 150, 170, 0.3);
+        }
+        
+        /* Efek border berkedip */
+        @keyframes borderFlash {
+            0%, 100% {
+                border-color: rgba(50, 50, 60, 0.2);
+            }
+            50% {
+                border-color: rgba(70, 70, 80, 0.3);
+            }
+        }
+        
+        .container {
+            animation: borderFlash 5s infinite;
+        }
+        
+        /* Efek hover pada card pesan tambahan */
+        .message-card {
+            position: relative;
+        }
+        
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(80, 80, 100, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .message-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Efek hover pada tombol salin */
+        .copy-btn {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Efek partikel interaktif */
+        @media (min-width: 768px) {
+            .bonus-section:hover .particle {
+                animation-play-state: running;
+            }
         }
         
         @media (max-width: 1400px) {
             .additional-messages {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
@@ -478,19 +758,29 @@
             .bonus-column {
                 min-width: 48%;
             }
-            
+        }
+        
+        @media (max-width: 992px) {
             .additional-messages {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
             }
         }
         
         @media (max-width: 768px) {
             body {
-                padding: 15px 10px;
+                padding: 20px 15px;
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 32px;
             }
             
             .subtitle {
@@ -498,8 +788,8 @@
             }
             
             .bonus-columns {
-                padding: 20px 15px;
-                gap: 15px;
+                padding: 25px 20px;
+                gap: 20px;
                 flex-direction: column;
             }
             
@@ -508,61 +798,71 @@
             }
             
             .section-header {
-                padding: 15px;
-                font-size: 16px;
+                padding: 18px 20px;
+                font-size: 18px;
             }
             
             .bonus-content {
-                padding: 15px;
+                padding: 20px;
             }
             
             .bonus-content p {
-                font-size: 14px;
+                font-size: 15px;
+            }
+            
+            .column-title {
+                font-size: 20px;
+                padding: 18px;
+            }
+            
+            .additional-messages {
+                padding: 0 20px 25px;
+                gap: 20px;
+            }
+            
+            .message-card {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+            
+            .section-header {
+                font-size: 16px;
+            }
+            
+            .status-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+                font-size: 16px;
             }
             
             .column-title {
                 font-size: 18px;
             }
             
-            .additional-messages {
-                padding: 0 15px 20px;
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 24px;
-            }
-            
-            .section-header {
-                font-size: 15px;
-            }
-            
-            .status-icon {
-                width: 32px;
-                height: 32px;
-                margin-right: 10px;
-                font-size: 14px;
-            }
-            
-            .column-title {
+            .message-title {
                 font-size: 16px;
             }
             
-            .message-title {
-                font-size: 15px;
-                min-height: 40px;
+            .floating-notification {
+                padding: 15px 25px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
+    <div class="particles" id="particles"></div>
+    <div class="glow-effect"></div>
     <div class="container">
         <header>
             <h1>INFORMASI BONUS LINE TOGEL</h1>
-            <p class="subtitle">Update Terkini Bonus Cashback & Rollingan</p>
+            <p class="subtitle">Update Terkini Bonus Cashback & Rollingan - Semua Bonus Dibagikan Otomatis</p>
         </header>
         
         <div class="bonus-columns">
@@ -581,7 +881,8 @@
                     </div>
                     <div class="bonus-content">
                         <div class="text-content" id="akan-dibagikan-live">
-                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
                             
                             <div class="note-box">
                                 <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
@@ -605,8 +906,9 @@
                     </div>
                     <div class="bonus-content">
                         <div class="text-content" id="sedang-dibagikan-live">
-                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE sedang di bagikan dan bertahap tanpa perlu di klaim ya bosku.Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
-                        
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE sedang di bagikan dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            
                             <div class="note-box">
                                 <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
                             </div>
@@ -629,10 +931,10 @@
                     </div>
                     <div class="bonus-content">
                         <div class="text-content" id="sudah-dibagikan-live">
-                            <p>Yth member setia Linetogel,
-                               Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE telah selesai dibagikan, silahkan di check didalam akun anda.
-                               Untuk periode bonus dihitung dari hari Senin S/D Minggu.
-                               Terimakasih atas perhatiannya salam JP</p>
+                            <p>Yth member setia Linetogel,</p>
+                            <p>Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE telah selesai dibagikan, silahkan di check didalam akun anda.</p>
+                            <p>Untuk periode bonus dihitung dari hari Senin S/D Minggu.</p>
+                            <p>Terimakasih atas perhatiannya salam JP</p>
                         </div>
                         
                         <div class="copy-section">
@@ -791,8 +1093,8 @@
             <div class="message-card">
                 <div class="message-title">JIKA MASIH MENANG SLOT GAMES</div>
                 <div class="message-content" id="message-menang-slot">
-                    <p>Mohon maaf bosku disini kami cekkan akun anda mengalami kemenangan pada permainan SLOT GAMES selama seminggu terakhir ya bosku
-                      Sehingga tidak memenuhi syarat bonus Cashback Kekalahan tersebut ya bosku Terima kasih</p>
+                    <p>Mohon maaf bosku disini kami cekkan akun anda mengalami kemenangan pada permainan SLOT GAMES selama seminggu terakhir ya bosku.</p>
+                    <p>Sehingga tidak memenuhi syarat bonus Cashback Kekalahan tersebut ya bosku Terima kasih</p>
                 </div>
                 <div class="copy-section">
                     <button class="copy-btn" onclick="copyToClipboard('message-menang-slot')">
@@ -816,7 +1118,8 @@
             <div class="message-card">
                 <div class="message-title">TIDAK DAPAT MEMBERIKAN KEMENANGAN</div>
                 <div class="message-content" id="message-tidak-dapat-kemenangan">
-                    <p>Maaf bosku kami tidak dapat memberikan kekalahan ataupun kemenangan yah bosku, semua tergantung dengan keberuntungan masing-masing individu yah bosku</p>
+                    <p>Maaf bosku kami tidak dapat memberikan kekalahan ataupun kemenangan yah bosku,</p>
+                    <p>Semua tergantung dengan keberuntungan masing-masing individu yah bosku</p>
                 </div>
                 <div class="copy-section">
                     <button class="copy-btn" onclick="copyToClipboard('message-tidak-dapat-kemenangan')">
@@ -828,7 +1131,8 @@
             <div class="message-card">
                 <div class="message-title">BONUS DI BAGI AUTOPILOT 1</div>
                 <div class="message-content" id="message-autopilot1">
-                    <p>Untuk bonus dibagikan secara otomatis sesuai dengan syarat dan ketentuan yang ada oleh sistem Dan tanpa perlu melakukan claim bonus yah bosku.</p>
+                    <p>Untuk bonus dibagikan secara otomatis sesuai dengan syarat dan ketentuan yang ada oleh sistem.</p>
+                    <p>Dan tanpa perlu melakukan claim bonus yah bosku.</p>
                 </div>
                 <div class="copy-section">
                     <button class="copy-btn" onclick="copyToClipboard('message-autopilot1')">
@@ -840,8 +1144,9 @@
             <div class="message-card">
                 <div class="message-title">BONUS DI BAGI AUTOPILOT 2</div>
                 <div class="message-content" id="message-autopilot2">
-                    <p>Mohon maaf bosku perihal pembagian dan perhitungan Bonus sudah diproses secara otomatis oleh sistem sesuai jadwal dengan syarat dan ketentuan yang ada tanpa perlu diclaim ya bosku.</p>
-                    
+                    <p>ADA BONUS APA AJA</p>
+                    <p>Untuk terkait bonus anda dapat mengecek menu promosi kami ya bosku</p>
+                    <p>Berikut linknya : https://line34256.com/promotion</p>
                 </div>
                 <div class="copy-section">
                     <button class="copy-btn" onclick="copyToClipboard('message-autopilot2')">
@@ -852,7 +1157,7 @@
         </div>
         
         <div class="footer">
-            <p>Line Togel &copy; 2023 - Semua Hak Dilindungi</p>
+            <p>Line Togel &copy; 2023 - Semua Hak Dilindungi | Bonus Dibagikan Otomatis Tanpa Perlu Klaim</p>
         </div>
     </div>
     
@@ -880,16 +1185,27 @@
             // Ambil semua elemen dalam clonedElement
             const elements = clonedElement.querySelectorAll('p, li, .note-box p');
             
-            elements.forEach(el => {
+            elements.forEach((el, index) => {
                 if (el.tagName === 'P') {
                     // Untuk paragraf, tambahkan teks dengan baris baru
-                    text += el.textContent.trim() + '\n\n';
+                    const content = el.textContent.trim();
+                    if (content) {
+                        text += content;
+                        // Tambahkan baris baru hanya jika bukan elemen terakhir
+                        if (index < elements.length - 1) {
+                            text += '\n';
+                        }
+                    }
                 } else if (el.tagName === 'LI') {
                     // Untuk list item, tambahkan dengan bullet
                     text += '• ' + el.textContent.trim() + '\n';
                 } else {
                     // Untuk elemen lainnya
-                    text += el.textContent.trim() + '\n\n';
+                    text += el.textContent.trim();
+                    // Tambahkan baris baru hanya jika bukan elemen terakhir
+                    if (index < elements.length - 1) {
+                        text += '\n';
+                    }
                 }
             });
             
@@ -921,12 +1237,13 @@
         
         // Tambahkan efek saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
+            // Animasi untuk section
             const sections = document.querySelectorAll('.bonus-section, .message-card');
             sections.forEach((section, index) => {
                 setTimeout(() => {
                     section.style.opacity = '0';
-                    section.style.transform = 'translateY(20px)';
-                    section.style.transition = 'opacity 0.5s, transform 0.5s';
+                    section.style.transform = 'translateY(30px)';
+                    section.style.transition = 'opacity 0.6s, transform 0.6s';
                     
                     setTimeout(() => {
                         section.style.opacity = '1';
@@ -935,14 +1252,17 @@
                 }, index * 200);
             });
             
-            // Efek glow background
-            document.addEventListener('mousemove', function(e) {
-                const glow = document.querySelector('.glow');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                glow.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(26, 109, 255, 0.15) 0%, transparent 70%)`;
-            });
+            // Efek partikel background
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.width = Math.random() * 3 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particlesContainer.appendChild(particle);
+            }
             
             // Tambahkan ikon untuk slot games dan rollingan
             const style = document.createElement('style');
@@ -957,10 +1277,47 @@
                 }
             `;
             document.head.appendChild(style);
+            
+            // Tambahkan efek glow pada container
+            const container = document.querySelector('.container');
+            container.classList.add('pulse-animation');
+            
+            // Tambahkan efek interaktif pada section saat dihover
+            const bonusSections = document.querySelectorAll('.bonus-section');
+            bonusSections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Tambahkan efek interaktif pada message card
+            const messageCards = document.querySelectorAll('.message-card');
+            messageCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Tambahkan efek glow pada tombol saat dihover
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 15px rgba(150, 150, 170, 0.5)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                });
+            });
         });
     </script>
 </body>
-
 </html>
-
-
