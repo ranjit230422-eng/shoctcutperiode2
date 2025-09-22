@@ -65,9 +65,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .admin-header::before {
@@ -104,22 +101,6 @@
             font-size: 18px;
             opacity: 0.9;
             margin-top: 10px;
-            margin-bottom: 15px;
-        }
-
-        .current-time {
-            font-size: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .current-time i {
-            margin-right: 10px;
         }
 
         .admin-content {
@@ -301,7 +282,6 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
-            align-items: center;
         }
 
         .admin-controls input {
@@ -422,6 +402,53 @@
             background: var(--gradient-danger);
         }
 
+        .datetime-display {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .current-date {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--danger);
+            margin-bottom: 8px;
+        }
+
+        .current-time {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .auto-reset-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        .refresh-btn {
+            background: var(--gradient-success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .refresh-btn i {
+            margin-right: 5px;
+        }
+
         @media (max-width: 1200px) {
             .admin-stats {
                 grid-template-columns: repeat(2, 1fr);
@@ -454,16 +481,12 @@
                 flex-direction: column;
             }
             
-            .admin-logo {
-                font-size: 28px;
-            }
-            
-            .admin-subtitle {
-                font-size: 16px;
+            .current-date {
+                font-size: 20px;
             }
             
             .current-time {
-                font-size: 16px;
+                font-size: 26px;
             }
         }
     </style>
@@ -476,10 +499,6 @@
                 ADMIN MASTER - LINETOGEL
             </div>
             <div class="admin-subtitle">Sistem Manajemen Absensi Staff</div>
-            <div class="current-time">
-                <i class="fas fa-clock"></i>
-                <span id="currentDateTime">Loading waktu...</span>
-            </div>
         </div>
 
         <div class="admin-content">
@@ -506,8 +525,21 @@
 
             <!-- Panel Admin (akan ditampilkan setelah login) -->
             <div id="adminPanel" class="admin-panel">
+                <div class="datetime-display">
+                    <div class="current-date" id="currentDate">Memuat tanggal...</div>
+                    <div class="current-time" id="currentTime">Memuat waktu...</div>
+                    <div class="auto-reset-info">
+                        <i class="fas fa-sync-alt"></i> Data absensi akan otomatis reset setiap hari pukul 00:00
+                    </div>
+                </div>
+
                 <div class="admin-controls">
-                    <input type="text" id="searchStaff" placeholder="Cari staff...">
+                    <div style="display: flex; align-items: center;">
+                        <input type="text" id="searchStaff" placeholder="Cari staff...">
+                        <button class="refresh-btn" id="refreshDataBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
                     <button class="btn btn-danger" id="adminLogoutBtn">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
@@ -592,7 +624,7 @@
                 'RAM KIRAN': { id: 'E2620081' },
                 'BOBY KASANDRA BANCIN': { id: 'C8991790' },
                 'KIKI YUNITA': { id: 'C8245909' },
-                'CHARLOIPO MANULLANG': { id: 'E0286030' },
+                'CHARLOIPO MANULLang': { id: 'E0286030' },
                 'FAHRI FIRMANSYAH': { id: 'E5192174' },
                 'GALI PRATAMA': { id: 'E377357' },
                 'PRIMA NUGRAHA': { id: 'E5112965' },
@@ -647,27 +679,9 @@
             const adminAbsenCount = document.getElementById('adminAbsenCount');
             const adminNotAbsenCount = document.getElementById('adminNotAbsenCount');
             const searchStaffInput = document.getElementById('searchStaff');
-            const currentDateTimeElement = document.getElementById('currentDateTime');
-
-            // Fungsi untuk update waktu dan tanggal
-            function updateDateTime() {
-                const now = new Date();
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                };
-                const dateTimeStr = now.toLocaleDateString('id-ID', options);
-                currentDateTimeElement.textContent = dateTimeStr;
-            }
-
-            // Update waktu setiap detik
-            setInterval(updateDateTime, 1000);
-            updateDateTime(); // Panggil pertama kali
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+            const refreshDataBtn = document.getElementById('refreshDataBtn');
 
             // Toggle password visibility
             toggleAdminPassword.addEventListener('click', function() {
@@ -694,7 +708,30 @@
                 }, 3000);
             }
 
-            // Format waktu dan tanggal untuk absen
+            // Update tanggal dan waktu secara real-time
+            function updateDateTime() {
+                const now = new Date();
+                
+                // Format tanggal: Hari, DD/MM/YYYY
+                const dateStr = now.toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                
+                // Format waktu: HH:MM:SS
+                const timeStr = now.toLocaleTimeString('id-ID', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                currentDateElement.textContent = dateStr;
+                currentTimeElement.textContent = timeStr;
+            }
+
+            // Format waktu dan tanggal untuk penyimpanan
             function formatDateTime() {
                 const now = new Date();
                 
@@ -713,15 +750,19 @@
                     year: 'numeric'
                 });
                 
+                // Format tanggal kunci: DD/MM/YYYY (untuk perbandingan)
+                const dateKey = now.toLocaleDateString('id-ID');
+                
                 return {
                     time: timeStr,
-                    date: dateStr
+                    date: dateStr,
+                    dateKey: dateKey
                 };
             }
 
             // Inisialisasi data absensi jika belum ada
             function initializeAttendanceData() {
-                const today = new Date().toLocaleDateString('id-ID');
+                const { dateKey: today } = formatDateTime();
                 const lastReset = localStorage.getItem('lastResetDate');
                 let attendanceData = JSON.parse(localStorage.getItem('attendanceData')) || {};
 
@@ -738,8 +779,11 @@
                     }
                     
                     localStorage.setItem('lastResetDate', today);
+                    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+                    console.log('Data absensi direset untuk tanggal:', today);
                 } else {
                     // Pastikan semua staff ada dalam attendanceData
+                    let dataUpdated = false;
                     for (const staff in staffData) {
                         if (!attendanceData[staff]) {
                             attendanceData[staff] = {
@@ -748,18 +792,24 @@
                                 lastAttendance: null,
                                 history: []
                             };
+                            dataUpdated = true;
                         }
+                    }
+                    
+                    if (dataUpdated) {
+                        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+                        console.log('Data staff diperbarui');
                     }
                 }
 
-                localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
                 return attendanceData;
             }
 
             // Update daftar staff untuk admin
             function updateStaffList(searchTerm = '') {
+                // Pastikan data terbaru dari localStorage
                 const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-                const todayStr = new Date().toLocaleDateString('id-ID');
+                const { dateKey: todayStr } = formatDateTime();
                 
                 let absenCount = 0;
                 let notAbsenCount = 0;
@@ -778,12 +828,11 @@
                     let status = 'Belum Absen';
                     let statusClass = 'status-absent';
                     
-                    if (attendanceInfo.lastAttendance === todayStr) {
-                        if (attendanceInfo.absenTime) {
-                            status = 'Sudah Absen';
-                            statusClass = 'status-present';
-                            absenCount++;
-                        }
+                    // Perbaikan logika pengecekan status absensi
+                    if (attendanceInfo.lastAttendance === todayStr && attendanceInfo.absenTime) {
+                        status = 'Sudah Absen';
+                        statusClass = 'status-present';
+                        absenCount++;
                     } else {
                         notAbsenCount++;
                     }
@@ -817,14 +866,16 @@
                         adminPerformAbsen(staffName);
                     });
                 });
+                
+                console.log(`Staff list updated: ${absenCount} hadir, ${notAbsenCount} tidak hadir`);
             }
             
             // Fungsi untuk admin melakukan absen atas nama staff
             function adminPerformAbsen(staffName) {
-                const { time: timeStr, date: dateStr } = formatDateTime();
-                const todayStr = new Date().toLocaleDateString('id-ID');
+                const { time: timeStr, date: dateStr, dateKey: todayStr } = formatDateTime();
                 
-                const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                // Ambil data terbaru dari localStorage
+                let attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
                 
                 // Pastikan objek staff ada
                 if (!attendanceData[staffName]) {
@@ -858,12 +909,15 @@
                     type: 'ABSEN (by Admin)'
                 });
                 
-                showToast(`Absen berhasil untuk ${staffName} pada ${timeStr}`);
-                
+                // Simpan ke localStorage
                 localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+                
+                showToast(`Absen berhasil untuk ${staffName} pada ${timeStr}`);
                 
                 // Perbarui tampilan
                 updateStaffList(searchStaffInput.value);
+                
+                console.log(`Admin melakukan absen untuk ${staffName} pada ${dateStr} ${timeStr}`);
             }
 
             // Event listener untuk login admin
@@ -887,6 +941,9 @@
                     // Update daftar staff
                     updateStaffList();
                     
+                    // Update tanggal dan waktu
+                    updateDateTime();
+                    
                     showToast(`Login admin berhasil, selamat datang ${username}!`);
                 } else {
                     // Login gagal
@@ -907,6 +964,24 @@
                 updateStaffList(this.value);
             });
             
+            // Event listener untuk refresh data
+            refreshDataBtn.addEventListener('click', function() {
+                // Animasi icon refresh
+                const icon = this.querySelector('i');
+                icon.classList.add('fa-spin');
+                
+                // Refresh data
+                initializeAttendanceData();
+                updateStaffList(searchStaffInput.value);
+                
+                // Hapus animasi setelah 1 detik
+                setTimeout(() => {
+                    icon.classList.remove('fa-spin');
+                }, 1000);
+                
+                showToast('Data absensi berhasil diperbarui');
+            });
+            
             // Event listener untuk logout admin
             adminLogoutBtn.addEventListener('click', function() {
                 sessionStorage.removeItem('currentAdmin');
@@ -918,13 +993,35 @@
                 showToast('Logout admin berhasil');
             });
 
+            // Update tanggal dan waktu setiap detik
+            setInterval(updateDateTime, 1000);
+
+            // Auto-refresh data setiap 30 detik
+            setInterval(() => {
+                if (adminPanel.style.display === 'block') {
+                    updateStaffList(searchStaffInput.value);
+                    console.log('Auto-refresh data absensi');
+                }
+            }, 30000);
+
             // Cek apakah admin sudah login
             if (sessionStorage.getItem('currentAdmin')) {
                 adminLoginForm.classList.add('hidden');
                 adminPanel.style.display = 'block';
                 initializeAttendanceData();
                 updateStaffList();
+                updateDateTime();
             }
+
+            // Debug: Pantau perubahan localStorage
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'attendanceData') {
+                    console.log('Data absensi diperbarui dari tab lain');
+                    if (adminPanel.style.display === 'block') {
+                        updateStaffList(searchStaffInput.value);
+                    }
+                }
+            });
         });
     </script>
 </body>
