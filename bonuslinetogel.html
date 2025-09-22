@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Bonus Line Togel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            color: #e0e0e0;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1600px;
+            width: 100%;
+            background: rgba(30, 30, 46, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff9a00, #2196f3, #4caf50, #9c27b0, #ff5722);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(26, 109, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            background: linear-gradient(90deg, #ff9a00, #ff6a00, #9c27b0, #ff5722);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.8;
+            font-weight: 300;
+            position: relative;
+            color: #b0b0b0;
+        }
+        
+        .bonus-columns {
+            display: flex;
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .bonus-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .column-title {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .column-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .column-title span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .live-games .column-title {
+            background: linear-gradient(135deg, #1a6dff, #0d4cb5);
+            box-shadow: 0 5px 15px rgba(26, 109, 255, 0.3);
+        }
+        
+        .slot-games .column-title {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+        }
+        
+        .rolling-games .column-title {
+            background: linear-gradient(135deg, #ff5722, #e64a19);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+        
+        .bonus-section {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: rgba(40, 40, 60, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .bonus-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(45, 45, 65, 0.8);
+        }
+        
+        .section-header {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .akan .section-header {
+            background: linear-gradient(135deg, #ff6a00, #ff3d00);
+        }
+        
+        .sedang .section-header {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+        }
+        
+        .sudah .section-header {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+        }
+        
+        .status-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .bonus-content {
+            padding: 20px;
+            position: relative;
+        }
+        
+        .text-content {
+            /* Konten teks yang akan disalin */
+            white-space: pre-line;
+        }
+        
+        .bonus-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+        
+        .akan .bonus-content::before {
+            background: linear-gradient(to bottom, #ff6a00, #ff3d00);
+        }
+        
+        .sedang .bonus-content::before {
+            background: linear-gradient(to bottom, #1565c0, #0d47a1);
+        }
+        
+        .sudah .bonus-content::before {
+            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+        }
+        
+        .bonus-content p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #d0d0d0;
+            text-align: left;
+        }
+        
+        .bonus-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .bonus-list li {
+            margin-bottom: 8px;
+            font-size: 14.5px;
+            color: #d0d0d0;
+            text-align: left;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .bonus-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .note-box {
+            background: linear-gradient(to right, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.15));
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            position: relative;
+            border: 1px solid rgba(255, 152, 0, 0.2);
+        }
+        
+        .note-box::before {
+            content: '\f06a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff9800;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(255, 152, 0, 0.5);
+        }
+        
+        .note-box p {
+            margin-left: 30px;
+            margin-bottom: 0;
+            color: #ffcc80;
+            text-align: left;
+        }
+        
+        .copy-section {
+            margin-top: 15px;
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #1a6dff, #0d4cb5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(26, 109, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slot-games .copy-btn {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+            box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
+        }
+        
+        .rolling-games .copy-btn {
+            background: linear-gradient(135deg, #ff5722, #e64a19);
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+        
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .copy-btn:hover::before {
+            left: 100%;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 109, 255, 0.5);
+        }
+        
+        .slot-games .copy-btn:hover {
+            box-shadow: 0 6px 15px rgba(156, 39, 176, 0.5);
+        }
+        
+        .rolling-games .copy-btn:hover {
+            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Bagian Pesan Tambahan */
+        .additional-messages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 0 30px 30px;
+        }
+        
+        .message-card {
+            background: rgba(40, 40, 60, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(45, 45, 65, 0.8);
+        }
+        
+        .message-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #ffcc80;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .message-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d0d0d0;
+            flex-grow: 1;
+        }
+        
+        .message-content p {
+            margin-bottom: 10px;
+        }
+        
+        .message-card:nth-child(1) {
+            border-top: 4px solid #ff6a00;
+        }
+        
+        .message-card:nth-child(2) {
+            border-top: 4px solid #2196f3;
+        }
+        
+        .message-card:nth-child(3) {
+            border-top: 4px solid #4caf50;
+        }
+        
+        .message-card:nth-child(4) {
+            border-top: 4px solid #9c27b0;
+        }
+        
+        .message-card:nth-child(5) {
+            border-top: 4px solid #ff5722;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(20, 20, 35, 0.8);
+            color: #8a8a8a;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .floating-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.4s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .floating-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(26, 109, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @media (max-width: 1400px) {
+            .additional-messages {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .bonus-columns {
+                flex-wrap: wrap;
+            }
+            
+            .bonus-column {
+                min-width: 48%;
+            }
+            
+            .additional-messages {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .bonus-columns {
+                padding: 20px 15px;
+                gap: 15px;
+                flex-direction: column;
+            }
+            
+            .bonus-column {
+                min-width: 100%;
+            }
+            
+            .section-header {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .bonus-content {
+                padding: 15px;
+            }
+            
+            .bonus-content p {
+                font-size: 14px;
+            }
+            
+            .column-title {
+                font-size: 18px;
+            }
+            
+            .additional-messages {
+                padding: 0 15px 20px;
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+            
+            .section-header {
+                font-size: 15px;
+            }
+            
+            .status-icon {
+                width: 32px;
+                height: 32px;
+                margin-right: 10px;
+                font-size: 14px;
+            }
+            
+            .column-title {
+                font-size: 16px;
+            }
+            
+            .message-title {
+                font-size: 15px;
+                min-height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="container">
+        <header>
+            <h1>INFORMASI BONUS LINE TOGEL</h1>
+            <p class="subtitle">Update Terkini Bonus Cashback & Rollingan</p>
+        </header>
+        
+        <div class="bonus-columns">
+            <!-- Kolom Kiri: BONUS LIVE GAMES -->
+            <div class="bonus-column live-games">
+                <div class="column-title">
+                    <span><i class="fas fa-dice"></i> BONUS LIVE GAMES</span>
+                </div>
+                
+                <div class="bonus-section akan">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        AKAN DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="akan-dibagikan-live">
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('akan-dibagikan-live')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-section sedang">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        SEDANG DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="sedang-dibagikan-live">
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE sedang di bagikan dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('sedang-dibagikan-live')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-section sudah">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        SUDAH DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="sudah-dibagikan-live">
+                            <p>Yth member setia Linetogel,</p>
+                            <p>Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE telah selesai dibagikan, silahkan di check didalam akun anda.</p>
+                            <p>Untuk periode bonus dihitung dari hari Senin S/D Minggu.</p>
+                            <p>Terimakasih atas perhatiannya salam JP</p>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('sudah-dibagikan-live')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kolom Tengah: BONUS SLOT GAMES -->
+            <div class="bonus-column slot-games">
+                <div class="column-title">
+                    <span><i class="fas fa-slots"></i> BONUS SLOT GAMES</span>
+                </div>
+                
+                <div class="bonus-section akan">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        AKAN DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="akan-dibagikan-slot">
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('akan-dibagikan-slot')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-section sedang">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        SEDANG DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="sedang-dibagikan-slot">
+                            <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery sedang di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('sedang-dibagikan-slot')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-section sudah">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        SUDAH DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="sudah-dibagikan-slot">
+                            <p>Yth member setia Linetogel,</p>
+                            <p>Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES & E-LOTTERY ) telah selesai dibagikan, silahkan di check didalam akun anda.</p>
+                            <p>Untuk periode bonus dihitung dari hari Selasa S/D Senin.</p>
+                            <p>Terimakasih atas perhatiannya salam JP</p>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('sudah-dibagikan-slot')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kolom Kanan: BONUS ROLLINGAN -->
+            <div class="bonus-column rolling-games">
+                <div class="column-title">
+                    <span><i class="fas fa-rotate"></i> BONUS ROLLINGAN</span>
+                </div>
+                
+                <div class="bonus-section akan">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        AKAN DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="akan-dibagikan-rolling">
+                            <p>Untuk hari ini adalah:</p>
+                            
+                            <ul class="bonus-list">
+                                <li>Bonus Rollingan turnover LIVE GAMES sebesar 0,5% dari total bettingan</li>
+                                <li>Bonus Rollingan turnover LIVE CASINO PRAGMATIC PLAY sebesar 0,5% dari total bettingan</li>
+                                <li>Bonus Rollingan turnover ARCADE sebesar 0,5% dari total bettingan</li>
+                                <li>Bonus Rollingan turnover SLOT sebesar 0,5% dari total bettingan</li>
+                                <li>Bonus Rollingan turnover E-lottery sebesar 0,5% dari total bettingan</li>
+                            </ul>
+                            
+                            <p>Perihal bonus tersebut belum dibagikan. namun akan di bagikan secara otomatis lebih kurang pukul 11:00 WIB secara bertahap tanpa perlu di klaim ya bosku.</p>
+                            <p>Mohon kesabarannya hingga pembagian bonus hari ini selesai ya bosku</p>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('akan-dibagikan-rolling')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-section sudah">
+                    <div class="section-header">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        SUDAH DIBAGIKAN
+                    </div>
+                    <div class="bonus-content">
+                        <div class="text-content" id="sudah-dibagikan-rolling">
+                            <p>Yth member setia Linetogel,</p>
+                            <p>Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS ROLLINGAN LIVEGAMES, SLOTGAMES, LIVECASINO PRAGMATIC, E-LOTTERY & ARCADE telah selesai dibagikan, silahkan di check didalam akun anda.</p>
+                            <p>Untuk periode bonus dihitung dari hari KAMIS S/D RABU.</p>
+                            <p>Terimakasih atas perhatiannya salam JP.</p>
+                        </div>
+                        
+                        <div class="copy-section">
+                            <button class="copy-btn" onclick="copyToClipboard('sudah-dibagikan-rolling')">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bagian Pesan Tambahan -->
+        <div class="additional-messages">
+            <div class="message-card">
+                <div class="message-title">JIKA MASIH MENANG SLOT GAMES</div>
+                <div class="message-content" id="message-menang-slot">
+                    <p>Mohon maaf bosku disini kami cekkan akun anda mengalami kemenangan pada permainan SLOT GAMES selama seminggu terakhir ya bosku
+                      Sehingga tidak memenuhi syarat bonus Cashback Kekalahan tersebut ya bosku Terima kasih</p>
+                </div>
+                <div class="copy-section">
+                    <button class="copy-btn" onclick="copyToClipboard('message-menang-slot')">
+                        <i class="fas fa-copy"></i> Salin Teks
+                    </button>
+                </div>
+            </div>
+            
+            <div class="message-card">
+                <div class="message-title">GAK PERNAH DAPAT BONUS</div>
+                <div class="message-content" id="message-gak-dapat-bonus">
+                    <p>Mohon maaf bosku, jika user id anda memenuhi syarat dan ketentuan yang berlaku maka bonus akan otomatis masuk ke akun anda tanpa perlu di klaim di live chat ya bosku, Terima kasih</p>
+                </div>
+                <div class="copy-section">
+                    <button class="copy-btn" onclick="copyToClipboard('message-gak-dapat-bonus')">
+                        <i class="fas fa-copy"></i> Salin Teks
+                    </button>
+                </div>
+            </div>
+            
+            <div class="message-card">
+                <div class="message-title">TIDAK DAPAT MEMBERIKAN KEMENANGAN</div>
+                <div class="message-content" id="message-tidak-dapat-kemenangan">
+                    <p>Maaf bosku kami tidak dapat memberikan kekalahan ataupun kemenangan yah bosku, semua tergantung dengan keberuntungan masing-masing individu yah bosku</p>
+                </div>
+                <div class="copy-section">
+                    <button class="copy-btn" onclick="copyToClipboard('message-tidak-dapat-kemenangan')">
+                        <i class="fas fa-copy"></i> Salin Teks
+                    </button>
+                </div>
+            </div>
+            
+            <div class="message-card">
+                <div class="message-title">BONUS DI BAGI AUTOPILOT 1</div>
+                <div class="message-content" id="message-autopilot1">
+                    <p>Untuk bonus dibagikan secara otomatis sesuai dengan syarat dan ketentuan yang ada oleh sistem Dan tanpa perlu melakukan claim bonus yah bosku.</p>
+                </div>
+                <div class="copy-section">
+                    <button class="copy-btn" onclick="copyToClipboard('message-autopilot1')">
+                        <i class="fas fa-copy"></i> Salin Teks
+                    </button>
+                </div>
+            </div>
+            
+            <div class="message-card">
+                <div class="message-title">BONUS DI BAGI AUTOPILOT 2</div>
+                <div class="message-content" id="message-autopilot2">
+                    <p>Mohon maaf bosku perihal pembagian dan perhitungan Bonus sudah diproses secara otomatis oleh sistem sesuai jadwal dengan syarat dan ketentuan yang ada tanpa perlu diclaim ya bosku.</p>
+                    
+                </div>
+                <div class="copy-section">
+                    <button class="copy-btn" onclick="copyToClipboard('message-autopilot2')">
+                        <i class="fas fa-copy"></i> Salin Teks
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Line Togel &copy; 2023 - Semua Hak Dilindungi</p>
+        </div>
+    </div>
+    
+    <div class="floating-notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Teks berhasil disalin!</span>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            
+            // Clone elemen untuk menghindari modifikasi langsung
+            const clonedElement = element.cloneNode(true);
+            
+            // Hapus elemen yang tidak ingin disalin (tombol salin)
+            const copySections = clonedElement.querySelectorAll('.copy-section');
+            copySections.forEach(section => {
+                section.remove();
+            });
+            
+            // Format teks agar rapi
+            let text = '';
+            
+            // Ambil semua elemen dalam clonedElement
+            const elements = clonedElement.querySelectorAll('p, li, .note-box p');
+            
+            elements.forEach(el => {
+                if (el.tagName === 'P') {
+                    // Untuk paragraf, tambahkan teks dengan baris baru
+                    text += el.textContent.trim() + '\n\n';
+                } else if (el.tagName === 'LI') {
+                    // Untuk list item, tambahkan dengan bullet
+                    text += '• ' + el.textContent.trim() + '\n';
+                } else {
+                    // Untuk elemen lainnya
+                    text += el.textContent.trim() + '\n\n';
+                }
+            });
+            
+            // Hapus baris baru berlebihan di akhir
+            text = text.trim();
+            
+            // Buat elemen textarea sementara
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            
+            // Pilih dan salin teks
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // Untuk perangkat mobile
+            document.execCommand('copy');
+            
+            // Hapus elemen textarea
+            document.body.removeChild(textarea);
+            
+            // Tampilkan notifikasi
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            // Sembunyikan notifikasi setelah 3 detik
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Tambahkan efek saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.bonus-section, .message-card');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(20px)';
+                    section.style.transition = 'opacity 0.5s, transform 0.5s';
+                    
+                    setTimeout(() => {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+            
+            // Efek glow background
+            document.addEventListener('mousemove', function(e) {
+                const glow = document.querySelector('.glow');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                glow.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(26, 109, 255, 0.15) 0%, transparent 70%)`;
+            });
+            
+            // Tambahkan ikon untuk slot games dan rollingan
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .fa-slots:before {
+                    content: "🎰";
+                    font-style: normal;
+                }
+                .fa-rotate:before {
+                    content: "🔄";
+                    font-style: normal;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
