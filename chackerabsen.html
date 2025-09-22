@@ -529,6 +529,10 @@ header::before {
   font-weight: bold;
   color: var(--primary);
   font-size: 14px;
+  background-color: rgba(108, 99, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
 }
 
 /* Responsive adjustments */
@@ -912,7 +916,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Data absensi diinisialisasi:", attendanceData);
   }
 
-  // Update daftar staff untuk admin
+  // Update daftar staff untuk admin - **FUNGSI INI YANG DIPERBAIKI**
   function updateStaffList() {
     const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
     const todayStr = new Date().toLocaleDateString('id-ID');
@@ -935,10 +939,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let status = 'Belum Absen';
       let statusClass = 'status-absent';
+      let waktuAbsen = '-';
       
-      if (attendanceInfo.lastAttendance === todayStr) {
+      // Perbaikan: Cek apakah staff sudah absen hari ini
+      if (attendanceInfo.lastAttendance === todayStr && attendanceInfo.absen) {
         status = 'Sudah Absen';
         statusClass = 'status-present';
+        waktuAbsen = attendanceInfo.absen;
         absenCount++;
       } else {
         absentCount++;
@@ -953,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td>${staff}</td>
         <td>${staffInfo.id}</td>
         <td><span class="status-badge ${statusClass}">${status}</span></td>
-        <td class="time-absen">${attendanceInfo.absen || '-'}</td>
+        <td><span class="time-absen">${waktuAbsen}</span></td>
         <td class="admin-actions">
           <button class="admin-btn admin-btn-absen" data-staff="${staff}" data-type="absen" ${status === 'Sudah Absen' ? 'disabled' : ''}>
             <i class="fas fa-fingerprint"></i> Absenkan
@@ -1035,12 +1042,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const attendanceInfo = attendanceData[staff] || {};
       
       let status = 'Belum Absen';
+      let waktuAbsen = '-';
       
-      if (attendanceInfo.lastAttendance === todayStr) {
+      if (attendanceInfo.lastAttendance === todayStr && attendanceInfo.absen) {
         status = 'Sudah Absen';
+        waktuAbsen = attendanceInfo.absen;
       }
       
-      csvContent += `"${staff}","${staffInfo.id}","${status}","${attendanceInfo.absen || '-'}"\n`;
+      csvContent += `"${staff}","${staffInfo.id}","${status}","${waktuAbsen}"\n`;
     }
     
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
