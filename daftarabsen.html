@@ -16,9 +16,9 @@
   --warning: #FFD166;
   --dark: #2D3436;
   --light: #F8F9FA;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --glass-bg: rgba(255, 255, 255, 0.18);
-  --glass-border: rgba(255, 255, 255, 0.25);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.35);
   --text: #2D3436;
   --text-light: #636e72;
   --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #4CC9F0 100%);
@@ -26,9 +26,9 @@
   --gradient-danger: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
   --gradient-warning: linear-gradient(135deg, #FFD166 0%, #FF9E6D 100%);
   --gradient-dark: linear-gradient(135deg, #2D3436 0%, #636e72 100%);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
-  --shadow-card: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 * {
@@ -49,16 +49,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(76, 201, 240, 0.1) 100%);
+  z-index: -1;
 }
 
 .container {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1400px;
   background: var(--glass-bg);
   border-radius: 28px;
   box-shadow: var(--shadow);
   overflow: hidden;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   animation: fadeIn 0.8s ease-out;
 }
@@ -71,7 +83,7 @@ body {
 header {
   background: var(--gradient-primary);
   color: white;
-  padding: 40px 35px;
+  padding: 50px 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -90,7 +102,7 @@ header::before {
 }
 
 .logo {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: 700;
   margin-bottom: 15px;
   display: flex;
@@ -103,7 +115,7 @@ header::before {
 
 .logo i {
   margin-right: 20px;
-  font-size: 46px;
+  font-size: 52px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   animation: bounce 2s infinite;
 }
@@ -114,7 +126,7 @@ header::before {
 }
 
 .date-display {
-  font-size: 24px;
+  font-size: 26px;
   margin: 20px 0;
   font-weight: 500;
   opacity: 0.9;
@@ -122,11 +134,11 @@ header::before {
 }
 
 .time-display {
-  font-size: 58px;
+  font-size: 64px;
   font-weight: 700;
   font-family: 'Courier New', monospace;
   background: rgba(0, 0, 0, 0.2);
-  padding: 18px 35px;
+  padding: 20px 40px;
   border-radius: 20px;
   display: inline-block;
   margin: 20px 0;
@@ -145,13 +157,13 @@ header::before {
 
 .left-panel {
   flex: 1;
-  min-width: 400px;
+  min-width: 450px;
   padding: 25px;
 }
 
 .right-panel {
   flex: 2;
-  min-width: 500px;
+  min-width: 600px;
   padding: 25px;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -160,10 +172,10 @@ header::before {
   background: var(--card-bg);
   border-radius: 24px;
   box-shadow: var(--shadow-card);
-  padding: 35px;
+  padding: 40px;
   margin-bottom: 35px;
   transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   position: relative;
   overflow: hidden;
   animation: slideUp 0.5s ease-out;
@@ -190,7 +202,7 @@ header::before {
 }
 
 .card-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   margin-bottom: 30px;
   color: var(--primary);
@@ -203,7 +215,7 @@ header::before {
 
 .card-title i {
   margin-right: 18px;
-  font-size: 30px;
+  font-size: 32px;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -827,6 +839,68 @@ header::before {
     opacity: 0;
   }
 }
+
+/* New: Enhanced glassmorphism effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* New: Enhanced input styling */
+.input-glow {
+  transition: all 0.3s ease;
+}
+
+.input-glow:focus {
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+}
+
+/* New: Button enhancements */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.btn-glow:hover::after {
+  left: 100%;
+}
+
+/* New: Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* New: Floating elements */
+.floating-element {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* New: Gradient text */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 </style>
 </head>
 <body>
@@ -835,7 +909,7 @@ header::before {
 <div class="particles" id="particles"></div>
 <div class="logo floating">
 <i class="fas fa-calendar-check"></i>
- ABSENSI LINETOGEL
+ABSENSI LINETOGEL
 </div>
 <div class="date-display" id="currentDate">Senin, 1 Januari 2023</div>
 <div class="time-display" id="currentTime">00:00:00</div>
@@ -843,21 +917,21 @@ header::before {
 
 <div class="content">
 <div class="left-panel">
-<div class="card">
+<div class="card card-hover">
 <div class="card-title">
 <i class="fas fa-sign-in-alt"></i>
 Login Staff
 </div>
 <div id="loginSection">
 <div class="login-form autocomplete">
-<input type="text" id="username" placeholder="Masukkan nama staff" autocomplete="off">
+<input type="text" id="username" placeholder="Masukkan nama staff" autocomplete="off" class="input-glow">
 <div class="password-field">
-<input type="password" id="password" placeholder="Masukkan password">
+<input type="password" id="password" placeholder="Masukkan password" class="input-glow">
 <span class="toggle-password" id="togglePassword">
 <i class="fas fa-eye"></i>
 </span>
 </div>
-<button class="btn btn-primary" id="loginBtn">
+<button class="btn btn-primary btn-glow" id="loginBtn">
 <i class="fas fa-sign-in-alt"></i> Login
 </button>
 </div>
@@ -884,14 +958,14 @@ Riwayat Absensi Hari Ini
 </div>
 
 <div class="attendance-actions">
-<button class="btn btn-success" id="absenBtn">
+<button class="btn btn-success btn-glow" id="absenBtn">
 <i class="fas fa-fingerprint"></i> Absen
 </button>
 </div>
 
 <div id="attendanceStatus" class="attendance-status hidden"></div>
 
-<button class="btn btn-primary" id="logoutBtn" style="margin-top: 20px; width: 100%;">
+<button class="btn btn-primary btn-glow" id="logoutBtn" style="margin-top: 20px; width: 100%;">
 <i class="fas fa-power-off"></i> Logout
 </button>
 </div>
@@ -899,7 +973,7 @@ Riwayat Absensi Hari Ini
 </div>
 
 <div class="right-panel">
-<div class="card">
+<div class="card card-hover">
 <div class="card-title">
 <i class="fas fa-user-clock"></i>
 Informasi Absensi Hari Ini
@@ -913,7 +987,7 @@ Informasi Absensi Hari Ini
 </div>
 </div>
 
-<div class="card">
+<div class="card card-hover">
 <div class="card-title">
 <i class="fas fa-chart-bar"></i>
 Statistik Absensi Hari Ini
@@ -941,7 +1015,7 @@ Statistik Absensi Hari Ini
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Data staff dengan password sama dengan nama staff
+  // Data staff dengan password case-insensitive
   const staffData = {
     'WIDJAYA': { id: 'C6202945 / E7721607', password: '1' },
     'DAVID': { id: 'C6169860 (E6864058)', password: '1' },
@@ -1067,15 +1141,23 @@ document.addEventListener('DOMContentLoaded', function() {
     this.querySelector('i').classList.toggle('fa-eye-slash');
   });
 
+  // Fungsi untuk mengubah teks menjadi format judul (huruf pertama kapital)
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+
   // Autocomplete untuk username
   usernameInput.addEventListener('input', function() {
-    const val = this.value.toUpperCase();
+    const val = this.value;
     closeAllLists();
     
     if (!val) return false;
     
+    // Mencari kecocokan tanpa case-sensitive
     const matches = Object.keys(staffData).filter(staff => 
-      staff.includes(val)
+      staff.toLowerCase().includes(val.toLowerCase())
     );
     
     if (matches.length) {
@@ -1086,7 +1168,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       matches.forEach(staff => {
         const item = document.createElement('div');
-        item.innerHTML = `<strong>${staff}</strong>`;
+        item.innerHTML = `<strong>${toTitleCase(staff)}</strong>`;
         item.innerHTML += `<span style="float:right;color:gray;font-size:12px">${staffData[staff].id}</span>`;
         item.addEventListener('click', function() {
           usernameInput.value = staff;
@@ -1274,28 +1356,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Event listener untuk login
   loginBtn.addEventListener('click', function() {
-    const username = usernameInput.value.trim().toUpperCase();
+    const usernameInputValue = usernameInput.value.trim();
     const password = passwordInput.value.trim();
 
-    if (staffData[username] && staffData[username].password === password) {
+    // Cari username yang cocok (case-insensitive)
+    let foundUsername = null;
+    for (const staff in staffData) {
+      if (staff.toLowerCase() === usernameInputValue.toLowerCase()) {
+        foundUsername = staff;
+        break;
+      }
+    }
+
+    if (foundUsername && staffData[foundUsername].password.toLowerCase() === password.toLowerCase()) {
       // Login berhasil
       loginError.classList.add('hidden');
       loginSection.classList.add('hidden');
       userSection.classList.remove('hidden');
 
-      // Tampilkan info user
-      userName.textContent = username;
-      userId.textContent = `ID: ${staffData[username].id}`;
+      // Tampilkan info user dengan format judul
+      userName.textContent = toTitleCase(foundUsername);
+      userId.textContent = `ID: ${staffData[foundUsername].id}`;
 
       // Simpan info staff yang login
-      sessionStorage.setItem('currentUser', username);
+      sessionStorage.setItem('currentUser', foundUsername);
 
       // Update riwayat absensi dan info pribadi
       updateUserAttendanceHistory();
       updatePersonalAttendanceInfo();
       updateAttendanceStats();
       
-      showToast(`Login berhasil, selamat datang ${username}!`);
+      showToast(`Login berhasil, selamat datang ${toTitleCase(foundUsername)}!`);
     } else {
       // Login gagal
       loginError.classList.remove('hidden');
@@ -1322,7 +1413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update info absensi
     updatePersonalAttendanceInfo();
     
-    showToast(`Logout berhasil, sampai jumpa ${currentUser}!`);
+    showToast(`Logout berhasil, sampai jumpa ${toTitleCase(currentUser)}!`);
   });
 
   // Event listener untuk absen
@@ -1392,7 +1483,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentUser = sessionStorage.getItem('currentUser');
     loginSection.classList.add('hidden');
     userSection.classList.remove('hidden');
-    userName.textContent = currentUser;
+    userName.textContent = toTitleCase(currentUser);
     userId.textContent = `ID: ${staffData[currentUser] ? staffData[currentUser].id : '-'}`;
     updateUserAttendanceHistory();
     updatePersonalAttendanceInfo();
@@ -1405,4 +1496,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
