@@ -1,1650 +1,1299 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absensi Staff Linetogel - Admin Panel</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #6C63FF;
-  --secondary: #4CC9F0;
-  --success: #36D1DC;
-  --danger: #FF6B6B;
-  --warning: #FFD166;
-  --dark: #2D3436;
-  --light: #F8F9FA;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --text: #2D3436;
-  --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #4CC9F0 100%);
-  --gradient-success: linear-gradient(135deg, #36D1DC 0%, #5B86E5 100%);
-  --gradient-danger: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-  --gradient-warning: linear-gradient(135deg, #FFD166 0%, #FF9E6D 100%);
-  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  --shadow-hover: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background-image: url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg');
-  background-size: cover;
-  background-position: tile;
-  background-attachment: fixed;
-  color: var(--text);
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-  background: var(--glass-bg);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-}
-
-header {
-  background: var(--gradient-primary);
-  color: white;
-  padding: 35px 30px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, transparent 30%, rgba(255, 255, 255, 0.1) 70%);
-  opacity: 0.5;
-  transform: rotate(30deg);
-}
-
-.logo {
-  font-size: 38px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1px;
-  position: relative;
-}
-
-.logo i {
-  margin-right: 18px;
-  font-size: 42px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.date-display {
-  font-size: 22px;
-  margin: 18px 0;
-  font-weight: 500;
-  opacity: 0.9;
-  position: relative;
-}
-
-.time-display {
-  font-size: 52px;
-  font-weight: 700;
-  font-family: 'Courier New', monospace;
-  background: rgba(0, 0, 0, 0.15);
-  padding: 15px 30px;
-  border-radius: 18px;
-  display: inline-block;
-  margin: 18px 0;
-  letter-spacing: 3px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  position: relative;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 35px;
-}
-
-.left-panel {
-  flex: 1;
-  min-width: 380px;
-  padding: 20px;
-}
-
-.right-panel {
-  flex: 2;
-  min-width: 450px;
-  padding: 20px;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.card {
-  background: var(--card-bg);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-  padding: 35px;
-  margin-bottom: 35px;
-  transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6px;
-  background: var(--gradient-primary);
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-hover);
-}
-
-.card-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 28px;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  padding-bottom: 15px;
-  border-bottom: 2px solid rgba(108, 99, 255, 0.2);
-  position: relative;
-}
-
-.card-title i {
-  margin-right: 15px;
-  font-size: 28px;
-}
-
-.login-form input {
-  width: 100%;
-  padding: 18px 22px;
-  margin-bottom: 22px;
-  border: 2px solid rgba(108, 99, 255, 0.1);
-  border-radius: 14px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.login-form input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
-  outline: none;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.btn {
-  padding: 18px 28px;
-  border: none;
-  border-radius: 14px;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn:hover::before {
-  opacity: 1;
-}
-
-.btn i {
-  margin-right: 12px;
-  font-size: 18px;
-}
-
-.btn-primary {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.btn-success {
-  background: var(--gradient-success);
-  color: white;
-}
-
-.btn-success:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.btn-danger {
-  background: var(--gradient-danger);
-  color: white;
-}
-
-.btn-danger:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.attendance-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  margin-top: 28px;
-}
-
-.attendance-status {
-  text-align: center;
-  padding: 22px;
-  border-radius: 18px;
-  margin-top: 28px;
-  font-weight: 500;
-  font-size: 17px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.attendance-status i {
-  margin-right: 12px;
-  font-size: 20px;
-}
-
-.status-success {
-  background: rgba(54, 209, 220, 0.15);
-  color: #1890c3;
-  border: 1px solid rgba(54, 209, 220, 0.25);
-}
-
-.status-warning {
-  background: rgba(255, 209, 102, 0.15);
-  color: #d17a08;
-  border: 1px solid rgba(255, 209, 102, 0.25);
-}
-
-.status-error {
-  background: rgba(255, 107, 107, 0.15);
-  color: #d11570;
-  border: 1px solid rgba(255, 107, 107, 0.25);
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  padding: 25px;
-  background: linear-gradient(to right, rgba(108, 99, 255, 0.1), rgba(76, 201, 240, 0.1));
-  border-radius: 18px;
-  margin-bottom: 35px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(108, 99, 255, 0.15);
-  transition: transform 0.3s ease;
-}
-
-.user-info:hover {
-  transform: translateX(5px);
-}
-
-.user-info i {
-  font-size: 36px;
-  margin-right: 22px;
-  color: var(--primary);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.user-details h3 {
-  margin: 0;
-  font-size: 24px;
-  color: var(--dark);
-  font-weight: 600;
-}
-
-.user-details p {
-  margin: 6px 0 0;
-  color: #636e72;
-  font-size: 16px;
-}
-
-.attendance-history-table {
-  width: 100%;
-  margin-top: 22px;
-  font-size: 15px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  border-collapse: collapse;
-}
-
-.attendance-history-table th {
-  background: var(--gradient-primary);
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 14px;
-  padding: 16px 18px;
-  text-align: left;
-}
-
-.attendance-history-table td {
-  padding: 16px 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.time-detail {
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  color: var(--primary);
-  font-size: 16px;
-}
-
-.hidden {
-  display: none;
-}
-
-.today-attendance {
-  margin-top: 28px;
-  padding: 28px;
-  background: linear-gradient(to right, rgba(108, 99, 255, 0.08), rgba(76, 201, 240, 0.08));
-  border-radius: 18px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(108, 99, 255, 0.1);
-}
-
-.attendance-record {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  padding: 18px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  border-left: 5px solid var(--primary);
-  transition: all 0.3s ease;
-}
-
-.attendance-record:hover {
-  transform: translateX(8px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.attendance-time {
-  font-weight: bold;
-  color: var(--primary);
-  font-family: 'Courier New', monospace;
-  font-size: 17px;
-}
-
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 22px;
-  margin-bottom: 22px;
-}
-
-.stat-box {
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: var(--gradient-primary);
-}
-
-.stat-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-}
-
-.stat-value {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-top: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.password-field {
-  position: relative;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 18px;
-  top: 18px;
-  cursor: pointer;
-  color: #636e72;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.7);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Toast notification */
-.toast {
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  padding: 18px 28px;
-  background: var(--gradient-success);
-  color: white;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  opacity: 0;
-  transform: translateY(-40px) translateX(20px);
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  max-width: 400px;
-}
-
-.toast i {
-  margin-right: 12px;
-  font-size: 22px;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-}
-
-.toast.error {
-  background: var(--gradient-danger);
-}
-
-/* Animation for check-in/check-out */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.pulse {
-  animation: pulse 0.5s ease-in-out;
-}
-
-/* Floating animation */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.floating {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Autocomplete items */
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  border-radius: 0 0 14px 14px;
-}
-
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.autocomplete-items div:hover {
-  background-color: #e9e9e9;
-}
-
-.autocomplete-active {
-  background-color: var(--primary) !important;
-  color: #ffffff;
-}
-
-/* Admin Panel Styles */
-.admin-panel {
-  display: none;
-}
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.staff-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-}
-
-.staff-table th, .staff-table td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.staff-table th {
-  background: var(--gradient-primary);
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.staff-table tr:hover {
-  background-color: rgba(108, 99, 255, 0.05);
-}
-
-.status-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.status-present {
-  background-color: rgba(54, 209, 220, 0.15);
-  color: #1890c3;
-}
-
-.status-absent {
-  background-color: rgba(255, 107, 107, 0.15);
-  color: #d11570;
-}
-
-.admin-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.admin-btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.admin-btn-checkin {
-  background: var(--gradient-success);
-  color: white;
-}
-
-.admin-btn-checkout {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.admin-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive adjustments */
-@media (max-width: 968px) {
-  .content {
-    flex-direction: column;
-  }
-
-  .right-panel {
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    margin-top: 25px;
-    padding-top: 35px;
-  }
-
-  .attendance-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-container {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .staff-table {
-    font-size: 14px;
-  }
-  
-  .staff-table th, .staff-table td {
-    padding: 12px 8px;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    border-radius: 18px;
-  }
-  
-  header {
-    padding: 25px 20px;
-  }
-  
-  .logo {
-    font-size: 28px;
-  }
-  
-  .logo i {
-    font-size: 32px;
-    margin-right: 12px;
-  }
-  
-  .time-display {
-    font-size: 38px;
-    padding: 12px 18px;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
-  .card {
-    padding: 25px;
-  }
-  
-  .stats-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .toast {
-    right: 15px;
-    left: 15px;
-    max-width: none;
-  }
-  
-  .staff-table {
-    font-size: 12px;
-  }
-  
-  .staff-table th, .staff-table td {
-    padding: 8px 6px;
-  }
-  
-  .admin-actions {
-    flex-direction: column;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Staff - Linetogel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4CC9F0;
+            --success: #36D1DC;
+            --danger: #FF6B6B;
+            --warning: #FFD166;
+            --dark: #2D3436;
+            --light: #F8F9FA;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --text: #2D3436;
+            --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #4CC9F0 100%);
+            --gradient-success: linear-gradient(135deg, #36D1DC 0%, #5B86E5 100%);
+            --gradient-danger: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            --gradient-warning: linear-gradient(135deg, #FFD166 0%, #FF9E6D 100%);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --shadow-hover: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+        }
+
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(255, 255, 255, 0.1) 70%);
+            opacity: 0.5;
+            transform: rotate(30deg);
+        }
+
+        .logo {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .logo i {
+            margin-right: 18px;
+            font-size: 42px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .date-display {
+            font-size: 22px;
+            margin: 18px 0;
+            font-weight: 500;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .time-display {
+            font-size: 52px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 15px 30px;
+            border-radius: 18px;
+            display: inline-block;
+            margin: 18px 0;
+            letter-spacing: 3px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 35px;
+        }
+
+        .left-panel {
+            flex: 1;
+            min-width: 380px;
+            padding: 20px;
+        }
+
+        .right-panel {
+            flex: 2;
+            min-width: 450px;
+            padding: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 35px;
+            margin-bottom: 35px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-primary);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(108, 99, 255, 0.2);
+            position: relative;
+        }
+
+        .card-title i {
+            margin-right: 15px;
+            font-size: 28px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 18px 22px;
+            margin-bottom: 22px;
+            border: 2px solid rgba(108, 99, 255, 0.1);
+            border-radius: 14px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .login-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn {
+            padding: 18px 28px;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .attendance-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-top: 28px;
+        }
+
+        .attendance-status {
+            text-align: center;
+            padding: 22px;
+            border-radius: 18px;
+            margin-top: 28px;
+            font-weight: 500;
+            font-size: 17px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .attendance-status i {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        .status-success {
+            background: rgba(54, 209, 220, 0.15);
+            color: #1890c3;
+            border: 1px solid rgba(54, 209, 220, 0.25);
+        }
+
+        .status-warning {
+            background: rgba(255, 209, 102, 0.15);
+            color: #d17a08;
+            border: 1px solid rgba(255, 209, 102, 0.25);
+        }
+
+        .status-error {
+            background: rgba(255, 107, 107, 0.15);
+            color: #d11570;
+            border: 1px solid rgba(255, 107, 107, 0.25);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(to right, rgba(108, 99, 255, 0.1), rgba(76, 201, 240, 0.1));
+            border-radius: 18px;
+            margin-bottom: 35px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .user-info:hover {
+            transform: translateX(5px);
+        }
+
+        .user-info i {
+            font-size: 36px;
+            margin-right: 22px;
+            color: var(--primary);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-details h3 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .user-details p {
+            margin: 6px 0 0;
+            color: #636e72;
+            font-size: 16px;
+        }
+
+        .attendance-history-table {
+            width: 100%;
+            margin-top: 22px;
+            font-size: 15px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            border-collapse: collapse;
+        }
+
+        .attendance-history-table th {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 16px 18px;
+            text-align: left;
+        }
+
+        .attendance-history-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .time-detail {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .today-attendance {
+            margin-top: 28px;
+            padding: 28px;
+            background: linear-gradient(to right, rgba(108, 99, 255, 0.08), rgba(76, 201, 240, 0.08));
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .attendance-record {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding: 18px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .attendance-record:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .attendance-time {
+            font-weight: bold;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            font-size: 17px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 22px;
+            margin-bottom: 22px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            cursor: pointer;
+            color: #636e72;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.7);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 18px 28px;
+            background: var(--gradient-success);
+            color: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-40px) translateX(20px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            max-width: 400px;
+        }
+
+        .toast i {
+            margin-right: 12px;
+            font-size: 22px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+        }
+
+        .toast.error {
+            background: var(--gradient-danger);
+        }
+
+        /* Animation for check-in/check-out */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Autocomplete items */
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 0 0 14px 14px;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        .autocomplete-active {
+            background-color: var(--primary) !important;
+            color: #ffffff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 968px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .right-panel {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                margin-top: 25px;
+                padding-top: 35px;
+            }
+
+            .attendance-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                border-radius: 18px;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            .logo {
+                font-size: 28px;
+            }
+            
+            .logo i {
+                font-size: 32px;
+                margin-right: 12px;
+            }
+            
+            .time-display {
+                font-size: 38px;
+                padding: 12px 18px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .toast {
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<header>
-<div class="logo floating">
-<i class="fas fa-calendar-check"></i>
-SISTEM ABSENSI LINETOGEL
-</div>
-<div class="date-display" id="currentDate">Senin, 1 Januari 2023</div>
-<div class="time-display" id="currentTime">00:00:00</div>
-</header>
+    <div class="container">
+        <header>
+            <div class="logo floating">
+                <i class="fas fa-calendar-check"></i>
+                SISTEM ABSENSI LINETOGEL
+            </div>
+            <div class="date-display" id="currentDate">Senin, 1 Januari 2023</div>
+            <div class="time-display" id="currentTime">00:00:00</div>
+        </header>
 
-<div class="content">
-<div class="left-panel">
-<div class="card">
-<div class="card-title">
-<i class="fas fa-sign-in-alt"></i>
-Login Staff
-</div>
-<div id="loginSection">
-<div class="login-form autocomplete">
-<input type="text" id="username" placeholder="Masukkan nama staff" autocomplete="off">
-<div class="password-field">
-<input type="password" id="password" placeholder="Masukkan password">
-<span class="toggle-password" id="togglePassword">
-<i class="fas fa-eye"></i>
-</span>
-</div>
-<button class="btn btn-primary" id="loginBtn">
-<i class="fas fa-sign-in-alt"></i> Login
-</button>
-</div>
-<div id="loginError" class="attendance-status status-error hidden">
-<i class="fas fa-exclamation-circle"></i> Nama staff atau password salah
-</div>
-</div>
+        <div class="content">
+            <div class="left-panel">
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login Staff
+                    </div>
+                    <div id="loginSection">
+                        <div class="login-form autocomplete">
+                            <input type="text" id="username" placeholder="Masukkan nama staff" autocomplete="off">
+                            <div class="password-field">
+                                <input type="password" id="password" placeholder="Masukkan password">
+                                <span class="toggle-password" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                            <button class="btn btn-primary" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                        </div>
+                        <div id="loginError" class="attendance-status status-error hidden">
+                            <i class="fas fa-exclamation-circle"></i> Nama staff atau password salah
+                        </div>
+                    </div>
 
-<div id="userSection" class="hidden">
-<div class="user-info">
-<i class="fas fa-user-circle"></i>
-<div class="user-details">
-<h3 id="userName">Nama Staff</h3>
-<p id="userId">ID: -</p>
-</div>
-</div>
+                    <div id="userSection" class="hidden">
+                        <div class="user-info">
+                            <i class="fas fa-user-circle"></i>
+                            <div class="user-details">
+                                <h3 id="userName">Nama Staff</h3>
+                                <p id="userId">ID: -</p>
+                            </div>
+                        </div>
 
-<div class="card-title">
-<i class="fas fa-history"></i>
-Riwayat Absensi Hari Ini
-</div>
-<div id="attendanceHistory">
-<p>Belum ada absensi hari ini</p>
-</div>
+                        <div class="card-title">
+                            <i class="fas fa-history"></i>
+                            Riwayat Absensi Hari Ini
+                        </div>
+                        <div id="attendanceHistory">
+                            <p>Belum ada absensi hari ini</p>
+                        </div>
 
-<div class="attendance-actions">
-<button class="btn btn-success" id="checkInBtn">
-<i class="fas fa-fingerprint"></i> Check-In
-</button>
-<button class="btn btn-danger" id="checkOutBtn">
-<i class="fas fa-sign-out-alt"></i> Check-Out
-</button>
-</div>
+                        <div class="attendance-actions">
+                            <button class="btn btn-success" id="checkInBtn">
+                                <i class="fas fa-fingerprint"></i> Check-In
+                            </button>
+                            <button class="btn btn-danger" id="checkOutBtn">
+                                <i class="fas fa-sign-out-alt"></i> Check-Out
+                            </button>
+                        </div>
 
-<div id="attendanceStatus" class="attendance-status hidden"></div>
+                        <div id="attendanceStatus" class="attendance-status hidden"></div>
 
-<button class="btn btn-primary" id="logoutBtn" style="margin-top: 20px; width: 100%;">
-<i class="fas fa-power-off"></i> Logout
-</button>
-</div>
-</div>
-</div>
+                        <button class="btn btn-primary" id="logoutBtn" style="margin-top: 20px; width: 100%;">
+                            <i class="fas fa-power-off"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-<div class="right-panel">
-<div class="card">
-<div class="card-title">
-<i class="fas fa-user-clock"></i>
-Informasi Absensi Hari Ini
-</div>
-<div id="personalAttendanceInfo">
-<p>Silakan login untuk melihat informasi absensi Anda.</p>
-</div>
-<div id="todayAttendance" class="today-attendance hidden">
-<h4>Absensi Hari Ini:</h4>
-<div id="attendanceRecords"></div>
-</div>
-</div>
+            <div class="right-panel">
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-user-clock"></i>
+                        Informasi Absensi Hari Ini
+                    </div>
+                    <div id="personalAttendanceInfo">
+                        <p>Silakan login untuk melihat informasi absensi Anda.</p>
+                    </div>
+                    <div id="todayAttendance" class="today-attendance hidden">
+                        <h4>Absensi Hari Ini:</h4>
+                        <div id="attendanceRecords"></div>
+                    </div>
+                </div>
 
-<div class="card">
-<div class="card-title">
-<i class="fas fa-chart-bar"></i>
-Statistik Absensi Hari Ini
-</div>
-<div class="stats-container">
-<div class="stat-box">
-<div>Total Staff</div>
-<div class="stat-value" id="totalStaff">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Absen</div>
-<div class="stat-value" id="presentCount">0</div>
-</div>
-<div class="stat-box">
-<div>Belum Absen</div>
-<div class="stat-value" id="absentCount">0</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Statistik Absensi Hari Ini
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <div>Total Staff</div>
+                            <div class="stat-value" id="totalStaff">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div>Sudah Absen</div>
+                            <div class="stat-value" id="presentCount">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div>Belum Absen</div>
+                            <div class="stat-value" id="absentCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Admin Panel Section -->
-<div id="adminPanel" class="admin-panel">
-<div class="card">
-<div class="admin-header">
-<div class="card-title">
-<i class="fas fa-user-shield"></i>
-Panel Admin Kapten
-</div>
-<button class="btn btn-danger" id="adminLogoutBtn">
-<i class="fas fa-sign-out-alt"></i> Logout Admin
-</button>
-</div>
+    <div id="toast" class="toast"></div>
 
-<div class="stats-container">
-<div class="stat-box">
-<div>Total Staff</div>
-<div class="stat-value" id="adminTotalStaff">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Check-In</div>
-<div class="stat-value" id="adminCheckInCount">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Check-Out</div>
-<div class="stat-value" id="adminCheckOutCount">0</div>
-</div>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data staff dengan password sama dengan nama staff (diperbaiki)
+            const staffData = {
+                'WIDJAYA': { id: 'C6202945 / E7721607', password: 'WIDJAYA' },
+                'DAVID': { id: 'C6169860 (E6864058)', password: 'DAVID' },
+                'FALLEN': { id: 'C6931386 / X5362272', password: 'FALLEN' },
+                'CHARLIE': { id: 'C7377694', password: 'CHARLIE' },
+                'HARIANTO': { id: 'X2242791', password: 'HARIANTO' },
+                'RINAL ABDILLAH NASUTION': { id: 'C8409170', password: 'RINAL ABDILLAH NASUTION' },
+                'ERI HARIANTO': { id: 'C8493406', password: 'ERI HARIANTO' },
+                'MAHENDRAN': { id: 'C6813799', password: 'MAHENDRAN' },
+                'ANDHIKA DWI PUTRA': { id: 'C8543470', password: 'ANDHIKA DWI PUTRA' },
+                'TOMMY HASIM': { id: 'C6735321', password: 'TOMMY HASIM' },
+                'EGI SETIAWAN': { id: 'C8410298', password: 'EGI SETIAWAN' },
+                'RANJIT': { id: 'X1068990', password: 'RANJIT' },
+                'WILLY PERAYUDA': { id: 'E0089312', password: 'WILLY PERAYUDA' },
+                'ANDI': { id: 'E4487475', password: 'ANDI' },
+                'ALFINO MUKTI': { id: 'C8493352', password: 'ALFINO MUKTI' },
+                'AKAS FARMA': { id: 'C8490102', password: 'AKAS FARMA' },
+                'ARI ROMANDUS FERNAND': { id: 'C8386112', password: 'ARI ROMANDUS FERNAND' },
+                'PARIS AMRULLOH': { id: 'E0237731', password: 'PARIS AMRULLOH' },
+                'SAMSUL MAARIF': { id: 'C7008737', password: 'SAMSUL MAARIF' },
+                'SUHAN RAZ': { id: 'C5862955', password: 'SUHAN RAZ' },
+                'RAHMADI SORMIN': { id: 'E0685561', password: 'RAHMADI SORMIN' },
+                'NOVAL MUTTAWALI HAKIM': { id: 'E1475015', password: 'NOVAL MUTTAWALI HAKIM' },
+                'JONROMAN PURBA': { id: 'C8491005', password: 'JONROMAN PURBA' },
+                'PUTRA ANUGRAH RIZKI': { id: 'E1473204', password: 'PUTRA ANUGRAH RIZKI' },
+                'WILIAM': { id: 'E0227447', password: 'WILIAM' },
+                'FIQAL KANA': { id: 'E1233842', password: 'FIQAL KANA' },
+                'MARJOKI SANG': { id: 'C8555336', password: 'MARJOKI SANG' },
+                'DANIEL': { id: 'E0859998', password: 'DANIEL' },
+                'RAAZ JESEN STEPANUS': { id: 'C8409387', password: 'RAAZ JESEN STEPANUS' },
+                'MAHAT SANJAYA HARAHAP': { id: 'E4340773', password: 'MAHAT SANJAYA HARAHAP' },
+                'ANNEN': { id: 'C8486854', password: 'ANNEN' },
+                'M FAJAR SIDDIK': { id: 'C8993287', password: 'M FAJAR SIDDIK' },
+                'PUTRA RAMADHANI': { id: 'E1988807', password: 'PUTRA RAMADHANI' },
+                'AMRUL': { id: 'E2365928', password: 'AMRUL' },
+                'RAM KIRAN': { id: 'E2620081', password: 'RAM KIRAN' },
+                'BOBY KASANDRA BANCIN': { id: 'C8991790', password: 'BOBY KASANDRA BANCIN' },
+                'KIKI YUNITA': { id: 'C8245909', password: 'KIKI YUNITA' },
+                'CHARLOIPO MANULLANG': { id: 'E0286030', password: 'CHARLOIPO MANULLANG' },
+                'FAHRI FIRMANSYAH': { id: 'E5192174', password: 'FAHRI FIRMANSYAH' },
+                'GALI PRATAMA': { id: 'E377357', password: 'GALI PRATAMA' },
+                'PRIMA NUGRAHA': { id: 'E5112965', password: 'PRIMA NUGRAHA' },
+                'ROY DILEN': { id: 'C5875009', password: 'ROY DILEN' },
+                'RIDZKY RAMADHAN': { id: 'E6626714', password: 'RIDZKY RAMADHAN' },
+                'AGUNG DEDI IRAWAN': { id: 'E7089147', password: 'AGUNG DEDI IRAWAN' },
+                'MAICEL TAMPUBOLON': { id: 'E5843197', password: 'MAICEL TAMPUBOLON' },
+                'ADE CHAIRUNNISA': { id: 'E1475210', password: 'ADE CHAIRUNNISA' },
+                'M REZI SYAPUTRA': { id: 'E6690607', password: 'M REZI SYAPUTRA' },
+                'KHOIRUDDIN': { id: 'C9148103', password: 'KHOIRUDDIN' },
+                'BAMBANG AGUNG SUTRISNO': { id: 'E7520815', password: 'BAMBANG AGUNG SUTRISNO' },
+                'PUTRA INSANY': { id: 'E7282317', password: 'PUTRA INSANY' },
+                'FERA SALMA': { id: 'E7632631', password: 'FERA SALMA' },
+                'RIVLAN RIZKY': { id: 'E6759553', password: 'RIVLAN RIZKY' },
+                'MAULANA ALI SAID': { id: 'E7531570', password: 'MAULANA ALI SAID' },
+                'AHMAD ANDIKA': { id: 'E7631720', password: 'AHMAD ANDIKA' },
+                'ANGGARA K S': { id: 'E7647305', password: 'ANGGARA K S' },
+                'DIMAS ADHITYA': { id: 'E6937626', password: 'DIMAS ADHITYA' },
+                'GABRIEL RONI ARGANTA HUTABALIAN': { id: 'E7694857', password: 'GABRIEL RONI ARGANTA HUTABALIAN' },
+                'EGA PRAYUDA': { id: 'E2703456', password: 'EGA PRAYUDA' },
+                'ARJUN PRAISYA': { id: 'E7879939', password: 'ARJUN PRAISYA' },
+                'ADITYA PANCA': { id: 'X3189356', password: 'ADITYA PANCA' },
+                'AUDIS OYONG DUANSYAH': { id: 'E7281571', password: 'AUDIS OYONG DUANSYAH' },
+                'ADE OJI SHAPUTRA': { id: 'E8491965', password: 'ADE OJI SHAPUTRA' },
+                'ALFIANSYAH': { id: 'E9268104', password: 'ALFIANSYAH' },
+                'ANDY PUTRA': { id: 'X3618101', password: 'ANDY PUTRA' },
+                'JUNITA MARSHA': { id: 'E2817535', password: 'JUNITA MARSHA' },
+                'MELAN PUTRI TRINIT': { id: 'E0441477', password: 'MELAN PUTRI TRINIT' },
+                'LAELA ANASILD': { id: 'E1517441', password: 'LAELA ANASILD' },
+                'ISMI AZRILIA LUBIS': { id: 'C4328372', password: 'ISMI AZRILIA LUBIS' },
+                'SYARIFAH RUMIATI ASTARI': { id: 'C4462617 / E5380676', password: 'SYARIFAH RUMIATI ASTARI' }
+            };
 
-<div style="overflow-x: auto;">
-<table class="staff-table">
-<thead>
-<tr>
-<th>Nama Staff</th>
-<th>ID</th>
-<th>Status</th>
-<th>Check-In</th>
-<th>Check-Out</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="staffList">
-<!-- Staff list will be populated here -->
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
+            // Referensi elemen DOM
+            const loginSection = document.getElementById('loginSection');
+            const userSection = document.getElementById('userSection');
+            const userName = document.getElementById('userName');
+            const userId = document.getElementById('userId');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginError = document.getElementById('loginError');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const checkInBtn = document.getElementById('checkInBtn');
+            const checkOutBtn = document.getElementById('checkOutBtn');
+            const attendanceStatus = document.getElementById('attendanceStatus');
+            const attendanceHistory = document.getElementById('attendanceHistory');
+            const currentDateElem = document.getElementById('currentDate');
+            const currentTimeElem = document.getElementById('currentTime');
+            const totalStaffElem = document.getElementById('totalStaff');
+            const presentCountElem = document.getElementById('presentCount');
+            const absentCountElem = document.getElementById('absentCount');
+            const personalAttendanceInfo = document.getElementById('personalAttendanceInfo');
+            const todayAttendance = document.getElementById('todayAttendance');
+            const attendanceRecords = document.getElementById('attendanceRecords');
+            const togglePassword = document.getElementById('togglePassword');
+            const toast = document.getElementById('toast');
 
-<div id="toast" class="toast"></div>
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Data staff dengan password sama dengan nama staff
-  const staffData = {
-    'WIDJAYA': { id: 'C6202945 / E7721607', password: 'WIDJAYA' },
-    'DAVID': { id: 'C6169860 (E6864058)', password: 'DAVID' },
-    'FALLEN': { id: 'C6931386 / X5362272', password: 'FALLEN' },
-    'CHARLIE': { id: 'C7377694', password: 'CHARLIE' },
-    'HARIANTO': { id: 'X2242791', password: 'HARIANTO' },
-    'RINAL ABDILLAH NASUTION': { id: 'C8409170', password: 'RINAL' },
-    'ERI HARIANTO': { id: 'C8493406', password: 'ERI' },
-    'MAHENDRAN': { id: 'C6813799', password: 'MAHENDRAN' },
-    'ANDHIKA DWI PUTRA': { id: 'C8543470', password: 'ANDHIKA' },
-    'TOMMY HASIM': { id: 'C6735321', password: 'TOMMY' },
-    'EGI SETIAWAN': { id: 'C8410298', password: 'EGI' },
-    'RANJIT': { id: 'X1068990', password: 'RANJIT' },
-    'WILLY PERAYUDA': { id: 'E0089312', password: 'WILLY' },
-    'ANDI': { id: 'E4487475', password: 'ANDI' },
-    'ALFINO MUKTI': { id: 'C8493352', password: 'ALFINO' },
-    'AKAS FARMA': { id: 'C8490102', password: 'AKAS' },
-    'ARI ROMANDUS FERNAND': { id: 'C8386112', password: 'ARI' },
-    'PARIS AMRULLOH': { id: 'E0237731', password: 'PARIS' },
-    'SAMSUL MAARIF': { id: 'C7008737', password: 'SAMSUL' },
-    'SUHAN RAZ': { id: 'C5862955', password: 'SUHAN' },
-    'RAHMADI SORMIN': { id: 'E0685561', password: 'RAHMADI' },
-    'NOVAL MUTTAWALI HAKIM': { id: 'E1475015', password: 'NOVAL' },
-    'JONROMAN PURBA': { id: 'C8491005', password: 'JONROMAN' },
-    'PUTRA ANUGRAH RIZKI': { id: 'E1473204', password: 'PUTRA' },
-    'WILIAM': { id: 'E0227447', password: 'WILIAM' },
-    'FIQAL KANA': { id: 'E1233842', password: 'FIQAL' },
-    'MARJOKI SANG': { id: 'C8555336', password: 'MARJOKI' },
-    'DANIEL': { id: 'E0859998', password: 'DANIEL' },
-    'RAAZ JESEN STEPANUS': { id: 'C8409387', password: 'RAAZ' },
-    'MAHAT SANJAYA HARAHAP': { id: 'E4340773', password: 'MAHAT' },
-    'ANNEN': { id: 'C8486854', password: 'ANNEN' },
-    'M FAJAR SIDDIK': { id: 'C8993287', password: 'MFAJAR' },
-    'PUTRA RAMADHANI': { id: 'E1988807', password: 'PUTRAR' },
-    'AMRUL': { id: 'E2365928', password: 'AMRUL' },
-    'RAM KIRAN': { id: 'E2620081', password: 'RAM' },
-    'BOBY KASANDRA BANCIN': { id: 'C8991790', password: 'BOBY' },
-    'KIKI YUNITA': { id: 'C8245909', password: 'KIKI' },
-    'CHARLOIPO MANULLANG': { id: 'E0286030', password: 'CHARLOIPO' },
-    'FAHRI FIRMANSYAH': { id: 'E5192174', password: 'FAHRI' },
-    'GALI PRATAMA': { id: 'E377357', password: 'GALI' },
-    'PRIMA NUGRAHA': { id: 'E5112965', password: 'PRIMA' },
-    'ROY DILEN': { id: 'C5875009', password: 'ROY' },
-    'RIDZKY RAMADHAN': { id: 'E6626714', password: 'RIDZKY' },
-    'AGUNG DEDI IRAWAN': { id: 'E7089147', password: 'AGUNG' },
-    'MAICEL TAMPUBOLON': { id: 'E5843197', password: 'MAICEL' },
-    'ADE CHAIRUNNISA': { id: 'E1475210', password: 'ADE' },
-    'M REZI SYAPUTRA': { id: 'E6690607', password: 'MREZI' },
-    'KHOIRUDDIN': { id: 'C9148103', password: 'KHOIRUDDIN' },
-    'BAMBANG AGUNG SUTRISNO': { id: 'E7520815', password: 'BAMBANG' },
-    'PUTRA INSANY': { id: 'E7282317', password: 'PUTRAI' },
-    'FERA SALMA': { id: 'E7632631', password: 'FERA' },
-    'RIVLAN RIZKY': { id: 'E6759553', password: 'RIVLAN' },
-    'MAULANA ALI SAID': { id: 'E7531570', password: 'MAULANA' },
-    'AHMAD ANDIKA': { id: 'E7631720', password: 'AHMAD' },
-    'ANGGARA K S': { id: 'E7647305', password: 'ANGGARA' },
-    'DIMAS ADHITYA': { id: 'E6937626', password: 'DIMAS' },
-    'GABRIEL RONI ARGANTA HUTABALIAN': { id: 'E7694857', password: 'GABRIEL' },
-    'EGA PRAYUDA': { id: 'E2703456', password: 'EGA' },
-    'ARJUN PRAISYA': { id: 'E7879939', password: 'ARJUN' },
-    'ADITYA PANCA': { id: 'X3189356', password: 'ADITYA' },
-    'AUDIS OYONG DUANSYAH': { id: 'E7281571', password: 'AUDIS' },
-    'ADE OJI SHAPUTRA': { id: 'E8491965', password: 'ADEOJI' },
-    'ALFIANSYAH': { id: 'E9268104', password: 'ALFIANSYAH' },
-    'ANDY PUTRA': { id: 'X3618101', password: 'ANDYPUTRA' },
-    'JUNITA MARSHA': { id: 'E2817535', password: 'JUNITA' },
-    'MELAN PUTRI TRINIT': { id: 'E0441477', password: 'MELAN' },
-    'LAELA ANASILD': { id: 'E1517441', password: 'LAELA' },
-    'ISMI AZRILIA LUBIS': { id: 'C4328372', password: 'ISMI' },
-    'SYARIFAH RUMIATI ASTARI': { id: 'C4462617 / E5380676', password: 'SYARIFAH' }
-  };
+            // Autocomplete untuk username
+            usernameInput.addEventListener('input', function() {
+                const val = this.value.toUpperCase();
+                closeAllLists();
+                
+                if (!val) return false;
+                
+                const matches = Object.keys(staffData).filter(staff => 
+                    staff.includes(val)
+                );
+                
+                if (matches.length) {
+                    const list = document.createElement('div');
+                    list.setAttribute('id', 'autocomplete-list');
+                    list.setAttribute('class', 'autocomplete-items');
+                    this.parentNode.appendChild(list);
+                    
+                    matches.forEach(staff => {
+                        const item = document.createElement('div');
+                        item.innerHTML = `<strong>${staff}</strong>`;
+                        item.innerHTML += `<span style="float:right;color:gray;font-size:12px">${staffData[staff].id}</span>`;
+                        item.addEventListener('click', function() {
+                            usernameInput.value = staff;
+                            closeAllLists();
+                        });
+                        list.appendChild(item);
+                    });
+                }
+            });
+            
+            function closeAllLists() {
+                const items = document.getElementsByClassName('autocomplete-items');
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].parentNode) {
+                        items[i].parentNode.removeChild(items[i]);
+                    }
+                }
+            }
+            
+            document.addEventListener('click', function(e) {
+                closeAllLists(e.target);
+            });
 
-  // Data admin khusus
-  const adminData = {
-    'KAPTEN': { password: 'LINETOGEL2025' }
-  };
+            // Tampilkan notifikasi toast
+            function showToast(message, isError = false) {
+                toast.textContent = message;
+                toast.className = 'toast';
+                if (isError) {
+                    toast.classList.add('error');
+                    toast.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+                } else {
+                    toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+                }
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
 
-  // Referensi elemen DOM
-  const loginSection = document.getElementById('loginSection');
-  const userSection = document.getElementById('userSection');
-  const adminPanel = document.getElementById('adminPanel');
-  const userName = document.getElementById('userName');
-  const userId = document.getElementById('userId');
-  const usernameInput = document.getElementById('username');
-  const passwordInput = document.getElementById('password');
-  const loginBtn = document.getElementById('loginBtn');
-  const loginError = document.getElementById('loginError');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
-  const checkInBtn = document.getElementById('checkInBtn');
-  const checkOutBtn = document.getElementById('checkOutBtn');
-  const attendanceStatus = document.getElementById('attendanceStatus');
-  const attendanceHistory = document.getElementById('attendanceHistory');
-  const currentDateElem = document.getElementById('currentDate');
-  const currentTimeElem = document.getElementById('currentTime');
-  const totalStaffElem = document.getElementById('totalStaff');
-  const presentCountElem = document.getElementById('presentCount');
-  const absentCountElem = document.getElementById('absentCount');
-  const personalAttendanceInfo = document.getElementById('personalAttendanceInfo');
-  const todayAttendance = document.getElementById('todayAttendance');
-  const attendanceRecords = document.getElementById('attendanceRecords');
-  const togglePassword = document.getElementById('togglePassword');
-  const toast = document.getElementById('toast');
-  const staffList = document.getElementById('staffList');
-  const adminTotalStaff = document.getElementById('adminTotalStaff');
-  const adminCheckInCount = document.getElementById('adminCheckInCount');
-  const adminCheckOutCount = document.getElementById('adminCheckOutCount');
+            // Inisialisasi data absensi jika belum ada
+            function initializeAttendanceData() {
+                const today = new Date().toLocaleDateString('id-ID');
+                const lastReset = localStorage.getItem('lastResetDate');
+                let attendanceData = JSON.parse(localStorage.getItem('attendanceData')) || {};
 
-  // Toggle password visibility
-  togglePassword.addEventListener('click', function() {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    this.querySelector('i').classList.toggle('fa-eye');
-    this.querySelector('i').classList.toggle('fa-eye-slash');
-  });
+                // Reset data jika sudah berganti hari
+                if (lastReset !== today) {
+                    console.log("Hari baru, mereset data absensi...");
+                    
+                    // Reset data untuk semua staff
+                    for (const staff in staffData) {
+                        attendanceData[staff] = {
+                            checkIn: null,
+                            checkOut: null,
+                            lastAttendance: null,
+                            history: []
+                        };
+                    }
+                    
+                    localStorage.setItem('lastResetDate', today);
+                    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+                } else {
+                    // Pastikan semua staff ada dalam attendanceData
+                    for (const staff in staffData) {
+                        if (!attendanceData[staff]) {
+                            attendanceData[staff] = {
+                                checkIn: null,
+                                checkOut: null,
+                                lastAttendance: null,
+                                history: []
+                            };
+                        }
+                    }
+                    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+                }
 
-  // Autocomplete untuk username
-  usernameInput.addEventListener('input', function() {
-    const val = this.value.toUpperCase();
-    closeAllLists();
-    
-    if (!val) return false;
-    
-    const matches = Object.keys(staffData).filter(staff => 
-      staff.includes(val)
-    );
-    
-    if (matches.length) {
-      const list = document.createElement('div');
-      list.setAttribute('id', 'autocomplete-list');
-      list.setAttribute('class', 'autocomplete-items');
-      this.parentNode.appendChild(list);
-      
-      matches.forEach(staff => {
-        const item = document.createElement('div');
-        item.innerHTML = `<strong>${staff}</strong>`;
-        item.innerHTML += `<span style="float:right;color:gray;font-size:12px">${staffData[staff].id}</span>`;
-        item.addEventListener('click', function() {
-          usernameInput.value = staff;
-          closeAllLists();
+                console.log("Data absensi diinisialisasi:");
+            }
+
+            // Update waktu secara real-time
+            function updateDateTime() {
+                const now = new Date();
+
+                // Format tanggal: Senin, 1 Januari 2023
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                currentDateElem.textContent = now.toLocaleDateString('id-ID', options);
+
+                // Format waktu: 12:00:00
+                currentTimeElem.textContent = now.toLocaleTimeString('id-ID');
+            }
+
+            // Jalankan pertama kali dan set interval
+            initializeAttendanceData();
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+
+            // Update statistik absensi
+            function updateAttendanceStats() {
+                const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                const todayStr = new Date().toLocaleDateString('id-ID');
+
+                let presentCount = 0;
+                const totalStaff = Object.keys(staffData).length;
+
+                for (const staff in attendanceData) {
+                    if (attendanceData[staff] && attendanceData[staff].lastAttendance === todayStr) {
+                        presentCount++;
+                    }
+                }
+
+                totalStaffElem.textContent = totalStaff;
+                presentCountElem.textContent = presentCount;
+                absentCountElem.textContent = totalStaff - presentCount;
+            }
+
+            // Update riwayat absensi user
+            function updateUserAttendanceHistory() {
+                const currentUser = sessionStorage.getItem('currentUser');
+                if (!currentUser) return;
+
+                const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                const userData = attendanceData[currentUser];
+                const todayStr = new Date().toLocaleDateString('id-ID');
+
+                if (userData && userData.history && userData.history.length > 0) {
+                    // Tampilkan hanya riwayat hari ini
+                    const todayHistory = userData.history.filter(record => {
+                        return record.date === todayStr;
+                    });
+
+                    if (todayHistory.length > 0) {
+                        let html = '<table class="attendance-history-table"><tr><th>Waktu</th><th>Status</th></tr>';
+
+                        todayHistory.forEach(record => {
+                            html += `<tr><td class="time-detail">${record.time}</td><td>${record.type}</td></tr>`;
+                        });
+
+                        html += '</table>';
+                        attendanceHistory.innerHTML = html;
+                    } else {
+                        attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
+                    }
+                } else {
+                    attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
+                }
+            }
+
+            // Update informasi absensi pribadi
+            function updatePersonalAttendanceInfo() {
+                const currentUser = sessionStorage.getItem('currentUser');
+                if (!currentUser) {
+                    personalAttendanceInfo.innerHTML = '<p>Silakan login untuk melihat informasi absensi Anda.</p>';
+                    todayAttendance.classList.add('hidden');
+                    return;
+                }
+
+                const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                const userData = attendanceData[currentUser];
+                const todayStr = new Date().toLocaleDateString('id-ID');
+
+                let html = '';
+
+                if (userData && userData.lastAttendance === todayStr) {
+                    html += `<p>Status: <span style="color: var(--success); font-weight: bold;">SUDAH ABSEN</span></p>`;
+
+                    // Tampilkan absensi hari ini
+                    todayAttendance.classList.remove('hidden');
+                    attendanceRecords.innerHTML = '';
+
+                    if (userData.checkIn) {
+                        const record = document.createElement('div');
+                        record.className = 'attendance-record';
+                        record.innerHTML = `
+                            <span>Check-In:</span>
+                            <span class="attendance-time">${userData.checkIn}</span>
+                        `;
+                        attendanceRecords.appendChild(record);
+                    }
+
+                    if (userData.checkOut) {
+                        const record = document.createElement('div');
+                        record.className = 'attendance-record';
+                        record.innerHTML = `
+                            <span>Check-Out:</span>
+                            <span class="attendance-time">${userData.checkOut}</span>
+                        `;
+                        attendanceRecords.appendChild(record);
+                    }
+                } else {
+                    html += `<p>Status: <span style="color: var(--danger); font-weight: bold;">BELUM ABSEN</span></p>`;
+                    todayAttendance.classList.add('hidden');
+                }
+
+                personalAttendanceInfo.innerHTML = html;
+            }
+
+            // Event listener untuk login
+            loginBtn.addEventListener('click', function() {
+                const username = usernameInput.value.trim().toUpperCase();
+                const password = passwordInput.value.trim().toUpperCase();
+
+                // Cek apakah login sebagai staff
+                if (staffData[username] && staffData[username].password === password) {
+                    // Login berhasil
+                    loginError.classList.add('hidden');
+                    loginSection.classList.add('hidden');
+                    userSection.classList.remove('hidden');
+
+                    // Tampilkan info user
+                    userName.textContent = username;
+                    userId.textContent = `ID: ${staffData[username].id}`;
+
+                    // Simpan info staff yang login
+                    sessionStorage.setItem('currentUser', username);
+
+                    // Update riwayat absensi dan info pribadi
+                    updateUserAttendanceHistory();
+                    updatePersonalAttendanceInfo();
+                    updateAttendanceStats();
+                    
+                    showToast(`Login berhasil, selamat datang ${username}!`);
+                } else {
+                    // Login gagal
+                    loginError.classList.remove('hidden');
+                    showToast('Nama staff atau password salah', true);
+                }
+            });
+
+            // Event listener untuk tekan Enter pada form
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+
+            // Event listener untuk logout
+            logoutBtn.addEventListener('click', function() {
+                const currentUser = sessionStorage.getItem('currentUser');
+                sessionStorage.removeItem('currentUser');
+                userSection.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+                usernameInput.value = '';
+                passwordInput.value = '';
+
+                // Update info absensi
+                updatePersonalAttendanceInfo();
+                
+                showToast(`Logout berhasil, sampai jumpa ${currentUser}!`);
+            });
+
+            // Event listener untuk check-in
+            checkInBtn.addEventListener('click', function() {
+                const currentUser = sessionStorage.getItem('currentUser');
+                if (currentUser) {
+                    const now = new Date();
+                    const todayStr = now.toLocaleDateString('id-ID');
+                    const timeStr = now.toLocaleTimeString('id-ID');
+
+                    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+
+                    if (!attendanceData[currentUser] || attendanceData[currentUser].lastAttendance !== todayStr) {
+                        // Pastikan objek user ada
+                        if (!attendanceData[currentUser]) {
+                            attendanceData[currentUser] = {
+                                checkIn: null,
+                                checkOut: null,
+                                lastAttendance: null,
+                                history: []
+                            };
+                        }
+                        
+                        attendanceData[currentUser].checkIn = timeStr;
+                        attendanceData[currentUser].lastAttendance = todayStr;
+
+                        // Tambahkan ke riwayat
+                        if (!attendanceData[currentUser].history) {
+                            attendanceData[currentUser].history = [];
+                        }
+
+                        attendanceData[currentUser].history.push({
+                            date: todayStr,
+                            time: timeStr,
+                            type: 'CHECK-IN'
+                        });
+
+                        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+
+                        attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
+                        attendanceStatus.className = "attendance-status status-success";
+                        attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+
+                        // Perbarui tampilan
+                        updateUserAttendanceHistory();
+                        updatePersonalAttendanceInfo();
+                        updateAttendanceStats();
+                        
+                        showToast(`Check-in berhasil pada ${timeStr}`);
+                        
+                        // Animasi tombol
+                        checkInBtn.classList.add('pulse');
+                        setTimeout(() => checkInBtn.classList.remove('pulse'), 500);
+                    } else {
+                        attendanceStatus.textContent = "Anda sudah melakukan absensi hari ini";
+                        attendanceStatus.className = "attendance-status status-warning";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda sudah melakukan absensi hari ini', true);
+                    }
+                }
+            });
+
+            // Event listener untuk check-out
+            checkOutBtn.addEventListener('click', function() {
+                const currentUser = sessionStorage.getItem('currentUser');
+                if (currentUser) {
+                    const now = new Date();
+                    const todayStr = now.toLocaleDateString('id-ID');
+                    const timeStr = now.toLocaleTimeString('id-ID');
+
+                    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+
+                    // Pastikan objek user ada
+                    if (!attendanceData[currentUser]) {
+                        attendanceData[currentUser] = {
+                            checkIn: null,
+                            checkOut: null,
+                            lastAttendance: null,
+                            history: []
+                        };
+                    }
+
+                    if (attendanceData[currentUser].lastAttendance === todayStr && !attendanceData[currentUser].checkOut) {
+                        attendanceData[currentUser].checkOut = timeStr;
+
+                        // Tambahkan ke riwayat
+                        if (!attendanceData[currentUser].history) {
+                            attendanceData[currentUser].history = [];
+                        }
+
+                        attendanceData[currentUser].history.push({
+                            date: todayStr,
+                            time: timeStr,
+                            type: 'CHECK-OUT'
+                        });
+
+                        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+
+                        attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
+                        attendanceStatus.className = "attendance-status status-success";
+                        attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+
+                        // Perbarui tampilan
+                        updateUserAttendanceHistory();
+                        updatePersonalAttendanceInfo();
+                        
+                        showToast(`Check-out berhasil pada ${timeStr}`);
+                        
+                        // Animasi tombol
+                        checkOutBtn.classList.add('pulse');
+                        setTimeout(() => checkOutBtn.classList.remove('pulse'), 500);
+                    } else if (attendanceData[currentUser].checkOut) {
+                        attendanceStatus.textContent = "Anda sudah check-out hari ini";
+                        attendanceStatus.className = "attendance-status status-warning";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda sudah check-out hari ini', true);
+                    } else {
+                        attendanceStatus.textContent = "Anda belum check-in hari ini";
+                        attendanceStatus.className = "attendance-status status-error";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda belum check-in hari ini', true);
+                    }
+                }
+            });
+
+            // Cek apakah user sudah login
+            if (sessionStorage.getItem('currentUser')) {
+                const currentUser = sessionStorage.getItem('currentUser');
+                loginSection.classList.add('hidden');
+                userSection.classList.remove('hidden');
+                userName.textContent = currentUser;
+                userId.textContent = `ID: ${staffData[currentUser] ? staffData[currentUser].id : '-'}`;
+                updateUserAttendanceHistory();
+                updatePersonalAttendanceInfo();
+            }
+
+            // Muat data statistik
+            updateAttendanceStats();
+            updatePersonalAttendanceInfo();
         });
-        list.appendChild(item);
-      });
-    }
-  });
-  
-  function closeAllLists() {
-    const items = document.getElementsByClassName('autocomplete-items');
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].parentNode) {
-        items[i].parentNode.removeChild(items[i]);
-      }
-    }
-  }
-  
-  document.addEventListener('click', function(e) {
-    closeAllLists(e.target);
-  });
-
-  // Tampilkan notifikasi toast
-  function showToast(message, isError = false) {
-    toast.textContent = message;
-    toast.className = 'toast';
-    if (isError) {
-      toast.classList.add('error');
-      toast.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
-    } else {
-      toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
-    }
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
-  }
-
-  // Inisialisasi data absensi jika belum ada
-  function initializeAttendanceData() {
-    const today = new Date().toLocaleDateString('id-ID');
-    const lastReset = localStorage.getItem('lastResetDate');
-    let attendanceData = JSON.parse(localStorage.getItem('attendanceData')) || {};
-
-    // Reset data jika sudah berganti hari
-    if (lastReset !== today) {
-      console.log("Hari baru, mereset data absensi...");
-      
-      // Reset data untuk semua staff
-      for (const staff in staffData) {
-        attendanceData[staff] = {
-          checkIn: null,
-          checkOut: null,
-          lastAttendance: null,
-          history: []
-        };
-      }
-      
-      localStorage.setItem('lastResetDate', today);
-    } else {
-      // Pastikan semua staff ada dalam attendanceData
-      for (const staff in staffData) {
-        if (!attendanceData[staff]) {
-          attendanceData[staff] = {
-            checkIn: null,
-            checkOut: null,
-            lastAttendance: null,
-            history: []
-          };
-        }
-      }
-    }
-
-    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-    console.log("Data absensi diinisialisasi:", attendanceData);
-  }
-
-  // Update waktu secara real-time
-  function updateDateTime() {
-    const now = new Date();
-
-    // Format tanggal: Senin, 1 Januari 2023
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    currentDateElem.textContent = now.toLocaleDateString('id-ID', options);
-
-    // Format waktu: 12:00:00
-    currentTimeElem.textContent = now.toLocaleTimeString('id-ID');
-  }
-
-  // Jalankan pertama kali dan set interval
-  initializeAttendanceData();
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
-
-  // Update statistik absensi
-  function updateAttendanceStats() {
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    const todayStr = new Date().toLocaleDateString('id-ID');
-
-    let presentCount = 0;
-    const totalStaff = Object.keys(staffData).length;
-
-    for (const staff in attendanceData) {
-      if (attendanceData[staff] && attendanceData[staff].lastAttendance === todayStr) {
-        presentCount++;
-      }
-    }
-
-    totalStaffElem.textContent = totalStaff;
-    presentCountElem.textContent = presentCount;
-    absentCountElem.textContent = totalStaff - presentCount;
-  }
-
-  // Update riwayat absensi user
-  function updateUserAttendanceHistory() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (!currentUser) return;
-
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    const userData = attendanceData[currentUser];
-    const todayStr = new Date().toLocaleDateString('id-ID');
-
-    if (userData && userData.history && userData.history.length > 0) {
-      // Tampilkan hanya riwayat hari ini
-      const todayHistory = userData.history.filter(record => {
-        return record.date === todayStr;
-      });
-
-      if (todayHistory.length > 0) {
-        let html = '<table class="attendance-history-table"><tr><th>Waktu</th><th>Status</th></tr>';
-
-        todayHistory.forEach(record => {
-          html += `<tr><td class="time-detail">${record.time}</td><td>${record.type}</td></tr>`;
-        });
-
-        html += '</table>';
-        attendanceHistory.innerHTML = html;
-      } else {
-        attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
-      }
-    } else {
-      attendanceHistory.innerHTML = '<p>Belum ada absensi hari ini</p>';
-    }
-  }
-
-  // Update informasi absensi pribadi
-  function updatePersonalAttendanceInfo() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (!currentUser) {
-      personalAttendanceInfo.innerHTML = '<p>Silakan login untuk melihat informasi absensi Anda.</p>';
-      todayAttendance.classList.add('hidden');
-      return;
-    }
-
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    const userData = attendanceData[currentUser];
-    const todayStr = new Date().toLocaleDateString('id-ID');
-
-    let html = '';
-
-    if (userData && userData.lastAttendance === todayStr) {
-      html += `<p>Status: <span style="color: var(--success); font-weight: bold;">SUDAH ABSEN</span></p>`;
-
-      // Tampilkan absensi hari ini
-      todayAttendance.classList.remove('hidden');
-      attendanceRecords.innerHTML = '';
-
-      if (userData.checkIn) {
-        const record = document.createElement('div');
-        record.className = 'attendance-record';
-        record.innerHTML = `
-          <span>Check-In:</span>
-          <span class="attendance-time">${userData.checkIn}</span>
-        `;
-        attendanceRecords.appendChild(record);
-      }
-
-      if (userData.checkOut) {
-        const record = document.createElement('div');
-        record.className = 'attendance-record';
-        record.innerHTML = `
-          <span>Check-Out:</span>
-          <span class="attendance-time">${userData.checkOut}</span>
-        `;
-        attendanceRecords.appendChild(record);
-      }
-    } else {
-      html += `<p>Status: <span style="color: var(--danger); font-weight: bold;">BELUM ABSEN</span></p>`;
-      todayAttendance.classList.add('hidden');
-    }
-
-    personalAttendanceInfo.innerHTML = html;
-  }
-
-  // Update daftar staff untuk admin
-  function updateStaffList() {
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    const todayStr = new Date().toLocaleDateString('id-ID');
-    
-    let checkInCount = 0;
-    let checkOutCount = 0;
-    
-    staffList.innerHTML = '';
-    
-    for (const staff in staffData) {
-      const staffInfo = staffData[staff];
-      const attendanceInfo = attendanceData[staff] || {};
-      
-      let status = 'Belum Absen';
-      let statusClass = 'status-absent';
-      
-      if (attendanceInfo.lastAttendance === todayStr) {
-        if (attendanceInfo.checkIn && attendanceInfo.checkOut) {
-          status = 'Sudah Check-Out';
-          statusClass = 'status-present';
-          checkOutCount++;
-        } else if (attendanceInfo.checkIn) {
-          status = 'Sudah Check-In';
-          statusClass = 'status-present';
-          checkInCount++;
-        }
-      }
-      
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${staff}</td>
-        <td>${staffInfo.id}</td>
-        <td><span class="status-badge ${statusClass}">${status}</span></td>
-        <td>${attendanceInfo.checkIn || '-'}</td>
-        <td>${attendanceInfo.checkOut || '-'}</td>
-        <td class="admin-actions">
-          <button class="admin-btn admin-btn-checkin" data-staff="${staff}" data-type="checkin">
-            <i class="fas fa-fingerprint"></i> Check-In
-          </button>
-          <button class="admin-btn admin-btn-checkout" data-staff="${staff}" data-type="checkout">
-            <i class="fas fa-sign-out-alt"></i> Check-Out
-          </button>
-        </td>
-      `;
-      
-      staffList.appendChild(row);
-    }
-    
-    // Update statistik admin
-    adminTotalStaff.textContent = Object.keys(staffData).length;
-    adminCheckInCount.textContent = checkInCount;
-    adminCheckOutCount.textContent = checkOutCount;
-    
-    // Tambahkan event listener untuk tombol aksi admin
-    document.querySelectorAll('.admin-btn-checkin, .admin-btn-checkout').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const staffName = this.getAttribute('data-staff');
-        const actionType = this.getAttribute('data-type');
-        adminPerformAttendance(staffName, actionType);
-      });
-    });
-  }
-  
-  // Fungsi untuk admin melakukan absen atas nama staff
-  function adminPerformAttendance(staffName, type) {
-    const now = new Date();
-    const todayStr = now.toLocaleDateString('id-ID');
-    const timeStr = now.toLocaleTimeString('id-ID');
-    
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    
-    // Pastikan objek staff ada
-    if (!attendanceData[staffName]) {
-      attendanceData[staffName] = {
-        checkIn: null,
-        checkOut: null,
-        lastAttendance: null,
-        history: []
-      };
-    }
-    
-    if (type === 'checkin') {
-      // Cek apakah sudah check-in hari ini
-      if (attendanceData[staffName].lastAttendance === todayStr && attendanceData[staffName].checkIn) {
-        showToast(`${staffName} sudah check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkIn = timeStr;
-      attendanceData[staffName].lastAttendance = todayStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-IN (by Admin)'
-      });
-      
-      showToast(`Check-in berhasil untuk ${staffName} pada ${timeStr}`);
-    } 
-    else if (type === 'checkout') {
-      // Cek apakah sudah check-out hari ini
-      if (attendanceData[staffName].checkOut) {
-        showToast(`${staffName} sudah check-out hari ini`, true);
-        return;
-      }
-      
-      // Cek apakah sudah check-in
-      if (!attendanceData[staffName].checkIn || attendanceData[staffName].lastAttendance !== todayStr) {
-        showToast(`${staffName} belum check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkOut = timeStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-OUT (by Admin)'
-      });
-      
-      showToast(`Check-out berhasil untuk ${staffName} pada ${timeStr}`);
-    }
-    
-    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-    
-    // Perbarui tampilan
-    updateStaffList();
-    
-    // Jika user yang sedang login adalah staff yang diupdate, perbarui juga tampilan user
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser === staffName) {
-      updateUserAttendanceHistory();
-      updatePersonalAttendanceInfo();
-    }
-    
-    updateAttendanceStats();
-  }
-
-  // Event listener untuk login
-  loginBtn.addEventListener('click', function() {
-    const username = usernameInput.value.trim().toUpperCase();
-    const password = passwordInput.value.trim();
-
-    // Cek apakah login sebagai admin
-    if (username === 'KAPTEN' && adminData[username] && adminData[username].password === password) {
-      // Login admin berhasil
-      loginError.classList.add('hidden');
-      loginSection.classList.add('hidden');
-      userSection.classList.add('hidden');
-      adminPanel.style.display = 'block';
-
-      // Simpan info admin yang login
-      sessionStorage.setItem('currentAdmin', username);
-      
-      // Update daftar staff
-      updateStaffList();
-      
-      showToast(`Login admin berhasil, selamat datang ${username}!`);
-      return;
-    }
-    
-    // Cek apakah login sebagai staff biasa
-    if (staffData[username] && staffData[username].password === password) {
-      // Login berhasil
-      loginError.classList.add('hidden');
-      loginSection.classList.add('hidden');
-      userSection.classList.remove('hidden');
-      adminPanel.style.display = 'none';
-
-      // Tampilkan info user
-      userName.textContent = username;
-      userId.textContent = `ID: ${staffData[username].id}`;
-
-      // Simpan info staff yang login
-      sessionStorage.setItem('currentUser', username);
-
-      // Update riwayat absensi dan info pribadi
-      updateUserAttendanceHistory();
-      updatePersonalAttendanceInfo();
-      updateAttendanceStats();
-      
-      showToast(`Login berhasil, selamat datang ${username}!`);
-    } else {
-      // Login gagal
-      loginError.classList.remove('hidden');
-      showToast('Nama staff atau password salah', true);
-    }
-  });
-
-  // Event listener untuk tekan Enter pada form
-  passwordInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      loginBtn.click();
-    }
-  });
-
-  // Event listener untuk logout
-  logoutBtn.addEventListener('click', function() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    sessionStorage.removeItem('currentUser');
-    userSection.classList.add('hidden');
-    loginSection.classList.remove('hidden');
-    usernameInput.value = '';
-    passwordInput.value = '';
-
-    // Update info absensi
-    updatePersonalAttendanceInfo();
-    
-    showToast(`Logout berhasil, sampai jumpa ${currentUser}!`);
-  });
-  
-  // Event listener untuk logout admin
-  adminLogoutBtn.addEventListener('click', function() {
-    sessionStorage.removeItem('currentAdmin');
-    adminPanel.style.display = 'none';
-    loginSection.classList.remove('hidden');
-    usernameInput.value = '';
-    passwordInput.value = '';
-    
-    showToast('Logout admin berhasil');
-  });
-
-  // Event listener untuk check-in
-  checkInBtn.addEventListener('click', function() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser) {
-      const now = new Date();
-      const todayStr = now.toLocaleDateString('id-ID');
-      const timeStr = now.toLocaleTimeString('id-ID');
-
-      const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-
-      if (!attendanceData[currentUser] || attendanceData[currentUser].lastAttendance !== todayStr) {
-        // Pastikan objek user ada
-        if (!attendanceData[currentUser]) {
-          attendanceData[currentUser] = {
-            checkIn: null,
-            checkOut: null,
-            lastAttendance: null,
-            history: []
-          };
-        }
-        
-        attendanceData[currentUser].checkIn = timeStr;
-        attendanceData[currentUser].lastAttendance = todayStr;
-
-        // Tambahkan ke riwayat
-        if (!attendanceData[currentUser].history) {
-          attendanceData[currentUser].history = [];
-        }
-
-        attendanceData[currentUser].history.push({
-          date: todayStr,
-          time: timeStr,
-          type: 'CHECK-IN'
-        });
-
-        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-
-        attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
-        attendanceStatus.className = "attendance-status status-success";
-        attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-
-        // Perbarui tampilan
-        updateUserAttendanceHistory();
-        updatePersonalAttendanceInfo();
-        updateAttendanceStats();
-        
-        showToast(`Check-in berhasil pada ${timeStr}`);
-        
-        // Animasi tombol
-        checkInBtn.classList.add('pulse');
-        setTimeout(() => checkInBtn.classList.remove('pulse'), 500);
-      } else {
-        attendanceStatus.textContent = "Anda sudah melakukan absensi hari ini";
-        attendanceStatus.className = "attendance-status status-warning";
-        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-        
-        showToast('Anda sudah melakukan absensi hari ini', true);
-      }
-    }
-  });
-
-  // Event listener untuk check-out
-  checkOutBtn.addEventListener('click', function() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser) {
-      const now = new Date();
-      const todayStr = now.toLocaleDateString('id-ID');
-      const timeStr = now.toLocaleTimeString('id-ID');
-
-      const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-
-      // Pastikan objek user ada
-      if (!attendanceData[currentUser]) {
-        attendanceData[currentUser] = {
-          checkIn: null,
-          checkOut: null,
-          lastAttendance: null,
-          history: []
-        };
-      }
-
-      if (attendanceData[currentUser].lastAttendance === todayStr && !attendanceData[currentUser].checkOut) {
-        attendanceData[currentUser].checkOut = timeStr;
-
-        // Tambahkan ke riwayat
-        if (!attendanceData[currentUser].history) {
-          attendanceData[currentUser].history = [];
-        }
-
-        attendanceData[currentUser].history.push({
-          date: todayStr,
-          time: timeStr,
-          type: 'CHECK-OUT'
-        });
-
-        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-
-        attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
-        attendanceStatus.className = "attendance-status status-success";
-        attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-
-        // Perbarui tampilan
-        updateUserAttendanceHistory();
-        updatePersonalAttendanceInfo();
-        
-        showToast(`Check-out berhasil pada ${timeStr}`);
-        
-        // Animasi tombol
-        checkOutBtn.classList.add('pulse');
-        setTimeout(() => checkOutBtn.classList.remove('pulse'), 500);
-      } else if (attendanceData[currentUser].checkOut) {
-        attendanceStatus.textContent = "Anda sudah check-out hari ini";
-        attendanceStatus.className = "attendance-status status-warning";
-        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-        
-        showToast('Anda sudah check-out hari ini', true);
-      } else {
-        attendanceStatus.textContent = "Anda belum check-in hari ini";
-        attendanceStatus.className = "attendance-status status-error";
-        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-        
-        showToast('Anda belum check-in hari ini', true);
-      }
-    }
-  });
-
-  // Cek apakah user sudah login
-  if (sessionStorage.getItem('currentUser')) {
-    const currentUser = sessionStorage.getItem('currentUser');
-    loginSection.classList.add('hidden');
-    userSection.classList.remove('hidden');
-    userName.textContent = currentUser;
-    userId.textContent = `ID: ${staffData[currentUser] ? staffData[currentUser].id : '-'}`;
-    updateUserAttendanceHistory();
-    updatePersonalAttendanceInfo();
-  }
-  
-  // Cek apakah admin sudah login
-  if (sessionStorage.getItem('currentAdmin')) {
-    loginSection.classList.add('hidden');
-    userSection.classList.add('hidden');
-    adminPanel.style.display = 'block';
-    updateStaffList();
-  }
-
-  // Muat data statistik
-  updateAttendanceStats();
-  updatePersonalAttendanceInfo();
-});
-</script>
+    </script>
 </body>
 </html>
