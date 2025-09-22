@@ -524,6 +524,13 @@ header::before {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.time-absen {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .stats-container {
@@ -946,7 +953,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td>${staff}</td>
         <td>${staffInfo.id}</td>
         <td><span class="status-badge ${statusClass}">${status}</span></td>
-        <td>${attendanceInfo.absen || '-'}</td>
+        <td class="time-absen">${attendanceInfo.absen || '-'}</td>
         <td class="admin-actions">
           <button class="admin-btn admin-btn-absen" data-staff="${staff}" data-type="absen" ${status === 'Sudah Absen' ? 'disabled' : ''}>
             <i class="fas fa-fingerprint"></i> Absenkan
