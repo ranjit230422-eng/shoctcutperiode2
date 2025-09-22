@@ -643,6 +643,21 @@
             color: #d17a08;
         }
 
+        /* Loading indicator */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 968px) {
             .content {
@@ -1132,12 +1147,16 @@
 
             // Simpan data absensi ke Firebase atau localStorage
             function saveAttendanceData(staffName, attendanceData) {
+                console.log("Menyimpan data absensi untuk:", staffName, attendanceData);
+                
                 if (firebaseInitialized && database) {
                     // Simpan ke Firebase
                     const today = new Date().toLocaleDateString('id-ID');
                     database.ref('attendance/' + today + '/' + staffName).set(attendanceData)
                         .then(() => {
                             console.log("Data absensi berhasil disimpan ke Firebase");
+                            // Update localStorage juga sebagai backup
+                            saveToLocalStorage(staffName, attendanceData);
                         })
                         .catch((error) => {
                             console.error("Error menyimpan data ke Firebase: ", error);
@@ -1166,17 +1185,20 @@
                     database.ref('attendance/' + today).once('value')
                         .then((snapshot) => {
                             const data = snapshot.val() || {};
+                            console.log("Data dari Firebase:", data);
                             callback(data);
                         })
                         .catch((error) => {
                             console.error("Error mengambil data dari Firebase: ", error);
                             // Fallback ke localStorage jika Firebase gagal
                             const localData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                            console.log("Data dari localStorage:", localData);
                             callback(localData);
                         });
                 } else {
                     // Fallback ke localStorage
                     const localData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
+                    console.log("Data dari localStorage:", localData);
                     callback(localData);
                 }
             }
@@ -1397,134 +1419,192 @@
             // Event listener untuk check-in
             checkInBtn.addEventListener('click', function() {
                 const currentUser = sessionStorage.getItem('currentUser');
-                if (currentUser) {
-                    const now = new Date();
-                    const todayStr = now.toLocaleDateString('id-ID');
-                    const timeStr = now.toLocaleTimeString('id-ID');
-
-                    getAttendanceData((attendanceData) => {
-                        if (!attendanceData[currentUser] || attendanceData[currentUser].lastAttendance !== todayStr) {
-                            // Pastikan objek user ada
-                            if (!attendanceData[currentUser]) {
-                                attendanceData[currentUser] = {
-                                    checkIn: null,
-                                    checkOut: null,
-                                    lastAttendance: null,
-                                    history: []
-                                };
-                            }
-                            
-                            attendanceData[currentUser].checkIn = timeStr;
-                            attendanceData[currentUser].lastAttendance = todayStr;
-
-                            // Tambahkan ke riwayat
-                            if (!attendanceData[currentUser].history) {
-                                attendanceData[currentUser].history = [];
-                            }
-
-                            attendanceData[currentUser].history.push({
-                                date: todayStr,
-                                time: timeStr,
-                                type: 'CHECK-IN'
-                            });
-
-                            // Simpan data
-                            saveAttendanceData(currentUser, attendanceData[currentUser]);
-
-                            attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
-                            attendanceStatus.className = "attendance-status status-success";
-                            attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
-                            attendanceStatus.classList.remove('hidden');
-
-                            // Perbarui tampilan
-                            updateUserAttendanceHistory();
-                            updatePersonalAttendanceInfo();
-                            updateAttendanceStats();
-                            
-                            showToast(`Check-in berhasil pada ${timeStr}`);
-                            
-                            // Animasi tombol
-                            checkInBtn.classList.add('pulse');
-                            setTimeout(() => checkInBtn.classList.remove('pulse'), 500);
-                        } else {
-                            attendanceStatus.textContent = "Anda sudah melakukan absensi hari ini";
-                            attendanceStatus.className = "attendance-status status-warning";
-                            attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
-                            attendanceStatus.classList.remove('hidden');
-                            
-                            showToast('Anda sudah melakukan absensi hari ini', true);
-                        }
-                    });
+                if (!currentUser) {
+                    showToast('Silakan login terlebih dahulu', true);
+                    return;
                 }
+                
+                const now = new Date();
+                const todayStr = now.toLocaleDateString('id-ID');
+                const timeStr = now.toLocaleTimeString('id-ID');
+
+                // Tampilkan loading state
+                const originalText = checkInBtn.innerHTML;
+                checkInBtn.innerHTML = '<div class="loading"></div> Memproses...';
+                checkInBtn.disabled = true;
+
+                getAttendanceData((attendanceData) => {
+                    // Pastikan objek user ada
+                    if (!attendanceData[currentUser]) {
+                        attendanceData[currentUser] = {
+                            checkIn: null,
+                            checkOut: null,
+                            lastAttendance: null,
+                            history: []
+                        };
+                    }
+                    
+                    // Cek apakah user sudah check-in hari ini
+                    if (attendanceData[currentUser].lastAttendance === todayStr && attendanceData[currentUser].checkIn) {
+                        attendanceStatus.textContent = "Anda sudah melakukan check-in hari ini";
+                        attendanceStatus.className = "attendance-status status-warning";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda sudah melakukan check-in hari ini', true);
+                        
+                        // Kembalikan tombol ke keadaan semula
+                        checkInBtn.innerHTML = originalText;
+                        checkInBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Simpan data check-in
+                    attendanceData[currentUser].checkIn = timeStr;
+                    attendanceData[currentUser].lastAttendance = todayStr;
+
+                    // Tambahkan ke riwayat
+                    if (!attendanceData[currentUser].history) {
+                        attendanceData[currentUser].history = [];
+                    }
+
+                    attendanceData[currentUser].history.push({
+                        date: todayStr,
+                        time: timeStr,
+                        type: 'CHECK-IN'
+                    });
+
+                    // Simpan data
+                    saveAttendanceData(currentUser, attendanceData[currentUser]);
+
+                    // Update UI
+                    attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
+                    attendanceStatus.className = "attendance-status status-success";
+                    attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
+                    attendanceStatus.classList.remove('hidden');
+
+                    // Perbarui tampilan
+                    updateUserAttendanceHistory();
+                    updatePersonalAttendanceInfo();
+                    updateAttendanceStats();
+                    
+                    // Update admin table jika admin sedang login
+                    if (!adminContent.classList.contains('hidden')) {
+                        updateAdminTable();
+                    }
+                    
+                    showToast(`Check-in berhasil pada ${timeStr}`);
+                    
+                    // Animasi tombol
+                    checkInBtn.classList.add('pulse');
+                    setTimeout(() => {
+                        checkInBtn.classList.remove('pulse');
+                        checkInBtn.innerHTML = originalText;
+                        checkInBtn.disabled = false;
+                    }, 500);
+                });
             });
 
             // Event listener untuk check-out
             checkOutBtn.addEventListener('click', function() {
                 const currentUser = sessionStorage.getItem('currentUser');
-                if (currentUser) {
-                    const now = new Date();
-                    const todayStr = now.toLocaleDateString('id-ID');
-                    const timeStr = now.toLocaleTimeString('id-ID');
-
-                    getAttendanceData((attendanceData) => {
-                        // Pastikan objek user ada
-                        if (!attendanceData[currentUser]) {
-                            attendanceData[currentUser] = {
-                                checkIn: null,
-                                checkOut: null,
-                                lastAttendance: null,
-                                history: []
-                            };
-                        }
-
-                        if (attendanceData[currentUser].lastAttendance === todayStr && !attendanceData[currentUser].checkOut) {
-                            attendanceData[currentUser].checkOut = timeStr;
-
-                            // Tambahkan ke riwayat
-                            if (!attendanceData[currentUser].history) {
-                                attendanceData[currentUser].history = [];
-                            }
-
-                            attendanceData[currentUser].history.push({
-                                date: todayStr,
-                                time: timeStr,
-                                type: 'CHECK-OUT'
-                            });
-
-                            // Simpan data
-                            saveAttendanceData(currentUser, attendanceData[currentUser]);
-
-                            attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
-                            attendanceStatus.className = "attendance-status status-success";
-                            attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
-                            attendanceStatus.classList.remove('hidden');
-
-                            // Perbarui tampilan
-                            updateUserAttendanceHistory();
-                            updatePersonalAttendanceInfo();
-                            
-                            showToast(`Check-out berhasil pada ${timeStr}`);
-                            
-                            // Animasi tombol
-                            checkOutBtn.classList.add('pulse');
-                            setTimeout(() => checkOutBtn.classList.remove('pulse'), 500);
-                        } else if (attendanceData[currentUser].checkOut) {
-                            attendanceStatus.textContent = "Anda sudah check-out hari ini";
-                            attendanceStatus.className = "attendance-status status-warning";
-                            attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
-                            attendanceStatus.classList.remove('hidden');
-                            
-                            showToast('Anda sudah check-out hari ini', true);
-                        } else {
-                            attendanceStatus.textContent = "Anda belum check-in hari ini";
-                            attendanceStatus.className = "attendance-status status-error";
-                            attendanceStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${attendanceStatus.textContent}`;
-                            attendanceStatus.classList.remove('hidden');
-                            
-                            showToast('Anda belum check-in hari ini', true);
-                        }
-                    });
+                if (!currentUser) {
+                    showToast('Silakan login terlebih dahulu', true);
+                    return;
                 }
+                
+                const now = new Date();
+                const todayStr = now.toLocaleDateString('id-ID');
+                const timeStr = now.toLocaleTimeString('id-ID');
+
+                // Tampilkan loading state
+                const originalText = checkOutBtn.innerHTML;
+                checkOutBtn.innerHTML = '<div class="loading"></div> Memproses...';
+                checkOutBtn.disabled = true;
+
+                getAttendanceData((attendanceData) => {
+                    // Pastikan objek user ada
+                    if (!attendanceData[currentUser]) {
+                        attendanceData[currentUser] = {
+                            checkIn: null,
+                            checkOut: null,
+                            lastAttendance: null,
+                            history: []
+                        };
+                    }
+
+                    // Cek apakah user sudah check-out hari ini
+                    if (attendanceData[currentUser].checkOut) {
+                        attendanceStatus.textContent = "Anda sudah check-out hari ini";
+                        attendanceStatus.className = "attendance-status status-warning";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda sudah check-out hari ini', true);
+                        
+                        // Kembalikan tombol ke keadaan semula
+                        checkOutBtn.innerHTML = originalText;
+                        checkOutBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Cek apakah user sudah check-in hari ini
+                    if (!attendanceData[currentUser].checkIn || attendanceData[currentUser].lastAttendance !== todayStr) {
+                        attendanceStatus.textContent = "Anda belum check-in hari ini";
+                        attendanceStatus.className = "attendance-status status-error";
+                        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${attendanceStatus.textContent}`;
+                        attendanceStatus.classList.remove('hidden');
+                        
+                        showToast('Anda belum check-in hari ini', true);
+                        
+                        // Kembalikan tombol ke keadaan semula
+                        checkOutBtn.innerHTML = originalText;
+                        checkOutBtn.disabled = false;
+                        return;
+                    }
+
+                    // Simpan data check-out
+                    attendanceData[currentUser].checkOut = timeStr;
+
+                    // Tambahkan ke riwayat
+                    if (!attendanceData[currentUser].history) {
+                        attendanceData[currentUser].history = [];
+                    }
+
+                    attendanceData[currentUser].history.push({
+                        date: todayStr,
+                        time: timeStr,
+                        type: 'CHECK-OUT'
+                    });
+
+                    // Simpan data
+                    saveAttendanceData(currentUser, attendanceData[currentUser]);
+
+                    // Update UI
+                    attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
+                    attendanceStatus.className = "attendance-status status-success";
+                    attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
+                    attendanceStatus.classList.remove('hidden');
+
+                    // Perbarui tampilan
+                    updateUserAttendanceHistory();
+                    updatePersonalAttendanceInfo();
+                    
+                    // Update admin table jika admin sedang login
+                    if (!adminContent.classList.contains('hidden')) {
+                        updateAdminTable();
+                    }
+                    
+                    showToast(`Check-out berhasil pada ${timeStr}`);
+                    
+                    // Animasi tombol
+                    checkOutBtn.classList.add('pulse');
+                    setTimeout(() => {
+                        checkOutBtn.classList.remove('pulse');
+                        checkOutBtn.innerHTML = originalText;
+                        checkOutBtn.disabled = false;
+                    }, 500);
+                });
             });
 
             // Admin panel event listeners
@@ -1581,8 +1661,10 @@
             
             // Setup real-time listener untuk admin jika Firebase terinisialisasi
             if (firebaseInitialized && database) {
-                database.ref('attendance/' + new Date().toLocaleDateString('id-ID')).on('value', (snapshot) => {
-                    if (adminContent.classList.contains('hidden') === false) {
+                const today = new Date().toLocaleDateString('id-ID');
+                database.ref('attendance/' + today).on('value', (snapshot) => {
+                    console.log("Real-time update detected");
+                    if (!adminContent.classList.contains('hidden')) {
                         updateAdminTable();
                     }
                 });
