@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absensi Staff Linetogel - Admin Panel</title>
+<title>Absensi Staff Linetogel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -271,7 +271,7 @@ header::before {
 
 .attendance-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 22px;
   margin-top: 28px;
 }
@@ -573,92 +573,6 @@ header::before {
   color: #ffffff;
 }
 
-/* Admin Panel Styles */
-.admin-panel {
-  display: none;
-}
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.staff-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-}
-
-.staff-table th, .staff-table td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.staff-table th {
-  background: var(--gradient-primary);
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.staff-table tr:hover {
-  background-color: rgba(108, 99, 255, 0.05);
-}
-
-.status-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.status-present {
-  background-color: rgba(54, 209, 220, 0.15);
-  color: #1890c3;
-}
-
-.status-absent {
-  background-color: rgba(255, 107, 107, 0.15);
-  color: #d11570;
-}
-
-.admin-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.admin-btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.admin-btn-checkin {
-  background: var(--gradient-success);
-  color: white;
-}
-
-.admin-btn-checkout {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.admin-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 /* Responsive adjustments */
 @media (max-width: 968px) {
   .content {
@@ -678,14 +592,6 @@ header::before {
 
   .stats-container {
     grid-template-columns: 1fr 1fr;
-  }
-  
-  .staff-table {
-    font-size: 14px;
-  }
-  
-  .staff-table th, .staff-table td {
-    padding: 12px 8px;
   }
 }
 
@@ -728,18 +634,6 @@ header::before {
     right: 15px;
     left: 15px;
     max-width: none;
-  }
-  
-  .staff-table {
-    font-size: 12px;
-  }
-  
-  .staff-table th, .staff-table td {
-    padding: 8px 6px;
-  }
-  
-  .admin-actions {
-    flex-direction: column;
   }
 }
 
@@ -817,11 +711,8 @@ Riwayat Absensi Hari Ini
 </div>
 
 <div class="attendance-actions">
-<button class="btn btn-success" id="checkInBtn">
-<i class="fas fa-fingerprint"></i> Check-In
-</button>
-<button class="btn btn-danger" id="checkOutBtn">
-<i class="fas fa-sign-out-alt"></i> Check-Out
+<button class="btn btn-success" id="absenBtn">
+<i class="fas fa-fingerprint"></i> Absen
 </button>
 </div>
 
@@ -868,54 +759,6 @@ Statistik Absensi Hari Ini
 <div class="stat-value" id="absentCount">0</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-
-<!-- Admin Panel Section -->
-<div id="adminPanel" class="admin-panel">
-<div class="card">
-<div class="admin-header">
-<div class="card-title">
-<i class="fas fa-user-shield"></i>
-Panel Admin Kapten
-</div>
-<button class="btn btn-danger" id="adminLogoutBtn">
-<i class="fas fa-sign-out-alt"></i> Logout Admin
-</button>
-</div>
-
-<div class="stats-container">
-<div class="stat-box">
-<div>Total Staff</div>
-<div class="stat-value" id="adminTotalStaff">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Check-In</div>
-<div class="stat-value" id="adminCheckInCount">0</div>
-</div>
-<div class="stat-box">
-<div>Sudah Check-Out</div>
-<div class="stat-value" id="adminCheckOutCount">0</div>
-</div>
-</div>
-
-<div style="overflow-x: auto;">
-<table class="staff-table">
-<thead>
-<tr>
-<th>Nama Staff</th>
-<th>ID</th>
-<th>Status</th>
-<th>Check-In</th>
-<th>Check-Out</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="staffList">
-<!-- Staff list will be populated here -->
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -998,15 +841,9 @@ document.addEventListener('DOMContentLoaded', function() {
     'SYARIFAH RUMIATI ASTARI': { id: 'C4462617 / E5380676', password: 'SYARIFAH' }
   };
 
-  // Data admin khusus
-  const adminData = {
-    'KAPTEN': { password: 'LINETOGEL2025' }
-  };
-
   // Referensi elemen DOM
   const loginSection = document.getElementById('loginSection');
   const userSection = document.getElementById('userSection');
-  const adminPanel = document.getElementById('adminPanel');
   const userName = document.getElementById('userName');
   const userId = document.getElementById('userId');
   const usernameInput = document.getElementById('username');
@@ -1014,9 +851,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const loginBtn = document.getElementById('loginBtn');
   const loginError = document.getElementById('loginError');
   const logoutBtn = document.getElementById('logoutBtn');
-  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
-  const checkInBtn = document.getElementById('checkInBtn');
-  const checkOutBtn = document.getElementById('checkOutBtn');
+  const absenBtn = document.getElementById('absenBtn');
   const attendanceStatus = document.getElementById('attendanceStatus');
   const attendanceHistory = document.getElementById('attendanceHistory');
   const currentDateElem = document.getElementById('currentDate');
@@ -1029,10 +864,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const attendanceRecords = document.getElementById('attendanceRecords');
   const togglePassword = document.getElementById('togglePassword');
   const toast = document.getElementById('toast');
-  const staffList = document.getElementById('staffList');
-  const adminTotalStaff = document.getElementById('adminTotalStaff');
-  const adminCheckInCount = document.getElementById('adminCheckInCount');
-  const adminCheckOutCount = document.getElementById('adminCheckOutCount');
 
   // Toggle password visibility
   togglePassword.addEventListener('click', function() {
@@ -1115,8 +946,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Reset data untuk semua staff
       for (const staff in staffData) {
         attendanceData[staff] = {
-          checkIn: null,
-          checkOut: null,
+          absen: null,
           lastAttendance: null,
           history: []
         };
@@ -1128,8 +958,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (const staff in staffData) {
         if (!attendanceData[staff]) {
           attendanceData[staff] = {
-            checkIn: null,
-            checkOut: null,
+            absen: null,
             lastAttendance: null,
             history: []
           };
@@ -1231,22 +1060,12 @@ document.addEventListener('DOMContentLoaded', function() {
       todayAttendance.classList.remove('hidden');
       attendanceRecords.innerHTML = '';
 
-      if (userData.checkIn) {
+      if (userData.absen) {
         const record = document.createElement('div');
         record.className = 'attendance-record';
         record.innerHTML = `
-          <span>Check-In:</span>
-          <span class="attendance-time">${userData.checkIn}</span>
-        `;
-        attendanceRecords.appendChild(record);
-      }
-
-      if (userData.checkOut) {
-        const record = document.createElement('div');
-        record.className = 'attendance-record';
-        record.innerHTML = `
-          <span>Check-Out:</span>
-          <span class="attendance-time">${userData.checkOut}</span>
+          <span>Absen:</span>
+          <span class="attendance-time">${userData.absen}</span>
         `;
         attendanceRecords.appendChild(record);
       }
@@ -1258,185 +1077,16 @@ document.addEventListener('DOMContentLoaded', function() {
     personalAttendanceInfo.innerHTML = html;
   }
 
-  // Update daftar staff untuk admin
-  function updateStaffList() {
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    const todayStr = new Date().toLocaleDateString('id-ID');
-    
-    let checkInCount = 0;
-    let checkOutCount = 0;
-    
-    staffList.innerHTML = '';
-    
-    for (const staff in staffData) {
-      const staffInfo = staffData[staff];
-      const attendanceInfo = attendanceData[staff] || {};
-      
-      let status = 'Belum Absen';
-      let statusClass = 'status-absent';
-      
-      if (attendanceInfo.lastAttendance === todayStr) {
-        if (attendanceInfo.checkIn && attendanceInfo.checkOut) {
-          status = 'Sudah Check-Out';
-          statusClass = 'status-present';
-          checkOutCount++;
-        } else if (attendanceInfo.checkIn) {
-          status = 'Sudah Check-In';
-          statusClass = 'status-present';
-          checkInCount++;
-        }
-      }
-      
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${staff}</td>
-        <td>${staffInfo.id}</td>
-        <td><span class="status-badge ${statusClass}">${status}</span></td>
-        <td>${attendanceInfo.checkIn || '-'}</td>
-        <td>${attendanceInfo.checkOut || '-'}</td>
-        <td class="admin-actions">
-          <button class="admin-btn admin-btn-checkin" data-staff="${staff}" data-type="checkin">
-            <i class="fas fa-fingerprint"></i> Check-In
-          </button>
-          <button class="admin-btn admin-btn-checkout" data-staff="${staff}" data-type="checkout">
-            <i class="fas fa-sign-out-alt"></i> Check-Out
-          </button>
-        </td>
-      `;
-      
-      staffList.appendChild(row);
-    }
-    
-    // Update statistik admin
-    adminTotalStaff.textContent = Object.keys(staffData).length;
-    adminCheckInCount.textContent = checkInCount;
-    adminCheckOutCount.textContent = checkOutCount;
-    
-    // Tambahkan event listener untuk tombol aksi admin
-    document.querySelectorAll('.admin-btn-checkin, .admin-btn-checkout').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const staffName = this.getAttribute('data-staff');
-        const actionType = this.getAttribute('data-type');
-        adminPerformAttendance(staffName, actionType);
-      });
-    });
-  }
-  
-  // Fungsi untuk admin melakukan absen atas nama staff
-  function adminPerformAttendance(staffName, type) {
-    const now = new Date();
-    const todayStr = now.toLocaleDateString('id-ID');
-    const timeStr = now.toLocaleTimeString('id-ID');
-    
-    const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-    
-    // Pastikan objek staff ada
-    if (!attendanceData[staffName]) {
-      attendanceData[staffName] = {
-        checkIn: null,
-        checkOut: null,
-        lastAttendance: null,
-        history: []
-      };
-    }
-    
-    if (type === 'checkin') {
-      // Cek apakah sudah check-in hari ini
-      if (attendanceData[staffName].lastAttendance === todayStr && attendanceData[staffName].checkIn) {
-        showToast(`${staffName} sudah check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkIn = timeStr;
-      attendanceData[staffName].lastAttendance = todayStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-IN (by Admin)'
-      });
-      
-      showToast(`Check-in berhasil untuk ${staffName} pada ${timeStr}`);
-    } 
-    else if (type === 'checkout') {
-      // Cek apakah sudah check-out hari ini
-      if (attendanceData[staffName].checkOut) {
-        showToast(`${staffName} sudah check-out hari ini`, true);
-        return;
-      }
-      
-      // Cek apakah sudah check-in
-      if (!attendanceData[staffName].checkIn || attendanceData[staffName].lastAttendance !== todayStr) {
-        showToast(`${staffName} belum check-in hari ini`, true);
-        return;
-      }
-      
-      attendanceData[staffName].checkOut = timeStr;
-      
-      // Tambahkan ke riwayat
-      if (!attendanceData[staffName].history) {
-        attendanceData[staffName].history = [];
-      }
-      
-      attendanceData[staffName].history.push({
-        date: todayStr,
-        time: timeStr,
-        type: 'CHECK-OUT (by Admin)'
-      });
-      
-      showToast(`Check-out berhasil untuk ${staffName} pada ${timeStr}`);
-    }
-    
-    localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-    
-    // Perbarui tampilan
-    updateStaffList();
-    
-    // Jika user yang sedang login adalah staff yang diupdate, perbarui juga tampilan user
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser === staffName) {
-      updateUserAttendanceHistory();
-      updatePersonalAttendanceInfo();
-    }
-    
-    updateAttendanceStats();
-  }
-
   // Event listener untuk login
   loginBtn.addEventListener('click', function() {
     const username = usernameInput.value.trim().toUpperCase();
     const password = passwordInput.value.trim();
 
-    // Cek apakah login sebagai admin
-    if (username === 'KAPTEN' && adminData[username] && adminData[username].password === password) {
-      // Login admin berhasil
-      loginError.classList.add('hidden');
-      loginSection.classList.add('hidden');
-      userSection.classList.add('hidden');
-      adminPanel.style.display = 'block';
-
-      // Simpan info admin yang login
-      sessionStorage.setItem('currentAdmin', username);
-      
-      // Update daftar staff
-      updateStaffList();
-      
-      showToast(`Login admin berhasil, selamat datang ${username}!`);
-      return;
-    }
-    
-    // Cek apakah login sebagai staff biasa
     if (staffData[username] && staffData[username].password === password) {
       // Login berhasil
       loginError.classList.add('hidden');
       loginSection.classList.add('hidden');
       userSection.classList.remove('hidden');
-      adminPanel.style.display = 'none';
 
       // Tampilkan info user
       userName.textContent = username;
@@ -1479,20 +1129,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     showToast(`Logout berhasil, sampai jumpa ${currentUser}!`);
   });
-  
-  // Event listener untuk logout admin
-  adminLogoutBtn.addEventListener('click', function() {
-    sessionStorage.removeItem('currentAdmin');
-    adminPanel.style.display = 'none';
-    loginSection.classList.remove('hidden');
-    usernameInput.value = '';
-    passwordInput.value = '';
-    
-    showToast('Logout admin berhasil');
-  });
 
-  // Event listener untuk check-in
-  checkInBtn.addEventListener('click', function() {
+  // Event listener untuk absen
+  absenBtn.addEventListener('click', function() {
     const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser) {
       const now = new Date();
@@ -1505,14 +1144,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pastikan objek user ada
         if (!attendanceData[currentUser]) {
           attendanceData[currentUser] = {
-            checkIn: null,
-            checkOut: null,
+            absen: null,
             lastAttendance: null,
             history: []
           };
         }
         
-        attendanceData[currentUser].checkIn = timeStr;
+        attendanceData[currentUser].absen = timeStr;
         attendanceData[currentUser].lastAttendance = todayStr;
 
         // Tambahkan ke riwayat
@@ -1523,12 +1161,12 @@ document.addEventListener('DOMContentLoaded', function() {
         attendanceData[currentUser].history.push({
           date: todayStr,
           time: timeStr,
-          type: 'CHECK-IN'
+          type: 'ABSEN'
         });
 
         localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
 
-        attendanceStatus.textContent = `Check-in berhasil pada pukul ${timeStr}`;
+        attendanceStatus.textContent = `Absen berhasil pada pukul ${timeStr}`;
         attendanceStatus.className = "attendance-status status-success";
         attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
         attendanceStatus.classList.remove('hidden');
@@ -1538,11 +1176,11 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePersonalAttendanceInfo();
         updateAttendanceStats();
         
-        showToast(`Check-in berhasil pada ${timeStr}`);
+        showToast(`Absen berhasil pada ${timeStr}`);
         
         // Animasi tombol
-        checkInBtn.classList.add('pulse');
-        setTimeout(() => checkInBtn.classList.remove('pulse'), 500);
+        absenBtn.classList.add('pulse');
+        setTimeout(() => absenBtn.classList.remove('pulse'), 500);
       } else {
         attendanceStatus.textContent = "Anda sudah melakukan absensi hari ini";
         attendanceStatus.className = "attendance-status status-warning";
@@ -1550,74 +1188,6 @@ document.addEventListener('DOMContentLoaded', function() {
         attendanceStatus.classList.remove('hidden');
         
         showToast('Anda sudah melakukan absensi hari ini', true);
-      }
-    }
-  });
-
-  // Event listener untuk check-out
-  checkOutBtn.addEventListener('click', function() {
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser) {
-      const now = new Date();
-      const todayStr = now.toLocaleDateString('id-ID');
-      const timeStr = now.toLocaleTimeString('id-ID');
-
-      const attendanceData = JSON.parse(localStorage.getItem('attendanceData') || '{}');
-
-      // Pastikan objek user ada
-      if (!attendanceData[currentUser]) {
-        attendanceData[currentUser] = {
-          checkIn: null,
-          checkOut: null,
-          lastAttendance: null,
-          history: []
-        };
-      }
-
-      if (attendanceData[currentUser].lastAttendance === todayStr && !attendanceData[currentUser].checkOut) {
-        attendanceData[currentUser].checkOut = timeStr;
-
-        // Tambahkan ke riwayat
-        if (!attendanceData[currentUser].history) {
-          attendanceData[currentUser].history = [];
-        }
-
-        attendanceData[currentUser].history.push({
-          date: todayStr,
-          time: timeStr,
-          type: 'CHECK-OUT'
-        });
-
-        localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-
-        attendanceStatus.textContent = `Check-out berhasil pada pukul ${timeStr}`;
-        attendanceStatus.className = "attendance-status status-success";
-        attendanceStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-
-        // Perbarui tampilan
-        updateUserAttendanceHistory();
-        updatePersonalAttendanceInfo();
-        
-        showToast(`Check-out berhasil pada ${timeStr}`);
-        
-        // Animasi tombol
-        checkOutBtn.classList.add('pulse');
-        setTimeout(() => checkOutBtn.classList.remove('pulse'), 500);
-      } else if (attendanceData[currentUser].checkOut) {
-        attendanceStatus.textContent = "Anda sudah check-out hari ini";
-        attendanceStatus.className = "attendance-status status-warning";
-        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-        
-        showToast('Anda sudah check-out hari ini', true);
-      } else {
-        attendanceStatus.textContent = "Anda belum check-in hari ini";
-        attendanceStatus.className = "attendance-status status-error";
-        attendanceStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${attendanceStatus.textContent}`;
-        attendanceStatus.classList.remove('hidden');
-        
-        showToast('Anda belum check-in hari ini', true);
       }
     }
   });
@@ -1631,14 +1201,6 @@ document.addEventListener('DOMContentLoaded', function() {
     userId.textContent = `ID: ${staffData[currentUser] ? staffData[currentUser].id : '-'}`;
     updateUserAttendanceHistory();
     updatePersonalAttendanceInfo();
-  }
-  
-  // Cek apakah admin sudah login
-  if (sessionStorage.getItem('currentAdmin')) {
-    loginSection.classList.add('hidden');
-    userSection.classList.add('hidden');
-    adminPanel.style.display = 'block';
-    updateStaffList();
   }
 
   // Muat data statistik
