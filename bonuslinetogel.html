@@ -244,14 +244,14 @@
             padding: 25px;
             position: relative;
             z-index: 2;
-            flex-grow: 1;
+            flex: 1;
             display: flex;
             flex-direction: column;
         }
         
         .text-content {
             white-space: pre-line;
-            flex-grow: 1;
+            flex: 1;
         }
         
         .bonus-content::before {
@@ -324,7 +324,6 @@
             padding: 20px;
             border-radius: 10px;
             margin-top: auto;
-            margin-bottom: 20px;
             font-size: 15px;
             position: relative;
             border: 1px solid rgba(100, 100, 80, 0.2);
@@ -356,7 +355,7 @@
         }
         
         .copy-section {
-            margin-top: auto;
+            margin-top: 20px;
             text-align: center;
             padding-top: 20px;
             border-top: 1px dashed rgba(70, 70, 80, 0.2);
@@ -892,10 +891,10 @@
                         <div class="text-content" id="akan-dibagikan-live">
                             <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
                             <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
-                        </div>
-                        
-                        <div class="note-box">
-                            <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
                         </div>
                         
                         <div class="copy-section">
@@ -917,10 +916,10 @@
                         <div class="text-content" id="sedang-dibagikan-live">
                             <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES, LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE sedang di bagikan dan bertahap tanpa perlu di klaim ya bosku.</p>
                             <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
-                        </div>
-                        
-                        <div class="note-box">
-                            <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
                         </div>
                         
                         <div class="copy-section">
@@ -972,10 +971,10 @@
                         <div class="text-content" id="akan-dibagikan-slot">
                             <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
                             <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
-                        </div>
-                        
-                        <div class="note-box">
-                            <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
                         </div>
                         
                         <div class="copy-section">
@@ -997,10 +996,10 @@
                         <div class="text-content" id="sedang-dibagikan-slot">
                             <p>Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery sedang di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku.</p>
                             <p>Mohon kesabarannya hingga pembagian bonus selesai ya bosku</p>
-                        </div>
-                        
-                        <div class="note-box">
-                            <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            
+                            <div class="note-box">
+                                <p><strong>NB :</strong> Tidak ada estimasi waktunya namun akan selesai hari ini ya bosku</p>
+                            </div>
                         </div>
                         
                         <div class="copy-section">
@@ -1328,17 +1327,12 @@
             });
             
             // Menyamakan tinggi kotak dalam setiap kolom
-            function equalizeHeights() {
+            function equalizeHeight() {
                 const columns = document.querySelectorAll('.bonus-column');
                 
                 columns.forEach(column => {
                     const sections = column.querySelectorAll('.bonus-section');
                     let maxHeight = 0;
-                    
-                    // Reset tinggi untuk menghitung ulang
-                    sections.forEach(section => {
-                        section.style.height = 'auto';
-                    });
                     
                     // Temukan tinggi maksimum
                     sections.forEach(section => {
@@ -1350,20 +1344,15 @@
                     
                     // Terapkan tinggi yang sama ke semua section
                     sections.forEach(section => {
-                        section.style.height = `${maxHeight}px`;
+                        section.style.height = maxHeight + 'px';
                     });
                 });
                 
-                // Menyamakan tinggi untuk message cards
+                // Menyamakan tinggi message cards
                 const messageCards = document.querySelectorAll('.message-card');
                 let maxCardHeight = 0;
                 
-                // Reset tinggi untuk menghitung ulang
-                messageCards.forEach(card => {
-                    card.style.height = 'auto';
-                });
-                
-                // Temukan tinggi maksimum
+                // Temukan tinggi maksimum untuk message cards
                 messageCards.forEach(card => {
                     const height = card.offsetHeight;
                     if (height > maxCardHeight) {
@@ -1373,15 +1362,15 @@
                 
                 // Terapkan tinggi yang sama ke semua message cards
                 messageCards.forEach(card => {
-                    card.style.height = `${maxCardHeight}px`;
+                    card.style.height = maxCardHeight + 'px';
                 });
             }
             
-            // Panggil fungsi saat halaman dimuat
-            equalizeHeights();
+            // Jalankan fungsi saat halaman dimuat
+            equalizeHeight();
             
-            // Panggil fungsi saat jendela diresize
-            window.addEventListener('resize', equalizeHeights);
+            // Jalankan kembali saat jendela diresize
+            window.addEventListener('resize', equalizeHeight);
         });
     </script>
 </body>
