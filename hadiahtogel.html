@@ -6,6 +6,7 @@
     <title>Informasi Hadiah Togel & Kalkulator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* CSS Variables */
         :root {
             --primary-color: #00d4ff;
             --secondary-color: #0099cc;
@@ -22,6 +23,7 @@
             --sidebar-width: 250px;
         }
         
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -65,6 +67,7 @@
             100% { background-position: 0% 0%; }
         }
         
+        /* App Container */
         .app-container {
             display: flex;
             min-height: 100vh;
@@ -132,6 +135,45 @@
             font-size: 1.2rem;
             width: 20px;
             text-align: center;
+        }
+        
+        /* Submenu Styles */
+        .submenu {
+            list-style: none;
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .submenu.active {
+            max-height: 500px;
+        }
+        
+        .submenu li {
+            margin-bottom: 3px;
+        }
+        
+        .submenu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #909090;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            font-size: 0.9rem;
+        }
+        
+        .submenu a:hover, .submenu a.active {
+            color: white;
+            background: rgba(0, 212, 255, 0.05);
+            border-left-color: var(--primary-color);
+        }
+        
+        .submenu a i {
+            margin-right: 8px;
+            font-size: 1rem;
         }
         
         /* Main Content Styles */
@@ -631,6 +673,30 @@
             margin-right: 10px;
             transform: scale(1.2);
         }
+        
+        /* Copy Button for Result */
+        .copy-result-btn {
+            background: rgba(0, 212, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-result-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+        
+        .copy-result-btn i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -648,9 +714,41 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="#" class="menu-link active" data-section="hadiah">
+                    <a href="#" class="menu-link has-submenu" data-submenu="hadiah-submenu">
                         <i class="fas fa-trophy"></i> Informasi Hadiah
                     </a>
+                    <ul class="submenu" id="hadiah-submenu">
+                        <li>
+                            <a href="#" class="submenu-link active" data-section="hadiah-full">
+                                <i class="fas fa-coins"></i> Full Bet
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="submenu-link" data-section="hadiah-bb">
+                                <i class="fas fa-sync-alt"></i> BB Bet
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="submenu-link" data-section="hadiah-discount">
+                                <i class="fas fa-tag"></i> Discount
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="submenu-link" data-section="hadiah-colok">
+                                <i class="fas fa-bullseye"></i> Colok Bebas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="submenu-link" data-section="hadiah-colok-2d">
+                                <i class="fas fa-crosshairs"></i> Colok Bebas 2D
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="submenu-link" data-section="hadiah-tepi-tengah">
+                                <i class="fas fa-arrows-alt-h"></i> Tepi Tengah
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#" class="menu-link" data-section="kalkulator">
@@ -662,10 +760,10 @@
         
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Hadiah Section -->
-            <section class="content-section active" id="hadiah-section">
+            <!-- Hadiah Full Section -->
+            <section class="content-section active" id="hadiah-full-section">
                 <div class="section-header">
-                    <h1 class="neon-glow"><i class="fas fa-trophy"></i> INFORMASI HADIAH TOGEL</h1>
+                    <h1 class="neon-glow"><i class="fas fa-trophy"></i> INFORMASI HADIAH FULL BET</h1>
                     <p>Lengkap dengan semua pasaran tersedia</p>
                 </div>
                 
@@ -783,8 +881,17 @@
                             </tr>
                         </table>
                     </div>
-                    
-                    <!-- Pasaran BB -->
+                </div>
+            </section>
+            
+            <!-- Hadiah BB Section -->
+            <section class="content-section" id="hadiah-bb-section">
+                <div class="section-header">
+                    <h1 class="neon-glow"><i class="fas fa-sync-alt"></i> INFORMASI HADIAH BB BET</h1>
+                    <p>Lengkap dengan semua pasaran tersedia</p>
+                </div>
+                
+                <div class="hadiah-container">
                     <div class="pasaran-card neon-border" id="pasaran-bb-all">
                         <h2>
                             ALL PASARAN (BB BET)
@@ -883,8 +990,17 @@
                             </tr>
                         </table>
                     </div>
-                    
-                    <!-- Pasaran DISCOUNT -->
+                </div>
+            </section>
+            
+            <!-- Hadiah Discount Section -->
+            <section class="content-section" id="hadiah-discount-section">
+                <div class="section-header">
+                    <h1 class="neon-glow"><i class="fas fa-tag"></i> INFORMASI HADIAH DISCOUNT</h1>
+                    <p>Lengkap dengan semua pasaran tersedia</p>
+                </div>
+                
+                <div class="hadiah-container">
                     <div class="pasaran-card neon-border" id="pasaran-disc-all">
                         <h2>
                             ALL PASARAN (DISCOUNT)
@@ -1084,6 +1200,421 @@
                 </div>
             </section>
             
+            <!-- Hadiah Colok Bebas Section -->
+            <section class="content-section" id="hadiah-colok-section">
+                <div class="section-header">
+                    <h1 class="neon-glow"><i class="fas fa-bullseye"></i> INFORMASI HADIAH COLOK BEBAS</h1>
+                    <p>Lengkap dengan semua pasaran tersedia</p>
+                </div>
+                
+                <div class="hadiah-container">
+                    <div class="pasaran-card neon-border" id="pasaran-colok-all">
+                        <h2>
+                            ALL PASARAN (COLOK BEBAS)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-all')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <p>(Kecuali TOTO MACAU, KING KONG 4D, JAKARTA POOLS, HOKI DRAW DAN TOTOMALI)</p>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>1 Digit</td>
+                                <td><span class="highlight">x1.5</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x3</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x4.5</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x6</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-macau-king-jakarta-totomali">
+                        <h2>
+                            TOTO MACAU 4D, KING KONG 4D, JAKARTA POOLS & TOTOMALI (COLOK BEBAS)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-macau-king-jakarta-totomali')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>1 Digit</td>
+                                <td><span class="highlight">x1.6</span></td>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x3.2</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x4.8</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x6.4</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-macau-5d">
+                        <h2>
+                            TOTO MACAU 5D (COLOK BEBAS)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-macau-5d')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>1 Digit</td>
+                                <td><span class="highlight">x0.9</span></td>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x1.8</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x2.7</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x3.6</span></td>
+                            </tr>
+                            <tr>
+                                <td>5 Digit</td>
+                                <td><span class="highlight">x4.5</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-hokidraw">
+                        <h2>
+                            HOKI DRAW (COLOK BEBAS)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-hokidraw')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>1 Digit</td>
+                                <td><span class="highlight">x0.9</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x1.8</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x2.7</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x3.6</span></td>
+                                <td><span class="highlight">6%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- New card for Colok Bebas 4D - TOTO MACAU 5D -->
+                    <div class="pasaran-card neon-border" id="pasaran-colok-macau-5d-4d">
+                        <h2>
+                            Hadiah segala jenis Bet COLOK BEBAS 4D - TOTO MACAU 5D
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-macau-5d-4d')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x50</span></td>
+                            </tr>
+                            <tr>
+                                <td>5 Digit</td>
+                                <td><span class="highlight">x200</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Hadiah Colok Bebas 2D Section -->
+            <section class="content-section" id="hadiah-colok-2d-section">
+                <div class="section-header">
+                    <h1 class="neon-glow"><i class="fas fa-crosshairs"></i> INFORMASI HADIAH COLOK BEBAS 2D</h1>
+                    <p>Lengkap dengan semua pasaran tersedia</p>
+                </div>
+                
+                <div class="hadiah-container">
+                    <div class="pasaran-card neon-border" id="pasaran-colok-2d-all">
+                        <h2>
+                            ALL PASARAN (COLOK BEBAS 2D)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-2d-all')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <p>(Kecuali TOTO MACAU, KING KONG 4D, JAKARTA POOLS, HOKIDRAW DAN TOTOMALI)</p>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x7</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x11</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x18</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-2d-macau-king-jakarta-totomali">
+                        <h2>
+                            TOTO MACAU 4D, KING KONG 4D, JAKARTA POOLS & TOTOMALI (COLOK BEBAS 2D)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-2d-macau-king-jakarta-totomali')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x7</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x13</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x21</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-2d-macau-5d">
+                        <h2>
+                            TOTO MACAU 5D (COLOK BEBAS 2D)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-2d-macau-5d')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x4</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x6</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x20</span></td>
+                            </tr>
+                            <tr>
+                                <td>5 Digit</td>
+                                <td><span class="highlight">x200</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-colok-2d-hokidraw">
+                        <h2>
+                            HOKI DRAW (COLOK BEBAS 2D)
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-colok-2d-hokidraw')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jumlah Digit</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>2 Digit</td>
+                                <td><span class="highlight">x4</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                            <tr>
+                                <td>3 Digit</td>
+                                <td><span class="highlight">x6</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                            <tr>
+                                <td>4 Digit</td>
+                                <td><span class="highlight">x20</span></td>
+                                <td><span class="highlight">10%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Hadiah Tepi Tengah Section -->
+            <section class="content-section" id="hadiah-tepi-tengah-section">
+                <div class="section-header">
+                    <h1 class="neon-glow"><i class="fas fa-arrows-alt-h"></i> INFORMASI HADIAH TEPI TENGAH</h1>
+                    <p>Lengkap dengan semua pasaran tersedia</p>
+                </div>
+                
+                <div class="hadiah-container">
+                    <div class="pasaran-card neon-border" id="pasaran-tepi-tengah-all">
+                        <h2>
+                            Hadiah segala jenis Bet TEPI TENGAH - All Pasaran Kecuali TOTO MACAU, KING KONG 4D, JAKARTA POOLS, HOKI DRAW DAN TOTOMALI
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-tepi-tengah-all')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jenis Bet</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>Tepi Tengah</td>
+                                <td><span class="highlight">1:1 x KEI -3%</span></td>
+                                <td><span class="highlight">2%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-tepi-tengah-macau-king">
+                        <h2>
+                            Hadiah segala jenis Bet TEPI TENGAH - TOTO MACAU 4D, KING KONG 4D
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-tepi-tengah-macau-king')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jenis Bet</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>Tepi Tengah</td>
+                                <td><span class="highlight">KEI -2.2%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-tepi-tengah-jakarta-totomali">
+                        <h2>
+                            Hadiah segala jenis Bet TEPI TENGAH JAKARTA POOLS DAN TOTOMALI
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-tepi-tengah-jakarta-totomali')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jenis Bet</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>Tepi Tengah</td>
+                                <td><span class="highlight">KEI -2.2%</span></td>
+                                <td><span class="highlight">2%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-tepi-tengah-macau-5d">
+                        <h2>
+                            Hadiah segala jenis Bet TEPI TENGAH - TOTO MACAU 5D
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-tepi-tengah-macau-5d')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jenis Bet</th>
+                                <th>Hadiah</th>
+                            </tr>
+                            <tr>
+                                <td>Tepi Tengah</td>
+                                <td><span class="highlight">KEI -2.2%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="pasaran-card neon-border" id="pasaran-tepi-tengah-hokidraw">
+                        <h2>
+                            Hadiah segala jenis TEPI TENGAH - HOKI DRAW
+                            <button class="copy-btn" onclick="copyPasaran('pasaran-tepi-tengah-hokidraw')" title="Salin informasi">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>Jenis Bet</th>
+                                <th>Hadiah</th>
+                                <th>Discount</th>
+                            </tr>
+                            <tr>
+                                <td>Tepi Tengah</td>
+                                <td><span class="highlight">KEI -2.2%</span></td>
+                                <td><span class="highlight">2%</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
             <!-- Calculator Section -->
             <section class="content-section" id="kalkulator-section">
                 <div class="section-header">
@@ -1098,6 +1629,9 @@
                         <button class="bet-type-btn active" data-type="full">FULL BET</button>
                         <button class="bet-type-btn" data-type="bb">BB BET</button>
                         <button class="bet-type-btn" data-type="discount">DISCOUNT</button>
+                        <button class="bet-type-btn" data-type="colok">COLOK BEBAS</button>
+                        <button class="bet-type-btn" data-type="colok-2d">COLOK BEBAS 2D</button>
+                        <button class="bet-type-btn" data-type="tepi-tengah">TEPI TENGAH</button>
                     </div>
                     
                     <div class="bet-type-info" id="bet-type-info">
@@ -1144,6 +1678,34 @@
                         </select>
                     </div>
                     
+                    <div class="form-group colok-options" style="display:none;">
+                        <label for="digit-count">Jumlah Digit:</label>
+                        <select id="digit-count">
+                            <option value="1">1 Digit</option>
+                            <option value="2">2 Digit</option>
+                            <option value="3">3 Digit</option>
+                            <option value="4">4 Digit</option>
+                            <option value="5" style="display:none">5 Digit</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group colok-2d-options" style="display:none;">
+                        <label for="colok-2d-digit-count">Jumlah Digit:</label>
+                        <select id="colok-2d-digit-count">
+                            <option value="2">2 Digit</option>
+                            <option value="3">3 Digit</option>
+                            <option value="4">4 Digit</option>
+                            <option value="5" style="display:none">5 Digit</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group tepi-tengah-options" style="display:none;">
+                        <label for="tepi-tengah-type">Jenis TEPI TENGAH:</label>
+                        <select id="tepi-tengah-type">
+                            <option value="tepi-tengah">Tepi Tengah</option>
+                        </select>
+                    </div>
+                    
                     <div class="super-discount-option" id="super-discount-option">
                         <label>
                             <input type="checkbox" id="super-discount">
@@ -1163,6 +1725,9 @@
                     <div class="result" id="result">
                         <h4><i class="fas fa-coins"></i> HASIL PERHITUNGAN</h4>
                         <div id="hasil"></div>
+                        <button class="copy-result-btn" onclick="copyResult()">
+                            <i class="fas fa-copy"></i> Salin Hasil
+                        </button>
                     </div>
                 </div>
             </section>
@@ -1227,13 +1792,28 @@
             });
         });
         
+        // Submenu toggle
+        const submenuLinks = document.querySelectorAll('.has-submenu');
+        submenuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const submenuId = link.getAttribute('data-submenu');
+                const submenu = document.getElementById(submenuId);
+                
+                // Toggle active class for submenu
+                submenu.classList.toggle('active');
+            });
+        });
+        
         // Menu navigation
-        menuLinks.forEach(link => {
+        const allMenuLinks = document.querySelectorAll('.menu-link, .submenu-link');
+        allMenuLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 
                 // Remove active class from all links
-                menuLinks.forEach(l => l.classList.remove('active'));
+                allMenuLinks.forEach(l => l.classList.remove('active'));
                 
                 // Add active class to clicked link
                 link.classList.add('active');
@@ -1256,6 +1836,9 @@
         const betTypeBtns = document.querySelectorAll('.bet-type-btn');
         const bbOptions = document.querySelector('.bb-options');
         const discount2dOptions = document.querySelector('.discount-2d-options');
+        const colokOptions = document.querySelector('.colok-options');
+        const colok2dOptions = document.querySelector('.colok-2d-options');
+        const tepiTengahOptions = document.querySelector('.tepi-tengah-options');
         const superDiscountOption = document.getElementById('super-discount-option');
         const betTypeInfo = document.getElementById('bet-type-info');
         
@@ -1272,16 +1855,51 @@
                 if (betType === 'bb') {
                     bbOptions.style.display = 'block';
                     discount2dOptions.style.display = 'none';
+                    colokOptions.style.display = 'none';
+                    colok2dOptions.style.display = 'none';
+                    tepiTengahOptions.style.display = 'none';
                     superDiscountOption.style.display = 'none';
                     betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> BB BET (Bolak-Balik): Hadiah untuk tebakan tepat dan tebakan bolak-balik';
                 } else if (betType === 'discount') {
                     bbOptions.style.display = 'none';
                     discount2dOptions.style.display = 'block';
+                    colokOptions.style.display = 'none';
+                    colok2dOptions.style.display = 'none';
+                    tepiTengahOptions.style.display = 'none';
                     checkSuperDiscountOption();
                     betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> DISCOUNT: Bet dengan diskon, membayar lebih sedikit namun hadiah lebih kecil';
+                } else if (betType === 'colok') {
+                    bbOptions.style.display = 'none';
+                    discount2dOptions.style.display = 'none';
+                    colokOptions.style.display = 'block';
+                    colok2dOptions.style.display = 'none';
+                    tepiTengahOptions.style.display = 'none';
+                    superDiscountOption.style.display = 'none';
+                    betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> COLOK BEBAS: Menebak satu atau lebih digit yang akan keluar';
+                    checkColokOptions();
+                } else if (betType === 'colok-2d') {
+                    bbOptions.style.display = 'none';
+                    discount2dOptions.style.display = 'none';
+                    colokOptions.style.display = 'none';
+                    colok2dOptions.style.display = 'block';
+                    tepiTengahOptions.style.display = 'none';
+                    superDiscountOption.style.display = 'none';
+                    betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> COLOK BEBAS 2D: Menebak dua digit atau lebih yang akan keluar';
+                    checkColok2dOptions();
+                } else if (betType === 'tepi-tengah') {
+                    bbOptions.style.display = 'none';
+                    discount2dOptions.style.display = 'none';
+                    colokOptions.style.display = 'none';
+                    colok2dOptions.style.display = 'none';
+                    tepiTengahOptions.style.display = 'block';
+                    superDiscountOption.style.display = 'none';
+                    betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> TEPI TENGAH: Taruhan pada posisi tepi atau tengah dari angka keluaran';
                 } else {
                     bbOptions.style.display = 'none';
                     discount2dOptions.style.display = 'none';
+                    colokOptions.style.display = 'none';
+                    colok2dOptions.style.display = 'none';
+                    tepiTengahOptions.style.display = 'none';
                     superDiscountOption.style.display = 'none';
                     betTypeInfo.innerHTML = '<i class="fas fa-info-circle"></i> FULL BET: Hadiah penuh jika tebakan tepat sesuai keluaran';
                 }
@@ -1301,10 +1919,43 @@
             }
         }
         
+        // Check colok options based on pasaran
+        function checkColokOptions() {
+            const pasaran = document.getElementById('pasaran').value;
+            const digit5Option = document.querySelector('option[value="5"]');
+            
+            if (pasaran === 'toto_macau_5d') {
+                digit5Option.style.display = 'block';
+            } else {
+                digit5Option.style.display = 'none';
+                // Reset to 4D if 5D was selected
+                if (document.getElementById('digit-count').value === '5') {
+                    document.getElementById('digit-count').value = '4';
+                }
+            }
+        }
+        
+        // Check colok 2d options based on pasaran
+        function checkColok2dOptions() {
+            const pasaran = document.getElementById('pasaran').value;
+            const digit5Option = document.querySelector('#colok-2d-digit-count option[value="5"]');
+            
+            if (pasaran === 'toto_macau_5d') {
+                digit5Option.style.display = 'block';
+            } else {
+                digit5Option.style.display = 'none';
+                // Reset to 4D if 5D was selected
+                if (document.getElementById('colok-2d-digit-count').value === '5') {
+                    document.getElementById('colok-2d-digit-count').value = '4';
+                }
+            }
+        }
+        
         // Update kategori options when pasaran changes
         document.getElementById('pasaran').addEventListener('change', function() {
             const pasaran = this.value;
             const kategori5D = document.querySelector('option[value="5D"]');
+            const betType = document.querySelector('.bet-type-btn.active').getAttribute('data-type');
             
             if (pasaran === 'toto_macau_5d') {
                 kategori5D.style.display = 'block';
@@ -1317,7 +1968,13 @@
             }
             
             // Check super discount option
-            checkSuperDiscountOption();
+            if (betType === 'discount') {
+                checkSuperDiscountOption();
+            } else if (betType === 'colok') {
+                checkColokOptions();
+            } else if (betType === 'colok-2d') {
+                checkColok2dOptions();
+            }
         });
         
         function hitungHadiah() {
@@ -1327,6 +1984,9 @@
             const betType = document.querySelector('.bet-type-btn.active').getAttribute('data-type');
             const tebakanType = betType === 'bb' ? document.getElementById('tebakan-type').value : 'tepat';
             const posisi2D = betType === 'discount' ? document.getElementById('2d-type').value : 'belakang';
+            const digitCount = betType === 'colok' ? document.getElementById('digit-count').value : '1';
+            const colok2dDigitCount = betType === 'colok-2d' ? document.getElementById('colok-2d-digit-count').value : '2';
+            const tepiTengahType = betType === 'tepi-tengah' ? document.getElementById('tepi-tengah-type').value : 'tepi-tengah';
             const superDiscount = document.getElementById('super-discount').checked;
             
             if (isNaN(nominal) || nominal <= 0) {
@@ -1340,7 +2000,280 @@
             let discount = 0;
             let discountText = '';
             
-            if (betType === 'full') {
+            const resultDiv = document.getElementById('result');
+            const hasilDiv = document.getElementById('hasil');
+            
+            // Format nominal with thousand separators
+            const formattedNominal = nominal.toLocaleString('id-ID');
+            
+            if (betType === 'tepi-tengah') {
+                // TEPI TENGAH calculations
+                if (pasaran === 'all' || pasaran === 'sydney_hongkong') {
+                    pasaranName = 'ALL PASARAN';
+                    discount = 2;
+                    multiplier = 1;
+                    hadiahText = 'TEPI TENGAH: 1:1 x KEI -3%';
+                } else if (pasaran === 'toto_macau_4d_king_kong') {
+                    pasaranName = 'TOTO MACAU 4D & KING KONG 4D';
+                    discount = 0;
+                    multiplier = 1;
+                    hadiahText = 'TEPI TENGAH: KEI -2.2%';
+                } else if (pasaran === 'toto_macau_5d') {
+                    pasaranName = 'TOTO MACAU 5D';
+                    discount = 0;
+                    multiplier = 1;
+                    hadiahText = 'TEPI TENGAH: KEI -2.2%';
+                } else if (pasaran === 'hokidraw') {
+                    pasaranName = 'HOKIDRAW';
+                    discount = 2;
+                    multiplier = 1;
+                    hadiahText = 'TEPI TENGAH: KEI -2.2%';
+                } else if (pasaran === 'toto_jakarta' || pasaran === 'totomali') {
+                    pasaranName = pasaran === 'toto_jakarta' ? 'TOTO JAKARTA' : 'TOTOMALI';
+                    discount = 2;
+                    multiplier = 1;
+                    hadiahText = 'TEPI TENGAH: KEI -2.2%';
+                }
+                
+                // Hitung modal setelah diskon (jika ada)
+                const modalSetelahDiskon = discount > 0 ? nominal - (nominal * (discount / 100)) : nominal;
+                
+                // Hitung KEI
+                let kei = 0;
+                if (pasaran === 'all' || pasaran === 'sydney_hongkong') {
+                    kei = 3; // KEI -3%
+                } else {
+                    kei = 2.2; // KEI -2.2%
+                }
+                
+                // Hitung kemenangan (modal - potongan KEI)
+                const potonganKei = modalSetelahDiskon * (kei / 100);
+                const kemenangan = modalSetelahDiskon - potonganKei;
+                
+                // Total yang diterima (kemenangan + modal)
+                const totalDiterima = kemenangan + modalSetelahDiskon;
+                
+                // Format nominal dengan pemisah ribuan
+                const formattedModalSetelahDiskon = modalSetelahDiskon.toLocaleString('id-ID');
+                const formattedPotonganKei = potonganKei.toLocaleString('id-ID');
+                const formattedKemenangan = kemenangan.toLocaleString('id-ID');
+                const formattedTotalDiterima = totalDiterima.toLocaleString('id-ID');
+                
+                // Buat teks perhitungan
+                let calculationText = `
+                    Berikut contoh perhitungan tipe TEPI TENGAH untuk pasaran ${pasaranName} ya bosku<br>
+                `;
+                
+                if (discount > 0) {
+                    calculationText += `
+                        Nominal bet: Rp ${formattedNominal}<br>
+                        Diskon (${discount}%): Rp ${(nominal * (discount / 100)).toLocaleString('id-ID')}<br>
+                        Modal setelah diskon: Rp ${formattedModalSetelahDiskon}<br><br>
+                    `;
+                } else {
+                    calculationText += `
+                        Modal: Rp ${formattedNominal}<br><br>
+                    `;
+                }
+                
+                calculationText += `
+                    Hadiah: ${hadiahText}<br>
+                    Potongan KEI (${kei}%): Rp ${formattedPotonganKei}<br>
+                    Kemenangan: Rp ${formattedKemenangan}<br><br>
+                    Total yang diterima (kemenangan + modal): Rp ${formattedTotalDiterima}
+                `;
+                
+                // Update hasilDiv
+                hasilDiv.innerHTML = `
+                    <div class="calculation-result">
+                        ${calculationText}
+                    </div>
+                    <p class="total">Total Kemenangan: Rp ${formattedTotalDiterima}</p>
+                `;
+                
+                if (discount > 0) {
+                    hasilDiv.innerHTML += `
+                        <div class="discount-info">
+                            <i class="fas fa-tag"></i> Hemat: Rp ${(nominal - modalSetelahDiskon).toLocaleString('id-ID')} (<span class="discount-value">${discount}%</span> discount)
+                        </div>
+                    `;
+                }
+                
+                resultDiv.style.display = 'block';
+                showToast('Perhitungan berhasil!');
+                return;
+            }
+            
+            // Kode untuk tipe bet lainnya
+            if (betType === 'colok-2d') {
+                // COLOK BEBAS 2D calculations
+                if (pasaran === 'all' || pasaran === 'sydney_hongkong') {
+                    pasaranName = 'ALL PASARAN';
+                    discount = 10;
+                    switch(colok2dDigitCount) {
+                        case '2':
+                            multiplier = 7;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 2 DIGIT: x7';
+                            break;
+                        case '3':
+                            multiplier = 11;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 3 DIGIT: x11';
+                            break;
+                        case '4':
+                            multiplier = 18;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 4 DIGIT: x18';
+                            break;
+                    }
+                } else if (pasaran === 'toto_macau_4d_king_kong' || pasaran === 'toto_jakarta' || pasaran === 'totomali') {
+                    pasaranName = pasaran === 'toto_macau_4d_king_kong' ? 'TOTO MACAU 4D & KING KONG' : 
+                                 pasaran === 'toto_jakarta' ? 'TOTO JAKARTA' : 'TOTOMALI';
+                    discount = 0;
+                    switch(colok2dDigitCount) {
+                        case '2':
+                            multiplier = 7;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 2 DIGIT: x7';
+                            break;
+                        case '3':
+                            multiplier = 13;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 3 DIGIT: x13';
+                            break;
+                        case '4':
+                            multiplier = 21;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 4 DIGIT: x21';
+                            break;
+                    }
+                } else if (pasaran === 'toto_macau_5d') {
+                    pasaranName = 'TOTO MACAU 5D';
+                    discount = 0;
+                    switch(colok2dDigitCount) {
+                        case '2':
+                            multiplier = 4;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 2 DIGIT: x4';
+                            break;
+                        case '3':
+                            multiplier = 6;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 3 DIGIT: x6';
+                            break;
+                        case '4':
+                            multiplier = 20;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 4 DIGIT: x20';
+                            break;
+                        case '5':
+                            multiplier = 200;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 5 DIGIT: x200';
+                            break;
+                    }
+                } else if (pasaran === 'hokidraw') {
+                    pasaranName = 'HOKIDRAW';
+                    discount = 10;
+                    switch(colok2dDigitCount) {
+                        case '2':
+                            multiplier = 4;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 2 DIGIT: x4';
+                            break;
+                        case '3':
+                            multiplier = 6;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 3 DIGIT: x6';
+                            break;
+                        case '4':
+                            multiplier = 20;
+                            hadiahText = 'HADIAH COLOK BEBAS 2D - 4 DIGIT: x20';
+                            break;
+                    }
+                }
+            } else if (betType === 'colok') {
+                // COLOK BEBAS calculations
+                if (pasaran === 'all' || pasaran === 'sydney_hongkong') {
+                    pasaranName = 'ALL PASARAN';
+                    discount = 6;
+                    switch(digitCount) {
+                        case '1':
+                            multiplier = 1.5;
+                            hadiahText = 'HADIAH COLOK BEBAS 1 DIGIT: x1.5';
+                            break;
+                        case '2':
+                            multiplier = 3;
+                            hadiahText = 'HADIAH COLOK BEBAS 2 DIGIT: x3';
+                            break;
+                        case '3':
+                            multiplier = 4.5;
+                            hadiahText = 'HADIAH COLOK BEBAS 3 DIGIT: x4.5';
+                            break;
+                        case '4':
+                            multiplier = 6;
+                            hadiahText = 'HADIAH COLOK BEBAS 4 DIGIT: x6';
+                            break;
+                    }
+                } else if (pasaran === 'toto_macau_4d_king_kong' || pasaran === 'toto_jakarta' || pasaran === 'totomali') {
+                    pasaranName = pasaran === 'toto_macau_4d_king_kong' ? 'TOTO MACAU 4D & KING KONG' : 
+                                 pasaran === 'toto_jakarta' ? 'TOTO JAKARTA' : 'TOTOMALI';
+                    discount = 0;
+                    switch(digitCount) {
+                        case '1':
+                            multiplier = 1.6;
+                            hadiahText = 'HADIAH COLOK BEBAS 1 DIGIT: x1.6';
+                            break;
+                        case '2':
+                            multiplier = 3.2;
+                            hadiahText = 'HADIAH COLOK BEBAS 2 DIGIT: x3.2';
+                            break;
+                        case '3':
+                            multiplier = 4.8;
+                            hadiahText = 'HADIAH COLOK BEBAS 3 DIGIT: x4.8';
+                            break;
+                        case '4':
+                            multiplier = 6.4;
+                            hadiahText = 'HADIAH COLOK BEBAS 4 DIGIT: x6.4';
+                            break;
+                    }
+                } else if (pasaran === 'toto_macau_5d') {
+                    pasaranName = 'TOTO MACAU 5D';
+                    discount = 0;
+                    switch(digitCount) {
+                        case '1':
+                            multiplier = 0.9;
+                            hadiahText = 'HADIAH COLOK BEBAS 1 DIGIT: x0.9';
+                            break;
+                        case '2':
+                            multiplier = 1.8;
+                            hadiahText = 'HADIAH COLOK BEBAS 2 DIGIT: x1.8';
+                            break;
+                        case '3':
+                            multiplier = 2.7;
+                            hadiahText = 'HADIAH COLOK BEBAS 3 DIGIT: x2.7';
+                            break;
+                        case '4':
+                            multiplier = 3.6;
+                            hadiahText = 'HADIAH COLOK BEBAS 4 DIGIT: x3.6';
+                            break;
+                        case '5':
+                            multiplier = 4.5;
+                            hadiahText = 'HADIAH COLOK BEBAS 5 DIGIT: x4.5';
+                            break;
+                    }
+                } else if (pasaran === 'hokidraw') {
+                    pasaranName = 'HOKIDRAW';
+                    discount = 6;
+                    switch(digitCount) {
+                        case '1':
+                            multiplier = 0.9;
+                            hadiahText = 'HADIAH COLOK BEBAS 1 DIGIT: x0.9';
+                            break;
+                        case '2':
+                            multiplier = 1.8;
+                            hadiahText = 'HADIAH COLOK BEBAS 2 DIGIT: x1.8';
+                            break;
+                        case '3':
+                            multiplier = 2.7;
+                            hadiahText = 'HADIAH COLOK BEBAS 3 DIGIT: x2.7';
+                            break;
+                        case '4':
+                            multiplier = 3.6;
+                            hadiahText = 'HADIAH COLOK BEBAS 4 DIGIT: x3.6';
+                            break;
+                    }
+                }
+            } else if (betType === 'full') {
                 // FULL BET calculations
                 if (pasaran === 'all') {
                     pasaranName = 'ALL PASARAN';
@@ -1876,11 +2809,8 @@
             
             const hasil = nominal * multiplier;
             const bayar = nominal - (nominal * (discount / 100));
-            const resultDiv = document.getElementById('result');
-            const hasilDiv = document.getElementById('hasil');
             
             // Format nominal with thousand separators
-            const formattedNominal = nominal.toLocaleString('id-ID');
             const formattedHasil = hasil.toLocaleString('id-ID');
             const formattedBayar = bayar.toLocaleString('id-ID');
             
@@ -1891,32 +2821,61 @@
                 betTypeText = tebakanType === 'tepat' ? 'BB BET (Tepat)' : 'BB BET (Bolak-Balik)';
             } else if (betType === 'discount') {
                 betTypeText = superDiscount ? 'SUPER DISCOUNT' : 'DISCOUNT';
+            } else if (betType === 'colok') {
+                betTypeText = `COLOK BEBAS (${digitCount} Digit)`;
+            } else if (betType === 'colok-2d') {
+                betTypeText = `COLOK BEBAS 2D (${colok2dDigitCount} Digit)`;
             }
             
             let calculationText = '';
             
-            if (betType === 'discount' || superDiscount) {
+            if (betType === 'colok' || betType === 'colok-2d') {
+                if (discount > 0) {
+                    calculationText = `
+                        Berikut contoh perhitungan tipe ${betTypeText} untuk pasaran ${pasaranName} ya bosku<br>
+                        Nominal bet ${formattedNominal} - diskon sebesar ${discount}% = ${formattedBayar} yang harus anda bayar<br>
+                        Hadiah ${multiplier} x ${formattedNominal} = ${formattedHasil} + ${formattedBayar} ( modal ) = ${(hasil + bayar).toLocaleString('id-ID')} kemenangan anda ya bosku
+                    `;
+                } else {
+                    calculationText = `
+                        Berikut contoh perhitungan tipe ${betTypeText} untuk pasaran ${pasaranName} ya bosku<br>
+                        Nominal bet ${formattedNominal}<br>
+                        Hadiah ${multiplier} x ${formattedNominal} = ${formattedHasil} + ${formattedNominal} ( modal ) = ${(hasil + nominal).toLocaleString('id-ID')} kemenangan anda ya bosku
+                    `;
+                }
+            } else if (betType === 'discount') {
                 calculationText = `
-                    Berikut contoh perhitungan tipe ${betTypeText} ${kategori} untuk pasaran ${pasaranName} ya bosku<br>
-                    Nominal bet ${formattedNominal} - ${discount}% (diskon) = ${formattedBayar} yang harus anda bayar<br>
-                    Hadiah ${multiplier} x ${formattedNominal} = ${formattedHasil} kemenangan anda ya bosku
+                    Berikut contoh perhitungan tipe ${betTypeText} untuk pasaran ${pasaranName} ya bosku<br>
+                    Nominal bet ${formattedNominal} - diskon sebesar ${discount}% = ${formattedBayar} yang harus anda bayar<br>
+                    Hadiah ${multiplier} x ${formattedNominal} = ${formattedHasil} + ${formattedBayar} ( modal ) = ${(hasil + bayar).toLocaleString('id-ID')} kemenangan anda ya bosku
                 `;
             } else {
                 calculationText = `
-                    Berikut contoh perhitungan tipe ${betTypeText} ${kategori} untuk pasaran ${pasaranName} ya bosku<br>
+                    Berikut contoh perhitungan tipe ${betTypeText} untuk pasaran ${pasaranName} ya bosku<br>
                     Nominal bet ${formattedNominal}<br>
                     Hadiah ${multiplier} x ${formattedNominal} = ${formattedHasil} kemenangan anda ya bosku
                 `;
+            }
+            
+            let totalKemenangan = formattedHasil;
+            if (betType === 'colok' || betType === 'colok-2d') {
+                if (discount > 0) {
+                    totalKemenangan = (hasil + bayar).toLocaleString('id-ID');
+                } else {
+                    totalKemenangan = (hasil + nominal).toLocaleString('id-ID');
+                }
+            } else if (betType === 'discount') {
+                totalKemenangan = (hasil + bayar).toLocaleString('id-ID');
             }
             
             hasilDiv.innerHTML = `
                 <div class="calculation-result">
                     ${calculationText}
                 </div>
-                <p class="total">Total Kemenangan: Rp ${formattedHasil}</p>
+                <p class="total">Total Kemenangan: Rp ${totalKemenangan}</p>
             `;
             
-            if (betType === 'discount' || superDiscount) {
+            if ((betType === 'discount' || (betType === 'colok' && discount > 0) || (betType === 'colok-2d' && discount > 0)) && discount > 0) {
                 hasilDiv.innerHTML += `
                     <div class="discount-info">
                         <i class="fas fa-tag"></i> Hemat: Rp ${(nominal - bayar).toLocaleString('id-ID')} (<span class="discount-value">${discount}%</span> discount)
@@ -1926,6 +2885,25 @@
             
             resultDiv.style.display = 'block';
             showToast('Perhitungan berhasil!');
+        }
+        
+        function copyResult() {
+            const hasilDiv = document.getElementById('hasil');
+            // Ambil hanya teks dari hasil perhitungan tanpa elemen HTML
+            const resultText = hasilDiv.innerText || hasilDiv.textContent;
+            
+            navigator.clipboard.writeText(resultText).then(() => {
+                showToast('Hasil perhitungan berhasil disalin!');
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = resultText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Hasil perhitungan berhasil disalin!');
+            });
         }
         
         function copyPasaran(pasaranId) {
@@ -2094,6 +3072,129 @@ DISCOUNT : 57%
 
 HADIAH 2D : x70
 DISCOUNT : 27%`;
+                    break;
+                    
+                case 'pasaran-colok-all':
+                    textToCopy = `HADIAH BET COLOK BEBAS – ALL PASARAN (KECUALI TOTO MACAU, KING KONG 4D, JAKARTA POOLS, HOKI DRAW DAN TOTOMALI)
+
+COLOK BEBAS :
+x1.5 ( 1 Digit )
+x3 ( 2 Digit )
+x4.5 ( 3 Digit )
+x6 ( 4 Digit )
+DISCOUNT : 6%`;
+                    break;
+                    
+                case 'pasaran-colok-macau-king-jakarta-totomali':
+                    textToCopy = `HADIAH BET COLOK BEBAS – TOTO MACAU 4D, KING KONG 4D, JAKARTA POOLS DAN TOTOMALI
+
+COLOK BEBAS :
+x1.6 ( 1 Digit )
+x3.2 ( 2 Digit )
+x4.8 ( 3 Digit )
+x6.4 ( 4 Digit )`;
+                    break;
+                    
+                case 'pasaran-colok-macau-5d':
+                    textToCopy = `HADIAH BET COLOK BEBAS – TOTO MACAU 5D
+
+COLOK BEBAS :
+x0.9 ( 1 Digit )
+x1.8 ( 2 Digit )
+x2.7 ( 3 Digit )
+x3.6 ( 4 Digit )
+x4.5 ( 5 Digit )`;
+                    break;
+                    
+                case 'pasaran-colok-hokidraw':
+                    textToCopy = `HADIAH BET COLOK BEBAS – HOKI DRAW
+
+COLOK BEBAS :
+x0.9 ( 1 Digit )
+x1.8 ( 2 Digit )
+x2.7 ( 3 Digit )
+x3.6 ( 4 Digit )
+DISCOUNT : 6%`;
+                    break;
+                    
+                case 'pasaran-colok-macau-5d-4d':
+                    textToCopy = `Hadiah segala jenis Bet COLOK BEBAS 4D - TOTO MACAU 5D
+
+Colok Bebas 4D :
+x50 ( 4 Digit )
+x200 ( 5 Digit )`;
+                    break;
+                    
+                case 'pasaran-colok-2d-all':
+                    textToCopy = `Hadiah segala jenis Bet COLOK BEBAS 2D - All Pasaran Kecuali TOTO MACAU , KING KONG 4D, JAKARTA POOLS, HOKIDRAW DAN TOTOMALI
+
+Colok Bebas 2D :
+x7 ( 2 Digit )
+x11 ( 3 Digit )
+x18 ( 4 Digit )
+DISCOUNT : 10%`;
+                    break;
+                    
+                case 'pasaran-colok-2d-macau-king-jakarta-totomali':
+                    textToCopy = `Hadiah segala jenis Bet COLOK BEBAS 2D - TOTO MACAU 4D, KING KONG 4D, JAKARTA POOLS DAN TOTOMALI
+
+Colok Bebas 2D :
+x7 ( 2 Digit )
+x13 ( 3 Digit )
+x21 ( 4 Digit )`;
+                    break;
+                    
+                case 'pasaran-colok-2d-macau-5d':
+                    textToCopy = `Hadiah segala jenis Bet COLOK BEBAS 2D - TOTO MACAU 5D
+
+Colok Bebas 2D :
+x4 ( 2 Digit )
+x6 ( 3 Digit )
+x20 ( 4 Digit )
+x200 ( 5 Digit )`;
+                    break;
+                    
+                case 'pasaran-colok-2d-hokidraw':
+                    textToCopy = `Hadiah segala jenis Bet COLOK BEBAS 2D - HOKI DRAW
+
+Colok Bebas 2D :
+x4 ( 2 Digit )
+x6 ( 3 Digit )
+x20 ( 4 Digit )
+DISCOUNT : 10%`;
+                    break;
+                    
+                case 'pasaran-tepi-tengah-all':
+                    textToCopy = `Hadiah segala jenis Bet TEPI TENGAH - All Pasaran Kecuali TOTO MACAU, KING KONG 4D, JAKARTA POOLS, HOKI DRAW DAN TOTOMALI
+
+Tepi Tengah : 1:1 x KEI -3%
+DISCOUNT : 2%`;
+                    break;
+                    
+                case 'pasaran-tepi-tengah-macau-king':
+                    textToCopy = `Hadiah segala jenis Bet TEPI TENGAH - TOTO MACAU 4D, KING KONG 4D
+
+Tepi Tengah : KEI -2.2%`;
+                    break;
+                    
+                case 'pasaran-tepi-tengah-jakarta-totomali':
+                    textToCopy = `Hadiah segala jenis Bet TEPI TENGAH JAKARTA POOLS DAN TOTOMALI
+
+Tepi Tengah : KEI -2.2%
+DISCOUNT : 2%`;
+                    break;
+                    
+                case 'pasaran-tepi-tengah-macau-5d':
+                    textToCopy = `Hadiah segala jenis Bet TEPI TENGAH - TOTO MACAU 5D
+
+Tepi Tengah : KEI -2.2%`;
+                    break;
+                    
+                case 'pasaran-tepi-tengah-hokidraw':
+                    textToCopy = `Hadiah segala jenis TEPI TENGAH - HOKI DRAW
+
+Tepi Tengah : KEI -2.2%
+DISCOUNT : 2%`;
                     break;
             }
             
