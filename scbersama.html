@@ -1445,7 +1445,6 @@ return `${num}${num}`;
 
 // Generate random shio
 const shio = Array(3).fill().map(() => shios[Math.floor(Math.random() * shios.length)]).join(' / ');
-
 return `
 Prediksi ${pasaran}
 Hari ${day}, ${date} ${month} ${year}
@@ -1459,8 +1458,7 @@ COLOK BEBAS 2D: ${colokBebas2D}
 TWIN: ${twin}
 SHIO: ${shio}
 Selalu Utamakan Prediksi Sendiri
-`;
-}
+`;}
 
 // Fungsi untuk menampilkan prediksi
 function displayPrediction(pasaran) {
@@ -1672,4 +1670,5 @@ checkLoginStatus();
 </script>
 </body>
 </html>
+
 
