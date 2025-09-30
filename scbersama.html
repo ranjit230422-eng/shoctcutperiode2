@@ -1442,7 +1442,6 @@ const twin = Array(3).fill().map(() => {
 const num = generateRandomNumber(1);
 return `${num}${num}`;
 }).join(' / ');
-
 // Generate random shio
 const shio = Array(3).fill().map(() => shios[Math.floor(Math.random() * shios.length)]).join(' / ');
 return `
@@ -1459,7 +1458,6 @@ TWIN: ${twin}
 SHIO: ${shio}
 Selalu Utamakan Prediksi Sendiri
 `;}
-
 // Fungsi untuk menampilkan prediksi
 function displayPrediction(pasaran) {
 const prediction = generateTogelPrediction(pasaran);
@@ -1670,5 +1668,6 @@ checkLoginStatus();
 </script>
 </body>
 </html>
+
 
 
