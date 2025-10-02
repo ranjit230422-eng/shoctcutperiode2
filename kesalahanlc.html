@@ -1648,7 +1648,7 @@ function renderData() {
           <div class="stats-label">Kesalahan</div>
           <div class="stats-number">${cs.percent}%</div>
           <div class="stats-label">Fatal</div>
-          ${hasNote ? '<div class="small text-warning"><i class="fas fa-sticky-note me-1"></i>Ada catatan</div>' : ''}
+          ${hasNote ? '<div class="small text-warning"><i class="fas fa-sticky-note me-1"></i>Ada Note</div>' : ''}
           <span class="status-badge ${status.class}">${status.text}</span>
           <div class="mt-2 small">Bonus: ${formatRupiah(bonusInfo.finalBonus)}</div>
         </div>
@@ -1854,4 +1854,5 @@ document.addEventListener('visibilitychange', function() {
 </script>
 </body>
 </html>
+
 
