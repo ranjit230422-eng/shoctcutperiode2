@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Buyspin & Freespin - Dragon Pattern</title>
+    <title>Kalkulator Buyspin & Freespin - Dark Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -16,7 +16,7 @@
             background: 
                 linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%),
                 url('https://i.postimg.cc/FzffCvZ7/unnamed-2.png');
-            background-size: cover, 200px;
+            background-size: cover, 150px;
             background-blend-mode: overlay;
             color: #e0e0e0;
             min-height: 100vh;
@@ -32,28 +32,28 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(106, 13, 173, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(13, 110, 253, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(220, 53, 69, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(33, 150, 243, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
         .dragon-icon {
             position: fixed;
-            opacity: 0.03;
+            opacity: 0.05;
             z-index: -1;
         }
         .dragon-1 {
             top: 10%;
             left: 5%;
             font-size: 120px;
-            color: #6a0dad;
+            color: #4a90e2;
             transform: rotate(-15deg);
         }
         .dragon-2 {
             bottom: 10%;
             right: 5%;
             font-size: 100px;
-            color: #0d6efd;
+            color: #9c27b0;
             transform: rotate(15deg);
         }
         .dragon-3 {
@@ -61,12 +61,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 150px;
-            color: #dc3545;
+            color: #2196f3;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(20, 20, 20, 0.85);
+            background: rgba(20, 20, 20, 0.9);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
@@ -82,7 +82,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd, #dc3545);
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
             border-radius: 20px 20px 0 0;
         }
         .header {
@@ -98,7 +98,7 @@
             font-size: 3.2rem;
             letter-spacing: 2px;
             text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
-            background: linear-gradient(to right, #6a0dad, #0d6efd, #dc3545);
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -112,7 +112,7 @@
             left: 25%;
             width: 50%;
             height: 4px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd, #dc3545);
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
             border-radius: 4px;
         }
         .subtitle {
@@ -124,14 +124,14 @@
         }
         .badge {
             display: inline-block;
-            background: linear-gradient(to right, #6a0dad, #5a0c9d);
+            background: linear-gradient(to right, #4a90e2, #3a80d2);
             color: white;
             padding: 8px 20px;
             border-radius: 25px;
             font-size: 1rem;
             margin-top: 15px;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
             letter-spacing: 1px;
         }
         .input-section {
@@ -151,7 +151,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd);
+            background: linear-gradient(to right, #4a90e2, #2196f3);
         }
         label {
             display: block;
@@ -178,9 +178,9 @@
             line-height: 1.5;
         }
         textarea:focus {
-            border-color: #6a0dad;
+            border-color: #4a90e2;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.3), inset 0 3px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3), inset 0 3px 10px rgba(0, 0, 0, 0.5);
         }
         .button-group {
             display: flex;
@@ -218,31 +218,31 @@
             left: 100%;
         }
         .calculate-btn {
-            background: linear-gradient(to right, #0d6efd, #0b5ed7);
+            background: linear-gradient(to right, #4a90e2, #3a80d2);
             color: white;
         }
         .calculate-btn:hover {
-            background: linear-gradient(to right, #0b5ed7, #0a58ca);
+            background: linear-gradient(to right, #3a80d2, #2a70c2);
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(13, 110, 253, 0.5);
+            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.5);
         }
         .copy-btn {
-            background: linear-gradient(to right, #198754, #157347);
+            background: linear-gradient(to right, #4caf50, #3d9c40);
             color: white;
         }
         .copy-btn:hover {
-            background: linear-gradient(to right, #157347, #146c43);
+            background: linear-gradient(to right, #3d9c40, #2e8b32);
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(25, 135, 84, 0.5);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.5);
         }
         .reset-btn {
-            background: linear-gradient(to right, #dc3545, #bb2d3b);
+            background: linear-gradient(to right, #f44336, #e23326);
             color: white;
         }
         .reset-btn:hover {
-            background: linear-gradient(to right, #bb2d3b, #b02a37);
+            background: linear-gradient(to right, #e23326, #d12316);
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(220, 53, 69, 0.5);
+            box-shadow: 0 12px 25px rgba(244, 67, 54, 0.5);
         }
         .results-section {
             margin-bottom: 40px;
@@ -270,7 +270,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd, #dc3545);
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
         }
         .result-card:hover {
             transform: translateY(-8px);
@@ -293,12 +293,12 @@
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         .profit {
-            color: #198754;
-            text-shadow: 0 2px 15px rgba(25, 135, 84, 0.4);
+            color: #4caf50;
+            text-shadow: 0 2px 15px rgba(76, 175, 80, 0.4);
         }
         .loss {
-            color: #dc3545;
-            text-shadow: 0 2px 15px rgba(220, 53, 69, 0.4);
+            color: #f44336;
+            text-shadow: 0 2px 15px rgba(244, 67, 54, 0.4);
         }
         .result-card p {
             color: #aaa;
@@ -311,7 +311,7 @@
             padding: 30px;
             border-radius: 15px;
             margin-top: 40px;
-            border: 1px solid #198754;
+            border: 1px solid #4caf50;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -326,7 +326,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, #198754, #157347);
+            background: linear-gradient(to right, #4caf50, #3d9c40);
         }
         .credit-copy-section h3 {
             color: #fff;
@@ -338,8 +338,8 @@
         .credit-value {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #198754;
-            text-shadow: 0 2px 15px rgba(25, 135, 84, 0.4);
+            color: #4caf50;
+            text-shadow: 0 2px 15px rgba(76, 175, 80, 0.4);
         }
         .explanation {
             background: rgba(30, 30, 30, 0.8);
@@ -358,7 +358,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd);
+            background: linear-gradient(to right, #4a90e2, #2196f3);
         }
         .explanation h3 {
             margin-top: 0;
@@ -376,12 +376,12 @@
             font-size: 1.05rem;
         }
         .highlight {
-            background: linear-gradient(to right, #6a0dad, #0d6efd);
+            background: linear-gradient(to right, #4a90e2, #2196f3);
             padding: 4px 10px;
             border-radius: 6px;
             font-weight: bold;
             color: white;
-            box-shadow: 0 3px 10px rgba(13, 110, 253, 0.3);
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
         }
         .icon {
             font-size: 1.3rem;
@@ -436,7 +436,7 @@
             top: 30px;
             right: 30px;
             padding: 18px 28px;
-            background: linear-gradient(to right, #198754, #157347);
+            background: linear-gradient(to right, #4caf50, #3d9c40);
             color: white;
             border-radius: 10px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
@@ -455,7 +455,7 @@
             transform: translateX(0);
         }
         .notification.error {
-            background: linear-gradient(to right, #dc3545, #bb2d3b);
+            background: linear-gradient(to right, #f44336, #e23326);
         }
         @media (max-width: 768px) {
             .container {
@@ -506,7 +506,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(to right, #6a0dad, #0d6efd, #dc3545);
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
         }
         .summary-item {
             text-align: center;
@@ -528,13 +528,13 @@
         }
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.4);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
             }
             70% {
-                box-shadow: 0 0 0 15px rgba(25, 135, 84, 0);
+                box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(25, 135, 84, 0);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
             }
         }
         .floating {
@@ -566,8 +566,8 @@
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-coins"></i> Kalkulator Buyspin & Freespin</h1>
-            <p class="subtitle">Hitung total buyspin, freespin, dan scatter dengan akurasi tinggi dalam tema gelap yang elegan</p>
-            <div class="badge">DRAGON PATTERN EDITION</div>
+            <p class="subtitle">Hitung total buyspin, freespin, dan scatter dengan akurasi tinggi dalam tema hitam yang elegan</p>
+            <div class="badge">DARK EDITION</div>
         </div>
         
         <div class="input-section">
@@ -676,8 +676,8 @@
                 return;
             }
             
-            // Hanya mengambil angka tanpa "IDR"
-            const creditValue = currentTotalCredit.toLocaleString('id-ID');
+            // Hanya mengambil angka tanpa "IDR" dan menggunakan koma sebagai pemisah ribuan
+            const creditValue = formatNumberWithCommas(currentTotalCredit);
             
             navigator.clipboard.writeText(creditValue)
                 .then(() => {
@@ -694,6 +694,11 @@
             resetResults();
             showNotification('Data telah direset!');
         });
+
+        // Fungsi untuk memformat angka dengan koma sebagai pemisah ribuan
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
         function parseTransactionData(data) {
             const lines = data.split('\n');
@@ -784,6 +789,7 @@
         }
 
         function formatCurrency(amount) {
+            // Tetap menggunakan titik untuk tampilan di halaman
             return 'IDR ' + amount.toLocaleString('id-ID');
         }
 
