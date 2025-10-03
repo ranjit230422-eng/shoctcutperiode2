@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Analisis Bukti Transfer & Penggabung Gambar</title>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -299,6 +300,24 @@ label {
   background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
 }
 
+.btn-copy-image {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  margin-top: 15px;
+}
+
+.btn-copy-image:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #4a3cb5 100%);
+}
+
+.btn-screenshot {
+  background: linear-gradient(135deg, var(--success) 0%, #00a382 100%);
+  margin-top: 15px;
+}
+
+.btn-screenshot:hover {
+  background: linear-gradient(135deg, #00a382 0%, #008f72 100%);
+}
+
 .error {
   color: var(--danger);
   margin-top: 5px;
@@ -460,6 +479,7 @@ label {
   display: flex;
   justify-content: center;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .upload-area {
@@ -576,7 +596,7 @@ label {
 .result-item {
   margin-bottom: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 极客时间);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .result-item:last-child {
@@ -633,6 +653,17 @@ label {
 
 .copy-btn i {
   margin-right: 5px;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
+  color: var(--dark);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 12px;
 }
 
 .action-buttons {
@@ -784,7 +815,7 @@ footer {
 .payment-select:focus {
   border-color: var(--primary);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(108, 92, 231, 极客时间);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
 /* Tambahan untuk hasil ekstraksi yang lebih baik */
@@ -808,18 +839,8 @@ footer {
   margin-top: 5px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
-  background: rgba(255, 255, 极客时间);
-}
-
-.edit-btn {
-  background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%);
-  color: var(--dark);
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
 }
 
 /* Responsiveness improvements */
@@ -872,12 +893,285 @@ footer {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Tambahan untuk animasi klik gambar */
+.image-clicked {
+  animation: imageClick 0.5s ease;
+}
+
+@keyframes imageClick {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Modal untuk gambar yang diperbesar */
+.image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  overflow: auto;
+  animation: fadeIn 0.3s;
+}
+
+.modal-content {
+  position: relative;
+  margin: 50px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.4s;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+}
+
+.modal-title i {
+  margin-right: 10px;
+}
+
+.close-modal {
+  color: var(--light);
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+}
+
+.close-modal:hover {
+  color: var(--danger);
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.screenshot-info {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--secondary);
+  background: rgba(108, 92, 231, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screenshot-info i {
+  margin-right: 8px;
+}
+
+.debug-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--warning);
+}
+
+.debug-title {
+  font-size: 16px;
+  color: var(--warning);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.debug-title i {
+  margin-right: 8px;
+}
+
+.debug-text {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--light);
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+/* Tambahan untuk tampilan hasil yang lebih baik */
+.result-item.correct {
+  border-left: 3px solid var(--success);
+}
+
+.result-item.incorrect {
+  border-left: 3px solid var(--danger);
+}
+
+.result-item.partial {
+  border-left: 3px solid var(--warning);
+}
+
+.confidence-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--secondary);
+}
+
+.confidence-bar {
+  flex-grow: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.confidence-high {
+  background: var(--success);
+  width: 80%;
+}
+
+.confidence-medium {
+  background: var(--warning);
+  width: 50%;
+}
+
+.confidence-low {
+  background: var(--danger);
+  width: 30%;
+}
+
+/* Tambahan untuk mode edit lanjutan */
+.advanced-edit {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: none;
+}
+
+.advanced-edit-title {
+  font-size: 14px;
+  color: var(--secondary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.advanced-edit-title i {
+  margin-right: 5px;
+}
+
+.suggestions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.suggestion-chip {
+  padding: 5px 10px;
+  background: rgba(108, 92, 231, 0.2);
+  border: 1px solid var(--primary);
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-chip:hover {
+  background: rgba(108, 92, 231, 0.4);
+}
+
+/* Tambahan untuk tampilan loading yang lebih baik */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.loading-content {
+  text-align: center;
+  padding: 30px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto 15px;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: var(--light);
+}
 </style>
 </head>
 <body>
 <div class="container">
 <header>
-<h1><i class="fas fa-analytics"></i> Analisis Transfer & Penggabung Gambar</h1>
+<h1><i class="fas fa-analytics"></i> Analisis Bukti Transfer & Penggabung Gambar</h1>
 <p class="description">Ekstrak informasi dari bukti transfer dan gabungkan gambar dengan mudah</p>
 </header>
 
@@ -964,9 +1258,15 @@ footer {
 <h2 class="section-title"><i class="fas fa-file-invoice"></i> Hasil Ekstraksi</h2>
 
 <div class="result-box">
-<div class="result-item">
+<div class="result-item" id="merchantItem">
 <div class="result-label"><i class="fas fa-store"></i> Nama Merchant</div>
 <div class="result-value" id="merchantResult">-</div>
+<div class="confidence-indicator">
+<span>Tingkat kepercayaan: </span>
+<div class="confidence-bar">
+<div class="confidence-fill" id="merchantConfidence"></div>
+</div>
+</div>
 <button class="copy-btn" data-copy="merchantResult">
 <i class="fas fa-copy"></i> Salin
 </button>
@@ -977,11 +1277,24 @@ footer {
 <input type="text" id="merchantEdit" placeholder="Masukkan nama merchant">
 <button class="btn btn-add save-btn" data-save="merchant">Simpan</button>
 </div>
+<div class="advanced-edit" id="merchantAdvanced">
+<div class="advanced-edit-title">
+<span><i class="fas fa-magic"></i> Saran Perbaikan</span>
+<button class="edit-btn" id="closeMerchantAdvanced"><i class="fas fa-times"></i></button>
+</div>
+<div class="suggestions-container" id="merchantSuggestions"></div>
+</div>
 </div>
 
-<div class="result-item">
+<div class="result-item" id="rrnItem">
 <div class="result-label" id="rrnLabel"><i class="fas fa-receipt"></i> RRN/QRIS</div>
 <div class="result-value" id="rrnResult">-</div>
+<div class="confidence-indicator">
+<span>Tingkat kepercayaan: </span>
+<div class="confidence-bar">
+<div class="confidence-fill" id="rrnConfidence"></div>
+</div>
+</div>
 <button class="copy-btn" data-copy="rrnResult">
 <i class="fas fa-copy"></i> Salin
 </button>
@@ -992,11 +1305,24 @@ footer {
 <input type="text" id="rrnEdit" placeholder="Masukkan RRN/QRIS">
 <button class="btn btn-add save-btn" data-save="rrn">Simpan</button>
 </div>
+<div class="advanced-edit" id="rrnAdvanced">
+<div class="advanced-edit-title">
+<span><i class="fas fa-magic"></i> Saran Perbaikan</span>
+<button class="edit-btn" id="closeRrnAdvanced"><i class="fas fa-times"></i></button>
+</div>
+<div class="suggestions-container" id="rrnSuggestions"></div>
+</div>
 </div>
 
-<div class="result-item">
+<div class="result-item" id="referenceItem">
 <div class="result-label"><i class="fas fa-hashtag"></i> Nomor Referensi</div>
 <div class="result-value" id="referenceResult">-</div>
+<div class="confidence-indicator">
+<span>Tingkat kepercayaan: </span>
+<div class="confidence-bar">
+<div class="confidence-fill" id="referenceConfidence"></div>
+</div>
+</div>
 <button class="copy-btn" data-copy="referenceResult">
 <i class="fas fa-copy"></i> Salin
 </button>
@@ -1007,11 +1333,24 @@ footer {
 <input type="text" id="referenceEdit" placeholder="Masukkan nomor referensi">
 <button class="btn btn-add save-btn" data-save="reference">Simpan</button>
 </div>
+<div class="advanced-edit" id="referenceAdvanced">
+<div class="advanced-edit-title">
+<span><i class="fas fa-magic"></i> Saran Perbaikan</span>
+<button class="edit-btn" id="closeReferenceAdvanced"><i class="fas fa-times"></i></button>
+</div>
+<div class="suggestions-container" id="referenceSuggestions"></div>
+</div>
 </div>
 
-<div class="result-item">
+<div class="result-item" id="amountItem">
 <div class="result-label"><i class="fas fa-money-bill-wave"></i> Nominal Transfer</div>
 <div class="result-value" id="amountResult">-</div>
+<div class="confidence-indicator">
+<span>Tingkat kepercayaan: </span>
+<div class="confidence-bar">
+<div class="confidence-fill" id="amountConfidence"></div>
+</div>
+</div>
 <button class="copy-btn" data-copy="amountResult">
 <i class="fas fa-copy"></i> Salin
 </button>
@@ -1022,11 +1361,24 @@ footer {
 <input type="text" id="amountEdit" placeholder="Masukkan nominal transfer">
 <button class="btn btn-add save-btn" data-save="amount">Simpan</button>
 </div>
+<div class="advanced-edit" id="amountAdvanced">
+<div class="advanced-edit-title">
+<span><i class="fas fa-magic"></i> Saran Perbaikan</span>
+<button class="edit-btn" id="closeAmountAdvanced"><i class="fas fa-times"></i></button>
+</div>
+<div class="suggestions-container" id="amountSuggestions"></div>
+</div>
 </div>
 
-<div class="result-item">
+<div class="result-item" id="dateItem">
 <div class="result-label"><i class="fas fa-calendar"></i> Tanggal & Waktu</div>
 <div class="result-value" id="dateResult">-</div>
+<div class="confidence-indicator">
+<span>Tingkat kepercayaan: </span>
+<div class="confidence-bar">
+<div class="confidence-fill" id="dateConfidence"></div>
+</div>
+</div>
 <button class="copy-btn" data-copy="dateResult">
 <i class="fas fa-copy"></i> Salin
 </button>
@@ -1037,7 +1389,19 @@ footer {
 <input type="text" id="dateEdit" placeholder="Masukkan tanggal & waktu">
 <button class="btn btn-add save-btn" data-save="date">Simpan</button>
 </div>
+<div class="advanced-edit" id="dateAdvanced">
+<div class="advanced-edit-title">
+<span><i class="fas fa-magic"></i> Saran Perbaikan</span>
+<button class="edit-btn" id="closeDateAdvanced"><i class="fas fa-times"></i></button>
 </div>
+<div class="suggestions-container" id="dateSuggestions"></div>
+</div>
+</div>
+</div>
+
+<div class="debug-section" id="debugSection" style="display: none;">
+<div class="debug-title"><i class="fas fa-bug"></i> Debug OCR</div>
+<div class="debug-text" id="debugText"></div>
 </div>
 
 <div class="action-buttons">
@@ -1046,6 +1410,12 @@ footer {
 </button>
 <button class="btn btn-reset" id="resetBtn">
 <i class="fas fa-redo"></i> Reset
+</button>
+<button class="btn btn-new" id="debugBtn" style="background: linear-gradient(135deg, var(--warning) 0%, #fdb43e 100%); color: var(--dark);">
+<i class="fas fa-bug"></i> Debug OCR
+</button>
+<button class="btn btn-new" id="verifyBtn" style="background: linear-gradient(135deg, var(--success) 0%, #00a382 100%); color: white;">
+<i class="fas fa-check-circle"></i> Verifikasi Manual
 </button>
 </div>
 </div>
@@ -1071,7 +1441,7 @@ footer {
 <li>Klik "Tambahkan Gambar" untuk menambahkannya ke galeri</li>
 <li>Klik pada gambar di galeri untuk melihat preview dan menyalin URL</li>
 <li>Klik "Gabungkan Gambar" setelah menambahkan semua gambar</li>
-<li>Klik pada gambar hasil untuk menyalinnya</li>
+<li>Klik pada gambar hasil untuk memperbesar dan melakukan screenshot</li>
 <li>Unduh hasil penggabungan gambar</li>
 </ol>
 </div>
@@ -1096,11 +1466,12 @@ footer {
 
 <div class="result-section" id="resultContainer">
 <h2 class="result-title"><i class="fas fa-check-circle"></i> Hasil Penggabungan Gambar</h2>
-<p class="click-hint"><i class="fas fa-mouse-pointer"></i> Klik pada gambar di bawah untuk menyalinnya</p>
+<p class="click-hint"><i class="fas fa-mouse-pointer"></i> Klik pada gambar di bawah untuk memperbesar dan melakukan screenshot</p>
 <canvas id="combinedCanvas" style="display: none;"></canvas>
 <img id="combinedImage" alt="Hasil penggabungan gambar">
 <div class="result-actions">
 <button id="downloadImageBtn" class="btn btn-download"><i class="fas fa-download"></i> Download Gambar</button>
+<button id="copyImageBtn" class="btn btn-copy-image"><i class="fas fa-copy"></i> Salin Gambar</button>
 <button id="newMergeBtn" class="btn btn-new"><i class="fas fa-plus"></i> Merge Baru</button>
 </div>
 </div>
@@ -1109,6 +1480,36 @@ footer {
 <footer>
 <p>© 2023 Analisis Transfer & Penggabung Gambar - Ekstrak informasi dengan teknologi OCR canggih</p>
 </footer>
+</div>
+
+<!-- Modal untuk gambar yang diperbesar -->
+<div id="imageModal" class="image-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title"><i class="fas fa-expand"></i> Tampilan Gambar Besar</h2>
+      <button class="close-modal" id="closeModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImage" class="modal-image" src="" alt="Gambar yang diperbesar">
+      <div class="modal-actions">
+        <button id="modalDownloadBtn" class="btn btn-download"><i class="fas fa-download"></i> Download Gambar</button>
+        <button id="modalCopyBtn" class="btn btn-copy-image"><i class="fas fa-copy"></i> Salin Gambar</button>
+        <button id="screenshotBtn" class="btn btn-screenshot"><i class="fas fa-camera"></i> Screenshot</button>
+      </div>
+      <div class="screenshot-info">
+        <i class="fas fa-info-circle"></i> 
+        <span>Gunakan tombol Screenshot untuk menangkap gambar. Hasil akan otomatis diunduh.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loadingText">Memproses gambar...</div>
+  </div>
 </div>
 
 <!-- Notifikasi -->
@@ -1241,7 +1642,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const combinedCanvas = document.getElementById('combinedCanvas');
   const combinedImage = document.getElementById('combinedImage');
   const downloadImageBtn = document.getElementById('downloadImageBtn');
+  const copyImageBtn = document.getElementById('copyImageBtn');
   const newMergeBtn = document.getElementById('newMergeBtn');
+
+  // Modal elements
+  const imageModal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeModal = document.getElementById('closeModal');
+  const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+  const modalCopyBtn = document.getElementById('modalCopyBtn');
+  const screenshotBtn = document.getElementById('screenshotBtn');
 
   let images = [];
 
@@ -1415,29 +1825,81 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Promise.all(images.map(loadImage))
     .then(loadedImages => {
-      // Hitung dimensi canvas
-      const totalWidth = loadedImages.reduce((sum, img) => sum + img.width, 0);
-      const maxHeight = Math.max(...loadedImages.map(img => img.height));
-
-      // Set ukuran canvas
-      combinedCanvas.width = totalWidth;
-      combinedCanvas.height = maxHeight;
-
-      const ctx = combinedCanvas.getContext('2d');
-
-      // Gambar semua gambar pada canvas
-      let xOffset = 0;
+      // Batasi dimensi maksimal untuk setiap gambar
+      const maxWidth = 1920;
+      const maxHeight = 1080;
+      const processedImages = [];
+      
       loadedImages.forEach(img => {
-        ctx.drawImage(img, xOffset, 0);
-        xOffset += img.width;
+        let width = img.width;
+        let height = img.height;
+        
+        // Hitung rasio aspek
+        const aspectRatio = width / height;
+        
+        // Sesuaikan ukuran jika terlalu besar
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            width = maxWidth;
+            height = maxWidth / aspectRatio;
+          } else {
+            height = maxHeight;
+            width = maxHeight * aspectRatio;
+          }
+        }
+        
+        // Buat canvas untuk mengubah ukuran gambar
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Konversi ke data URL dengan kualitas 80%
+        const resizedImage = canvas.toDataURL('image/jpeg', 0.8);
+        
+        // Buat objek Image baru dari gambar yang diubah ukurannya
+        const resizedImg = new Image();
+        resizedImg.src = resizedImage;
+        processedImages.push(resizedImg);
       });
+      
+      // Tunggu semua gambar yang diubah ukurannya dimuat
+      Promise.all(processedImages.map(img => {
+        return new Promise(resolve => {
+          if (img.complete) {
+            resolve(img);
+          } else {
+            img.onload = () => resolve(img);
+          }
+        });
+      }))
+      .then(finalImages => {
+        // Hitung dimensi canvas
+        const totalWidth = finalImages.reduce((sum, img) => sum + img.width, 0);
+        const maxHeight = Math.max(...finalImages.map(img => img.height));
 
-      // Konversi canvas ke data URL dan tampilkan
-      combinedImage.src = combinedCanvas.toDataURL('image/png');
-      resultContainer.style.display = 'block';
+        // Set ukuran canvas
+        combinedCanvas.width = totalWidth;
+        combinedCanvas.height = maxHeight;
 
-      // Scroll ke hasil
-      resultContainer.scrollIntoView({ behavior: 'smooth' });
+        const ctx = combinedCanvas.getContext('2d');
+
+        // Gambar semua gambar pada canvas
+        let xOffset = 0;
+        finalImages.forEach(img => {
+          ctx.drawImage(img, xOffset, 0);
+          xOffset += img.width;
+        });
+
+        // Konversi canvas ke data URL dengan kualitas 80%
+        combinedImage.src = combinedCanvas.toDataURL('image/jpeg', 0.8);
+        resultContainer.style.display = 'block';
+
+        // Scroll ke hasil
+        resultContainer.scrollIntoView({ behavior: 'smooth' });
+      });
     })
     .catch(error => {
       console.error('Error loading images:', error);
@@ -1456,6 +1918,131 @@ document.addEventListener('DOMContentLoaded', function() {
     link.download = 'gabungan-gambar.png';
     link.href = combinedCanvas.toDataURL('image/png');
     link.click();
+  });
+
+  // Fungsi untuk menyalin gambar ke clipboard
+  copyImageBtn.addEventListener('click', function() {
+    copyImageToClipboard();
+  });
+
+  // Fungsi untuk menyalin gambar ke clipboard
+  function copyImageToClipboard() {
+    combinedCanvas.toBlob(function(blob) {
+      const item = new ClipboardItem({ 'image/png': blob });
+      navigator.clipboard.write([item]).then(function() {
+        showNotification('Gambar berhasil disalin ke clipboard!');
+      }).catch(function(error) {
+        console.error('Error copying image: ', error);
+        showNotification('Gagal menyalin gambar. Browser Anda mungkin tidak mendukung fitur ini.');
+      });
+    });
+  }
+
+  // Event listener untuk klik pada gambar hasil
+  combinedImage.addEventListener('click', function() {
+    // Tambahkan animasi klik
+    this.classList.add('image-clicked');
+    setTimeout(() => {
+      this.classList.remove('image-clicked');
+    }, 500);
+    
+    // Buka modal dengan gambar yang diperbesar
+    openImageModal(this.src);
+  });
+
+  // Fungsi untuk membuka modal gambar yang diperbesar
+  function openImageModal(imageSrc) {
+    modalImage.src = imageSrc;
+    imageModal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Mencegah scrolling di background
+  }
+
+  // Event listener untuk menutup modal
+  closeModal.addEventListener('click', function() {
+    imageModal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Kembalikan scrolling
+  });
+
+  // Event listener untuk menutup modal saat klik di luar gambar
+  window.addEventListener('click', function(event) {
+    if (event.target === imageModal) {
+      imageModal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Kembalikan scrolling
+    }
+  });
+
+  // Event listener untuk tombol download di modal
+  modalDownloadBtn.addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.download = 'gabungan-gambar.png';
+    link.href = modalImage.src;
+    link.click();
+  });
+
+  // Event listener untuk tombol salin di modal
+  modalCopyBtn.addEventListener('click', function() {
+    // Buat canvas dari gambar modal
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      
+      canvas.toBlob(function(blob) {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]).then(function() {
+          showNotification('Gambar berhasil disalin ke clipboard!');
+        }).catch(function(error) {
+          console.error('Error copying image: ', error);
+          showNotification('Gagal menyalin gambar. Browser Anda mungkin tidak mendukung fitur ini.');
+        });
+      });
+    };
+    img.src = modalImage.src;
+  });
+
+  // Event listener untuk tombol screenshot
+  screenshotBtn.addEventListener('click', function() {
+    // Tambahkan loading state
+    screenshotBtn.disabled = true;
+    screenshotBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuat Screenshot...';
+    
+    // Gunakan html2canvas untuk mengambil screenshot dari modal
+    html2canvas(document.querySelector('.modal-content'), {
+      useCORS: true,
+      allowTaint: true,
+      scale: 2 // Meningkatkan kualitas screenshot
+    }).then(canvas => {
+      // Konversi canvas ke blob dan unduh
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `screenshot-${new Date().getTime()}.png`;
+        link.href = url;
+        link.click();
+        
+        // Bersihkan URL setelah unduhan
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 100);
+        
+        showNotification('Screenshot berhasil diunduh!');
+        
+        // Kembalikan tombol ke keadaan semula
+        screenshotBtn.disabled = false;
+        screenshotBtn.innerHTML = '<i class="fas fa-camera"></i> Screenshot';
+      }, 'image/png');
+    }).catch(error => {
+      console.error('Error taking screenshot:', error);
+      showNotification('Gagal mengambil screenshot. Silakan coba lagi.');
+      
+      // Kembalikan tombol ke keadaan semula
+      screenshotBtn.disabled = false;
+      screenshotBtn.innerHTML = '<i class="fas fa-camera"></i> Screenshot';
+    });
   });
 
   // Fungsi untuk memulai merge baru
@@ -1485,8 +2072,44 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressBar = document.getElementById('progressBar');
   const progress = document.getElementById('progress');
   const ocrStatus = document.getElementById('ocrStatus');
+  const debugSection = document.getElementById('debugSection');
+  const debugText = document.getElementById('debugText');
+  const debugBtn = document.getElementById('debugBtn');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  const loadingText = document.getElementById('loadingText');
+
+  // Confidence indicators
+  const merchantConfidence = document.getElementById('merchantConfidence');
+  const rrnConfidence = document.getElementById('rrnConfidence');
+  const referenceConfidence = document.getElementById('referenceConfidence');
+  const amountConfidence = document.getElementById('amountConfidence');
+  const dateConfidence = document.getElementById('dateConfidence');
+
+  // Result items
+  const merchantItem = document.getElementById('merchantItem');
+  const rrnItem = document.getElementById('rrnItem');
+  const referenceItem = document.getElementById('referenceItem');
+  const amountItem = document.getElementById('amountItem');
+  const dateItem = document.getElementById('dateItem');
+
+  // Advanced edit sections
+  const merchantAdvanced = document.getElementById('merchantAdvanced');
+  const rrnAdvanced = document.getElementById('rrnAdvanced');
+  const referenceAdvanced = document.getElementById('referenceAdvanced');
+  const amountAdvanced = document.getElementById('amountAdvanced');
+  const dateAdvanced = document.getElementById('dateAdvanced');
+
+  // Suggestions containers
+  const merchantSuggestions = document.getElementById('merchantSuggestions');
+  const rrnSuggestions = document.getElementById('rrnSuggestions');
+  const referenceSuggestions = document.getElementById('referenceSuggestions');
+  const amountSuggestions = document.getElementById('amountSuggestions');
+  const dateSuggestions = document.getElementById('dateSuggestions');
 
   let uploadedImage = null;
+  let extractedText = ''; // Simpan teks yang diekstrak untuk debugging
+  let extractedData = {}; // Simpan data yang diekstrak dengan confidence score
 
   // Event listener untuk upload area
   uploadArea.addEventListener('click', function() {
@@ -1505,7 +2128,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   uploadArea.addEventListener('dragleave', function() {
-    uploadArea.style.background = 'rgba(255, 255, 255, 极客时间)';
+    uploadArea.style.background = 'rgba(255, 255, 255, 0.05)';
     uploadArea.style.borderColor = '#6c5ce7';
   });
 
@@ -1528,10 +2151,53 @@ document.addEventListener('DOMContentLoaded', function() {
   imageUrlTransfer.addEventListener('blur', function() {
     const url = imageUrlTransfer.value.trim();
     if (url && isValidImageUrl(url)) {
-      imagePreview.src = url;
-      imagePreview.style.display = 'block';
-      uploadedImage = url;
-      urlErrorTransfer.textContent = '';
+      // Buat objek Image untuk memeriksa dimensi
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = function() {
+        // Batasi dimensi maksimal
+        const maxWidth = 1920;
+        const maxHeight = 1080;
+        
+        let width = img.width;
+        let height = img.height;
+        
+        // Hitung rasio aspek
+        const aspectRatio = width / height;
+        
+        // Sesuaikan ukuran jika terlalu besar
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            width = maxWidth;
+            height = maxWidth / aspectRatio;
+          } else {
+            height = maxHeight;
+            width = maxHeight * aspectRatio;
+          }
+        }
+        
+        // Buat canvas untuk mengubah ukuran gambar
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Konversi ke data URL dengan kualitas 80%
+        const resizedImage = canvas.toDataURL('image/jpeg', 0.8);
+        
+        imagePreview.src = resizedImage;
+        imagePreview.style.display = 'block';
+        uploadedImage = resizedImage;
+        urlErrorTransfer.textContent = '';
+      };
+      
+      img.onerror = function() {
+        urlErrorTransfer.textContent = 'Gagal memuat gambar. Pastikan URL valid dan dapat diakses.';
+      };
+      
+      img.src = url;
     } else if (url) {
       urlErrorTransfer.textContent = 'URL gambar tidak valid';
     }
@@ -1544,12 +2210,56 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Periksa ukuran file (maksimal 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showNotification('Ukuran gambar terlalu besar. Maksimal 5MB.');
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = function(e) {
-      imagePreview.src = e.target.result;
-      imagePreview.style.display = 'block';
-      uploadedImage = e.target.result;
+      // Buat objek Image untuk memeriksa dimensi
+      const img = new Image();
+      img.onload = function() {
+        // Batasi dimensi maksimal
+        const maxWidth = 1920;
+        const maxHeight = 1080;
+        
+        let width = img.width;
+        let height = img.height;
+        
+        // Hitung rasio aspek
+        const aspectRatio = width / height;
+        
+        // Sesuaikan ukuran jika terlalu besar
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            width = maxWidth;
+            height = maxWidth / aspectRatio;
+          } else {
+            height = maxHeight;
+            width = maxHeight * aspectRatio;
+          }
+        }
+        
+        // Buat canvas untuk mengubah ukuran gambar
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Konversi ke data URL dengan kualitas 80%
+        const resizedImage = canvas.toDataURL('image/jpeg', 0.8);
+        
+        imagePreview.src = resizedImage;
+        imagePreview.style.display = 'block';
+        uploadedImage = resizedImage;
+      };
+      
+      img.src = e.target.result;
     };
 
     reader.readAsDataURL(file);
@@ -1567,12 +2277,46 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Tampilkan progress bar
-    progressBar.style.display = 'block';
-    ocrStatus.style.display = 'block';
+    // Tampilkan loading overlay
+    loadingOverlay.style.display = 'flex';
+    loadingText.textContent = 'Menganalisis gambar...';
 
     // Ekstrak teks dari gambar menggunakan Tesseract.js
     extractTextFromImage(uploadedImage);
+  });
+
+  // Event listener untuk tombol debug
+  debugBtn.addEventListener('click', function() {
+    if (debugSection.style.display === 'none') {
+      debugSection.style.display = 'block';
+      debugText.textContent = extractedText || 'Tidak ada teks yang diekstrak. Silakan ekstrak gambar terlebih dahulu.';
+    } else {
+      debugSection.style.display = 'none';
+    }
+  });
+
+  // Event listener untuk tombol verifikasi manual
+  verifyBtn.addEventListener('click', function() {
+    if (!extractedData || Object.keys(extractedData).length === 0) {
+      showNotification('Tidak ada data untuk diverifikasi. Silakan ekstrak gambar terlebih dahulu.');
+      return;
+    }
+
+    // Tampilkan semua bagian edit lanjutan
+    merchantAdvanced.style.display = 'block';
+    rrnAdvanced.style.display = 'block';
+    referenceAdvanced.style.display = 'block';
+    amountAdvanced.style.display = 'block';
+    dateAdvanced.style.display = 'block';
+
+    // Generate suggestions for each field
+    generateSuggestions('merchant', extractedData.merchant);
+    generateSuggestions('rrn', extractedData.rrn);
+    generateSuggestions('reference', extractedData.reference);
+    generateSuggestions('amount', extractedData.amount);
+    generateSuggestions('date', extractedData.date);
+
+    showNotification('Mode verifikasi manual diaktifkan. Periksa dan perbaiki data yang diperlukan.');
   });
 
   // Fungsi untuk mengekstrak teks dari gambar menggunakan Tesseract.js
@@ -1585,37 +2329,40 @@ document.addEventListener('DOMContentLoaded', function() {
           if (progress.status === 'recognizing text') {
             const p = progress.progress * 100;
             progress.style.width = `${p}%`;
-
+            
+            // Update loading text
             if (p < 30) {
-              ocrStatus.textContent = "Mengenali teks...";
+              loadingText.textContent = 'Mengenali teks...';
             } else if (p < 60) {
-              ocrStatus.textContent = "Memproses hasil...";
+              loadingText.textContent = 'Memproses hasil...';
             } else if (p < 90) {
-              ocrStatus.textContent = "Menganalisis struktur...";
+              loadingText.textContent = 'Menganalisis struktur...';
             } else {
-              ocrStatus.textContent = "Menyelesaikan...";
+              loadingText.textContent = 'Menyelesaikan...';
             }
           }
         }
       }
-    ).then(({ data: { text } }) => {
-      // Sembunyikan progress bar
-      progressBar.style.display = 'none';
-      ocrStatus.style.display = 'none';
+    ).then(({ data: { text, confidence } }) => {
+      // Simpan teks yang diekstrak untuk debugging
+      extractedText = text;
+      
+      // Sembunyikan loading overlay
+      loadingOverlay.style.display = 'none';
 
       // Proses teks yang diekstrak
-      processExtractedText(text);
+      processExtractedText(text, confidence);
     }).catch(error => {
       console.error('Error OCR:', error);
       showNotification('Gagal memproses gambar. Coba lagi dengan gambar yang lebih jelas.');
-      progressBar.style.display = 'none';
-      ocrStatus.style.display = 'none';
+      loadingOverlay.style.display = 'none';
     });
   }
 
   // Fungsi untuk memproses teks yang diekstrak dari gambar
-  function processExtractedText(text) {
+  function processExtractedText(text, confidence) {
     console.log("Teks yang diekstrak:", text);
+    console.log("Confidence OCR:", confidence);
 
     // Bersihkan teks dan pecah menjadi baris
     const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
@@ -1623,18 +2370,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ekstrak informasi berdasarkan bank yang dipilih
     const bank = bankSelect.value;
     const paymentMethod = paymentType.value;
-    let merchant = extractMerchant(lines, bank, paymentMethod);
-    let rrn = extractRRN(lines, bank, paymentMethod);
-    let reference = extractReference(lines, bank, paymentMethod);
-    let amount = extractAmount(lines, bank, paymentMethod);
-    let date = extractDate(lines, bank, paymentMethod);
+    
+    // Ekstrak data dengan confidence score
+    extractedData = {
+      merchant: extractMerchantWithConfidence(lines, bank, paymentMethod),
+      rrn: extractRRNWithConfidence(lines, bank, paymentMethod),
+      reference: extractReferenceWithConfidence(lines, bank, paymentMethod),
+      amount: extractAmountWithConfidence(lines, bank, paymentMethod),
+      date: extractDateWithConfidence(lines, bank, paymentMethod)
+    };
 
     // Tampilkan hasil
-    merchantResult.textContent = merchant;
-    rrnResult.textContent = rrn;
-    referenceResult.textContent = reference;
-    amountResult.textContent = amount;
-    dateResult.textContent = date;
+    displayExtractedData(extractedData);
 
     // Tampilkan container hasil
     transferResultContainer.style.display = 'block';
@@ -1642,132 +2389,856 @@ document.addEventListener('DOMContentLoaded', function() {
     showNotification('Informasi berhasil diekstrak. Periksa keakuratan data.');
   }
 
-  // Fungsi untuk mengekstrak merchant berdasarkan bank dan metode pembayaran
-  function extractMerchant(lines, bank, paymentMethod) {
-    for (let i = 0; i < lines.length; i++) {
-      // Cari pola merchant berdasarkan bank dan metode pembayaran
-      if (paymentMethod === 'bank') {
-        if (lines[i].match(/(MERCHANT|TOKO|STORE)/i)) {
-          if (i + 1 < lines.length) return lines[i + 1];
-        }
-      } else {
-        if (lines[i].match(/(MERCHANT|TOKO|STORE|OUTLET)/i)) {
-          return lines[i + 1] || lines[i].replace(/(MERCHANT|TOKO|STORE|OUTLET)/i, '').trim();
-        }
-      }
+  // Fungsi untuk menampilkan data yang diekstrak
+  function displayExtractedData(data) {
+    // Tampilkan nama merchant
+    merchantResult.textContent = data.merchant.value;
+    updateConfidenceIndicator('merchant', data.merchant.confidence);
+    updateResultItemStatus('merchant', data.merchant.confidence);
 
-      // Pola umum untuk semua bank
-      if (lines[i].match(/(merchant|toko|store|shop|nama)/i)) {
-        if (i + 1 < lines.length) return lines[i + 1];
-      }
+    // Tampilkan RRN/QRIS
+    rrnResult.textContent = data.rrn.value;
+    updateConfidenceIndicator('rrn', data.rrn.confidence);
+    updateResultItemStatus('rrn', data.rrn.confidence);
 
-      // Cari baris dengan karakter uppercase (biasanya nama merchant)
-      if (lines[i].match(/^[A-Z0-9\s]{5,}$/) && !lines[i].match(/(RRN|REF|TRANSFER|BANK|ATM|EWALLET)/i)) {
-        return lines[i];
-      }
-    }
-    return "-";
+    // Tampilkan nomor referensi
+    referenceResult.textContent = data.reference.value;
+    updateConfidenceIndicator('reference', data.reference.confidence);
+    updateResultItemStatus('reference', data.reference.confidence);
+
+    // Tampilkan nominal transfer
+    amountResult.textContent = data.amount.value;
+    updateConfidenceIndicator('amount', data.amount.confidence);
+    updateResultItemStatus('amount', data.amount.confidence);
+
+    // Tampilkan tanggal & waktu
+    dateResult.textContent = data.date.value;
+    updateConfidenceIndicator('date', data.date.confidence);
+    updateResultItemStatus('date', data.date.confidence);
   }
 
-  // Fungsi untuk mengekstrak RRN berdasarkan bank dan metode pembayaran
-  function extractRRN(lines, bank, paymentMethod) {
+  // Fungsi untuk memperbarui indikator confidence
+  function updateConfidenceIndicator(field, confidence) {
+    const indicator = document.getElementById(`${field}Confidence`);
+    
+    // Hapus semua kelas confidence
+    indicator.classList.remove('confidence-high', 'confidence-medium', 'confidence-low');
+    
+    // Tambahkan kelas yang sesuai berdasarkan nilai confidence
+    if (confidence >= 80) {
+      indicator.classList.add('confidence-high');
+    } else if (confidence >= 50) {
+      indicator.classList.add('confidence-medium');
+    } else {
+      indicator.classList.add('confidence-low');
+    }
+  }
+
+  // Fungsi untuk memperbarui status item hasil
+  function updateResultItemStatus(field, confidence) {
+    const item = document.getElementById(`${field}Item`);
+    
+    // Hapus semua kelas status
+    item.classList.remove('correct', 'incorrect', 'partial');
+    
+    // Tambahkan kelas yang sesuai berdasarkan nilai confidence
+    if (confidence >= 80) {
+      item.classList.add('correct');
+    } else if (confidence >= 50) {
+      item.classList.add('partial');
+    } else {
+      item.classList.add('incorrect');
+    }
+  }
+
+  // Fungsi untuk mengekstrak merchant dengan confidence score
+  function extractMerchantWithConfidence(lines, bank, paymentMethod) {
+    // Kata kunci yang sering muncul sebelum atau setelah nama merchant
+    const merchantKeywords = [
+      'MERCHANT', 'TOKO', 'STORE', 'NAMA', 'PEMILIK', 'PENJUAL', 
+      'MERCHANT NAME', 'NAMA MERCHANT', 'STORE NAME', 'NAMA TOKO',
+      'PEMBAYARAN KE', 'PAYMENT TO', 'DITERIMA OLEH', 'RECEIVED BY'
+    ];
+    
+    // Kata kunci yang sering muncul setelah nama merchant
+    const afterMerchantKeywords = [
+      'TERIMA KASIH', 'SALDO', 'PEMBAYARAN', 'TRANSAKSI', 'TRANSFER',
+      'NOMINAL', 'JUMLAH', 'RP', 'IDR', 'RRN', 'REF', 'REFERENSI',
+      'NO.', 'NO', 'TANGGAL', 'DATE', 'WAKTU', 'TIME', 'SUCCESS', 'BERHASIL'
+    ];
+    
+    let bestMatch = { value: "-", confidence: 0 };
+    
+    // Cari baris yang mengandung kata kunci merchant
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].toUpperCase();
+      
+      // Cari baris yang mengandung kata kunci merchant
+      for (const keyword of merchantKeywords) {
+        if (line.includes(keyword)) {
+          // Jika baris berikutnya ada dan tidak mengandung kata kunci setelah merchant
+          if (i + 1 < lines.length && 
+              !afterMerchantKeywords.some(k => lines[i + 1].toUpperCase().includes(k))) {
+            const candidate = lines[i + 1].trim();
+            const confidence = calculateMerchantConfidence(candidate, lines, i + 1);
+            
+            if (confidence > bestMatch.confidence) {
+              bestMatch = { value: candidate, confidence };
+            }
+          }
+          
+          // Jika baris ini mengandung kata kunci dan ada teks setelahnya
+          const parts = line.split(keyword);
+          if (parts.length > 1 && parts[1].trim()) {
+            const candidate = parts[1].trim();
+            const confidence = calculateMerchantConfidence(candidate, lines, i);
+            
+            if (confidence > bestMatch.confidence) {
+              bestMatch = { value: candidate, confidence };
+            }
+          }
+        }
+      }
+    }
+    
+    // Cari baris yang mungkin adalah nama merchant (berdasarkan pola)
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Lewati baris yang mengandung kata kunci bukan merchant
+      if (afterMerchantKeywords.some(k => line.toUpperCase().includes(k))) {
+        continue;
+      }
+      
+      // Cari baris dengan format yang khas untuk nama merchant
+      // Biasanya nama merchant adalah baris pendek dengan huruf kapital
+      if (line.length > 3 && line.length < 30 && 
+          /^[A-Z\s&.,'-]+$/.test(line) && 
+          !line.match(/^(BCA|BNI|BRI|MANDIRI|DANAMON|CIMB|GOJEK|GO-PAY|OVO|DANA|SHOPEE|LINKAJA|QRIS|ATM|BANK|MOBILE|TRANSFER|PAYMENT|SUCCESS|FAILED|PENDING|TRANSAKSI|REF|RRN|ID|NO|DATE|TIME|AMOUNT|TOTAL|SALDO|CREDIT|DEBIT)/i)) {
+        const confidence = calculateMerchantConfidence(line, lines, i);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: line.trim(), confidence };
+        }
+      }
+    }
+    
+    // Cari pola khusus untuk setiap bank
+    if (paymentMethod === 'bank') {
+      switch(bank) {
+        case 'bca':
+          // Cari pola "Ke: NAMAMERCHANT" atau "Ke NAMAMERCHANT"
+          for (const line of lines) {
+            const match = line.match(/^(?:KE|TO)[:\s]*([A-Z\s&.,'-]+)$/i);
+            if (match && match[1]) {
+              const candidate = match[1].trim();
+              const confidence = calculateMerchantConfidence(candidate, lines, lines.indexOf(line));
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bni':
+          // Cari pola "Ke: NAMAMERCHANT" atau "Ke NAMAMERCHANT"
+          for (const line of lines) {
+            const match = line.match(/^(?:KE|TO)[:\s]*([A-Z\s&.,'-]+)$/i);
+            if (match && match[1]) {
+              const candidate = match[1].trim();
+              const confidence = calculateMerchantConfidence(candidate, lines, lines.indexOf(line));
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bri':
+          // Cari pola "Ke: NAMAMERCHANT" atau "Ke NAMAMERCHANT"
+          for (const line of lines) {
+            const match = line.match(/^(?:KE|TO)[:\s]*([A-Z\s&.,'-]+)$/i);
+            if (match && match[1]) {
+              const candidate = match[1].trim();
+              const confidence = calculateMerchantConfidence(candidate, lines, lines.indexOf(line));
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'mandiri':
+          // Cari pola "Ke: NAMAMERCHANT" atau "Ke NAMAMERCHANT"
+          for (const line of lines) {
+            const match = line.match(/^(?:KE|TO)[:\s]*([A-Z\s&.,'-]+)$/i);
+            if (match && match[1]) {
+              const candidate = match[1].trim();
+              const confidence = calculateMerchantConfidence(candidate, lines, lines.indexOf(line));
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+          break;
+      }
+    } else {
+      // Untuk e-wallet, cari pola "Merchant: NAMAMERCHANT" atau "Merchant NAMAMERCHANT"
+      for (const line of lines) {
+        const match = line.match(/^MERCHANT[:\s]*([A-Z\s&.,'-]+)$/i);
+        if (match && match[1]) {
+          const candidate = match[1].trim();
+          const confidence = calculateMerchantConfidence(candidate, lines, lines.indexOf(line));
+          
+          if (confidence > bestMatch.confidence) {
+            bestMatch = { value: candidate, confidence };
+          }
+        }
+      }
+    }
+    
+    return bestMatch;
+  }
+
+  // Fungsi untuk menghitung confidence score untuk nama merchant
+  function calculateMerchantConfidence(candidate, lines, index) {
+    let confidence = 50; // Base confidence
+    
+    // Tingkatkan confidence jika kandidat memiliki format yang khas untuk nama merchant
+    if (/^[A-Z\s&.,'-]+$/.test(candidate) && candidate.length > 3 && candidate.length < 30) {
+      confidence += 20;
+    }
+    
+    // Tingkatkan confidence jika kandidat tidak mengandung kata kunci bukan merchant
+    const nonMerchantKeywords = [
+      'TERIMA KASIH', 'SALDO', 'PEMBAYARAN', 'TRANSAKSI', 'TRANSFER',
+      'NOMINAL', 'JUMLAH', 'RP', 'IDR', 'RRN', 'REF', 'REFERENSI',
+      'NO.', 'NO', 'TANGGAL', 'DATE', 'WAKTU', 'TIME', 'SUCCESS', 'BERHASIL'
+    ];
+    
+    if (!nonMerchantKeywords.some(k => candidate.toUpperCase().includes(k))) {
+      confidence += 15;
+    }
+    
+    // Tingkatkan confidence jika kandidat berada di posisi yang tepat dalam teks
+    if (index > 0 && index < lines.length - 1) {
+      const prevLine = lines[index - 1].toUpperCase();
+      const nextLine = lines[index + 1].toUpperCase();
+      
+      // Jika baris sebelumnya mengandung kata kunci merchant
+      if (prevLine.includes('MERCHANT') || prevLine.includes('TOKO') || 
+          prevLine.includes('STORE') || prevLine.includes('NAMA')) {
+        confidence += 25;
+      }
+      
+      // Jika baris berikutnya mengandung kata kunci pembayaran
+      if (nextLine.includes('RP') || nextLine.includes('IDR') || 
+          nextLine.includes('NOMINAL') || nextLine.includes('JUMLAH')) {
+        confidence += 15;
+      }
+    }
+    
+    return Math.min(confidence, 100); // Maksimal confidence adalah 100
+  }
+
+  // Fungsi untuk mengekstrak RRN dengan confidence score
+  function extractRRNWithConfidence(lines, bank, paymentMethod) {
+    let bestMatch = { value: "-", confidence: 0 };
+    
     if (paymentMethod === 'bank') {
       // Pola untuk RRN bank (12-16 digit)
-      const rrnPattern = /(RRN|rrn|Retrieval Reference Number)[\s:]*([0-9]{12,16})/i;
+      const rrnPatterns = [
+        /(RRN|rrn|Retrieval Reference Number)[\s:]*([0-9]{12,16})/i,
+        /(?:NO|NO\.)?\s*RRN[\s:]*([0-9]{12,16})/i,
+        /([0-9]{12,16})/, // Cari angka 12-16 digit
+      ];
 
       for (let line of lines) {
-        const match = line.match(rrnPattern);
-        if (match) return match[2];
+        for (const pattern of rrnPatterns) {
+          const match = line.match(pattern);
+          if (match) {
+            // Jika pola memiliki grup kedua, ambil grup kedua
+            const candidate = match.length > 2 ? match[2] : match[1];
+            
+            // Pastikan bukan format tanggal (ddmmyyyy atau yyyymmdd)
+            if (!/^(\d{2})(\d{2})(\d{4})$/.test(candidate) && 
+                !/^(\d{4})(\d{2})(\d{2})$/.test(candidate)) {
+              const confidence = calculateRRNConfidence(candidate, line, pattern);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+        }
+      }
+      
+      // Cari pola khusus untuk setiap bank
+      switch(bank) {
+        case 'bca':
+          // Cari pola "NO. RRN: 123456789012"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*RRN|RRN)[\s:]*([0-9]{12,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bni':
+          // Cari pola "NO. RRN: 123456789012"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*RRN|RRN)[\s:]*([0-9]{12,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bri':
+          // Cari pola "NO. RRN: 123456789012"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*RRN|RRN)[\s:]*([0-9]{12,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'mandiri':
+          // Cari pola "NO. RRN: 123456789012"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*RRN|RRN)[\s:]*([0-9]{12,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
       }
     } else {
       // Pola untuk kode transaksi e-wallet/QRIS
-      const qrisPattern = /(QRIS|qris|QR|Kode Transaksi|Transaction ID)[\s:]*([A-Z0-9]{16,20})/i;
+      const qrisPatterns = [
+        /(QRIS|qris|QR|Kode Transaksi|Transaction ID)[\s:]*([A-Z0-9]{16,20})/i,
+        /(?:NO|NO\.)?\s*QRIS[\s:]*([A-Z0-9]{16,20})/i,
+        /([A-Z0-9]{16,20})/, // Cari kode 16-20 karakter alfanumerik
+      ];
 
       for (let line of lines) {
-        const match = line.match(qrisPattern);
-        if (match) return match[2];
+        for (const pattern of qrisPatterns) {
+          const match = line.match(pattern);
+          if (match) {
+            // Jika pola memiliki grup kedua, ambil grup kedua
+            const candidate = match.length > 2 ? match[2] : match[1];
+            
+            // Pastikan bukan format tanggal atau angka murni
+            if (!/^\d+$/.test(candidate) && 
+                !/^(\d{2})(\d{2})(\d{4})$/.test(candidate) && 
+                !/^(\d{4})(\d{2})(\d{2})$/.test(candidate)) {
+              const confidence = calculateRRNConfidence(candidate, line, pattern);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+        }
+      }
+      
+      // Cari pola khusus untuk setiap e-wallet
+      switch(bank) {
+        case 'gopay':
+          // Cari pola "Payment ID: ABCDEFGHIJKLMNOPQR"
+          for (const line of lines) {
+            const match = line.match(/(?:PAYMENT\s*ID|ID\s*PEMBAYARAN)[\s:]*([A-Z0-9]{16,20})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'ovo':
+          // Cari pola "Transaction ID: ABCDEFGHIJKLMNOPQR"
+          for (const line of lines) {
+            const match = line.match(/(?:TRANSACTION\s*ID|ID\s*TRANSAKSI)[\s:]*([A-Z0-9]{16,20})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'dana':
+          // Cari pola "Transaction ID: ABCDEFGHIJKLMNOPQR"
+          for (const line of lines) {
+            const match = line.match(/(?:TRANSACTION\s*ID|ID\s*TRANSAKSI)[\s:]*([A-Z0-9]{16,20})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'shopeepay':
+          // Cari pola "Transaction ID: ABCDEFGHIJKLMNOPQR"
+          for (const line of lines) {
+            const match = line.match(/(?:TRANSACTION\s*ID|ID\s*TRANSAKSI)[\s:]*([A-Z0-9]{16,20})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'linkaja':
+          // Cari pola "Transaction ID: ABCDEFGHIJKLMNOPQR"
+          for (const line of lines) {
+            const match = line.match(/(?:TRANSACTION\s*ID|ID\s*TRANSAKSI)[\s:]*([A-Z0-9]{16,20})/i);
+            if (match && match[1]) {
+              const confidence = calculateRRNConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
       }
     }
 
-    // Jika tidak ditemukan dengan pola, cari angka/karakter panjang
-    for (let line of lines) {
-      if (paymentMethod === 'bank') {
-        const longNumberMatch = line.match(/([0-9]{12,16})/);
-        if (longNumberMatch) return longNumberMatch[1];
-      } else {
-        const codeMatch = line.match(/([A-Z0-9]{16,20})/);
-        if (codeMatch) return codeMatch[1];
-      }
-    }
-
-    return "-";
+    return bestMatch;
   }
 
-  // Fungsi untuk mengekstrak nomor referensi berdasarkan bank dan metode pembayaran
-  function extractReference(lines, bank, paymentMethod) {
+  // Fungsi untuk menghitung confidence score untuk RRN
+  function calculateRRNConfidence(candidate, line, pattern) {
+    let confidence = 50; // Base confidence
+    
+    // Tingkatkan confidence jika pola mengandung kata kunci RRN
+    if (pattern && pattern.toString().includes('RRN')) {
+      confidence += 30;
+    }
+    
+    // Tingkatkan confidence jika kandidat memiliki panjang yang tepat
+    if (paymentMethod === 'bank') {
+      if (candidate.length >= 12 && candidate.length <= 16) {
+        confidence += 20;
+      }
+    } else {
+      if (candidate.length >= 16 && candidate.length <= 20) {
+        confidence += 20;
+      }
+    }
+    
+    // Tingkatkan confidence jika kandidat adalah angka murni (untuk bank) atau alfanumerik (untuk e-wallet)
+    if (paymentMethod === 'bank') {
+      if (/^[0-9]+$/.test(candidate)) {
+        confidence += 15;
+      }
+    } else {
+      if (/^[A-Z0-9]+$/.test(candidate)) {
+        confidence += 15;
+      }
+    }
+    
+    return Math.min(confidence, 100); // Maksimal confidence adalah 100
+  }
+
+  // Fungsi untuk mengekstrak nomor referensi dengan confidence score
+  function extractReferenceWithConfidence(lines, bank, paymentMethod) {
+    let bestMatch = { value: "-", confidence: 0 };
+    
     if (paymentMethod === 'bank') {
       // Pola untuk referensi bank
-      const refPattern = /(REF|Reference|Referensi|No\. Ref|Nomor Referensi)[\s:]*([0-9]{10,16})/i;
+      const refPatterns = [
+        /(REF|Reference|Referensi|No\. Ref|Nomor Referensi)[\s:]*([0-9]{10,16})/i,
+        /(?:NO|NO\.)?\s*REF[\s:]*([0-9]{10,16})/i,
+        /([0-9]{10,16})/, // Cari angka 10-16 digit
+      ];
 
       for (let line of lines) {
-        const match = line.match(refPattern);
-        if (match) return match[2];
+        for (const pattern of refPatterns) {
+          const match = line.match(pattern);
+          if (match) {
+            // Jika pola memiliki grup kedua, ambil grup kedua
+            const candidate = match.length > 2 ? match[2] : match[1];
+            
+            // Pastikan bukan format tanggal (ddmmyyyy atau yyyymmdd)
+            if (!/^(\d{2})(\d{2})(\d{4})$/.test(candidate) && 
+                !/^(\d{4})(\d{2})(\d{2})$/.test(candidate)) {
+              const confidence = calculateReferenceConfidence(candidate, line, pattern);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: candidate, confidence };
+              }
+            }
+          }
+        }
       }
-
-      // Jika tidak ditemukan dengan pola, cari angka panjang lainnya
-      for (let line of lines) {
-        const longNumberMatch = line.match(/([0-9]{10,16})/);
-        if (longNumberMatch) return longNumberMatch[1];
+      
+      // Cari pola khusus untuk setiap bank
+      switch(bank) {
+        case 'bca':
+          // Cari pola "NO. REF: 1234567890"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*REF|REF)[\s:]*([0-9]{10,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateReferenceConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bni':
+          // Cari pola "NO. REF: 1234567890"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*REF|REF)[\s:]*([0-9]{10,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateReferenceConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'bri':
+          // Cari pola "NO. REF: 1234567890"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*REF|REF)[\s:]*([0-9]{10,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateReferenceConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
+          
+        case 'mandiri':
+          // Cari pola "NO. REF: 1234567890"
+          for (const line of lines) {
+            const match = line.match(/(?:NO\.?\s*REF|REF)[\s:]*([0-9]{10,16})/i);
+            if (match && match[1]) {
+              const confidence = calculateReferenceConfidence(match[1], line, match[0]);
+              
+              if (confidence > bestMatch.confidence) {
+                bestMatch = { value: match[1], confidence };
+              }
+            }
+          }
+          break;
       }
     } else {
       // Untuk e-wallet, referensi biasanya sama dengan RRN/QRIS
-      return "-";
+      bestMatch = { value: "-", confidence: 0 };
     }
 
-    return "-";
+    return bestMatch;
   }
 
-  // Fungsi untuk mengekstrak nominal berdasarkan bank dan metode pembayaran
-  function extractAmount(lines, bank, paymentMethod) {
+  // Fungsi untuk menghitung confidence score untuk nomor referensi
+  function calculateReferenceConfidence(candidate, line, pattern) {
+    let confidence = 50; // Base confidence
+    
+    // Tingkatkan confidence jika pola mengandung kata kunci REF
+    if (pattern && pattern.toString().includes('REF')) {
+      confidence += 30;
+    }
+    
+    // Tingkatkan confidence jika kandidat memiliki panjang yang tepat
+    if (candidate.length >= 10 && candidate.length <= 16) {
+      confidence += 20;
+    }
+    
+    // Tingkatkan confidence jika kandidat adalah angka murni
+    if (/^[0-9]+$/.test(candidate)) {
+      confidence += 15;
+    }
+    
+    return Math.min(confidence, 100); // Maksimal confidence adalah 100
+  }
+
+  // Fungsi untuk mengekstrak nominal dengan confidence score
+  function extractAmountWithConfidence(lines, bank, paymentMethod) {
+    let bestMatch = { value: "-", confidence: 0 };
+    
     for (let line of lines) {
       // Pola untuk nominal dengan format Rp
       const match = line.match(/(Rp|RP|IDR|idr)[\s]*([0-9.,]+)/i);
-      if (match) return `Rp ${formatAmount(match[2])}`;
+      if (match) {
+        const candidate = `Rp ${formatAmount(match[2])}`;
+        const confidence = calculateAmountConfidence(candidate, line, match[0]);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: candidate, confidence };
+        }
+      }
 
       // Pola untuk nominal dengan format angka saja
       const amountMatch = line.match(/([0-9]{1,3}(\.?[0-9]{3})*(\,?[0-9]{2})?)/);
       if (amountMatch && parseFloat(amountMatch[0].replace(/\./g, '').replace(/,/g, '.')) > 1000) {
-        return `Rp ${formatAmount(amountMatch[0])}`;
+        const candidate = `Rp ${formatAmount(amountMatch[0])}`;
+        const confidence = calculateAmountConfidence(candidate, line, amountMatch[0]);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: candidate, confidence };
+        }
       }
     }
-    return "-";
+    
+    return bestMatch;
   }
 
-  // Fungsi untuk memformat nominal
-  function formatAmount(amount) {
-    // Hilangkan titik (separator ribuan) dan ganti koma dengan titik (separator desimal)
-    const cleaned = amount.replace(/\./g, '').replace(/,/g, '.');
-    // Format kembali dengan separator ribuan
-    const number = parseFloat(cleaned);
-    return isNaN(number) ? amount : number.toLocaleString('id-ID');
+  // Fungsi untuk menghitung confidence score untuk nominal
+  function calculateAmountConfidence(candidate, line, pattern) {
+    let confidence = 50; // Base confidence
+    
+    // Tingkatkan confidence jika pola mengandung kata kunci Rp
+    if (pattern && (pattern.includes('Rp') || pattern.includes('IDR'))) {
+      confidence += 30;
+    }
+    
+    // Tingkatkan confidence jika kandidat memiliki format yang tepat
+    if (candidate.includes('Rp') || candidate.includes('IDR')) {
+      confidence += 20;
+    }
+    
+    // Tingkatkan confidence jika kandidat memiliki nilai yang wajar (> 1000)
+    const amount = parseFloat(candidate.replace(/[^\d.,]/g, '').replace(/\./g, '').replace(/,/g, '.'));
+    if (amount > 1000) {
+      confidence += 15;
+    }
+    
+    return Math.min(confidence, 100); // Maksimal confidence adalah 100
   }
 
-  // Fungsi untuk mengekstrak tanggal dan waktu
-  function extractDate(lines, bank, paymentMethod) {
+  // Fungsi untuk mengekstrak tanggal dan waktu dengan confidence score
+  function extractDateWithConfidence(lines, bank, paymentMethod) {
+    let bestMatch = { value: "-", confidence: 0 };
+    
     for (let line of lines) {
       // Pola untuk tanggal dan waktu
       const dateMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})[\s]+(\d{2}:\d{2}:\d{2})/i);
-      if (dateMatch) return `${dateMatch[1]} ${dateMatch[2]}`;
+      if (dateMatch) {
+        const candidate = `${dateMatch[1]} ${dateMatch[2]}`;
+        const confidence = calculateDateConfidence(candidate, line, dateMatch[0]);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: candidate, confidence };
+        }
+      }
 
       // Pola untuk tanggal saja
       const dateOnlyMatch = line.match(/(\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4})/i);
-      if (dateOnlyMatch) return dateOnlyMatch[1];
+      if (dateOnlyMatch) {
+        const candidate = dateOnlyMatch[1];
+        const confidence = calculateDateConfidence(candidate, line, dateOnlyMatch[0]);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: candidate, confidence };
+        }
+      }
 
       // Pola untuk waktu saja
       const timeMatch = line.match(/(\d{2}:\d{2}:\d{2})/i);
-      if (timeMatch) return timeMatch[1];
+      if (timeMatch) {
+        const candidate = timeMatch[1];
+        const confidence = calculateDateConfidence(candidate, line, timeMatch[0]);
+        
+        if (confidence > bestMatch.confidence) {
+          bestMatch = { value: candidate, confidence };
+        }
+      }
     }
-    return "-";
+    
+    return bestMatch;
+  }
+
+  // Fungsi untuk menghitung confidence score untuk tanggal dan waktu
+  function calculateDateConfidence(candidate, line, pattern) {
+    let confidence = 50; // Base confidence
+    
+    // Tingkatkan confidence jika pola mengandung format tanggal yang lengkap
+    if (pattern && pattern.includes(':')) {
+      confidence += 30; // Format tanggal dan waktu
+    } else if (pattern && /[\/\-\.]/.test(pattern)) {
+      confidence += 20; // Format tanggal saja
+    }
+    
+    // Tingkatkan confidence jika kandidat memiliki format yang tepat
+    if (/^\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}$/.test(candidate)) {
+      confidence += 15; // Format tanggal
+    } else if (/^\d{2}:\d{2}:\d{2}$/.test(candidate)) {
+      confidence += 10; // Format waktu
+    }
+    
+    return Math.min(confidence, 100); // Maksimal confidence adalah 100
+  }
+
+  // Fungsi untuk menghasilkan saran perbaikan
+  function generateSuggestions(field, data) {
+    const suggestionsContainer = document.getElementById(`${field}Suggestions`);
+    suggestionsContainer.innerHTML = '';
+    
+    if (!data || !data.value || data.value === '-') {
+      return;
+    }
+    
+    // Generate suggestions based on field type
+    let suggestions = [];
+    
+    switch(field) {
+      case 'merchant':
+        suggestions = generateMerchantSuggestions(data.value);
+        break;
+      case 'rrn':
+        suggestions = generateRRNSuggestions(data.value);
+        break;
+      case 'reference':
+        suggestions = generateReferenceSuggestions(data.value);
+        break;
+      case 'amount':
+        suggestions = generateAmountSuggestions(data.value);
+        break;
+      case 'date':
+        suggestions = generateDateSuggestions(data.value);
+        break;
+    }
+    
+    // Add suggestion chips to the container
+    suggestions.forEach(suggestion => {
+      const chip = document.createElement('div');
+      chip.className = 'suggestion-chip';
+      chip.textContent = suggestion;
+      chip.addEventListener('click', function() {
+        document.getElementById(`${field}Edit`).value = suggestion;
+      });
+      suggestionsContainer.appendChild(chip);
+    });
+  }
+
+  // Fungsi untuk menghasilkan saran nama merchant
+  function generateMerchantSuggestions(value) {
+    const suggestions = [];
+    
+    // Jika nilai terlalu pendek, tambahkan saran untuk memperbaiki
+    if (value.length < 5) {
+      suggestions.push('Periksa kembali nama merchant yang sebenarnya');
+    }
+    
+    // Jika nilai mengandung karakter aneh, tambahkan saran untuk memperbaiki
+    if (/[^A-Z\s&.,'-]/.test(value)) {
+      suggestions.push('Hapus karakter khusus yang tidak seharusnya ada');
+    }
+    
+    // Jika nilai terlalu panjang, tambahkan saran untuk memperbaiki
+    if (value.length > 30) {
+      suggestions.push('Periksa apakah ada bagian yang bukan bagian dari nama merchant');
+    }
+    
+    return suggestions;
+  }
+
+  // Fungsi untuk menghasilkan saran RRN
+  function generateRRNSuggestions(value) {
+    const suggestions = [];
+    
+    // Jika nilai tidak sesuai format, tambahkan saran untuk memperbaiki
+    if (paymentType === 'bank') {
+      if (!/^[0-9]{12,16}$/.test(value)) {
+        suggestions.push('RRN harus berupa angka 12-16 digit');
+      }
+    } else {
+      if (!/^[A-Z0-9]{16,20}$/.test(value)) {
+        suggestions.push('Kode QRIS harus berupa alfanumerik 16-20 karakter');
+      }
+    }
+    
+    return suggestions;
+  }
+
+  // Fungsi untuk menghasilkan saran nomor referensi
+  function generateReferenceSuggestions(value) {
+    const suggestions = [];
+    
+    // Jika nilai tidak sesuai format, tambahkan saran untuk memperbaiki
+    if (paymentType === 'bank') {
+      if (!/^[0-9]{10,16}$/.test(value)) {
+        suggestions.push('Nomor referensi harus berupa angka 10-16 digit');
+      }
+    }
+    
+    return suggestions;
+  }
+
+  // Fungsi untuk menghasilkan saran nominal
+  function generateAmountSuggestions(value) {
+    const suggestions = [];
+    
+    // Jika nilai tidak sesuai format, tambahkan saran untuk memperbaiki
+    if (!value.includes('Rp') && !value.includes('IDR')) {
+      suggestions.push('Tambahkan mata uang (Rp atau IDR)');
+    }
+    
+    // Jika nilai tidak memiliki format ribuan yang benar, tambahkan saran untuk memperbaiki
+    const amount = value.replace(/[^\d.,]/g, '').replace(/\./g, '').replace(/,/g, '.');
+    if (parseFloat(amount) < 1000) {
+      suggestions.push('Periksa kembali nominal transfer');
+    }
+    
+    return suggestions;
+  }
+
+  // Fungsi untuk menghasilkan saran tanggal
+  function generateDateSuggestions(value) {
+    const suggestions = [];
+    
+    // Jika nilai tidak sesuai format, tambahkan saran untuk memperbaiki
+    if (!/^\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}$/.test(value) && 
+        !/^\d{2}:\d{2}:\d{2}$/.test(value) && 
+        !/^\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}\s\d{2}:\d{2}:\d{2}$/.test(value)) {
+      suggestions.push('Format tanggal harus DD/MM/YYYY atau DD-MM-YYYY');
+      suggestions.push('Format waktu harus HH:MM:SS');
+    }
+    
+    return suggestions;
   }
 
   // Event listener untuk tombol salin
@@ -1801,6 +3272,30 @@ document.addEventListener('DOMContentLoaded', function() {
     progressBar.style.display = 'none';
     ocrStatus.style.display = 'none';
     bankPatterns.style.display = 'none';
+    debugSection.style.display = 'none';
+    extractedText = '';
+    extractedData = {};
+    
+    // Reset confidence indicators
+    updateConfidenceIndicator('merchant', 0);
+    updateConfidenceIndicator('rrn', 0);
+    updateConfidenceIndicator('reference', 0);
+    updateConfidenceIndicator('amount', 0);
+    updateConfidenceIndicator('date', 0);
+    
+    // Reset result item status
+    updateResultItemStatus('merchant', 0);
+    updateResultItemStatus('rrn', 0);
+    updateResultItemStatus('reference', 0);
+    updateResultItemStatus('amount', 0);
+    updateResultItemStatus('date', 0);
+    
+    // Hide advanced edit sections
+    merchantAdvanced.style.display = 'none';
+    rrnAdvanced.style.display = 'none';
+    referenceAdvanced.style.display = 'none';
+    amountAdvanced.style.display = 'none';
+    dateAdvanced.style.display = 'none';
   });
 
   // Event listener untuk tombol unduh
@@ -1854,6 +3349,36 @@ document.addEventListener('DOMContentLoaded', function() {
       showNotification('Perubahan berhasil disimpan');
     });
   });
+
+  // Event listener untuk tombol close advanced edit
+  document.getElementById('closeMerchantAdvanced').addEventListener('click', function() {
+    merchantAdvanced.style.display = 'none';
+  });
+
+  document.getElementById('closeRrnAdvanced').addEventListener('click', function() {
+    rrnAdvanced.style.display = 'none';
+  });
+
+  document.getElementById('closeReferenceAdvanced').addEventListener('click', function() {
+    referenceAdvanced.style.display = 'none';
+  });
+
+  document.getElementById('closeAmountAdvanced').addEventListener('click', function() {
+    amountAdvanced.style.display = 'none';
+  });
+
+  document.getElementById('closeDateAdvanced').addEventListener('click', function() {
+    dateAdvanced.style.display = 'none';
+  });
+
+  // Fungsi untuk memformat nominal
+  function formatAmount(amount) {
+    // Hilangkan titik (separator ribuan) dan ganti koma dengan titik (separator desimal)
+    const cleaned = amount.replace(/\./g, '').replace(/,/g, '.');
+    // Format kembali dengan separator ribuan
+    const number = parseFloat(cleaned);
+    return isNaN(number) ? amount : number.toLocaleString('id-ID');
+  }
 });
 </script>
 </body>
