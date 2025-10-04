@@ -14,10 +14,8 @@
         }
         body {
             background: 
-                linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%),
-                url('https://i.postimg.cc/FzffCvZ7/unnamed-2.png');
-            background-size: cover, 150px;
-            background-blend-mode: overlay;
+                radial-gradient(circle at 10% 20%, #0f2027 0%, #203a43 50%, #2c5364 100%),
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMyMDNhNDMiIG9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
             color: #e0e0e0;
             min-height: 100vh;
             padding: 20px;
@@ -35,23 +33,72 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(33, 150, 243, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(156, 39, 176, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(33, 150, 243, 0.1) 0%, transparent 50%);
             z-index: -1;
         }
+        .floating-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            filter: blur(20px);
+            animation: float 15s infinite ease-in-out;
+        }
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+        }
+        .floating-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 10s;
+        }
+        .floating-element:nth-child(4) {
+            width: 150px;
+            height: 150px;
+            top: 80%;
+            left: 10%;
+            animation-delay: 15s;
+        }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: rgba(20, 20, 20, 0.9);
-            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-            border: 1px solid #333;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 0 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            z-index: 1;
         }
         .container::before {
             content: '';
@@ -59,79 +106,218 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
-            border-radius: 20px 20px 0 0;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
         }
         .header {
             text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #333;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             position: relative;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #4a90e2, transparent);
         }
         h1 {
             color: #fff;
-            margin-bottom: 10px;
-            font-size: 2rem;
+            margin-bottom: 12px;
+            font-size: 2.4rem;
             letter-spacing: 1px;
             text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
             background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(to right, #4a90e2, #9c27b0, #2196f3);
+            border-radius: 3px;
         }
         .subtitle {
-            color: #aaa;
-            font-size: 0.9rem;
+            color: #b0b0b0;
+            font-size: 1rem;
             margin-bottom: 20px;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Logo untuk Freespin dan Event */
+        .section-logo {
+            text-align: center;
+            margin: 20px 0 30px;
+            animation: pulse 3s infinite;
+            position: relative;
+            z-index: 2;
+        }
+        .section-logo img {
+            max-width: 450px;
+            width: 90%;
+            border-radius: 16px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(255, 215, 0, 0.4);
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        .section-logo img:hover {
+            transform: scale(1.03);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Background khusus untuk Freespin Content */
+        .freespin-content {
+            position: relative;
+        }
+        .freespin-content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: 
+                url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg') center/cover,
+                radial-gradient(circle at 30% 20%, rgba(74, 144, 226, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(33, 150, 243, 0.2) 0%, transparent 40%);
+            background-blend-mode: overlay;
+            border-radius: 30px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        
+        /* Background khusus untuk Event Content */
+        .event-content {
+            position: relative;
+        }
+        .event-content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: 
+                url('https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg') center/cover,
+                radial-gradient(circle at 30% 20%, rgba(255, 152, 0, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(255, 87, 34, 0.2) 0%, transparent 40%);
+            background-blend-mode: 'https://cdn.areabermain.club/assets/cdn/az6/2025/07/31/20250731/eeb91f9b1f7b3247242ccba997460e8b/linetogel-bg-17agustus2025.jpg';
+            border-radius: 30px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
         }
         
         /* Styling untuk tab utama */
         .main-tabs {
             display: flex;
-            margin-bottom: 25px;
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 12px;
-            padding: 4px;
-            border: 1px solid #444;
+            margin-bottom: 30px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 16px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
         .main-tab {
             flex: 1;
-            padding: 12px;
+            padding: 14px;
             text-align: center;
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .main-tab.active {
-            background: linear-gradient(to right, #4a90e2, #2196f3);
-            color: white;
+        .main-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #4a90e2, #2196f3);
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .main-tab.active::before {
+            opacity: 1;
+        }
+        .main-tab:not(.active) {
+            background: transparent;
+            color: #b0b0b0;
         }
         .main-tab:not(.active):hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            transform: translateY(-2px);
         }
         
         .content-section {
             display: none;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            z-index: 1;
         }
         .content-section.active {
             display: block;
         }
         
         .input-section {
-            background: rgba(30, 30, 30, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #444;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(30, 41, 59, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .input-section:hover {
+            transform: translateY(-5px);
         }
         .input-section::before {
             content: '';
@@ -139,7 +325,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
         }
         .freespin-content .input-section::before {
             background: linear-gradient(to right, #4a90e2, #2196f3);
@@ -149,55 +335,56 @@
         }
         label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         textarea {
             width: 100%;
-            height: 100px;
-            padding: 12px;
-            border: 1px solid #444;
-            border-radius: 10px;
-            font-size: 14px;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
             resize: vertical;
             transition: all 0.3s;
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(15, 23, 42, 0.8);
             color: #e0e0e0;
-            box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
             line-height: 1.5;
         }
         textarea:focus {
             border-color: #4a90e2;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3), inset 0 3px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3), inset 0 4px 12px rgba(0, 0, 0, 0.5);
         }
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 15px;
+            gap: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         button {
-            padding: 10px 16px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         button::before {
             content: '';
@@ -208,46 +395,53 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: 0.5s;
+            z-index: -1;
         }
         button:hover::before {
             left: 100%;
         }
+        button:hover {
+            transform: translateY(-3px);
+        }
         .calculate-btn {
-            background: linear-gradient(to right, #4a90e2, #3a80d2);
+            background: linear-gradient(135deg, #4a90e2, #3a80d2);
             color: white;
         }
         .calculate-btn:hover {
-            background: linear-gradient(to right, #3a80d2, #2a70c2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(74, 144, 226, 0.5);
+            background: linear-gradient(135deg, #3a80d2, #2a70c2);
+            box-shadow: 0 10px 20px rgba(74, 144, 226, 0.5);
         }
         .copy-btn {
-            background: linear-gradient(to right, #4caf50, #3d9c40);
+            background: linear-gradient(135deg, #4caf50, #3d9c40);
             color: white;
         }
         .copy-btn:hover {
-            background: linear-gradient(to right, #3d9c40, #2e8b32);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(76, 175, 80, 0.5);
+            background: linear-gradient(135deg, #3d9c40, #2e8b32);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.5);
         }
         .reset-btn {
-            background: linear-gradient(to right, #f44336, #e23326);
+            background: linear-gradient(135deg, #f44336, #e23326);
             color: white;
         }
         .reset-btn:hover {
-            background: linear-gradient(to right, #e23326, #d12316);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(244, 67, 54, 0.5);
+            background: linear-gradient(135deg, #e23326, #d12316);
+            box-shadow: 0 10px 20px rgba(244, 67, 54, 0.5);
         }
         .credit-copy-section {
-            background: rgba(30, 30, 30, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px solid #4caf50;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(30, 41, 59, 0.9);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 25px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .credit-copy-section:hover {
+            transform: translateY(-5px);
         }
         .credit-copy-section::before {
             content: '';
@@ -255,7 +449,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(to right, #4caf50, #3d9c40);
         }
         .credit-copy-section h3 {
@@ -263,29 +457,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
+            gap: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
         }
         .credit-value {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: bold;
             color: #4caf50;
-            text-shadow: 0 2px 15px rgba(76, 175, 80, 0.4);
-            margin: 12px 0;
+            text-shadow: 0 3px 20px rgba(76, 175, 80, 0.5);
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
         }
         .icon {
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
-            background: linear-gradient(to right, #4caf50, #3d9c40);
+            top: 25px;
+            right: 25px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #4caf50, #3d9c40);
             color: white;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             opacity: 0;
             transition: opacity 0.4s, transform 0.4s;
             z-index: 1000;
@@ -293,28 +489,35 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
+            gap: 10px;
+            font-size: 0.95rem;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
         }
         .notification.show {
             opacity: 1;
             transform: translateX(0);
         }
         .notification.error {
-            background: linear-gradient(to right, #f44336, #e23326);
+            background: linear-gradient(135deg, #f44336, #e23326);
         }
         
         /* Styling untuk section event info */
         .event-info-section {
-            background: rgba(30, 30, 30, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px solid #ff9800;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(30, 41, 59, 0.9);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
             display: none;
+            animation: fadeIn 0.5s ease-out;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .event-info-section:hover {
+            transform: translateY(-5px);
         }
         .event-info-section::before {
             content: '';
@@ -322,7 +525,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(to right, #ff9800, #ff5722);
         }
         .event-info-section h3 {
@@ -330,169 +533,304 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            gap: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
         .info-item {
-            background: rgba(40, 40, 40, 0.9);
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #444;
+            background: rgba(40, 51, 69, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s;
+        }
+        .info-item:hover {
+            transform: translateY(-3px);
         }
         .info-item label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             color: #ff9800;
             justify-content: flex-start;
         }
         .info-item-content {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .info-item span {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: #fff;
             word-break: break-all;
             flex: 1;
+            font-weight: 500;
         }
         .info-item button {
             flex-shrink: 0;
-            padding: 6px 10px;
-            font-size: 0.8rem;
+            padding: 8px 12px;
+            font-size: 0.85rem;
         }
         .links-section {
-            margin-top: 15px;
+            margin-top: 20px;
         }
         .links-section h4 {
             color: #fff;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         .link-item {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: left;
         }
         .link-item label {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #4a90e2;
             justify-content: flex-start;
         }
         .link-container {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
         .link-container input {
             flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            background: rgba(15, 15, 15, 0.8);
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
             color: #e0e0e0;
-            font-size: 13px;
+            font-size: 14px;
         }
         .copy-link-btn {
-            background: linear-gradient(to right, #4a90e2, #3a80d2);
+            background: linear-gradient(135deg, #4a90e2, #3a80d2);
             color: white;
-            padding: 8px 12px;
+            padding: 10px 15px;
         }
         .copy-all-links-btn {
-            background: linear-gradient(to right, #ff9800, #f57c00);
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             color: white;
-            margin-top: 12px;
+            margin-top: 15px;
             width: 100%;
             justify-content: center;
         }
         .copy-all-links-btn:hover {
-            background: linear-gradient(to right, #f57c00, #e65100);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(255, 152, 0, 0.5);
+            background: linear-gradient(135deg, #f57c00, #e65100);
+            box-shadow: 0 10px 20px rgba(255, 152, 0, 0.5);
         }
         
         /* Styling untuk tab event */
         .event-tabs {
             display: flex;
-            margin-bottom: 15px;
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 8px;
-            padding: 4px;
-            border: 1px solid #444;
+            margin-bottom: 20px;
+            background: rgba(40, 51, 69, 0.9);
+            border-radius: 10px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
         }
         .event-tab {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .event-tab.active {
-            background: linear-gradient(to right, #ff9800, #ff5722);
-            color: white;
+        .event-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .event-tab.active::before {
+            opacity: 1;
+        }
+        .event-tab:not(.active) {
+            background: transparent;
+            color: #b0b0b0;
         }
         .event-tab:not(.active):hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            transform: translateY(-2px);
         }
         
         /* Styling untuk preview gambar */
         .image-preview-section {
-            margin-top: 20px;
+            margin-top: 25px;
             display: none;
+            animation: fadeIn 0.5s ease-out;
+            z-index: 2;
         }
         .image-preview-section h4 {
             color: #fff;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         .image-grid {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             overflow-x: auto;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
         .image-item {
-            background: rgba(40, 40, 40, 0.9);
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #444;
+            background: rgba(40, 51, 69, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            min-width: 200px;
+            min-width: 220px;
             flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .image-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(156, 39, 176, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        .image-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .image-item:hover::before {
+            opacity: 1;
         }
         .image-item img {
             width: 100%;
-            max-height: 150px;
+            max-height: 160px;
             object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid #555;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 2;
         }
         .image-label {
             display: block;
-            margin-top: 8px;
+            margin-top: 10px;
             font-weight: bold;
             color: #4a90e2;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Modal untuk gambar */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            overflow: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5vh;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            animation: zoomIn 0.3s ease-out;
+        }
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1002;
+            transition: color 0.3s;
+        }
+        .close:hover {
+            color: #ff9800;
+        }
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 15px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 215, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -15px) rotate(5deg); }
+            50% { transform: translate(-5px, 10px) rotate(-5deg); }
+            75% { transform: translate(15px, 5px) rotate(3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
         }
         
         @media (max-width: 768px) {
@@ -501,7 +839,7 @@
                 max-width: 95%;
             }
             h1 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             .button-group {
                 flex-direction: column;
@@ -511,7 +849,7 @@
                 justify-content: center;
             }
             .credit-value {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
             .info-grid {
                 grid-template-columns: 1fr;
@@ -525,28 +863,81 @@
             .image-item {
                 min-width: auto;
             }
-        }
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            .modal-content {
+                max-width: 95%;
+                max-height: 80%;
             }
-            70% {
-                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
+            .section-logo img {
+                max-width: 300px;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Efek Partikel */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particle-float 15s infinite linear;
+        }
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
             }
         }
     </style>
 </head>
 <body>
+    <div class="floating-bg">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-coins"></i> Kalkulator & Event</h1>
-            <p class="subtitle">Satu aplikasi untuk semua kebutuhan perhitungan freespin dan event</p>
+            <p class="subtitle">Satu aplikasi untuk semua kebutuhan perhitungan freespin dan event Mahjong Ways. Cepat, akurat, dan mudah digunakan.</p>
         </div>
         
         <!-- Tab utama untuk memilih fitur -->
@@ -557,6 +948,11 @@
         
         <!-- Konten Kalkulator Freespin -->
         <div id="freespinContent" class="content-section freespin-content active">
+            <!-- Logo Freespin -->
+            <div class="section-logo">
+                <img src="https://cdn.areabermain.club/assets/cdn/az6/2025/04/02/20250402/4065aaa7ab97bdae547e0010ee6bdfff/linetogel-gif-promo1.gif" alt="Logo Freespin">
+            </div>
+            
             <div class="input-section">
                 <label for="transactionData">
                     <i class="fas fa-paste"></i> Data Transaksi:
@@ -584,6 +980,11 @@
 
         <!-- Konten Event Scatter Mahjong Ways -->
         <div id="eventContent" class="content-section event-content">
+            <!-- Logo Event -->
+            <div class="section-logo">
+                <img src="https://cdn.areabermain.club/assets/cdn/az6/2025/04/02/20250402/fdde3f113c07ead01f7d121352d1dfdc/linetogel-gif-promo2.gif" alt="Logo Event Mahjong Ways">
+            </div>
+            
             <div class="input-section">
                 <label for="eventData">
                     <i class="fas fa-paste"></i> Data Event:
@@ -628,48 +1029,43 @@
                             </button>
                         </div>
                     </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-money-bill-wave"></i> Nominal Bet:</label>
+                        <div class="info-item-content">
+                            <span id="eventBet">-</span>
+                            <button class="copy-btn copy-bet">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="links-section">
                     <h4><i class="fas fa-link"></i> Link Bukti Screenshot:</h4>
                     <div class="link-item">
-                        <label>Link 1:</label>
+                        <label>Gabungan Link:</label>
                         <div class="link-container">
-                            <input type="text" id="link1" readonly>
-                            <button class="copy-link-btn" data-link="link1"><i class="fas fa-copy"></i></button>
-                        </div>
-                    </div>
-                    <div class="link-item">
-                        <label>Link 2:</label>
-                        <div class="link-container">
-                            <input type="text" id="link2" readonly>
-                            <button class="copy-link-btn" data-link="link2"><i class="fas fa-copy"></i></button>
-                        </div>
-                    </div>
-                    <div class="link-item">
-                        <label>Link 3:</label>
-                        <div class="link-container">
-                            <input type="text" id="link3" readonly>
-                            <button class="copy-link-btn" data-link="link3"><i class="fas fa-copy"></i></button>
+                            <input type="text" id="combinedLinks" readonly>
+                            <button class="copy-link-btn" data-link="combinedLinks"><i class="fas fa-copy"></i></button>
                         </div>
                     </div>
                     <button id="copyAllLinksBtn" class="copy-all-links-btn">
-                        <i class="fas fa-copy"></i> Salin Semua Link Sekaligus
+                        <i class="fas fa-copy"></i> Salin Gabungan Link
                     </button>
                 </div>
                 
                 <!-- Preview Gambar -->
                 <div id="imagePreview" class="image-preview-section">
-                    <h4><i class="fas fa-images"></i> Preview Gambar:</h4>
+                    <h4><i class="fas fa-images"></i> Preview Gambar (Klik untuk memperbesar):</h4>
                     <div class="image-grid">
-                        <div class="image-item">
+                        <div class="image-item" data-image="1">
                             <img id="preview1" src="" alt="Preview 1">
                             <span class="image-label">Gambar 1</span>
                         </div>
-                        <div class="image-item">
+                        <div class="image-item" data-image="2">
                             <img id="preview2" src="" alt="Preview 2">
                             <span class="image-label">Gambar 2</span>
                         </div>
-                        <div class="image-item">
+                        <div class="image-item" data-image="3">
                             <img id="preview3" src="" alt="Preview 3">
                             <span class="image-label">Gambar 3</span>
                         </div>
@@ -677,6 +1073,17 @@
                 </div>
             </div>
         </div>
+        
+        <div class="footer">
+            <p>© 2023 Kalkulator Freespin & Event Mahjong Ways - All rights reserved</p>
+        </div>
+    </div>
+
+    <!-- Modal untuk gambar -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
     </div>
 
     <div class="notification" id="notification">
@@ -688,6 +1095,31 @@
         // Variabel global untuk menyimpan nilai kredit
         let currentTotalCredit = 0;
         let currentEventType = 'ways1'; // Default event type
+        
+        // Inisialisasi partikel
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Posisi acak
+                const left = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.left = `${left}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
         
         // Event listener untuk tab utama
         document.querySelectorAll('.main-tab').forEach(tab => {
@@ -831,43 +1263,54 @@
                 });
         });
 
-        // Event listener untuk tombol salin link individu
-        document.querySelectorAll('.copy-link-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const linkId = this.getAttribute('data-link');
-                const linkValue = document.getElementById(linkId).value;
-                
-                if (!linkValue) {
-                    showNotification('Tidak ada link untuk disalin!', 'error');
-                    return;
-                }
-                
-                navigator.clipboard.writeText(linkValue)
-                    .then(() => {
-                        showNotification('Link berhasil disalin!');
-                    })
-                    .catch(err => {
-                        console.error('Gagal menyalin link: ', err);
-                        showNotification('Gagal menyalin link!', 'error');
-                    });
-            });
+        // Event listener untuk tombol salin nominal bet
+        document.querySelector('.copy-bet').addEventListener('click', function() {
+            const betValue = document.getElementById('eventBet').textContent;
+            
+            if (betValue === '-') {
+                showNotification('Tidak ada nominal bet untuk disalin!', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(betValue)
+                .then(() => {
+                    showNotification('Nominal bet berhasil disalin!');
+                })
+                .catch(err => {
+                    console.error('Gagal menyalin nominal bet: ', err);
+                    showNotification('Gagal menyalin nominal bet!', 'error');
+                });
         });
 
-        // Event listener untuk tombol salin semua link
-        document.getElementById('copyAllLinksBtn').addEventListener('click', function() {
-            const link1 = document.getElementById('link1').value;
-            const link2 = document.getElementById('link2').value;
-            const link3 = document.getElementById('link3').value;
+        // Event listener untuk tombol salin link gabungan
+        document.querySelector('.copy-link-btn').addEventListener('click', function() {
+            const linkValue = document.getElementById('combinedLinks').value;
             
-            if (!link1 && !link2 && !link3) {
+            if (!linkValue) {
                 showNotification('Tidak ada link untuk disalin!', 'error');
                 return;
             }
             
-            // Gabungkan semua link menjadi satu string
-            const allLinks = `${link1} ${link2} ${link3}`;
+            navigator.clipboard.writeText(linkValue)
+                .then(() => {
+                    showNotification('Link gabungan berhasil disalin!');
+                })
+                .catch(err => {
+                    console.error('Gagal menyalin link: ', err);
+                    showNotification('Gagal menyalin link!', 'error');
+                });
+        });
+
+        // Event listener untuk tombol salin semua link
+        document.getElementById('copyAllLinksBtn').addEventListener('click', function() {
+            const combinedLinks = document.getElementById('combinedLinks').value;
             
-            navigator.clipboard.writeText(allLinks)
+            if (!combinedLinks) {
+                showNotification('Tidak ada link untuk disalin!', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(combinedLinks)
                 .then(() => {
                     showNotification('Semua link berhasil disalin!');
                 })
@@ -875,6 +1318,33 @@
                     console.error('Gagal menyalin link: ', err);
                     showNotification('Gagal menyalin link!', 'error');
                 });
+        });
+
+        // Event listener untuk gambar preview
+        document.querySelectorAll('.image-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const imageNum = this.getAttribute('data-image');
+                const imgSrc = document.getElementById(`preview${imageNum}`).src;
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const caption = document.getElementById('modalCaption');
+                
+                modal.style.display = 'block';
+                modalImg.src = imgSrc;
+                caption.textContent = `Gambar ${imageNum}`;
+            });
+        });
+
+        // Event listener untuk menutup modal
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('imageModal').style.display = 'none';
+        });
+
+        // Event listener untuk menutup modal dengan klik di luar gambar
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
         });
 
         // Fungsi untuk memformat angka dengan koma sebagai pemisah ribuan
@@ -889,35 +1359,47 @@
             
             if (parts.length >= 7) {
                 // Ekstrak informasi dari data
-                // Format: provider, link1, link2, link3, userID, nama, nomor_rekening, bettingan
-                const userId = parts[4] || '-';
-                const namaUser = parts[5] || '-';
-                const nomorRekening = parts[6] || '-';
-                const bet = parts[7] || '-';
+                const userId = parts[0] || '-'; // User ID dari bagian pertama
                 
-                // Tentukan tiket berdasarkan bettingan
-                let ticket = '-';
-                if (bet.includes('2,000')) {
-                    ticket = '1 Tiket';
-                } else if (bet.includes('4,000')) {
-                    ticket = '2 Tiket';
-                } else if (bet.includes('8,000')) {
-                    ticket = '3 Tiket';
+                // Cari nomor terpanjang untuk tiket
+                let longestNumber = '';
+                for (let i = 0; i < parts.length; i++) {
+                    // Hanya periksa bagian yang berisi angka saja
+                    if (/^\d+$/.test(parts[i].trim())) {
+                        if (parts[i].trim().length > longestNumber.length) {
+                            longestNumber = parts[i].trim();
+                        }
+                    }
                 }
                 
-                // Ekstrak link gambar
+                const ticket = longestNumber || '-';
+                
+                // Ekstrak nominal bet terkecil
+                let minBet = '-';
+                for (let i = 0; i < parts.length; i++) {
+                    if (parts[i].includes('BET')) {
+                        // Cari angka dalam format BET X,XXX - X,XXX
+                        const betMatches = parts[i].match(/(\d+,?\d*)/g);
+                        if (betMatches && betMatches.length > 0) {
+                            // Konversi ke angka dan cari yang terkecil
+                            const betNumbers = betMatches.map(num => parseFloat(num.replace(/,/g, '')));
+                            minBet = Math.min(...betNumbers);
+                            break;
+                        }
+                    }
+                }
+                
+                // Ekstrak link gambar (biasanya di bagian 1, 2, 3)
                 const links = parts.slice(1, 4).filter(link => link.includes('http'));
                 
-                // Tampilkan informasi event
-                // User ID adalah nama user yang pertama
-                document.getElementById('eventUserId').textContent = namaUser;
-                // Tiket adalah nomor rekening (nomor yang paling banyak)
-                document.getElementById('eventTicket').textContent = nomorRekening;
+                // Gabungkan link dengan koma
+                const combinedLinks = links.join(', ');
                 
-                // Tampilkan link gambar
-                document.getElementById('link1').value = links[0] || '';
-                document.getElementById('link2').value = links[1] || '';
-                document.getElementById('link3').value = links[2] || '';
+                // Tampilkan informasi event
+                document.getElementById('eventUserId').textContent = userId;
+                document.getElementById('eventTicket').textContent = ticket;
+                document.getElementById('eventBet').textContent = minBet !== '-' ? `IDR ${minBet}` : '-';
+                document.getElementById('combinedLinks').value = combinedLinks;
                 
                 // Tampilkan preview gambar
                 document.getElementById('preview1').src = links[0] || '';
@@ -1013,9 +1495,8 @@
             // Reset tampilan event
             document.getElementById('eventUserId').textContent = '-';
             document.getElementById('eventTicket').textContent = '-';
-            document.getElementById('link1').value = '';
-            document.getElementById('link2').value = '';
-            document.getElementById('link3').value = '';
+            document.getElementById('eventBet').textContent = '-';
+            document.getElementById('combinedLinks').value = '';
             
             // Reset preview gambar
             document.getElementById('preview1').src = '';
@@ -1044,6 +1525,11 @@
                 notification.classList.remove('show');
             }, 3000);
         }
+        
+        // Inisialisasi partikel saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            initParticles();
+        });
     </script>
 </body>
 </html>
