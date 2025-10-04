@@ -27,7 +27,141 @@
             align-items: flex-start;
         }
         
-        /* Sisa kode CSS tetap sama seperti sebelumnya */
+        /* Toggle Switch Styling */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .toggle-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .toggle-label {
+            margin-right: 15px;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f44336;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #4caf50;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* ID Display Section - Tampilan sederhana di bagian bawah */
+        .id-display-section {
+            background: rgba(30, 41, 59, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            transition: transform 0.3s;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .id-display-section.active {
+            display: block;
+        }
+        
+        .id-display-section:hover {
+            transform: translateY(-3px);
+        }
+        
+        .id-display-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #4a90e2, #2196f3);
+        }
+        
+        .id-display-section h3 {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .id-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #4a90e2;
+            text-shadow: 0 2px 15px rgba(74, 144, 226, 0.5);
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            text-align: center;
+            word-break: break-all;
+            padding: 8px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Sisa CSS tetap sama seperti sebelumnya */
         .floating-bg {
             position: absolute;
             width: 100%;
@@ -816,6 +950,12 @@
             .section-logo img {
                 max-width: 300px;
             }
+            .id-value {
+                font-size: 1.4rem;
+            }
+            .toggle-container {
+                padding: 10px 15px;
+            }
         }
         
         /* Footer */
@@ -941,6 +1081,26 @@
                 </div>
             </div>
             
+            <!-- Toggle untuk Event Scatter - Dipindahkan ke bawah -->
+            <div class="toggle-container">
+                <div class="toggle-label">
+                    <i class="fas fa-toggle-on"></i> Tampilkan User ID Event Scatter:
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="eventScatterToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <!-- Section untuk menampilkan ID ketika toggle ON -->
+            <div id="idDisplaySection" class="id-display-section">
+                <h3><i class="fas fa-id-card"></i> User ID Event Scatter</h3>
+                <div class="id-value" id="displayUserId">-</div>
+                <button id="copyUserIdBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> Salin User ID
+                </button>
+            </div>
+            
             <!-- Section untuk menampilkan informasi event -->
             <div id="eventInfo" class="event-info-section">
                 <h3><i class="fas fa-ticket-alt"></i> Event Scatter Mahjong Ways</h3>
@@ -1036,6 +1196,7 @@
         // Variabel global untuk menyimpan nilai kredit
         let currentTotalCredit = 0;
         let currentEventType = 'ways1'; // Default event type
+        let currentUserId = ''; // Untuk menyimpan User ID
         
         // Inisialisasi partikel
         function initParticles() {
@@ -1142,6 +1303,47 @@
             document.getElementById('eventData').value = '';
             resetEventResults();
             showNotification('Data event telah direset!');
+        });
+
+        // Event listener untuk toggle event scatter
+        document.getElementById('eventScatterToggle').addEventListener('change', function() {
+            const isChecked = this.checked;
+            const idDisplaySection = document.getElementById('idDisplaySection');
+            
+            if (isChecked) {
+                idDisplaySection.classList.add('active');
+                showNotification('Event Scatter diaktifkan!');
+                
+                // Jika sudah ada User ID yang diproses, tampilkan dengan tanda kurung
+                if (currentUserId) {
+                    document.getElementById('displayUserId').textContent = `(${currentUserId})`;
+                }
+            } else {
+                idDisplaySection.classList.remove('active');
+                showNotification('Event Scatter dinonaktifkan!');
+            }
+        });
+
+        // Event listener untuk tombol salin User ID khusus event scatter
+        document.getElementById('copyUserIdBtn').addEventListener('click', function() {
+            const userId = document.getElementById('displayUserId').textContent;
+            
+            if (userId === '-') {
+                showNotification('Tidak ada User ID untuk disalin!', 'error');
+                return;
+            }
+            
+            // Hapus tanda kurung sebelum menyalin
+            const userIdWithoutBrackets = userId.replace(/[()]/g, '');
+            
+            navigator.clipboard.writeText(userIdWithoutBrackets)
+                .then(() => {
+                    showNotification('User ID berhasil disalin!');
+                })
+                .catch(err => {
+                    console.error('Gagal menyalin User ID: ', err);
+                    showNotification('Gagal menyalin User ID!', 'error');
+                });
         });
 
         // Event listener untuk tab event
@@ -1302,6 +1504,9 @@
                 // Ekstrak informasi dari data
                 const userId = parts[0] || '-'; // User ID dari bagian pertama
                 
+                // Simpan User ID untuk event scatter
+                currentUserId = userId;
+                
                 // Cari nomor terpanjang untuk tiket
                 let longestNumber = '';
                 for (let i = 0; i < parts.length; i++) {
@@ -1346,6 +1551,13 @@
                 document.getElementById('preview1').src = links[0] || '';
                 document.getElementById('preview2').src = links[1] || '';
                 document.getElementById('preview3').src = links[2] || '';
+                
+                // Update tampilan User ID untuk event scatter jika toggle aktif
+                const isToggleActive = document.getElementById('eventScatterToggle').checked;
+                if (isToggleActive) {
+                    // Tampilkan User ID dengan tanda kurung
+                    document.getElementById('displayUserId').textContent = `(${userId})`;
+                }
                 
                 // Update judul berdasarkan event type
                 const eventTitle = document.querySelector('#eventInfo h3');
@@ -1433,16 +1645,24 @@
         }
 
         function resetEventResults() {
+            // Reset variabel global
+            currentUserId = '';
+            
             // Reset tampilan event
             document.getElementById('eventUserId').textContent = '-';
             document.getElementById('eventTicket').textContent = '-';
             document.getElementById('eventBet').textContent = '-';
             document.getElementById('combinedLinks').value = '';
+            document.getElementById('displayUserId').textContent = '-';
             
             // Reset preview gambar
             document.getElementById('preview1').src = '';
             document.getElementById('preview2').src = '';
             document.getElementById('preview3').src = '';
+            
+            // Nonaktifkan toggle
+            document.getElementById('eventScatterToggle').checked = false;
+            document.getElementById('idDisplaySection').classList.remove('active');
             
             // Sembunyikan section event info dan preview gambar
             document.getElementById('eventInfo').style.display = 'none';
