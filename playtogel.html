@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet Full & Bet BB - Line Togel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset dan Gaya Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e6e6e6;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(44, 62, 80, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Gaya Header */
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            color: #2ecc71;
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2ecc71;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        p {
+            color: #d1d1d1;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        /* Gaya Section */
+        .section {
+            background: rgba(52, 73, 94, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Gaya List */
+        ol, ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            color: #d1d1d1;
+            padding-left: 5px;
+        }
+        
+        /* Gaya Box Contoh */
+        .example-box {
+            background: rgba(44, 62, 80, 0.7);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        /* Gaya Gambar */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        /* Gaya Tombol Salin */
+        .copy-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .copy-btn i {
+            margin-right: 8px;
+        }
+        
+        /* Gaya Notifikasi */
+        .note {
+            background: rgba(243, 156, 18, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .note p {
+            color: #f39c12;
+            margin: 0;
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1001;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Gaya Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .modal-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .modal-btn i {
+            margin-right: 8px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: #c0392b;
+            transform: rotate(90deg);
+        }
+        
+        /* Navigasi Tab */
+        .tab-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: rgba(52, 73, 94, 0.7);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .tab-btn {
+            background: rgba(44, 62, 80, 0.7);
+            color: #e6e6e6;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab-btn:hover {
+            background: #3498db;
+        }
+        
+        .tab-btn.active {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .copy-btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .modal-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .modal-btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            
+            .tab-navigation {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Konten berhasil disalin!
+    </div>
+    
+    <!-- Modal untuk gambar -->
+    <div class="modal" id="imageModal">
+        <button class="close-btn" id="closeModal">&times;</button>
+        <img class="modal-content" id="modalImage" src="" alt="Gambar Togel">
+        <div class="modal-controls">
+            <button class="modal-btn" id="copyImageBtn">
+                <i class="far fa-copy"></i> Salin Gambar
+            </button>
+            <button class="modal-btn" id="downloadImageBtn">
+                <i class="fas fa-download"></i> Unduh Gambar
+            </button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1><i class="fas fa-dice"></i> Bet Full & Bet BB - Sistem Bettingan Togel</h1>
+        
+        <!-- Navigasi Tab -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="tipe-bettingan">Tipe Bettingan</button>
+            <button class="tab-btn" data-tab="colok-bebas">Colok Bebas</button>
+            <button class="tab-btn" data-tab="colok-bebas-2d">Colok Bebas 2D</button>
+            <button class="tab-btn" data-tab="colok-jitu">Colok Jitu</button>
+            <button class="tab-btn" data-tab="tepi-tengah">Tepi Tengah</button>
+            <button class="tab-btn" data-tab="shio">SHIO</button>
+            <button class="tab-btn" data-tab="silang-homo">Silang Homo</button>
+            <button class="tab-btn" data-tab="2d-depan-tengah">2D Depan & Tengah</button>
+            <button class="tab-btn" data-tab="bet-full">Bet Full</button>
+            <button class="tab-btn" data-tab="bet-bb">Bet BB</button>
+            <button class="tab-btn" data-tab="togel-kombinasi">Togel Kombinasi</button>
+            <button class="tab-btn" data-tab="kembang-kempis">Kembang Kempis</button>
+            <button class="tab-btn" data-tab="angka-tarung">Angka Tarung</button>
+            <button class="tab-btn" data-tab="bb-campuran">BB Campuran / BBFS</button>
+            <button class="tab-btn" data-tab="togel-dasar">Togel Dasar</button>
+            <button class="tab-btn" data-tab="pola-colok">Pola Colok</button>
+        </div>
+        
+        <!-- Tab Tipe Bettingan -->
+        <div class="tab-content active" id="tipe-bettingan">
+            <div class="section">
+                <h2>Tipe Bettingan 4D/3D/2D</h2>
+                <p>Termasuk FULL, DISCOUNT, BB, dan pembayaran PRIZE 1, 2, 3.</p>
+                <p>Menebak 4 angka, 3 angka dan 2 angka.</p>
+                
+                <div class="example-box">
+                    <p><strong>Struktur: ABCD</strong></p>
+                    <p>Misalnya keluar : 4321</p>
+                    <p>Berarti pemenang untuk:</p>
+                    <ul>
+                        <li>4D = 4321</li>
+                        <li>3D = 321</li>
+                        <li>2D = 21</li>
+                    </ul>
+                </div>
+                
+                <p><strong>Aturan permainan:</strong></p>
+                <p>Jika anda membeli diluar dari nomor yang dikeluarkan, berarti anda kalah dan uang tidak dikembalikan sama sekali.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Perhitungan Kemenangan:</strong></p>
+                    <p>Jika anda membeli masing 100rb untuk angka:</p>
+                    <ul>
+                        <li>4D = 4321</li>
+                        <li>3D = 321</li>
+                        <li>2D = 21</li>
+                    </ul>
+                    <p>(Khusus untuk 4D,3D dan 2D diberikan diskon tambahan. Diskon akan makin besar jika nilai akumulasi betting dalam satu periode makin besar).</p>
+                    <p>Berarti kemenangan anda adalah:</p>
+                    <ul>
+                        <li>4D = 100rb x [Indeks kemenangan untuk 4D]</li>
+                        <li>3D = 100rb x [Indeks kemenangan untuk 3D]</li>
+                        <li>2D = 100rb x [Indeks kemenangan untuk 2D]</li>
+                    </ul>
+                    <p>(Catatan: nilai bet 100rb tidak dikembalikan ke member)</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Struktur: ABCD</strong></p>
+                    <p>Misalnya keluar nomor = 1234</p>
+                    <p>Berati pemenang untuk:</p>
+                    <ul>
+                        <li>2D Depan adalah = 12</li>
+                        <li>2D Tengah adalah = 23</li>
+                        <li>2D Belakang adalah = 34</li>
+                    </ul>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyTipeBtn">
+                        <i class="far fa-copy"></i> Salin Konten Tipe Bettingan
+                    </button>
+                </div>
+                
+                <div class="image-container" id="tipeImageContainer">
+                    <img id="tipeImage" src="https://i.postimg.cc/Nfnbj93H/CARA-BETTING-4-D-2-D-3-D.jpg" alt="Gambar Cara Betting 4D 2D 3D">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Colok Bebas -->
+        <div class="tab-content" id="colok-bebas">
+            <div class="section">
+                <h2>Colok Bebas</h2>
+                <p><strong>Pengertian:</strong> Menebak satu angka dari 4D, posisi bebas.</p>
+                <p><strong>Struktur: ABCD</strong></p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Misalnya keluar : 4321</p>
+                    <p>Misalnya dibeli 3 dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok bebas]</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 4331</p>
+                    <p>Misalnya dibeli 3 dengan nilai 100rb.</p>
+                    <p>Jika anda membeli masing 100rb untuk angka:</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + ([Indeks kemenangan untuk colok bebas] x 2)</p>
+                    <p>Dan seterusnya untuk setiap kembaran yang berhasil ditebak, otomatis mendapat kelipatan [Indeks kemenangan untuk colok bebas]</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyColokBebasBtn">
+                        <i class="far fa-copy"></i> Salin Konten Colok Bebas
+                    </button>
+                </div>
+                
+                <div class="image-container" id="colokBebasImageContainer">
+                    <img id="colokBebasImage" src="https://i.postimg.cc/t4sz834c/3-NG-Lj-MNTGyj-Jg8-Ccn-AK6-A.png" alt="Gambar Colok Bebas">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Colok Bebas 2D -->
+        <div class="tab-content" id="colok-bebas-2d">
+            <div class="section">
+                <h2>Colok Bebas 2D (Macau)</h2>
+                <p><strong>Pengertian:</strong> Cara kerja seperti colok bebas tapi mesti yang keluar 2 angka dari 4D.</p>
+                <p><strong>Struktur: ABCD</strong></p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Misalnya dibeli 4 dan 2 dengan nilai 100rb</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 2 digit]</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Misalnya dibeli 4 dan 6 dengan nilai 100rb.</p>
+                    <p>Berarti KALAH dan nilai betting tidak dikembalikan</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III:</strong></p>
+                    <p>Keluar : 4331</p>
+                    <p>Misalnya dibeli 4 dan 3 dengan nilai 100rb</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 3 digit]</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis IV:</strong></p>
+                    <p>Keluar : 4334</p>
+                    <p>Misalnya dibeli 4 dan 3 dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 4 digit]</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyColokBebas2DBtn">
+                        <i class="far fa-copy"></i> Salin Konten Colok Bebas 2D
+                    </button>
+                </div>
+                
+                <div class="image-container" id="colokBebas2DImageContainer">
+                    <img id="colokBebas2DImage" src="https://i.postimg.cc/3wLk65mh/PFb-MCv-XWSoaztg-DH0-Idu-GA.png" alt="Gambar Colok Bebas 2D">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Colok Jitu -->
+        <div class="tab-content" id="colok-jitu">
+            <div class="section">
+                <h2>Colok Jitu</h2>
+                <p><strong>Pengertian:</strong> Menebak 1 angka di posisi tertentu: AS, KOP, Kepala, Ekor.</p>
+                <p><strong>Struktur: ABCD</strong></p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Misalnya dibeli 4 pada posisi AS dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok jitu]</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 4331</p>
+                    <p>Misalnya dibeli 3 pada posisi KOP dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk colok jitu]. Hasilnya sama dengan analisis I karena hanya memperhatikan posisi yang dipasang.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III:</strong></p>
+                    <p>Keluar : 4331</p>
+                    <p>Misalnya dibeli 4 pada posisi EKOR dengan nilai 100rb.</p>
+                    <p>Berarti kalah. Biarpun nilai 4 keluar pada posisi AS tapi tidak akan mepengaruhi pemilihan di posisi EKOR</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyColokJituBtn">
+                        <i class="far fa-copy"></i> Salin Konten Colok Jitu
+                    </button>
+                </div>
+                
+                <div class="image-container" id="colokJituImageContainer">
+                    <img id="colokJituImage" src="https://i.postimg.cc/bJywq60T/o-Z2divj7-T3a-Wo2nj-YYOieg.png" alt="Gambar Colok Jitu">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Tepi Tengah -->
+        <div class="tab-content" id="tepi-tengah">
+            <div class="section">
+                <h2>Tepi Tengah</h2>
+                <p><strong>Pengertian:</strong> Menebak tengah/tepi dari posisi 2D</p>
+                <p><strong>Tengah = Diantara 25 sampai 74</strong></p>
+                <p><strong>Tepi = Diantara 00 sampai 24 dan 75 sampai 99.</strong></p>
+                <p><strong>Struktur: ABCD</strong></p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 21</p>
+                    <p>21 = TEPI</p>
+                    <p>Misalnya dibeli posisi TEPI dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk tepi-tengah] + Kei</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 4356.</p>
+                    <p>Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 56</p>
+                    <p>56 = TENGAH</p>
+                    <p>Misalnya dibeli posisi TENGAH dengan nilai 100rb.</p>
+                    <p>Berarti menang:</p>
+                    <p>100rb + [Indeks kemenangan untuk tepi-tengah] + Kei</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyTepiTengahBtn">
+                        <i class="far fa-copy"></i> Salin Konten Tepi Tengah
+                    </button>
+                </div>
+                
+                <div class="image-container" id="tepiTengahImageContainer">
+                    <img id="tepiTengahImage" src="https://i.postimg.cc/9FYpg08q/CARA-BETTING-TENGAH-TEPI.png" alt="Gambar Cara Betting Tengah Tepi">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab SHIO -->
+        <div class="tab-content" id="shio">
+            <div class="section">
+                <h2>SHIO</h2>
+                <p><strong>Pengertian:</strong> Menebak SHIO dari posisi 2D</p>
+                <p>SHIO merupakan 12 lambang kelahiran dalam penanggalan China.</p>
+                <p>Dalam permainan ini, setiap lambang diwakili dengan satu nomor.</p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 21</p>
+                    <p>Hasil = 21-12 = 9 (shio disesuaikan dengan tabel diatas)</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 6543</p>
+                    <p>Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 43</p>
+                    <p>Hasil = 43-36 = 7 (shio disesuaikan dengan tabel diatas)</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III:</strong></p>
+                    <p>Keluar : 1389</p>
+                    <p>Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 89</p>
+                    <p>Hasil = 89-84 = 5 (shio disesuaikan dengan tabel diatas)</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Catatan:</strong> nilai yang dikurangi merupakan kelipatan 12.</p>
+                    <p>Jika dilakukan pembelian dengan 100rb dan menang maka:</p>
+                    <p>Menang = 100rb + [Indeks kemenangan untuk SHIO]</p>
+                </div>
+                
+                <div class="image-container" id="shioImageContainer">
+                    <img id="shioImage" src="https://i.postimg.cc/jq7wS1yx/LHu-Xa-GUx-RRGx-n-W3-Ozvh-Wg.png" alt="Gambar SHIO">
+                </div>
+                
+                <!-- Gambar Struktur SHIO yang baru ditambahkan -->
+                <div class="image-container" id="shioStrukturImageContainer">
+                    <img id="shioStrukturImage" src="https://i.postimg.cc/5yyX5xtT/30t-NKiff-Ti-C6-W4k0-BBZNWQ.png" alt="Gambar Struktur SHIO">
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyShioBtn">
+                        <i class="far fa-copy"></i> Salin Konten SHIO
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Silang Homo -->
+        <div class="tab-content" id="silang-homo">
+            <div class="section">
+                <h2>Silang Homo</h2>
+                <p><strong>Pengertian:</strong> Permainan ini kadang disebut suami istri. Menebak dari posisi Depan, Tengah, Belakang.</p>
+                <p><strong>Contoh no 1234</strong></p>
+                <ul>
+                    <li>Yang dimaksud dengan Posisi Depan adalah 2 no terdepan yaitu 12</li>
+                    <li>Yang dimaksud dengan Posisi Tengah adalah 2 no ditengah yaitu 23</li>
+                    <li>Yang dimaksud dengan Posisi Belakang adalah 2 no terbelakang yaitu 34</li>
+                </ul>
+                <p><strong>SILANG = Terdapat Ganjil dan Genap</strong></p>
+                <p><strong>HOMO = Terdapat 1 pasang Ganjil atau 1 pasang Genap</strong></p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I: Beli Posisi Depan:</strong></p>
+                    <p>Keluar : 1234.</p>
+                    <p>Yang menjadi pedoman adalah posisi Depan, berarti 12</p>
+                    <p>12 => 1=ganjil dan 2=genap , berarti hasil = SILANG</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II: Beli Posisi Tengah</strong></p>
+                    <p>Keluar : 4326.</p>
+                    <p>Yang menjadi pedoman adalah posisi Tengah, berarti 32</p>
+                    <p>32 => 3=ganjil dan 2=genap , berarti hasil = SILANG</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III: Beli Posisi Belakang:</strong></p>
+                    <p>Keluar : 4533.</p>
+                    <p>Yang menjadi pedoman adalah posisi Belakang, berarti 33</p>
+                    <p>33 => 3=ganjil dan 3=ganjil , berarti hasil = HOMO</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Pembayaran:</strong></p>
+                    <p>Jika dilakukan pembelian dengan 100rb dan menang maka:</p>
+                    <p>Menang = 100rb + [Indeks kemenangan untuk Silang-Homo]</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copySilangHomoBtn">
+                        <i class="far fa-copy"></i> Salin Konten Silang Homo
+                    </button>
+                </div>
+                
+                <div class="image-container" id="silangHomoImageContainer">
+                    <img id="silangHomoImage" src="https://i.postimg.cc/sxddVmhX/Y19s-P83q-QEy1qo-Cf-B1pg-CA.png" alt="Gambar Silang Homo">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 2D Depan & Tengah -->
+        <div class="tab-content" id="2d-depan-tengah">
+            <div class="section">
+                <h2>2D Depan (AB) & 2D Tengah (BC)</h2>
+                <p>Betting pada posisi tertentu: 2D Depan (AB) dan 2D Tengah (BC)</p>
+                
+                <h3>2D Depan (AB)</h3>
+                <p>Menebak 2 angka di posisi depan (A dan B).</p>
+                
+                <h3>2D Tengah (BC)</h3>
+                <p>Menebak 2 angka di posisi tengah (B dan C).</p>
+                
+                <p><strong>Cara Pembelian 2D Depan dan 2D Tengah:</strong></p>
+                <ol>
+                    <li>Pilih pasaran yang ingin anda mainkan.</li>
+                    <li>Pilih menu <strong>2D Depan</strong> untuk posisi AB atau <strong>2D Tengah</strong> untuk posisi BC</li>
+                    <li>Lalu pilih Tipe bettingan yang ingin anda gunakan (FULL - DISCOUNT - BB - PRIZE123)</li>
+                    <li>Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "12"</li>
+                    <li>Pada kolom berikutnya (Kolom 2D) diisi dengan nominal /jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp. 1,000</li>
+                    <li>Klik SUBMIT</li>
+                    <li>Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM</li>
+                </ol>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Pembelian:</strong></p>
+                    <ul>
+                        <li>Pembelian Rp. 100,- untuk 2D maka pada kolom 2D cukup diisi dengan angka "0.1" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp.500,- untuk 2D maka pada kolom 2D cukup diisi dengan angka "0.5" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)</li>
+                    </ul>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copy2DDepanTengahBtn">
+                        <i class="far fa-copy"></i> Salin Konten 2D Depan & Tengah
+                    </button>
+                </div>
+                
+                <div class="image-container" id="depanImageContainer">
+                    <img id="depanImage" src="https://i.postimg.cc/Df1KsGQ1/CARA-BETTING-2-D-DEPAN.png" alt="Gambar Cara Betting 2D Depan">
+                </div>
+                
+                <div class="image-container" id="tengahImageContainer">
+                    <img id="tengahImage" src="https://i.postimg.cc/mDx52d5J/CARA-BETTING-2-D-TENGAH.png" alt="Gambar Cara Betting 2D Tengah">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Bet Full -->
+        <div class="tab-content" id="bet-full">
+            <div class="section">
+                <h2>Bet Full</h2>
+                <p><strong>Pengertian:</strong> Sistem bettingan dimana dari angka yang di bet harus tepat dan sesuai dengan hasil result yang keluar.</p>
+                
+                <p><strong>Cara Pembelian 4D 3D 2D:</strong></p>
+                <ol>
+                    <li>Pilih pasaran yang ingin anda mainkan.</li>
+                    <li>Pilih menu 4D 3D 2D</li>
+                    <li>Lalu pilih Tipe bettingan yang ingin anda gunakan (FULL)</li>
+                    <li>Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "1234"</li>
+                    <li>Pada kolom berikutnya (Kolom 4D / 3D / 2D) diisi dengan nominal jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp.1,000</li>
+                    <li>Klik SUBMIT</li>
+                    <li>Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM</li>
+                </ol>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Pembelian:</strong></p>
+                    <ul>
+                        <li>Pembelian Rp. 100,- untuk 4D maka pada kolom 4D cukup diisi dengan angka "0.1" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp.500,- untuk 3D maka pada kolom 3D cukup diisi dengan angka "0.5" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)</li>
+                    </ul>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyFullBtn">
+                        <i class="far fa-copy"></i> Salin Konten Bet Full
+                    </button>
+                </div>
+                
+                <div class="image-container" id="fullImageContainer">
+                    <img id="fullImage" src="https://i.postimg.cc/FRh4RnM1/GAMBAR-FULL.jpg" alt="Gambar Contoh Bet Full">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Bet BB -->
+        <div class="tab-content" id="bet-bb">
+            <div class="section">
+                <h2>Bet BB (Bolak Balik)</h2>
+                <p><strong>Pengertian:</strong> Sistem bettingan dimana dari angka yang di bet, baik urutan tepat maupun bolak-balik, tetap menang dengan pembayaran sesuai aturan.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Jika kita bet 1234 dan hasil keluar 1234 maka kita akan di bayar x4000 dari bettingan sedangkan jika hasil keluar 2341 maka akan mendapat x200 dari pasangan karena dapat yang sistem BB.</p>
+                </div>
+                
+                <p><strong>Cara Pembelian 4D 3D 2D:</strong></p>
+                <ol>
+                    <li>Pilih pasaran yang ingin anda mainkan.</li>
+                    <li>Pilih menu 4D 3D 2D</li>
+                    <li>Lalu pilih Tipe bettingan yang ingin anda gunakan (BB)</li>
+                    <li>Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "1234"</li>
+                    <li>Pada kolom berikutnya (Kolom 4D / 3D / 2D) diisi dengan nominal jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp.1,000</li>
+                    <li>Klik SUBMIT</li>
+                    <li>Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM</li>
+                </ol>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Pembelian:</strong></p>
+                    <ul>
+                        <li>Pembelian Rp. 100,- untuk 4D maka pada kolom 4D cukup diisi dengan angka "0.1" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp.500,- untuk 3D maka pada kolom 3D cukup diisi dengan angka "0.5" (tanpa tanda petik)</li>
+                        <li>Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)</li>
+                    </ul>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyBBBtn">
+                        <i class="far fa-copy"></i> Salin Konten Bet BB
+                    </button>
+                </div>
+                
+                <div class="image-container" id="bbImageContainer">
+                    <img id="bbImage" src="https://i.postimg.cc/VvYnK131/GAMBAR-BB.jpg" alt="Gambar Contoh Bet BB">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Togel Kombinasi -->
+        <div class="tab-content" id="togel-kombinasi">
+            <div class="section">
+                <h2>Togel Kombinasi</h2>
+                <p><strong>Pengertian:</strong> Tebak Genap/Ganjil dan Besar/Kecil dari dua posisi (AS-KOP, dll).</p>
+                
+                <div class="example-box">
+                    <p><strong>Struktur = ABCD</strong></p>
+                    <p>A = AS</p>
+                    <p>B = KOP</p>
+                    <p>C = KEPALA</p>
+                    <p>D = EKOR</p>
+                    <p>Besar/Kecil: 0-4=kecil, 5-9=besar</p>
+                    <p>Ganjil/Genap : 1=ganjil, 2=genap dan seterusnya</p>
+                </div>
+                
+                <p>Anda dapat menebak Genap/Ganjil, Besar/Kecil dari 2 kombinasi antara AS, KOP, KEPALA, EKOR</p>
+                
+                <div class="example-box">
+                    <p><strong>Analisis:</strong></p>
+                    <p>Keluar : 1845</p>
+                    <p>Berarti pemenang untuk :</p>
+                    <ul>
+                        <li>AS Kecil/Ganjil dan KOP Besar/Genap</li>
+                        <li>KEPALA Kecil/Genap dan EKOR Besar/Ganjil</li>
+                        <li>AS Kecil/Ganjil dan KEPALA Kecil/Genap</li>
+                        <li>AS Kecil/Ganjil dan EKOR Besar/Ganjil</li>
+                        <li>KOP Besar/Genap dan KEPALA Kecil/Genap</li>
+                        <li>KOP Besar/Genap dan EKOR Besar/Ganjil</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Pembelian:</strong></p>
+                    <p>Misalnya anda membeli AS KECIl dan KOP GENAP seharga 100rb, maka menang = 100rb + [indeks kemenangan untuk kombinasi 2]</p>
+                    <p>atau :</p>
+                    <p>jika membeli KOP GENAP dan KEPALA GENAP seharga 100rb, maka menang = 100rb + [indeks kemenangan untuk kombinasi 2]</p>
+                    <p>atau :</p>
+                    <p>jika membeli KEPALA KECIL dan EKOR GENAP seharga 100rb, berarti KALAH</p>
+                    <p>( Anda harus menebak keduanya dengan Benar agar Menang )</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyTogelKombinasiBtn">
+                        <i class="far fa-copy"></i> Salin Konten Togel Kombinasi
+                    </button>
+                </div>
+                
+                <div class="image-container" id="togelKombinasiImageContainer">
+                    <img id="togelKombinasiImage" src="https://i.postimg.cc/SRZJygh8/cvot0-Xq-WRTa-Hg-M1ly-LJg.png" alt="Gambar Togel Kombinasi">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Kembang Kempis -->
+        <div class="tab-content" id="kembang-kempis">
+            <div class="section">
+                <h2>Kembang Kempis</h2>
+                <p><strong>Pengertian:</strong> AB (Depan), BC (Tengah), CD (Belakang). Kembang: AB, Kembar: A=B.</p>
+                
+                <div class="example-box">
+                    <p><strong>Struktur = ABCD</strong></p>
+                    <p>Jika Menebak posisi Depan maka yang menjadi fokus adalah AB</p>
+                    <p>Jika Menebak posisi Tengah maka yang menjadi fokus adalah BC</p>
+                    <p>Jika Menebak posisi Belakang maka yang menjadi fokus adalah CD</p>
+                    <p><strong>KEMBANG</strong> jika A < B ataupun B < C ataupun C < D</p>
+                    <p><strong>KEMPIS</strong> jika A > B ataupun B > C ataupun C > D</p>
+                    <p><strong>KEMBAR</strong> jika A = B ataupun B = C ataupun C = D</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I: Beli Posisi Depan</strong></p>
+                    <p>Keluar : 4321</p>
+                    <p>Yang menjadi pedoman adalah posisi Depan, berarti 43</p>
+                    <p>43 => 4 > 3, hasil = KEMPIS</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 4236 Beli Posisi Tengah</p>
+                    <p>Yang menjadi pedoman adalah posisi Tengah, berarti 23</p>
+                    <p>23 => 2 < 3, hasil = KEMBANG</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III: Beli Posisi Belakang:</strong></p>
+                    <p>Keluar : 4099</p>
+                    <p>Yang menjadi pedoman adalah posisi Belakang, berarti 99</p>
+                    <p>99 => Hasil = KEMBAR</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Pembayaran:</strong></p>
+                    <p>Jika dilakukan pembelian dengan 100rb dan menang maka:</p>
+                    <p>Menang = 100rb + [Indeks kemenangan untuk KEMBANG-KEMPIS]</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyKembangKempisBtn">
+                        <i class="far fa-copy"></i> Salin Konten Kembang Kempis
+                    </button>
+                </div>
+                
+                <div class="image-container" id="kembangKempisImageContainer">
+                    <img id="kembangKempisImage" src="https://i.postimg.cc/2SQKxN38/CARA-BETTING-KEMBANG.png" alt="Gambar Cara Betting Kembang">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Angka Tarung -->
+        <div class="tab-content" id="angka-tarung">
+            <div class="section">
+                <h2>Angka Tarung</h2>
+                <p><strong>Pengertian:</strong> Generator acak angka: AS, KOP, Kepala, Ekor.</p>
+                
+                <div class="example-box">
+                    <p><strong>Struktur Posisi:</strong></p>
+                    <p>AS = Angka pertama</p>
+                    <p>KOP = Angka kedua</p>
+                    <p>KEPALA = Angka ketiga</p>
+                    <p>EKOR = Angka keempat</p>
+                    <p>Besar/Kecil: 0-4=kecil, 5-9=besar</p>
+                    <p>Ganjil/Genap : 1=ganjil, 2=genap dan seterusnya</p>
+                </div>
+                
+                <h3>CARA KERJA GENERATOR ANGKA TARUNG</h3>
+                
+                <div class="example-box">
+                    <p><strong>Contoh 1: 2D Generator</strong></p>
+                    <p>Jika player isi angka pada posisi "KEPALA" 5 dan 2</p>
+                    <p>dan player isi angka pada posisi "EKOR" dengan angka 1, 2, 3</p>
+                    <p>Maka ketika generate hasilnya itu pada 2D : 51,52,53,21,22,23</p>
+                    <p><em>Kombinasi dari Kepala dan Ekor</em></p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh 2: 3D Generator</strong></p>
+                    <p>Dan jika player isi angka pada posisi "KOP" juga dengan nilai 7</p>
+                    <p>Maka ketika generate hasil itu di 2D tetap sama seperti di atas, dan akan muncul angka 3D dikarenakan player memasukan angka pada posisi "KOP"</p>
+                    <p><strong>751,752,753,721,722,723</strong></p>
+                    <p><em>Kombinasi dari Kop, Kepala Dan Ekor</em></p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh 3: 4D Generator</strong></p>
+                    <p>Dan jika player isi angka pada posisi "AS" juga dengan nilai 9</p>
+                    <p>Maka ketika generate hasil itu di 2D & 3D tetap sama seperti di atas, dan akan muncul angka 4D dikarenakan player memasukan angka pada posisi "AS"</p>
+                    <p><strong>975,197,529,753,972,000,000,000</strong></p>
+                    <p><em>Kombinasi dari As, Kop, Kepala Dan Ekor</em></p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Aturan Bettingan:</strong></p>
+                    <p>minimal bettingan pada pola angka tarung adalah (2D) dimana 1 digit pada posisi kepala dan 1 digit pada posisi ekor ya bosku</p>
+                    <p>Maksimal untuk angka tarung 8 digit di setiap posisi ya bosku (kecuali totomacau 5d untuk maksimal angka tarung 10 digit di setiap posisi)</p>
+                    <p><strong>Kecuali di pasaran HONGKONG & SYDNEY maksimal adalah 7 digit</strong></p>
+                    <p>Terima kasih</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyAngkaTarungBtn">
+                        <i class="far fa-copy"></i> Salin Konten Angka Tarung
+                    </button>
+                </div>
+                
+                <div class="image-container" id="angkaTarungImageContainer">
+                    <img id="angkaTarungImage" src="https://i.postimg.cc/s2MVqBPD/Screenshot-5.png" alt="Gambar Angka Tarung">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab BB Campuran / BBFS -->
+        <div class="tab-content" id="bb-campuran">
+            <div class="section">
+                <h2>BB Campuran / BBFS</h2>
+                <p><strong>Pengertian:</strong> Sistem Bettingan dimana angka yang di input dapat di acak secara otomatis, hasil dari angka yang telah di acak tersebut dapat di sortir kembali menjadi kelompok-kelompok angka bettingan yang lebih spesifik seperti menghilangkan seluruh angka yang ganjil,genap,kembar,besar,kecil,ataupun angka kembar.</p>
+                
+                <div class="example-box">
+                    <p><strong>Bolak Balik Full Set (BBFS)</strong>, anda hanya menbak angka dan fokus untuk cari 5 angka yang betul-betul anda yakini akan berkesempatan besar sekali keluar dalam result 4d, 3d, atau 2d.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Angka BBFS anda ialah 12345, karena itu anda akan menang 4d jika dalam angka 4 digit itu ada 4 angka dari 5 angka BBFS anda itu, tidak jadi masalah seperti apa formasi angkanya, selama tidak ada angka yang kembar, karena itu anda akan menang 4d. Itu kurang lebih gambarannya BBFS disebut.</p>
+                    <p>Khasnya dalam permainan BBFS ini, jika anda sudah dikatakan menang 4d, karena itu dengan automatis juga, anda akan dikatakan menang juga 3d serta 2d.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Perhitungan BBFS dengan angka 12345:</strong></p>
+                    <p>Jika di jabarkan BBFS dengan angka 12345, maka membuahkan 200 titik / live number/ LN angka jadi, yang hasilnya bisa di jabarkan seperti berikut:</p>
+                    
+                    <p><strong>Untuk 4D</strong> akan membuahkan 120 titik nomer, yakni:</p>
+                    <p>1234*1235*1243*1245*1253*1254*1324*1325*1342*1345*1352*1354*1423*1425*1432*1435*1452*1453*1523*1524*1532*1534*1542*1543*2134*2135*2143*2145*2153*2154*2314*2315*2341*2345*2351*2354*2413*2415*2431*2435*2451*2453*2513*2514*2531*2534*2541*2543*3124*3125*3142*3145*3152*3154*3214*3215*3241*3245*3251*3254*3412*3415*3421*3425*3451*3452*3512*3514*3521*3524*3541*3542*4123*4125*4132*4135*4152*4153*4213*4215*4231*4235*4251*4253*4312*4315*4321*4325*4351*4352*4512*4513*4521*4523*4531*4532*5123*5124*5132*5134*5142*5143*5213*5214*5231*5234*5241*5243*5312*5314*5321*5324*5341*5342*5412*5413*5421*5423*5431*5432*</p>
+                    
+                    <p><strong>Untuk 3D</strong> akan membuahkan 60 titik nomer, yakni:</p>
+                    <p>123*124*125*132*134*135*142*143*145*152*153*154*213*214*215*231*234*235*241*243*245*251*253*254*312*314*315*321*324*325*341*342*345*351*352*354*412*413*415*421*423*425*431*432*435*451*452*453*512*513*514*521*523*524*531*532*534*541*542*543*</p>
+                    
+                    <p><strong>Untuk 2D</strong> akan membuahkan 20 titik nomer, yakni:</p>
+                    <p>12*13*14*15*21*23*24*25*31*32*34*35*41*42*43*45*51*52*53*54</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyBBCampuranBtn">
+                        <i class="far fa-copy"></i> Salin Konten BB Campuran / BBFS
+                    </button>
+                </div>
+                
+                <div class="image-container" id="bbCampuranImageContainer">
+                    <img id="bbCampuranImage" src="https://i.postimg.cc/3RBBB00n/CARA-BETTING-BBFS-BB-CAMPURAN.jpg" alt="Gambar Cara Betting BBFS BB Campuran">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Togel Dasar -->
+        <div class="tab-content" id="togel-dasar">
+            <div class="section">
+                <h2>Togel Dasar</h2>
+                <p><strong>Pengertian:</strong> Menebak ganjil/genap dan besar/kecil dari penjumlah angka-angka 2D. Nilai pembelian ditentukan pasaran (kei) pada saat itu.</p>
+                
+                <div class="example-box">
+                    <p><strong>Struktur: CD (2 angka terakhir)</strong></p>
+                    <p>Kecil = angka 0-4</p>
+                    <p>Besar = angka 5-9</p>
+                    <p>Ganjil = 1,3,5,7,9</p>
+                    <p>Genap = 0,2,4,6,8</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis I:</strong></p>
+                    <p>Keluar : 1234,</p>
+                    <p>3+4 = 7</p>
+                    <p>Berarti keluar : Ganjil dan Besar</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis II:</strong></p>
+                    <p>Keluar : 5678,</p>
+                    <p>7+8 = 15</p>
+                    <p>Karena angka 15 lebih besar dari 9, kembali dihitung 1+5=6</p>
+                    <p>Berarti keluar : Genap dan Besar</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Analisis III:</strong></p>
+                    <p>Keluar : 1204,</p>
+                    <p>0+4 = 4</p>
+                    <p>Berarti keluar : Genap dan Kecil</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh Pembayaran:</strong></p>
+                    <p>Misal anda membeli dengan Rp.100rb untuk Genap, menang = 100rb + [indeks menang untuk Dasar]</p>
+                </div>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyTogelDasarBtn">
+                        <i class="far fa-copy"></i> Salin Konten Togel Dasar
+                    </button>
+                </div>
+                
+                <div class="image-container" id="togelDasarImageContainer">
+                    <img id="togelDasarImage" src="https://i.postimg.cc/ydSYH0s8/capture-20240725170619.png" alt="Gambar Togel Dasar">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Pola Colok -->
+        <div class="tab-content" id="pola-colok">
+            <div class="section">
+                <h2>Pola Colok</h2>
+                <p><strong>Pengertian:</strong> POLA COLOK adalah sistem Generator yang membantu anda menyusun seluruh Angka yang ingin di betting pada menu pilihan COLOK.</p>
+                
+                <h3>SEPUTARAN CARA BERMAIN POLA COLOK dan PENGERTIAN POLA COLOK</h3>
+                <p>POLA COLOK adalah sistem Generator yang membantu anda menyusun seluruh Angka yang ingin di betting pada menu pilihan COLOK. tersedia 3 kategory COLOK, Yaitu :</p>
+                
+                <div class="example-box">
+                    <p><strong>1. COLOK BEBAS</strong></p>
+                    <p>Menebak satu angka dari 4D. Posisi angka bisa dimana saja contoh result 1234, jika anda beli angka 3, maka menang.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>2. COLOK BEBAS 2D</strong></p>
+                    <p>Cara kerja seperti colok bebas tapi mesti yang keluar 2 angka dari 4D.contoh result 1234, jika anda beli angka 3 dan 4, maka menang.jika anda beli angka 3 dan 6, maka anda kalah, karena dalam result tidak ada angka 6.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>3. COLOK NAGA</strong></p>
+                    <p>Cara kerja seperti colok bebas 2D tapi mesti yang keluar 3 angka dari 4D.contoh result 1234, jika anda beli angka 2,3 dan 4, maka menang. jika anda beli angka 3,4 dan 8, maka anda kalah, karena dalam result tidak ada angka 8.</p>
+                </div>
+                
+                <h3>CARA BETTING :</h3>
+                <ol>
+                    <li>Pilih pasaran yang anda inginkan</li>
+                    <li>pilih menu POLA COLOK</li>
+                    <li>silahkan isi kolom NOMOR dengan ANGKA Contoh : 1234567 ( maksimal adalah 7DIGIT )</li>
+                    <li>Pada kolom berikutnya ( colok bebas, colok bebas 2D, colok naga ) di isi dengan nominal /jumlah bettingan anda, pada kolom nominal akan automatis di kalikan dengan 1.000 contoh : pembelian Rp. 1.000 hanya cukup di isi dengan angka 1. pembelian Rp. 10.000 hanya cukup di isi dengan angka 10 pembelian Rp.100.000 hanya cukup di isi dengan angka 100</li>
+                    <li>SUBMIT : Melihat kembali nomor yang sudah berhasil di acak oleh sistem denan pilihan bettingan yang anda lakukan, Jika semua sudah benar, tekan "KIRIM"</li>
+                </ol>
+                
+                <div class="copy-container">
+                    <button class="copy-btn" id="copyPolaColokBtn">
+                        <i class="far fa-copy"></i> Salin Konten Pola Colok
+                    </button>
+                </div>
+                
+                <div class="image-container" id="polaColokImageContainer">
+                    <img id="polaColokImage" src="https://i.postimg.cc/K8gvgd18/CARA-BETTING-POLA-COLOK.png" alt="Gambar Cara Betting Pola Colok">
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <p><i class="fas fa-exclamation-triangle"></i> <strong>Catatan:</strong> Pastikan untuk memeriksa kembali semua data yang dimasukkan sebelum mengirimkan bettingan Anda.</p>
+        </div>
+    </div>
+
+    <script>
+        // Elemen-elemen DOM
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const copyTipeBtn = document.getElementById('copyTipeBtn');
+        const copyColokBebasBtn = document.getElementById('copyColokBebasBtn');
+        const copyColokBebas2DBtn = document.getElementById('copyColokBebas2DBtn');
+        const copyColokJituBtn = document.getElementById('copyColokJituBtn');
+        const copyTepiTengahBtn = document.getElementById('copyTepiTengahBtn');
+        const copyShioBtn = document.getElementById('copyShioBtn');
+        const copySilangHomoBtn = document.getElementById('copySilangHomoBtn');
+        const copy2DDepanTengahBtn = document.getElementById('copy2DDepanTengahBtn');
+        const copyFullBtn = document.getElementById('copyFullBtn');
+        const copyBBBtn = document.getElementById('copyBBBtn');
+        const copyTogelKombinasiBtn = document.getElementById('copyTogelKombinasiBtn');
+        const copyKembangKempisBtn = document.getElementById('copyKembangKempisBtn');
+        const copyAngkaTarungBtn = document.getElementById('copyAngkaTarungBtn');
+        const copyBBCampuranBtn = document.getElementById('copyBBCampuranBtn');
+        const copyTogelDasarBtn = document.getElementById('copyTogelDasarBtn');
+        const copyPolaColokBtn = document.getElementById('copyPolaColokBtn');
+        const tipeImage = document.getElementById('tipeImage');
+        const colokBebasImage = document.getElementById('colokBebasImage');
+        const colokBebas2DImage = document.getElementById('colokBebas2DImage');
+        const colokJituImage = document.getElementById('colokJituImage');
+        const tepiTengahImage = document.getElementById('tepiTengahImage');
+        const shioImage = document.getElementById('shioImage');
+        const shioStrukturImage = document.getElementById('shioStrukturImage');
+        const silangHomoImage = document.getElementById('silangHomoImage');
+        const depanImage = document.getElementById('depanImage');
+        const tengahImage = document.getElementById('tengahImage');
+        const fullImage = document.getElementById('fullImage');
+        const bbImage = document.getElementById('bbImage');
+        const togelKombinasiImage = document.getElementById('togelKombinasiImage');
+        const kembangKempisImage = document.getElementById('kembangKempisImage');
+        const angkaTarungImage = document.getElementById('angkaTarungImage');
+        const bbCampuranImage = document.getElementById('bbCampuranImage');
+        const togelDasarImage = document.getElementById('togelDasarImage');
+        const polaColokImage = document.getElementById('polaColokImage');
+        const tipeImageContainer = document.getElementById('tipeImageContainer');
+        const colokBebasImageContainer = document.getElementById('colokBebasImageContainer');
+        const colokBebas2DImageContainer = document.getElementById('colokBebas2DImageContainer');
+        const colokJituImageContainer = document.getElementById('colokJituImageContainer');
+        const tepiTengahImageContainer = document.getElementById('tepiTengahImageContainer');
+        const shioImageContainer = document.getElementById('shioImageContainer');
+        const shioStrukturImageContainer = document.getElementById('shioStrukturImageContainer');
+        const silangHomoImageContainer = document.getElementById('silangHomoImageContainer');
+        const depanImageContainer = document.getElementById('depanImageContainer');
+        const tengahImageContainer = document.getElementById('tengahImageContainer');
+        const fullImageContainer = document.getElementById('fullImageContainer');
+        const bbImageContainer = document.getElementById('bbImageContainer');
+        const togelKombinasiImageContainer = document.getElementById('togelKombinasiImageContainer');
+        const kembangKempisImageContainer = document.getElementById('kembangKempisImageContainer');
+        const angkaTarungImageContainer = document.getElementById('angkaTarungImageContainer');
+        const bbCampuranImageContainer = document.getElementById('bbCampuranImageContainer');
+        const togelDasarImageContainer = document.getElementById('togelDasarImageContainer');
+        const polaColokImageContainer = document.getElementById('polaColokImageContainer');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        const copyImageBtn = document.getElementById('copyImageBtn');
+        const downloadImageBtn = document.getElementById('downloadImageBtn');
+        const copyNotification = document.getElementById('copyNotification');
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            if (message) {
+                copyNotification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            }
+            
+            copyNotification.style.display = 'block';
+            
+            setTimeout(function() {
+                copyNotification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Fungsi untuk menyalin teks ke clipboard
+        function copyTextToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showNotification('Konten berhasil disalin!');
+                }).catch(function(err) {
+                    console.error('Gagal menyalin teks: ', err);
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        // Fallback untuk browser lama
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    showNotification('Konten berhasil disalin!');
+                } else {
+                    alert('Gagal menyalin teks. Silakan coba lagi.');
+                }
+            } catch (err) {
+                console.error('Fallback: Gagal menyalin teks', err);
+                document.body.removeChild(textArea);
+                alert('Gagal menyalin teks. Silakan coba lagi.');
+            }
+        }
+
+        // Fungsi untuk tab navigation
+        function activateTab(tabId) {
+            // Hapus kelas active dari semua tab
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Tambahkan kelas active ke tab yang dipilih
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Event listener untuk tab buttons
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                activateTab(tabId);
+            });
+        });
+
+        // Event listener untuk tombol salin teks Tipe Bettingan
+        copyTipeBtn.addEventListener('click', function() {
+            const contentToCopy = `Tipe Bettingan 4D/3D/2D:
+Termasuk FULL, DISCOUNT, BB, dan pembayaran PRIZE 1, 2, 3.
+Menebak 4 angka, 3 angka dan 2 angka.
+
+Struktur: ABCD
+Misalnya keluar : 4321
+Berarti pemenang untuk:
+- 4D = 4321
+- 3D = 321
+- 2D = 21
+
+Aturan permainan:
+Jika anda membeli diluar dari nomor yang dikeluarkan, berarti anda kalah dan uang tidak dikembalikan sama sekali.
+
+Contoh Perhitungan Kemenangan:
+Jika anda membeli masing 100rb untuk angka:
+- 4D = 4321
+- 3D = 321
+- 2D = 21
+
+(Khusus untuk 4D,3D dan 2D diberikan diskon tambahan. Diskon akan makin besar jika nilai akumulasi betting dalam satu periode makin besar).
+
+Berarti kemenangan anda adalah:
+- 4D = 100rb x [Indeks kemenangan untuk 4D]
+- 3D = 100rb x [Indeks kemenangan untuk 3D]
+- 2D = 100rb x [Indeks kemenangan untuk 2D]
+
+(Catatan: nilai bet 100rb tidak dikembalikan ke member)
+
+Struktur: ABCD
+Misalnya keluar nomor = 1234
+Berati pemenang untuk:
+- 2D Depan adalah = 12
+- 2D Tengah adalah = 23
+- 2D Belakang adalah = 34`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Colok Bebas
+        copyColokBebasBtn.addEventListener('click', function() {
+            const contentToCopy = `Colok Bebas:
+Pengertian: Menebak satu angka dari 4D, posisi bebas.
+Struktur: ABCD
+
+Analisis I:
+Misalnya keluar : 4321
+Misalnya dibeli 3 dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok bebas]
+
+Analisis II:
+Keluar : 4331
+Misalnya dibeli 3 dengan nilai 100rb.
+Jika anda membeli masing 100rb untuk angka:
+Berarti menang:
+100rb + ([Indeks kemenangan untuk colok bebas] x 2)
+Dan seterusnya untuk setiap kembaran yang berhasil ditebak, otomatis mendapat kelipatan [Indeks kemenangan untuk colok bebas]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Colok Bebas 2D
+        copyColokBebas2DBtn.addEventListener('click', function() {
+            const contentToCopy = `Colok Bebas 2D (Macau):
+Pengertian: Cara kerja seperti colok bebas tapi mesti yang keluar 2 angka dari 4D.
+Struktur: ABCD
+
+Analisis I:
+Keluar : 4321
+Misalnya dibeli 4 dan 2 dengan nilai 100rb
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 2 digit]
+
+Analisis II:
+Keluar : 4321
+Misalnya dibeli 4 dan 6 dengan nilai 100rb.
+Berarti KALAH dan nilai betting tidak dikembalikan
+
+Analisis III:
+Keluar : 4331
+Misalnya dibeli 4 dan 3 dengan nilai 100rb
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 3 digit]
+
+Analisis IV:
+Keluar : 4334
+Misalnya dibeli 4 dan 3 dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok bebas 2D, kategori: 4 digit]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Colok Jitu
+        copyColokJituBtn.addEventListener('click', function() {
+            const contentToCopy = `Colok Jitu:
+Pengertian: Menebak 1 angka di posisi tertentu: AS, KOP, Kepala, Ekor.
+Struktur: ABCD
+
+Analisis I:
+Keluar : 4321
+Misalnya dibeli 4 pada posisi AS dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok jitu]
+
+Analisis II:
+Keluar : 4331
+Misalnya dibeli 3 pada posisi KOP dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk colok jitu]. Hasilnya sama dengan analisis I karena hanya memperhatikan posisi yang dipasang.
+
+Analisis III:
+Keluar : 4331
+Misalnya dibeli 4 pada posisi EKOR dengan nilai 100rb.
+Berarti kalah. Biarpun nilai 4 keluar pada posisi AS tapi tidak akan mepengaruhi pemilihan di posisi EKOR`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Tepi Tengah
+        copyTepiTengahBtn.addEventListener('click', function() {
+            const contentToCopy = `Tepi Tengah:
+Pengertian: Menebak tengah/tepi dari posisi 2D
+Tengah = Diantara 25 sampai 74
+Tepi = Diantara 00 sampai 24 dan 75 sampai 99.
+Struktur: ABCD
+
+Analisis I:
+Keluar : 4321
+Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 21
+21 = TEPI
+Misalnya dibeli posisi TEPI dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk tepi-tengah] + Kei
+
+Analisis II:
+Keluar : 4356.
+Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 56
+56 = TENGAH
+Misalnya dibeli posisi TENGAH dengan nilai 100rb.
+Berarti menang:
+100rb + [Indeks kemenangan untuk tepi-tengah] + Kei`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks SHIO
+        copyShioBtn.addEventListener('click', function() {
+            const contentToCopy = `SHIO:
+Pengertian: Menebak SHIO dari posisi 2D
+SHIO merupakan 12 lambang kelahiran dalam penanggalan China.
+Dalam permainan ini, setiap lambang diwakili dengan satu nomor.
+
+Analisis I:
+Keluar : 4321
+Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 21
+Hasil = 21-12 = 9 (shio disesuaikan dengan tabel diatas)
+
+Analisis II:
+Keluar : 6543
+Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 43
+Hasil = 43-36 = 7 (shio disesuaikan dengan tabel diatas)
+
+Analisis III:
+Keluar : 1389
+Permainan ini hanya memperhatikan posisi 2D, berarti yang dipedomani = 89
+Hasil = 89-84 = 5 (shio disesuaikan dengan tabel diatas)
+
+Catatan: nilai yang dikurangi merupakan kelipatan 12.
+Jika dilakukan pembelian dengan 100rb dan menang maka:
+Menang = 100rb + [Indeks kemenangan untuk SHIO]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Silang Homo
+        copySilangHomoBtn.addEventListener('click', function() {
+            const contentToCopy = `Silang Homo:
+Pengertian: Permainan ini kadang disebut suami istri. Menebak dari posisi Depan, Tengah, Belakang.
+
+Contoh no 1234:
+- Yang dimaksud dengan Posisi Depan adalah 2 no terdepan yaitu 12
+- Yang dimaksud dengan Posisi Tengah adalah 2 no ditengah yaitu 23
+- Yang dimaksud dengan Posisi Belakang adalah 2 no terbelakang yaitu 34
+
+SILANG = Terdapat Ganjil dan Genap
+HOMO = Terdapat 1 pasang Ganjil atau 1 pasang Genap
+
+Analisis I: Beli Posisi Depan:
+Keluar : 1234.
+Yang menjadi pedoman adalah posisi Depan, berarti 12
+12 => 1=ganjil dan 2=genap , berarti hasil = SILANG
+
+Analisis II: Beli Posisi Tengah
+Keluar : 4326.
+Yang menjadi pedoman adalah posisi Tengah, berarti 32
+32 => 3=ganjil dan 2=genap , berarti hasil = SILANG
+
+Analisis III: Beli Posisi Belakang:
+Keluar : 4533.
+Yang menjadi pedoman adalah posisi Belakang, berarti 33
+33 => 3=ganjil dan 3=ganjil , berarti hasil = HOMO
+
+Pembayaran:
+Jika dilakukan pembelian dengan 100rb dan menang maka:
+Menang = 100rb + [Indeks kemenangan untuk Silang-Homo]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks 2D Depan & Tengah
+        copy2DDepanTengahBtn.addEventListener('click', function() {
+            const contentToCopy = `2D Depan (AB) & 2D Tengah (BC):
+Betting pada posisi tertentu: 2D Depan (AB) dan 2D Tengah (BC)
+
+2D Depan (AB):
+Menebak 2 angka di posisi depan (A dan B).
+
+2D Tengah (BC):
+Menebak 2 angka di posisi tengah (B dan C).
+
+Cara Pembelian 2D Depan dan 2D Tengah:
+1. Pilih pasaran yang ingin anda mainkan.
+2. Pilih menu 2D Depan untuk posisi AB atau 2D Tengah untuk posisi BC
+3. Lalu pilih Tipe bettingan yang ingin anda gunakan (FULL - DISCOUNT - BB - PRIZE123)
+4. Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "12"
+5. Pada kolom berikutnya (Kolom 2D) diisi dengan nominal /jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp. 1,000
+6. Klik SUBMIT
+7. Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM
+
+Contoh Pembelian:
+- Pembelian Rp. 100,- untuk 2D maka pada kolom 2D cukup diisi dengan angka "0.1" (tanpa tanda petik)
+- Pembelian Rp.500,- untuk 2D maka pada kolom 2D cukup diisi dengan angka "0.5" (tanpa tanda petik)
+- Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Bet Full
+        copyFullBtn.addEventListener('click', function() {
+            const contentToCopy = `Pengertian Bet Full:
+Sistem bettingan dimana dari angka yang di bet harus tepat dan sesuai dengan hasil result yang keluar.
+
+Cara Pembelian 4D 3D 2D:
+1. Pilih pasaran yang ingin anda mainkan.
+2. Pilih menu 4D 3D 2D
+3. Lalu pilih Tipe bettingan yang ingin anda gunakan (FULL)
+4. Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "1234"
+5. Pada kolom berikutnya (Kolom 4D / 3D / 2D) diisi dengan nominal jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp.1,000
+6. Klik SUBMIT
+7. Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM
+
+Contoh Pembelian:
+- Pembelian Rp. 100,- untuk 4D maka pada kolom 4D cukup diisi dengan angka "0.1" (tanpa tanda petik)
+- Pembelian Rp.500,- untuk 3D maka pada kolom 3D cukup diisi dengan angka "0.5" (tanpa tanda petik)
+- Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Bet BB
+        copyBBBtn.addEventListener('click', function() {
+            const contentToCopy = `Pengertian Bet BB:
+Sistem bettingan dimana dari angka yang di bet, baik urutan tepat maupun bolak-balik, tetap menang dengan pembayaran sesuai aturan.
+
+Contoh:
+Jika kita bet 1234 dan hasil keluar 1234 maka kita akan di bayar x4000 dari bettingan sedangkan jika hasil keluar 2341 maka akan mendapat x200 dari pasangan karena dapat yang sistem BB.
+
+Cara Pembelian 4D 3D 2D:
+1. Pilih pasaran yang ingin anda mainkan.
+2. Pilih menu 4D 3D 2D
+3. Lalu pilih Tipe bettingan yang ingin anda gunakan (BB)
+4. Silahkan isi kolom pertama dengan angka yang ingin anda beli. Contoh: "1234"
+5. Pada kolom berikutnya (Kolom 4D / 3D / 2D) diisi dengan nominal jumlah bettingan anda, angka yang anda isi pada kolom nominal akan otomatis dikalikan dengan Rp.1,000
+6. Klik SUBMIT
+7. Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM
+
+Contoh Pembelian:
+- Pembelian Rp. 100,- untuk 4D maka pada kolom 4D cukup diisi dengan angka "0.1" (tanpa tanda petik)
+- Pembelian Rp.500,- untuk 3D maka pada kolom 3D cukup diisi dengan angka "0.5" (tanpa tanda petik)
+- Pembelian Rp. 1,000,- untuk 2D pada kolom 2D cukup diisi dengan angka "1" (tanpa tanda petik)`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Togel Kombinasi
+        copyTogelKombinasiBtn.addEventListener('click', function() {
+            const contentToCopy = `Togel Kombinasi:
+Pengertian: Tebak Genap/Ganjil dan Besar/Kecil dari dua posisi (AS-KOP, dll).
+
+Struktur = ABCD
+A = AS
+B = KOP
+C = KEPALA
+D = EKOR
+Besar/Kecil: 0-4=kecil, 5-9=besar
+Ganjil/Genap : 1=ganjil, 2=genap dan seterusnya
+
+Anda dapat menebak Genap/Ganjil, Besar/Kecil dari 2 kombinasi antara AS, KOP, KEPALA, EKOR
+
+Analisis:
+Keluar : 1845
+Berarti pemenang untuk :
+- AS Kecil/Ganjil dan KOP Besar/Genap
+- KEPALA Kecil/Genap dan EKOR Besar/Ganjil
+- AS Kecil/Ganjil dan KEPALA Kecil/Genap
+- AS Kecil/Ganjil dan EKOR Besar/Ganjil
+- KOP Besar/Genap dan KEPALA Kecil/Genap
+- KOP Besar/Genap dan EKOR Besar/Ganjil
+
+Contoh Pembelian:
+Misalnya anda membeli AS KECIl dan KOP GENAP seharga 100rb, maka menang = 100rb + [indeks kemenangan untuk kombinasi 2]
+atau :
+jika membeli KOP GENAP dan KEPALA GENAP seharga 100rb, maka menang = 100rb + [indeks kemenangan untuk kombinasi 2]
+atau :
+jika membeli KEPALA KECIL dan EKOR GENAP seharga 100rb, berarti KALAH
+( Anda harus menebak keduanya dengan Benar agar Menang )`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Kembang Kempis
+        copyKembangKempisBtn.addEventListener('click', function() {
+            const contentToCopy = `Kembang Kempis:
+Pengertian: AB (Depan), BC (Tengah), CD (Belakang). Kembang: AB, Kembar: A=B.
+
+Struktur = ABCD
+Jika Menebak posisi Depan maka yang menjadi fokus adalah AB
+Jika Menebak posisi Tengah maka yang menjadi fokus adalah BC
+Jika Menebak posisi Belakang maka yang menjadi fokus adalah CD
+KEMBANG jika A < B ataupun B < C ataupun C < D
+KEMPIS jika A > B ataupun B > C ataupun C > D
+KEMBAR jika A = B ataupun B = C ataupun C = D
+
+Analisis I: Beli Posisi Depan
+Keluar : 4321
+Yang menjadi pedoman adalah posisi Depan, berarti 43
+43 => 4 > 3, hasil = KEMPIS
+
+Analisis II:
+Keluar : 4236 Beli Posisi Tengah
+Yang menjadi pedoman adalah posisi Tengah, berarti 23
+23 => 2 < 3, hasil = KEMBANG
+
+Analisis III: Beli Posisi Belakang:
+Keluar : 4099
+Yang menjadi pedoman adalah posisi Belakang, berarti 99
+99 => Hasil = KEMBAR
+
+Pembayaran:
+Jika dilakukan pembelian dengan 100rb dan menang maka:
+Menang = 100rb + [Indeks kemenangan untuk KEMBANG-KEMPIS]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Angka Tarung
+        copyAngkaTarungBtn.addEventListener('click', function() {
+            const contentToCopy = `Angka Tarung:
+Pengertian: Generator acak angka: AS, KOP, Kepala, Ekor.
+
+Struktur Posisi:
+AS = Angka pertama
+KOP = Angka kedua
+KEPALA = Angka ketiga
+EKOR = Angka keempat
+Besar/Kecil: 0-4=kecil, 5-9=besar
+Ganjil/Genap : 1=ganjil, 2=genap dan seterusnya
+
+CARA KERJA GENERATOR ANGKA TARUNG
+
+Contoh 1: 2D Generator
+Jika player isi angka pada posisi "KEPALA" 5 dan 2
+dan player isi angka pada posisi "EKOR" dengan angka 1, 2, 3
+Maka ketika generate hasilnya itu pada 2D : 51,52,53,21,22,23
+Kombinasi dari Kepala dan Ekor
+
+Contoh 2: 3D Generator
+Dan jika player isi angka pada posisi "KOP" juga dengan nilai 7
+Maka ketika generate hasil itu di 2D tetap sama seperti di atas, dan akan muncul angka 3D dikarenakan player memasukan angka pada posisi "KOP"
+751,752,753,721,722,723
+Kombinasi dari Kop, Kepala Dan Ekor
+
+Contoh 3: 4D Generator
+Dan jika player isi angka pada posisi "AS" juga dengan nilai 9
+Maka ketika generate hasil itu di 2D & 3D tetap sama seperti di atas, dan akan muncul angka 4D dikarenakan player memasukan angka pada posisi "AS"
+975,197,529,753,972,000,000,000
+Kombinasi dari As, Kop, Kepala Dan Ekor
+
+Aturan Bettingan:
+minimal bettingan pada pola angka tarung adalah (2D) dimana 1 digit pada posisi kepala dan 1 digit pada posisi ekor ya bosku
+Maksimal untuk angka tarung 8 digit di setiap posisi ya bosku (kecuali totomacau 5d untuk maksimal angka tarung 10 digit di setiap posisi)
+Kecuali di pasaran HONGKONG & SYDNEY maksimal adalah 7 digit
+Terima kasih`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks BB Campuran / BBFS
+        copyBBCampuranBtn.addEventListener('click', function() {
+            const contentToCopy = `BB Campuran / BBFS:
+Pengertian: Sistem Bettingan dimana angka yang di input dapat di acak secara otomatis, hasil dari angka yang telah di acak tersebut dapat di sortir kembali menjadi kelompok-kelompok angka bettingan yang lebih spesifik seperti menghilangkan seluruh angka yang ganjil,genap,kembar,besar,kecil,ataupun angka kembar.
+
+Bolak Balik Full Set (BBFS), anda hanya menbak angka dan fokus untuk cari 5 angka yang betul-betul anda yakini akan berkesempatan besar sekali keluar dalam result 4d, 3d, atau 2d.
+
+Contoh: Angka BBFS anda ialah 12345, karena itu anda akan menang 4d jika dalam angka 4 digit itu ada 4 angka dari 5 angka BBFS anda itu, tidak jadi masalah seperti apa formasi angkanya, selama tidak ada angka yang kembar, karena itu anda akan menang 4d. Itu kurang lebih gambarannya BBFS disebut.
+Khasnya dalam permainan BBFS ini, jika anda sudah dikatakan menang 4d, karena itu dengan automatis juga, anda akan dikatakan menang juga 3d serta 2d.
+
+Perhitungan BBFS dengan angka 12345:
+Jika di jabarkan BBFS dengan angka 12345, maka membuahkan 200 titik / live number/ LN angka jadi, yang hasilnya bisa di jabarkan seperti berikut:
+
+Untuk 4D akan membuahkan 120 titik nomer, yakni:
+1234*1235*1243*1245*1253*1254*1324*1325*1342*1345*1352*1354*1423*1425*1432*1435*1452*1453*1523*1524*1532*1534*1542*1543*2134*2135*2143*2145*2153*2154*2314*2315*2341*2345*2351*2354*2413*2415*2431*2435*2451*2453*2513*2514*2531*2534*2541*2543*3124*3125*3142*3145*3152*3154*3214*3215*3241*3245*3251*3254*3412*3415*3421*3425*3451*3452*3512*3514*3521*3524*3541*3542*4123*4125*4132*4135*4152*4153*4213*4215*4231*4235*4251*4253*4312*4315*4321*4325*4351*4352*4512*4513*4521*4523*4531*4532*5123*5124*5132*5134*5142*5143*5213*5214*5231*5234*5241*5243*5312*5314*5321*5324*5341*5342*5412*5413*5421*5423*5431*5432*
+
+Untuk 3D akan membuahkan 60 titik nomer, yakni:
+123*124*125*132*134*135*142*143*145*152*153*154*213*214*215*231*234*235*241*243*245*251*253*254*312*314*315*321*324*325*341*342*345*351*352*354*412*413*415*421*423*425*431*432*435*451*452*453*512*513*514*521*523*524*531*532*534*541*542*543*
+
+Untuk 2D akan membuahkan 20 titik nomer, yakni:
+12*13*14*15*21*23*24*25*31*32*34*35*41*42*43*45*51*52*53*54`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Togel Dasar
+        copyTogelDasarBtn.addEventListener('click', function() {
+            const contentToCopy = `Togel Dasar:
+Pengertian: Menebak ganjil/genap dan besar/kecil dari penjumlah angka-angka 2D. Nilai pembelian ditentukan pasaran (kei) pada saat itu.
+
+Struktur: CD (2 angka terakhir)
+Kecil = angka 0-4
+Besar = angka 5-9
+Ganjil = 1,3,5,7,9
+Genap = 0,2,4,6,8
+
+Analisis I:
+Keluar : 1234,
+3+4 = 7
+Berarti keluar : Ganjil dan Besar
+
+Analisis II:
+Keluar : 5678,
+7+8 = 15
+Karena angka 15 lebih besar dari 9, kembali dihitung 1+5=6
+Berarti keluar : Genap dan Besar
+
+Analisis III:
+Keluar : 1204,
+0+4 = 4
+Berarti keluar : Genap dan Kecil
+
+Contoh Pembayaran:
+Misal anda membeli dengan Rp.100rb untuk Genap, menang = 100rb + [indeks menang untuk Dasar]`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Event listener untuk tombol salin teks Pola Colok
+        copyPolaColokBtn.addEventListener('click', function() {
+            const contentToCopy = `Pola Colok:
+Pengertian: POLA COLOK adalah sistem Generator yang membantu anda menyusun seluruh Angka yang ingin di betting pada menu pilihan COLOK.
+
+SEPUTARAN CARA BERMAIN POLA COLOK dan PENGERTIAN POLA COLOK
+POLA COLOK adalah sistem Generator yang membantu anda menyusun seluruh Angka yang ingin di betting pada menu pilihan COLOK. tersedia 3 kategory COLOK, Yaitu :
+
+1. COLOK BEBAS
+Menebak satu angka dari 4D. Posisi angka bisa dimana saja contoh result 1234, jika anda beli angka 3, maka menang.
+
+2. COLOK BEBAS 2D
+Cara kerja seperti colok bebas tapi mesti yang keluar 2 angka dari 4D.contoh result 1234, jika anda beli angka 3 dan 4, maka menang.jika anda beli angka 3 dan 6, maka anda kalah, karena dalam result tidak ada angka 6.
+
+3. COLOK NAGA
+Cara kerja seperti colok bebas 2D tapi mesti yang keluar 3 angka dari 4D.contoh result 1234, jika anda beli angka 2,3 dan 4, maka menang. jika anda beli angka 3,4 dan 8, maka anda kalah, karena dalam result tidak ada angka 8.
+
+CARA BETTING :
+Pilih pasaran yang anda inginkan
+pilih menu POLA COLOK
+silahkan isi kolom NOMOR dengan ANGKA Contoh : 1234567 ( maksimal adalah 7DIGIT )
+Pada kolom berikutnya ( colok bebas, colok bebas 2D, colok naga ) di isi dengan nominal /jumlah bettingan anda, pada kolom nominal akan automatis di kalikan dengan 1.000 contoh : pembelian Rp. 1.000 hanya cukup di isi dengan angka 1. pembelian Rp. 10.000 hanya cukup di isi dengan angka 10 pembelian Rp.100.000 hanya cukup di isi dengan angka 100
+SUBMIT : Melihat kembali nomor yang sudah berhasil di acak oleh sistem denan pilihan bettingan yang anda lakukan, Jika semua sudah benar, tekan "KIRIM"`;
+
+            copyTextToClipboard(contentToCopy);
+        });
+
+        // Fungsi untuk membuka modal gambar
+        function openImageModal(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Event listener untuk gambar-gambar (klik untuk membuka modal)
+        const allImages = [
+            tipeImage, colokBebasImage, colokBebas2DImage, colokJituImage,
+            tepiTengahImage, shioImage, shioStrukturImage, silangHomoImage,
+            depanImage, tengahImage, fullImage, bbImage, togelKombinasiImage, 
+            kembangKempisImage, angkaTarungImage, bbCampuranImage, togelDasarImage, polaColokImage
+        ];
+
+        const allImageContainers = [
+            tipeImageContainer, colokBebasImageContainer, colokBebas2DImageContainer,
+            colokJituImageContainer, tepiTengahImageContainer, shioImageContainer,
+            shioStrukturImageContainer, silangHomoImageContainer, depanImageContainer,
+            tengahImageContainer, fullImageContainer, bbImageContainer, 
+            togelKombinasiImageContainer, kembangKempisImageContainer, 
+            angkaTarungImageContainer, bbCampuranImageContainer, togelDasarImageContainer, polaColokImageContainer
+        ];
+
+        allImages.forEach(img => {
+            img.addEventListener('click', function() {
+                openImageModal(this.src);
+            });
+        });
+
+        allImageContainers.forEach(container => {
+            container.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    openImageModal(img.src);
+                }
+            });
+        });
+
+        // Event listener untuk tombol tutup modal
+        closeModal.addEventListener('click', function() {
+            imageModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Event listener untuk menutup modal saat mengklik di luar gambar
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Event listener untuk tombol salin gambar di modal
+        copyImageBtn.addEventListener('click', function() {
+            if (navigator.clipboard && navigator.clipboard.write) {
+                // Membuat canvas untuk menggambar gambar
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = modalImage.naturalWidth;
+                canvas.height = modalImage.naturalHeight;
+                ctx.drawImage(modalImage, 0, 0);
+                
+                // Mengonversi canvas ke blob
+                canvas.toBlob(function(blob) {
+                    // Membuat ClipboardItem dari blob
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    
+                    // Menyalin ke clipboard
+                    navigator.clipboard.write([item]).then(function() {
+                        showNotification('Gambar berhasil disalin!');
+                    }).catch(function(err) {
+                        console.error('Gagal menyalin gambar: ', err);
+                        showNotification('Gagal menyalin gambar. Browser mungkin tidak mendukung.');
+                    });
+                });
+            } else {
+                showNotification('Browser tidak mendukung penyalinan gambar.');
+            }
+        });
+
+        // Event listener untuk tombol unduh gambar di modal
+        downloadImageBtn.addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.download = 'bet-togel.jpg';
+            link.href = modalImage.src;
+            link.click();
+        });
+
+        // Event listener untuk menutup modal dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && imageModal.style.display === 'flex') {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
