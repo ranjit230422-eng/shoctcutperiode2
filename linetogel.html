@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Terminal - QRIS & Lainnya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #9d4edd;
+            --accent: #4cc9f0;
+            --gold: #ffd166;
+            --cyan: #06d6a0;
+            --purple: #7209b7;
+            --orange: #f3722c;
+            --pink: #f72585;
+            --dark: #0d0628;
+            --darker: #05021a;
+            --light: #f8f9fa;
+            --card-bg: rgba(30, 25, 60, 0.85);
+            --glow: 0 0 20px rgba(255, 77, 109, 0.5);
+            --gradient: linear-gradient(135deg, #ff4d6d, #9d4edd, #4cc9f0);
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 77, 109, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .cursor-light {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+        }
+        
+        .cursor-light.active {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.25) 0%, transparent 70%);
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 20px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 77, 109, 0.4);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: var(--glow);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 30px auto 0;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .terminal-bar {
+            background: var(--card-bg);
+            border-radius: 12px 12px 0 0;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 77, 109, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .terminal-button {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .terminal-button:hover {
+            transform: scale(1.2);
+        }
+        
+        .close { background: #ff5f57; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #28ca42; }
+        
+        .terminal-title {
+            flex-grow: 1;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 77, 109, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), var(--glow);
+            border-color: rgba(255, 77, 109, 0.5);
+        }
+        
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 77, 109, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-icon {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-title {
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .card:hover .card-title::after {
+            width: 100%;
+        }
+        
+        .card-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-subtitle {
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(76, 201, 240, 0.5);
+        }
+        
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-description {
+            opacity: 1;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--gradient);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 77, 109, 0.5);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn i {
+            font-size: 1rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin-right: 8px;
+            box-shadow: 0 0 8px var(--primary);
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            padding: 25px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 77, 109, 0.3);
+            position: relative;
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Animasi teks terminal */
+        .typing {
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        /* Efek scanline */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.03) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            animation: scanline 10s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+        
+        /* Dekorasi sudut */
+        .corner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+        }
+        
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-top: 2px solid var(--primary);
+            border-left: 2px solid var(--primary);
+        }
+        
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-top: 2px solid var(--primary);
+            border-right: 2px solid var(--primary);
+        }
+        
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-bottom: 2px solid var(--primary);
+            border-left: 2px solid var(--primary);
+        }
+        
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-bottom: 2px solid var(--primary);
+            border-right: 2px solid var(--primary);
+        }
+        
+        /* Efek Bola yang Dinamis */
+        .floating-balls {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .ball {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0.7;
+            animation: float 20s infinite linear;
+            box-shadow: 0 0 20px currentColor;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-100px) translateX(100px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(-200px) translateX(-100px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-100px) translateX(-200px) rotate(270deg);
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+            }
+        }
+        
+        .ball-interactive {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.8;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 25px currentColor;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Efek Bola untuk Tombol */
+        .ball-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .btn-ball {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.5s ease;
+            filter: blur(3px);
+            box-shadow: 0 0 15px currentColor;
+            z-index: -1;
+        }
+        
+        .btn:hover ~ .btn-ball {
+            opacity: 0.8;
+            animation: ball-burst 1.5s ease-out forwards;
+        }
+        
+        @keyframes ball-burst {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(0) translateX(0);
+            }
+            20% {
+                opacity: 0.8;
+                transform: scale(1) translateY(0) translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) translateY(var(--ty)) translateX(var(--tx));
+            }
+        }
+        
+        /* Warna bola untuk setiap tombol */
+        .btn-1:hover ~ .btn-ball-1 { 
+            background: var(--primary); 
+            color: var(--primary);
+            --ty: -100px;
+            --tx: 50px;
+        }
+        
+        .btn-2:hover ~ .btn-ball-2 { 
+            background: var(--accent); 
+            color: var(--accent);
+            --ty: -120px;
+            --tx: -80px;
+        }
+        
+        .btn-3:hover ~ .btn-ball-3 { 
+            background: var(--secondary); 
+            color: var(--secondary);
+            --ty: 100px;
+            --tx: 100px;
+        }
+        
+        .btn-4:hover ~ .btn-ball-4 { 
+            background: var(--gold); 
+            color: var(--gold);
+            --ty: 120px;
+            --tx: -60px;
+        }
+        
+        .btn-5:hover ~ .btn-ball-5 { 
+            background: var(--cyan); 
+            color: var(--cyan);
+            --ty: -80px;
+            --tx: -120px;
+        }
+        
+        .btn-6:hover ~ .btn-ball-6 { 
+            background: var(--orange); 
+            color: var(--orange);
+            --ty: 90px;
+            --tx: 70px;
+        }
+        
+        .btn-7:hover ~ .btn-ball-7 { 
+            background: var(--pink); 
+            color: var(--pink);
+            --ty: -110px;
+            --tx: 90px;
+        }
+        
+        .btn-8:hover ~ .btn-ball-8 { 
+            background: var(--purple); 
+            color: var(--purple);
+            --ty: 70px;
+            --tx: -100px;
+        }
+        
+        /* Ukuran dan posisi bola untuk setiap tombol */
+        .btn-ball-1 { width: 35px; height: 35px; top: 8px; left: 15px; }
+        .btn-ball-2 { width: 30px; height: 30px; top: 12px; left: 50px; }
+        .btn-ball-3 { width: 40px; height: 40px; top: 5px; left: 35px; }
+        .btn-ball-4 { width: 25px; height: 25px; top: 15px; left: 70px; }
+        .btn-ball-5 { width: 45px; height: 45px; top: 0px; left: 8px; }
+        .btn-ball-6 { width: 32px; height: 32px; top: 10px; left: 25px; }
+        .btn-ball-7 { width: 38px; height: 38px; top: 7px; left: 60px; }
+        .btn-ball-8 { width: 28px; height: 28px; top: 13px; left: 45px; }
+    </style>
+</head>
+<body>
+    <div class="cursor-light" id="cursorLight"></div>
+    <div class="scanlines"></div>
+    <div class="floating-balls" id="floatingBalls"></div>
+    
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div>
+                    <h1>LINE TOGEL</h1>
+                    <p class="subtitle typing">JALAN PINTAS TERCEPAT</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        
+        <div class="dashboard">
+            <!-- Kartu Asli -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">QRIS</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Akses sistem pembayaran QRIS untuk transaksi digital yang aman dan efisien. Interface yang dioptimalkan untuk pengalaman pengguna yang mulus.</p>
+                    <div class="ball-container">
+                        <a href="https://shoctcutperiode2-vrye.onrender.com/qris.html" class="btn btn-1" target="_blank">
+                            <i class="fas fa-terminal"></i> Execute QRIS
+                        </a>
+                        <div class="btn-ball btn-ball-1"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">PENYAMBUNG GAMBAR</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Repositori terpusat untuk aset media dan visual. Sistem manajemen konten dengan akses cepat dan pencarian yang dioptimalkan.</p>
+                    <div class="ball-container">
+                        <a href="https://shoctcutperiode2-vrye.onrender.com/gambar.html" class="btn btn-2" target="_blank">
+                            <i class="fas fa-terminal"></i> Access Media
+                        </a>
+                        <div class="btn-ball btn-ball-2"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">PREDIKSI TOGEL</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Platform kolaborasi dan berbagi sumber daya. Memungkinkan sinkronisasi data real-time dan manajemen akses terpusat.</p>
+                    <div class="ball-container">
+                        <a href="https://shoctcutperiode2-vrye.onrender.com/scbersama.html" class="btn btn-3" target="_blank">
+                            <i class="fas fa-terminal"></i> Connect Hub
+                        </a>
+                        <div class="btn-ball btn-ball-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-dice"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">PLAY TOGEL </h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Modul hiburan dengan akses ke platform permainan digital. Antarmuka yang responsif dengan sistem keamanan terintegrasi.</p>
+                    <div class="ball-container">
+                        <a href="https://charming-selkie-c2dc43.netlify.app/gameplay_togel" class="btn btn-4" target="_blank">
+                            <i class="fas fa-terminal"></i> Launch Module
+                        </a>
+                        <div class="btn-ball btn-ball-4"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">LIVE CHAT LINETOGEL</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Sistem diagnostik untuk analisis dan resolusi kesalahan. Menyediakan log detail dan solusi untuk masalah teknis.</p>
+                    <div class="ball-container">
+                        <a href="https://shoctcutperiode2-vrye.onrender.com/kesalahanlc.html" class="btn btn-5" target="_blank">
+                            <i class="fas fa-terminal"></i> Run Diagnostics
+                        </a>
+                        <div class="btn-ball btn-ball-5"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kartu Baru -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">Live Game</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Silah anda akses pada link yang ada di bawa ya bosku.</p>
+                    <div class="ball-container">
+                        <a href="https://charming-selkie-c2dc43.netlify.app/livegame" class="btn btn-6" target="_blank">
+                            <i class="fas fa-terminal"></i> Play Live
+                        </a>
+                        <div class="btn-ball btn-ball-6"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">Togel Calculation</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Sistem perhitungan dan analisis untuk permainan togel. Alat yang membantu dalam prediksi dan perhitungan angka.</p>
+                    <div class="ball-container">
+                        <a href="https://charming-selkie-c2dc43.netlify.app/perhitungan_togel" class="btn btn-7" target="_blank">
+                            <i class="fas fa-terminal"></i> Calculate
+                        </a>
+                        <div class="btn-ball btn-ball-7"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-title">Gameplay Live</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">Platform untuk menonton dan berinteraksi dengan gameplay live. Fitur streaming dan komunitas untuk penggemar game.</p>
+                    <div class="ball-container">
+                        <a href="https://charming-selkie-c2dc43.netlify.app/gameplay_livegame" class="btn btn-8" target="_blank">
+                            <i class="fas fa-terminal"></i> Watch Gameplay
+                        </a>
+                        <div class="btn-ball btn-ball-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Cosmic Terminal v2.1.5 | System Operational</p>
+            <div class="connection-status">
+                <span class="status-indicator"></span>
+                <span>All systems connected</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Membuat efek bola melayang di latar belakang
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingBalls = document.getElementById('floatingBalls');
+            
+            // Membuat bola melayang
+            const ballColors = [
+                '#ff4d6d', '#9d4edd', '#4cc9f0', '#ffd166', '#06d6a0', '#7209b7', '#f3722c', '#f72585'
+            ];
+            
+            for (let i = 0; i < 20; i++) {
+                const ball = document.createElement('div');
+                ball.classList.add('ball');
+                
+                const size = Math.random() * 60 + 15;
+                ball.style.width = `${size}px`;
+                ball.style.height = `${size}px`;
+                ball.style.left = `${Math.random() * 100}%`;
+                ball.style.top = `${Math.random() * 100}%`;
+                
+                const color = ballColors[Math.floor(Math.random() * ballColors.length)];
+                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
+                ball.style.color = color;
+                
+                ball.style.animationDelay = `${Math.random() * 20}s`;
+                ball.style.animationDuration = `${Math.random() * 30 + 20}s`;
+                
+                floatingBalls.appendChild(ball);
+            }
+            
+            // Membuat bola interaktif yang bereaksi terhadap kursor
+            const interactiveBalls = [];
+            for (let i = 0; i < 10; i++) {
+                const ball = document.createElement('div');
+                ball.classList.add('ball-interactive');
+                
+                const size = Math.random() * 50 + 15;
+                ball.style.width = `${size}px`;
+                ball.style.height = `${size}px`;
+                
+                const color = ballColors[Math.floor(Math.random() * ballColors.length)];
+                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
+                ball.style.color = color;
+                
+                ball.style.left = `${Math.random() * 100}%`;
+                ball.style.top = `${Math.random() * 100}%`;
+                
+                floatingBalls.appendChild(ball);
+                interactiveBalls.push(ball);
+            }
+            
+            // Efek lampu kursor
+            const cursorLight = document.getElementById('cursorLight');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursorLight.style.left = e.clientX + 'px';
+                cursorLight.style.top = e.clientY + 'px';
+                
+                // Bola interaktif bereaksi terhadap kursor
+                interactiveBalls.forEach(ball => {
+                    const ballRect = ball.getBoundingClientRect();
+                    const ballX = ballRect.left + ballRect.width / 2;
+                    const ballY = ballRect.top + ballRect.height / 2;
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(e.clientX - ballX, 2) + 
+                        Math.pow(e.clientY - ballY, 2)
+                    );
+                    
+                    if (distance < 200) {
+                        const force = (200 - distance) / 200;
+                        const angle = Math.atan2(
+                            e.clientY - ballY, 
+                            e.clientX - ballX
+                        );
+                        
+                        const moveX = Math.cos(angle) * force * 30;
+                        const moveY = Math.sin(angle) * force * 30;
+                        
+                        ball.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + force * 0.3})`;
+                    } else {
+                        ball.style.transform = 'translate(0, 0) scale(1)';
+                    }
+                });
+            });
+            
+            // Membuat lampu lebih besar saat di atas elemen interaktif
+            const interactiveElements = document.querySelectorAll('.card, .btn, .terminal-button');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorLight.classList.add('active');
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    cursorLight.classList.remove('active');
+                });
+            });
+            
+            // Efek hover untuk kartu dengan delay bertahap
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.05}s`;
+            });
+            
+            // Efek bola tambahan saat hover tombol
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    // Tambahkan bola tambahan
+                    const ballCount = 2;
+                    for (let i = 0; i < ballCount; i++) {
+                        setTimeout(() => {
+                            createButtonBall(this);
+                        }, i * 150);
+                    }
+                });
+            });
+            
+            function createButtonBall(button) {
+                const ball = document.createElement('div');
+                ball.classList.add('ball-interactive');
+                
+                const size = Math.random() * 30 + 15;
+                ball.style.width = `${size}px`;
+                ball.style.height = `${size}px`;
+                
+                const colors = ['#ff4d6d', '#4cc9f0', '#9d4edd', '#ffd166', '#06d6a0', '#f3722c', '#f72585'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
+                ball.style.color = color;
+                
+                const buttonRect = button.getBoundingClientRect();
+                const left = buttonRect.left + Math.random() * buttonRect.width;
+                const top = buttonRect.top + Math.random() * buttonRect.height;
+                
+                ball.style.left = `${left}px`;
+                ball.style.top = `${top}px`;
+                ball.style.position = 'fixed';
+                
+                document.body.appendChild(ball);
+                
+                // Animasi bola meledak
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 30;
+                const targetX = left + Math.cos(angle) * distance;
+                const targetY = top + Math.sin(angle) * distance;
+                
+                ball.animate([
+                    { 
+                        transform: 'scale(0)',
+                        opacity: 0
+                    },
+                    { 
+                        transform: 'scale(1)',
+                        opacity: 0.8
+                    },
+                    { 
+                        transform: `scale(1.5) translate(${targetX - left}px, ${targetY - top}px)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: 1200,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                // Hapus bola setelah animasi selesai
+                setTimeout(() => {
+                    ball.remove();
+                }, 1200);
+            }
+        });
+    </script>
+</body>
+</html>
