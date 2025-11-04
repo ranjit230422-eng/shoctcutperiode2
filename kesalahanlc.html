@@ -3,75 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Togel dari Google Sheet (Terpisah)</title>
+    <title>Data Togel dari Google Sheet (Tampilan Rapikan)</title>
     <style>
-        /* CSS untuk tampilan yang modern dan rapi */
+        /* CSS untuk tampilan yang lebih modern, lapang, dan rapi */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            color: #212529;
+            padding: 30px;
+            background-color: #f1f3f5; /* Warna latar yang lebih lembut */
+            color: #343a40;
         }
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07); /* Bayangan utama untuk kontainer */
         }
         h1 {
             text-align: center;
-            color: #0d6efd;
-            margin-bottom: 30px;
+            color: #212529;
+            margin-bottom: 40px;
+            font-weight: 700;
         }
         h2 {
             color: #495057;
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 10px;
-            margin-top: 40px;
-        }
-        /* Gaya untuk setiap grup perhitungan */
-        .calculation-group {
-            margin-bottom: 40px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-        h3 {
-            background-color: #0d6efd;
-            color: #ffffff;
-            padding: 15px;
-            margin: 0;
-            font-size: 1.2em;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 15px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
         .sheet-section {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
-        
-        /* Wrapper untuk scroll horizontal */
+
+        /* ======================================================= */
+        /*   GAYA UNTUK AKORDION (DESAIN LEBIH MODERN)            */
+        /* ======================================================= */
+        .calculation-group {
+            margin-bottom: 12px; /* Jarak antar akordion lebih lega */
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px; /* Sudut lebih melengkung */
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Bayangan halus pada kartu */
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .calculation-group:hover {
+            transform: translateY(-2px); /* Efek angkat saat hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .calculation-group h3 {
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 18px 20px;
+            margin: 0;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            user-select: none;
+            font-weight: 500;
+        }
+        .calculation-group h3:hover {
+            background-color: #e9ecef;
+        }
+        .calculation-group.active h3 {
+            background: linear-gradient(90deg, #4361ee, #3f37c9); /* Gradien warna untuk aktif */
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animasi lebih halus */
+        }
+        .calculation-group.active .accordion-content {
+            max-height: 2500px; /* Nilai yang cukup besar */
+        }
         .table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             background-color: #ffffff;
         }
         th, td {
-            padding: 12px 15px;
+            padding: 14px 16px; /* Padding lebih lega */
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #e9ecef; /* Border lebih lembut */
             white-space: nowrap;
         }
         thead th {
-            background-color: #e9ecef;
+            background-color: #f8f9fa;
             font-weight: 600;
             color: #495057;
             position: sticky;
             top: 0;
             z-index: 10;
-            border-bottom: 2px solid #adb5bd;
+            border-bottom: 2px solid #dee2e6;
         }
         tbody tr:hover {
             background-color: #f8f9fa;
@@ -80,16 +114,48 @@
             text-align: center;
             font-size: 1.2em;
             color: #6c757d;
-            padding: 40px;
+            padding: 50px;
         }
         .error-message {
             color: #721c24;
             background-color: #f8d7da;
             border: 1px solid #f5c6cb;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 18px;
+            border-radius: 8px;
             margin-bottom: 20px;
         }
+
+        /* ======================================================= */
+        /*   CSS UNTUK MENYEMBUNYIKAN KOLOM 1 SAMPAI 22           */
+        /* ======================================================= */
+        th:nth-child(n+1):nth-child(-n+22),
+        td:nth-child(n+1):nth-child(-n+22) {
+            display: none;
+        }
+
+        /* ======================================================= */
+        /*   GAYA UNTUK BADGE "TIPE" PASARAN (DESAIN LEBIH BAIK)  */
+        /* ======================================================= */
+        .tipe-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px; /* Lebih melengkung (pill shape) */
+            font-weight: 600;
+            font-size: 0.8em;
+            text-align: center;
+            text-transform: uppercase;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Bayangan kecil pada badge */
+        }
+        /* Palet warna yang sedikit lebih lembut dan modern */
+        .tipe-sgp { background-color: #4361ee; }
+        .tipe-hk { background-color: #f72585; }
+        .tipe-syd { background-color: #06ffa5; color: #333; } /* Warna cerah dengan teks gelap */
+        .tipe-cam { background-color: #7209b7; }
+        .tipe-toto { background-color: #f77f00; }
+        .tipe-chn { background-color: #00b4d8; }
+        .tipe-default { background-color: #868e96; }
+
     </style>
 </head>
 <body>
@@ -98,7 +164,6 @@
         <h1>Data dari Google Sheet</h1>
         <div id="loading">Memuat semua data...</div>
         
-        <!-- Kontainer untuk semua tabel -->
         <div id="all-sheets-container"></div>
     </div>
 
@@ -107,7 +172,7 @@
 
     <script>
         const SHEET_ID = '1O7zhfojd_YimXyuVELsxaQCVzA2Fr4jWNCTFCwNx6tM';
-        const SHEET_NAMES = ['togel', 'paito', 'lain-lain']; 
+        const SHEET_NAMES = ['togel', 'paito']; 
 
         const container = document.getElementById('all-sheets-container');
         const loadingIndicator = document.getElementById('loading');
@@ -122,10 +187,6 @@
             });
         }
 
-        /**
-         * Fungsi untuk membuat tabel yang DIPISAH berdasarkan kolom 'cara perhitungan'
-         * Hanya digunakan untuk sheet 'togel'
-         */
         function createGroupedTablesFromCSV(csvText, sheetName) {
             const results = Papa.parse(csvText, {
                 header: true,
@@ -144,7 +205,6 @@
             title.textContent = `Data dari Sheet: ${sheetName}`;
             mainSection.appendChild(title);
 
-            // 1. KELOMPOKKAN DATA berdasarkan 'cara perhitungan'
             const groupedData = {};
             results.data.forEach(row => {
                 const method = row['cara perhitungan'];
@@ -154,19 +214,18 @@
                 groupedData[method].push(row);
             });
 
-            // 2. BUAT TABEL UNTUK SETIAP KELOMPOK
-            // Ambil nama kolom, tapi hapus kolom 'cara perhitungan'
             const headersToDisplay = results.meta.fields.filter(header => header !== 'cara perhitungan');
 
             for (const method in groupedData) {
-                // Buat kontainer untuk satu grup perhitungan
                 const groupSection = document.createElement('div');
                 groupSection.className = 'calculation-group';
 
-                // Buat judul untuk grup
                 const groupTitle = document.createElement('h3');
                 groupTitle.textContent = `Cara Perhitungan: ${method}`;
                 groupSection.appendChild(groupTitle);
+
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'accordion-content';
 
                 const tableWrapper = document.createElement('div');
                 tableWrapper.className = 'table-wrapper';
@@ -174,7 +233,6 @@
                 const thead = document.createElement('thead');
                 const tbody = document.createElement('tbody');
 
-                // Buat header tabel (tanpa kolom 'cara perhitungan')
                 const headerRow = document.createElement('tr');
                 headersToDisplay.forEach(headerText => {
                     const th = document.createElement('th');
@@ -184,28 +242,40 @@
                 thead.appendChild(headerRow);
                 table.appendChild(thead);
 
-                // Buat baris data untuk grup ini
                 groupedData[method].forEach(rowData => {
                     const dataRow = document.createElement('tr');
                     headersToDisplay.forEach(field => {
                         const td = document.createElement('td');
-                        td.textContent = rowData[field] || '';
+                        const cellValue = rowData[field] || '';
+
+                        if (field === 'tipe') {
+                            const tipeClass = 'tipe-' + cellValue.toLowerCase().replace(/\s+/g, '');
+                            td.className = 'tipe-badge ' + tipeClass;
+                        }
+                        
+                        td.textContent = cellValue;
                         dataRow.appendChild(td);
                     });
                     tbody.appendChild(dataRow);
                 });
                 table.appendChild(tbody);
                 tableWrapper.appendChild(table);
-                groupSection.appendChild(tableWrapper);
+                contentWrapper.appendChild(tableWrapper);
+                groupSection.appendChild(contentWrapper);
                 mainSection.appendChild(groupSection);
+
+                groupTitle.addEventListener('click', () => {
+                    const currentlyActive = mainSection.querySelector('.calculation-group.active');
+                    if (currentlyActive && currentlyActive !== groupSection) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    groupSection.classList.toggle('active');
+                });
             }
             
             return mainSection;
         }
 
-        /**
-         * Fungsi untuk membuat tabel normal (digunakan untuk sheet lainnya)
-         */
         function createTableFromCSV(csvText, sheetName) {
             const results = Papa.parse(csvText, {
                 header: true,
@@ -244,7 +314,14 @@
                 const dataRow = document.createElement('tr');
                 results.meta.fields.forEach(field => {
                     const td = document.createElement('td');
-                    td.textContent = rowData[field] || '';
+                    const cellValue = rowData[field] || '';
+
+                    if (field === 'tipe') {
+                        const tipeClass = 'tipe-' + cellValue.toLowerCase().replace(/\s+/g, '');
+                        td.className = 'tipe-badge ' + tipeClass;
+                    }
+
+                    td.textContent = cellValue;
                     dataRow.appendChild(td);
                 });
                 tbody.appendChild(dataRow);
@@ -277,7 +354,6 @@
                         container.appendChild(errorDiv);
                     } else if (result.csvText) {
                         let tableSection;
-                        // Gunakan fungsi yang berbeda untuk sheet 'togel'
                         if (result.sheetName === 'togel') {
                             tableSection = createGroupedTablesFromCSV(result.csvText, result.sheetName);
                         } else {
