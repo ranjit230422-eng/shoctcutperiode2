@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ Kalkulator Hadiah Togel - Cyber Edition</title>
+    <title>Kalkulator Hadiah Togel - Elektrikon Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ffff;
-            --primary-dark: #00cccc;
-            --secondary: #ff00ff;
-            --accent: #ffff00;
-            --success: #00ff00;
-            --warning: #ff9900;
+            --primary: #00f3ff;
+            --primary-dark: #00a8b5;
+            --secondary: #9d4edd;
+            --accent: #ff00ff;
+            --success: #00ff88;
+            --warning: #ffaa00;
             --danger: #ff0066;
-            --info: #0099ff;
-            --text: #ffffff;
-            --text-light: #b3e5fc;
-            --text-lighter: #81d4fa;
-            --background: #0a0a0f;
-            --card-bg: rgba(20, 20, 35, 0.9);
-            --card-bg-alt: rgba(30, 30, 50, 0.8);
-            --border: #00ffff;
-            --shadow-sm: 0 0 10px rgba(0, 255, 255, 0.3);
-            --shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            --shadow-md: 0 0 30px rgba(0, 255, 255, 0.5);
-            --shadow-lg: 0 0 40px rgba(0, 255, 255, 0.6);
-            --shadow-xl: 0 0 50px rgba(0, 255, 255, 0.7);
-            --radius: 15px;
-            --radius-sm: 10px;
+            --info: #00a8ff;
+            --text: #e0e0ff;
+            --text-light: #a0a0c0;
+            --text-lighter: #8080a0;
+            --background: #0a0a1a;
+            --card-bg: rgba(16, 16, 40, 0.85);
+            --card-bg-alt: rgba(30, 30, 60, 0.7);
+            --border: rgba(0, 243, 255, 0.3);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.7);
+            --radius: 20px;
+            --radius-sm: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-fast: all 0.15s ease;
         }
@@ -41,8 +41,9 @@
         }
         
         body {
-            font-family: 'Rajdhani', 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Exo 2', 'Orbitron', sans-serif;
+            background: #000428;
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
             min-height: 100vh;
             color: var(--text);
             line-height: 1.6;
@@ -50,36 +51,82 @@
             overflow-x: hidden;
         }
         
-        body::before {
-            content: '';
+        .space-background {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0, 255, 255, 0.03) 2px,
-                    rgba(0, 255, 255, 0.03) 4px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 0, 255, 0.03) 2px,
-                    rgba(255, 0, 255, 0.03) 4px
-                );
-            pointer-events: none;
-            z-index: 0;
-            animation: circuitMove 20s linear infinite;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
         
-        @keyframes circuitMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(20px, 20px); }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #3a1c71, #1a1a4a);
+            box-shadow: 
+                0 0 80px rgba(157, 78, 221, 0.5),
+                inset -20px -20px 40px rgba(0, 0, 0, 0.7);
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 10%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .planet::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 20% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
+        }
+        
+        .planet-ring {
+            position: absolute;
+            width: 450px;
+            height: 80px;
+            background: transparent;
+            border: 10px solid rgba(157, 78, 221, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(2px 2px at 40% 70%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(1px 1px at 80% 50%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 30% 80%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 70% 10%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 90% 40%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 10% 60%, rgba(255, 255, 255, 0.6), transparent);
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
         }
         
         .container {
@@ -94,14 +141,16 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 40px 30px;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
-            backdrop-filter: blur(20px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border-radius: var(--radius);
-            box-shadow: var(--shadow-xl);
+            box-shadow: 
+                var(--shadow-xl),
+                0 0 30px rgba(0, 243, 255, 0.2);
             position: relative;
             overflow: hidden;
             animation: slideDown 0.8s ease-out;
-            border: 2px solid var(--primary);
+            border: 1px solid var(--border);
         }
         
         header::before {
@@ -110,75 +159,116 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 6px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            animation: electricPulse 2s ease-in-out infinite;
+            animation: gradientShift 3s ease infinite;
         }
         
-        @keyframes electricPulse {
-            0%, 100% { 
-                box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
-                opacity: 1;
-            }
-            50% { 
-                box-shadow: 0 0 20px var(--secondary), 0 0 30px var(--secondary), 0 0 40px var(--secondary);
-                opacity: 0.8;
-            }
+        @keyframes gradientShift {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
         }
         
         @keyframes slideDown {
             from {
                 opacity: 0;
                 transform: translateY(-30px);
-                filter: blur(10px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-                filter: blur(0);
             }
         }
         
         h1 {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2.8rem;
-            font-weight: 900;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            letter-spacing: 2px;
-            animation: neonGlow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes neonGlow {
-            from { filter: drop-shadow(0 0 10px var(--primary)); }
-            to { filter: drop-shadow(0 0 20px var(--primary)) drop-shadow(0 0 30px var(--secondary)); }
+            text-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+            letter-spacing: 1px;
         }
         
         .subtitle {
             font-size: 1.1rem;
             color: var(--text-light);
             font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            background: rgba(16, 16, 40, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-md);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .tab-btn:hover {
+            background: var(--primary);
+            color: #0a0a1a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: #0a0a1a;
+            box-shadow: 
+                0 10px 25px rgba(0, 243, 255, 0.3),
+                0 0 15px var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .calculator-section {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.95), rgba(30, 30, 50, 0.95));
-            backdrop-filter: blur(20px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border-radius: var(--radius);
             padding: 35px;
-            box-shadow: var(--shadow-xl);
+            box-shadow: 
+                var(--shadow-xl),
+                0 0 30px rgba(0, 243, 255, 0.1);
             margin-bottom: 30px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.8s ease-out 0.2s both;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid var(--border);
         }
         
         .calculator-section::before {
@@ -188,9 +278,8 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
-            animation: rotate 10s linear infinite;
-            opacity: 0.1;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
         }
         
         @keyframes rotate {
@@ -202,16 +291,15 @@
             from {
                 opacity: 0;
                 transform: translateY(30px);
-                filter: blur(5px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-                filter: blur(0);
             }
         }
         
         .calculator-title {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 30px;
@@ -219,8 +307,6 @@
             text-align: center;
             position: relative;
             padding-bottom: 15px;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
             letter-spacing: 1px;
         }
         
@@ -230,9 +316,9 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             border-radius: 2px;
             box-shadow: 0 0 10px var(--primary);
         }
@@ -253,50 +339,45 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: var(--text-light);
+            color: var(--text);
             font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
         
         label i {
             color: var(--primary);
             font-size: 1rem;
-            filter: drop-shadow(0 0 5px var(--primary));
         }
         
         select, input {
             width: 100%;
             padding: 16px 18px;
-            border: 2px solid rgba(0, 255, 255, 0.3);
+            border: 2px solid var(--border);
             border-radius: var(--radius-sm);
             font-size: 0.95rem;
             transition: var(--transition);
-            background: rgba(10, 10, 20, 0.8);
+            background-color: rgba(10, 10, 30, 0.7);
             font-weight: 500;
             appearance: none;
             cursor: pointer;
             color: var(--text);
-            font-family: 'Rajdhani', sans-serif;
-            backdrop-filter: blur(5px);
+            font-family: 'Exo 2', sans-serif;
         }
         
         select:hover, input:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-            background: rgba(10, 10, 20, 0.9);
+            box-shadow: 0 0 0 3px rgba(0, 243, 255, 0.1);
         }
         
         select:focus, input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.15), 0 0 15px var(--primary);
             transform: translateY(-2px);
-            background: rgba(10, 10, 20, 0.95);
         }
         
         .input-icon {
@@ -306,23 +387,21 @@
             color: var(--text-lighter);
             pointer-events: none;
             transition: var(--transition);
-            filter: drop-shadow(0 0 3px var(--primary));
         }
         
         select:focus ~ .input-icon,
         input:focus ~ .input-icon {
             color: var(--primary);
-            filter: drop-shadow(0 0 8px var(--primary));
         }
         
         button {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--background);
-            border: 2px solid var(--primary);
+            color: #0a0a1a;
+            border: none;
             padding: 18px 25px;
             border-radius: var(--radius-sm);
             font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             grid-column: span 2;
@@ -330,11 +409,12 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            box-shadow: 
+                0 10px 25px rgba(0, 243, 255, 0.3),
+                0 0 15px var(--primary);
             position: relative;
             overflow: hidden;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
         }
         
@@ -355,9 +435,9 @@
         
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            border-color: var(--secondary);
+            box-shadow: 
+                0 15px 35px rgba(0, 243, 255, 0.4),
+                0 0 25px var(--primary);
         }
         
         button:active {
@@ -365,18 +445,16 @@
         }
         
         button:disabled {
-            background: linear-gradient(135deg, #333, #555);
-            border-color: #555;
+            background: linear-gradient(135deg, var(--text-lighter), var(--text-light));
             transform: none;
             box-shadow: none;
             cursor: not-allowed;
-            color: #999;
         }
         
         .result {
             margin-top: 25px;
             padding: 25px;
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.1));
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 243, 255, 0.1));
             border-radius: var(--radius-sm);
             text-align: left;
             font-weight: 500;
@@ -386,7 +464,7 @@
             position: relative;
             overflow: hidden;
             animation: slideIn 0.5s ease;
-            border: 1px solid rgba(0, 255, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.2);
         }
         
         .result.show {
@@ -397,12 +475,10 @@
             from {
                 opacity: 0;
                 transform: translateX(-20px);
-                filter: blur(5px);
             }
             to {
                 opacity: 1;
                 transform: translateX(0);
-                filter: blur(0);
             }
         }
         
@@ -411,7 +487,6 @@
             line-height: 1.7;
             color: var(--text);
             font-size: 1rem;
-            font-family: 'Rajdhani', sans-serif;
         }
         
         .copy-btn {
@@ -419,8 +494,8 @@
             top: 18px;
             right: 18px;
             background: var(--primary);
-            color: var(--background);
-            border: 1px solid var(--primary);
+            color: #0a0a1a;
+            border: none;
             border-radius: var(--radius-sm);
             padding: 8px 14px;
             cursor: pointer;
@@ -430,21 +505,18 @@
             gap: 6px;
             transition: var(--transition);
             box-shadow: var(--shadow);
-            font-family: 'Orbitron', monospace;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
-            text-transform: uppercase;
         }
         
         .copy-btn:hover {
-            background: var(--secondary);
+            background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
-            border-color: var(--secondary);
         }
         
         .copy-btn.copied {
             background: var(--success);
-            border-color: var(--success);
         }
         
         .market-toggle {
@@ -453,7 +525,7 @@
         }
         
         .toggle-btn {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            background: rgba(16, 16, 40, 0.8);
             backdrop-filter: blur(10px);
             color: var(--primary);
             border: 2px solid var(--primary);
@@ -467,17 +539,15 @@
             align-items: center;
             gap: 10px;
             box-shadow: var(--shadow-md);
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
         
         .toggle-btn:hover {
             background: var(--primary);
-            color: var(--background);
+            color: #0a0a1a;
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
-            filter: drop-shadow(0 0 10px var(--primary));
         }
         
         .market-grid {
@@ -493,13 +563,13 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; filter: blur(5px); }
-            to { opacity: 1; filter: blur(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .market-card {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.95), rgba(30, 30, 50, 0.95));
-            backdrop-filter: blur(20px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border-radius: var(--radius-sm);
             padding: 25px;
             box-shadow: var(--shadow-md);
@@ -509,7 +579,7 @@
             overflow: hidden;
             animation: cardEntrance 0.6s ease-out;
             animation-fill-mode: backwards;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--border);
         }
         
         .market-card::before {
@@ -518,11 +588,10 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             transform: scaleX(0);
             transition: transform 0.3s ease;
-            box-shadow: 0 0 10px var(--primary);
         }
         
         .market-card:hover::before {
@@ -531,9 +600,9 @@
         
         .market-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(30, 30, 45, 0.98), rgba(40, 40, 60, 0.98));
+            box-shadow: 
+                var(--shadow-xl),
+                0 0 20px rgba(0, 243, 255, 0.2);
         }
         
         .market-name {
@@ -544,14 +613,15 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
         }
         
         .market-name i {
             font-size: 1.1rem;
-            filter: drop-shadow(0 0 5px var(--primary));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .market-description {
@@ -562,7 +632,7 @@
         }
         
         .calculation {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.08), rgba(157, 78, 221, 0.08));
             padding: 15px;
             border-radius: var(--radius-sm);
             font-size: 0.85rem;
@@ -570,7 +640,6 @@
             border-left: 3px solid var(--primary);
             color: var(--text);
             font-weight: 500;
-            border: 1px solid rgba(0, 255, 255, 0.2);
         }
         
         footer {
@@ -579,7 +648,7 @@
             color: var(--text-light);
             font-size: 0.95rem;
             margin-top: 40px;
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-content {
@@ -595,7 +664,6 @@
             display: none;
             font-weight: 500;
             animation: shake 0.5s ease;
-            filter: drop-shadow(0 0 5px var(--danger));
         }
         
         @keyframes shake {
@@ -612,27 +680,58 @@
             display: inline-block;
             padding: 5px 10px;
             background: linear-gradient(135deg, var(--accent), var(--primary));
-            color: var(--background);
+            color: #0a0a1a;
             border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
             margin-left: 8px;
             vertical-align: middle;
             box-shadow: var(--shadow-sm);
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
         }
         
         .money-format {
             font-weight: 700;
             color: var(--success);
-            background: rgba(0, 255, 0, 0.15);
+            background: rgba(0, 255, 136, 0.15);
             padding: 2px 6px;
             border-radius: 4px;
             display: inline-block;
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            filter: drop-shadow(0 0 3px var(--success));
+        }
+        
+        .electric-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(0, 243, 255, 0.3);
+            border-radius: 50%;
+            animation: electricFloat 15s infinite linear;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        @keyframes electricFloat {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         @media (max-width: 768px) {
@@ -663,18 +762,32 @@
             .calculator-section {
                 padding: 25px 20px;
             }
+            
+            .planet {
+                width: 200px;
+                height: 200px;
+                top: 5%;
+                right: 5%;
+            }
+            
+            .planet-ring {
+                width: 300px;
+                height: 50px;
+            }
+            
+            .tab-container {
+                flex-wrap: wrap;
+            }
         }
         
         @keyframes cardEntrance {
             from {
                 opacity: 0;
                 transform: translateY(30px);
-                filter: blur(5px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-                filter: blur(0);
             }
         }
         
@@ -684,215 +797,203 @@
         .market-card:nth-child(4) { animation-delay: 0.4s; }
         .market-card:nth-child(5) { animation-delay: 0.5s; }
         .market-card:nth-child(6) { animation-delay: 0.6s; }
-        .market-card:nth-child(7) { animation-delay: 0.7s; }
-        .market-card:nth-child(8) { animation-delay: 0.8s; }
-        .market-card:nth-child(9) { animation-delay: 0.9s; }
-        .market-card:nth-child(10) { animation-delay: 1.0s; }
-        .market-card:nth-child(11) { animation-delay: 1.1s; }
-        .market-card:nth-child(12) { animation-delay: 1.2s; }
-        .market-card:nth-child(13) { animation-delay: 1.3s; }
-        .market-card:nth-child(14) { animation-delay: 1.4s; }
-        .market-card:nth-child(15) { animation-delay: 1.5s; }
-        .market-card:nth-child(16) { animation-delay: 1.6s; }
-        .market-card:nth-child(17) { animation-delay: 1.7s; }
-        .market-card:nth-child(18) { animation-delay: 1.8s; }
-        .market-card:nth-child(19) { animation-delay: 1.9s; }
-        .market-card:nth-child(20) { animation-delay: 2.0s; }
-        .market-card:nth-child(21) { animation-delay: 2.1s; }
-        .market-card:nth-child(22) { animation-delay: 2.2s; }
-        .market-card:nth-child(23) { animation-delay: 2.3s; }
-        .market-card:nth-child(24) { animation-delay: 2.4s; }
-        .market-card:nth-child(25) { animation-delay: 2.5s; }
-        .market-card:nth-child(26) { animation-delay: 2.6s; }
-        .market-card:nth-child(27) { animation-delay: 2.7s; }
-        .market-card:nth-child(28) { animation-delay: 2.8s; }
-        .market-card:nth-child(29) { animation-delay: 2.9s; }
-        .market-card:nth-child(30) { animation-delay: 3.0s; }
-        .market-card:nth-child(31) { animation-delay: 3.1s; }
-        .market-card:nth-child(32) { animation-delay: 3.2s; }
-        .market-card:nth-child(33) { animation-delay: 3.3s; }
-        .market-card:nth-child(34) { animation-delay: 3.4s; }
-        .market-card:nth-child(35) { animation-delay: 3.5s; }
-        .market-card:nth-child(36) { animation-delay: 3.6s; }
-        .market-card:nth-child(37) { animation-delay: 3.7s; }
-        .market-card:nth-child(38) { animation-delay: 3.8s; }
-        .market-card:nth-child(39) { animation-delay: 3.9s; }
-        .market-card:nth-child(40) { animation-delay: 4.0s; }
-        
-        .electric-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .electric-particle {
-            position: absolute;
-            background: var(--primary);
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: electricFloat 15s infinite linear;
-            box-shadow: 0 0 10px var(--primary);
-        }
-        
-        @keyframes electricFloat {
-            from {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-                transform: translateY(80vh) translateX(20px) scale(1);
-            }
-            90% {
-                opacity: 0.8;
-                transform: translateY(20vh) translateX(-20px) scale(1);
-            }
-            to {
-                transform: translateY(-100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-        }
-        
-        .circuit-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.1;
-        }
-        
-        .circuit-line {
-            position: absolute;
-            background: var(--primary);
-            filter: blur(0.5px);
-        }
-        
-        .horizontal {
-            height: 1px;
-            width: 100px;
-            animation: horizontalMove 20s linear infinite;
-        }
-        
-        .vertical {
-            width: 1px;
-            height: 100px;
-            animation: verticalMove 25s linear infinite;
-        }
-        
-        @keyframes horizontalMove {
-            from { transform: translateX(-100px); }
-            to { transform: translateX(calc(100vw + 100px)); }
-        }
-        
-        @keyframes verticalMove {
-            from { transform: translateY(-100px); }
-            to { transform: translateY(calc(100vh + 100px)); }
-        }
     </style>
 </head>
 <body>
-    <div class="electric-particles" id="electric-particles"></div>
-    <div class="circuit-lines" id="circuit-lines"></div>
+    <div class="space-background">
+        <div class="stars"></div>
+        <div class="planet"></div>
+        <div class="planet-ring"></div>
+    </div>
+    
+    <div class="electric-particles" id="particles"></div>
     
     <div class="container">
         <header>
-            <h1><i class="fas fa-bolt"></i> Kalkulator Hadiah Togel</h1>
-            <p class="subtitle">⚡ Cyber Calculator - Semua Pasar & Perhitungan Hadiah ⚡</p>
+            <h1><i class="fas fa-bolt"></i> KALKULATOR HADIAH ELEKTRIKON</h1>
+            <p class="subtitle">Premium Calculator - Futuristic Edition</p>
         </header>
         
-        <section class="calculator-section">
-            <h2 class="calculator-title">⚡ Kalkulator Hadiah Cyber</h2>
-            <div class="calculator-form">
-                <div class="form-group">
-                    <label for="market-type">
-                        <i class="fas fa-microchip"></i> Pilih Jenis Pasar
-                    </label>
-                    <select id="market-type">
-                        <option value="PRIZE_1_4D">🏆 PRIZE 1 4D</option>
-                        <option value="PRIZE_1_3D">🏆 PRIZE 1 3D</option>
-                        <option value="PRIZE_1_2D">🏆 PRIZE 1 2D</option>
-                        <option value="PRIZE_2_4D">🥈 PRIZE 2 4D</option>
-                        <option value="PRIZE_2_3D">🥈 PRIZE 2 3D</option>
-                        <option value="PRIZE_2_2D">🥈 PRIZE 2 2D</option>
-                        <option value="PRIZE_3_4D">🥉 PRIZE 3 4D</option>
-                        <option value="PRIZE_3_3D">🥉 PRIZE 3 3D</option>
-                        <option value="PRIZE_3_2D">🥉 PRIZE 3 2D</option>
-                        <option value="4D_FULL">🎲 4D FULL</option>
-                        <option value="3D_FULL">🎲 3D FULL</option>
-                        <option value="2D_FULL">🎲 2D FULL</option>
-                        <option value="BB_4D_TEPAT">⭐ BB 4D TEPAT</option>
-                        <option value="BB_3D_TEPAT">⭐ BB 3D TEPAT</option>
-                        <option value="BB_2D_TEPAT">⭐ BB 2D TEPAT</option>
-                        <option value="BB_4D_TIDAK_TEPAT">⭐ BB 4D TIDAK TEPAT</option>
-                        <option value="BB_3D_TIDAK_TEPAT">⭐ BB 3D TIDAK TEPAT</option>
-                        <option value="BB_2D_TIDAK_TEPAT">⭐ BB 2D TIDAK TEPAT</option>
-                        <option value="DISC_4D">💰 DISC 4D</option>
-                        <option value="DISC_3D">💰 DISC 3D</option>
-                        <option value="DISC_2D">💰 DISC 2D</option>
-                        <option value="DISC_2D_DT">💰 DISC 2D D/T</option>
-                        <option value="COLOK_BEBAS_1_DIGIT">🎯 COLOK BEBAS 1 DIGIT</option>
-                        <option value="COLOK_BEBAS_2_DIGIT">🎯 COLOK BEBAS 2 DIGIT</option>
-                        <option value="COLOK_BEBAS_3_DIGIT">🎯 COLOK BEBAS 3 DIGIT</option>
-                        <option value="COLOK_BEBAS_4_DIGIT">🎯 COLOK BEBAS 4 DIGIT</option>
-                        <option value="COLOK_BEBAS_2D_2_DIGIT">🎯 COLOK BEBAS 2D 2 DIGIT</option>
-                        <option value="COLOK_BEBAS_2D_3_DIGIT">🎯 COLOK BEBAS 2D 3 DIGIT</option>
-                        <option value="COLOK_BEBAS_2D_4_DIGIT">🎯 COLOK BEBAS 2D 4 DIGIT</option>
-                        <option value="COLOK_NAGA_3_DIGIT">🐉 COLOK NAGA 3 DIGIT</option>
-                        <option value="COLOK_NAGA_4_DIGIT">🐉 COLOK NAGA 4 DIGIT</option>
-                        <option value="COLOK_JITU">🎯 COLOK JITU</option>
-                        <option value="SHIO">🐲 SHIO</option>
-                        <option value="MACAU_SHIO">🏮 MACAU SHIO</option>
-                        <option value="KOMBINASI">🧩 KOMBINASI</option>
-                        <option value="TEPI_TENGAH">↔️ TEPI TENGAH</option>
-                        <option value="SILANG_HOMO">❌ SILANG HOMO</option>
-                        <option value="DASAR_GANJIL_BESAR">📊 DASAR GANJIL-BESAR</option>
-                        <option value="DASAR_GENAP_KECIL">📊 DASAR GENAP-KECIL</option>
-                        <option value="50_50">⚖️ 50-50</option>
-                        <option value="KEMBANG_KEMPIS">🌸 KEMBANG KEMPIS</option>
-                    </select>
-                    <div class="input-icon">
-                        <i class="fas fa-chevron-down"></i>
+        <div class="tab-container">
+            <button class="tab-btn active" id="tab-regular">
+                <i class="fas fa-dice"></i>
+                PASARAN REGULER
+            </button>
+            <button class="tab-btn" id="tab-macau">
+                <i class="fas fa-crown"></i>
+                TOTO MACAU 4D
+            </button>
+        </div>
+        
+        <!-- Tab Pasaran Reguler -->
+        <div class="tab-content active" id="tab-regular-content">
+            <section class="calculator-section">
+                <h2 class="calculator-title">⚡ KALKULATOR HADIAH PREMIUM</h2>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="market-type">
+                            <i class="fas fa-microchip"></i> PILIH JENIS PASAR
+                        </label>
+                        <select id="market-type">
+                            <option value="PRIZE_1_4D">🏆 PRIZE 1 4D</option>
+                            <option value="PRIZE_1_3D">🏆 PRIZE 1 3D</option>
+                            <option value="PRIZE_1_2D">🏆 PRIZE 1 2D</option>
+                            <option value="PRIZE_2_4D">🥈 PRIZE 2 4D</option>
+                            <option value="PRIZE_2_3D">🥈 PRIZE 2 3D</option>
+                            <option value="PRIZE_2_2D">🥈 PRIZE 2 2D</option>
+                            <option value="PRIZE_3_4D">🥉 PRIZE 3 4D</option>
+                            <option value="PRIZE_3_3D">🥉 PRIZE 3 3D</option>
+                            <option value="PRIZE_3_2D">🥉 PRIZE 3 2D</option>
+                            <option value="4D_FULL">🎲 4D FULL</option>
+                            <option value="3D_FULL">🎲 3D FULL</option>
+                            <option value="2D_FULL">🎲 2D FULL</option>
+                            <option value="BB_4D_TEPAT">⭐ BB 4D TEPAT</option>
+                            <option value="BB_3D_TEPAT">⭐ BB 3D TEPAT</option>
+                            <option value="BB_2D_TEPAT">⭐ BB 2D TEPAT</option>
+                            <option value="BB_4D_TIDAK_TEPAT">⭐ BB 4D TIDAK TEPAT</option>
+                            <option value="BB_3D_TIDAK_TEPAT">⭐ BB 3D TIDAK TEPAT</option>
+                            <option value="BB_2D_TIDAK_TEPAT">⭐ BB 2D TIDAK TEPAT</option>
+                            <option value="DISC_4D">💰 DISC 4D</option>
+                            <option value="DISC_3D">💰 DISC 3D</option>
+                            <option value="DISC_2D">💰 DISC 2D</option>
+                            <option value="DISC_2D_DT">💰 DISC 2D D/T</option>
+                            <option value="COLOK_BEBAS_1_DIGIT">🎯 COLOK BEBAS 1 DIGIT</option>
+                            <option value="COLOK_BEBAS_2_DIGIT">🎯 COLOK BEBAS 2 DIGIT</option>
+                            <option value="COLOK_BEBAS_3_DIGIT">🎯 COLOK BEBAS 3 DIGIT</option>
+                            <option value="COLOK_BEBAS_4_DIGIT">🎯 COLOK BEBAS 4 DIGIT</option>
+                            <option value="COLOK_BEBAS_2D_2_DIGIT">🎯 COLOK BEBAS 2D 2 DIGIT</option>
+                            <option value="COLOK_BEBAS_2D_3_DIGIT">🎯 COLOK BEBAS 2D 3 DIGIT</option>
+                            <option value="COLOK_BEBAS_2D_4_DIGIT">🎯 COLOK BEBAS 2D 4 DIGIT</option>
+                            <option value="COLOK_NAGA_3_DIGIT">🐉 COLOK NAGA 3 DIGIT</option>
+                            <option value="COLOK_NAGA_4_DIGIT">🐉 COLOK NAGA 4 DIGIT</option>
+                            <option value="COLOK_JITU">🎯 COLOK JITU</option>
+                            <option value="SHIO">🐲 SHIO</option>
+                            <option value="MACAU_SHIO">🏮 MACAU SHIO</option>
+                            <option value="KOMBINASI">🧩 KOMBINASI</option>
+                            <option value="TEPI_TENGAH">↔️ TEPI TENGAH</option>
+                            <option value="SILANG_HOMO">❌ SILANG HOMO</option>
+                            <option value="DASAR_GANJIL_BESAR">📊 DASAR GANJIL-BESAR</option>
+                            <option value="DASAR_GENAP_KECIL">📊 DASAR GENAP-KECIL</option>
+                            <option value="50_50">⚖️ 50-50</option>
+                            <option value="KEMBANG_KEMPIS">🌸 KEMBANG KEMPIS</option>
+                        </select>
+                        <div class="input-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="bet-amount">
-                        <i class="fas fa-coins"></i> Nominal Bet
-                    </label>
-                    <input type="number" id="bet-amount" placeholder="Masukkan nominal bet" min="0">
-                    <div class="input-icon">
-                        <i class="fas fa-wallet"></i>
+                    
+                    <div class="form-group">
+                        <label for="bet-amount">
+                            <i class="fas fa-coins"></i> NOMINAL BET
+                        </label>
+                        <input type="number" id="bet-amount" placeholder="Masukkan nominal bet" min="0">
+                        <div class="input-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="error" id="bet-error">
+                            <i class="fas fa-exclamation-circle"></i> Masukkan nominal bet yang valid!
+                        </div>
                     </div>
-                    <div class="error" id="bet-error">
-                        <i class="fas fa-exclamation-triangle"></i> Masukkan nominal bet yang valid!
-                    </div>
-                </div>
-                
-                <button id="calculate-btn">
-                    <i class="fas fa-bolt"></i> Hitung Hadiah
-                    <span class="badge">Cyber</span>
-                </button>
-                
-                <div class="result" id="result">
-                    <div class="result-content" id="result-content"></div>
-                    <button class="copy-btn" id="copy-btn">
-                        <i class="fas fa-copy"></i> Salin Hasil
+                    
+                    <button id="calculate-btn">
+                        <i class="fas fa-bolt"></i> HITUNG HADIAH
+                        <span class="badge">ELEKTRIKON</span>
                     </button>
+                    
+                    <div class="result" id="result">
+                        <div class="result-content" id="result-content"></div>
+                        <button class="copy-btn" id="copy-btn">
+                            <i class="fas fa-copy"></i> SALIN HASIL
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+        
+        <!-- Tab Toto Macau -->
+        <div class="tab-content" id="tab-macau-content">
+            <section class="calculator-section">
+                <h2 class="calculator-title">👑 KALKULATOR HADIAH TOTO MACAU 4D</h2>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="macau-market-type">
+                            <i class="fas fa-crown"></i> PILIH JENIS PASAR
+                        </label>
+                        <select id="macau-market-type">
+                            <option value="MACAU_4D_FULL">🎲 4D FULL</option>
+                            <option value="MACAU_3D_FULL">🎲 3D FULL</option>
+                            <option value="MACAU_2D_FULL">🎲 2D FULL</option>
+                            <option value="MACAU_BB_4D_TEPAT">⭐ BB 4D TEPAT</option>
+                            <option value="MACAU_BB_3D_TEPAT">⭐ BB 3D TEPAT</option>
+                            <option value="MACAU_BB_2D_TEPAT">⭐ BB 2D TEPAT</option>
+                            <option value="MACAU_BB_4D_TIDAK_TEPAT">⭐ BB 4D TIDAK TEPAT</option>
+                            <option value="MACAU_BB_3D_TIDAK_TEPAT">⭐ BB 3D TIDAK TEPAT</option>
+                            <option value="MACAU_BB_2D_TIDAK_TEPAT">⭐ BB 2D TIDAK TEPAT</option>
+                            <option value="MACAU_DISC_4D">💰 DISC 4D</option>
+                            <option value="MACAU_DISC_3D">💰 DISC 3D</option>
+                            <option value="MACAU_DISC_2D">💰 DISC 2D</option>
+                            <option value="MACAU_DISC_2D_DT">💰 DISC 2D D/T</option>
+                            <option value="MACAU_S_DISC_4D">💰 S.DISC 4D</option>
+                            <option value="MACAU_S_DISC_3D">💰 S.DISC 3D</option>
+                            <option value="MACAU_S_DISC_2D">💰 S.DISC 2D</option>
+                            <option value="MACAU_S_DISC_2D_DT">💰 S.DISC 2D D/T</option>
+                            <option value="MACAU_COLOK_BEBAS_1_DIGIT">🎯 COLOK BEBAS 1 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_2_DIGIT">🎯 COLOK BEBAS 2 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_3_DIGIT">🎯 COLOK BEBAS 3 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_4_DIGIT">🎯 COLOK BEBAS 4 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_2D_2_DIGIT">🎯 COLOK BEBAS 2D 2 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_2D_3_DIGIT">🎯 COLOK BEBAS 2D 3 DIGIT</option>
+                            <option value="MACAU_COLOK_BEBAS_2D_4_DIGIT">🎯 COLOK BEBAS 2D 4 DIGIT</option>
+                            <option value="MACAU_COLOK_NAGA_3_DIGIT">🐉 COLOK NAGA 3 DIGIT</option>
+                            <option value="MACAU_COLOK_NAGA_4_DIGIT">🐉 COLOK NAGA 4 DIGIT</option>
+                            <option value="MACAU_COLOK_JITU">🎯 COLOK JITU</option>
+                            <option value="MACAU_SHIO">🐲 SHIO</option>
+                            <option value="MACAU_MACAU_SHIO">🏮 MACAU SHIO</option>
+                            <option value="MACAU_KOMBINASI">🧩 KOMBINASI</option>
+                            <option value="MACAU_TEPI_TENGAH">↔️ TEPI TENGAH</option>
+                            <option value="MACAU_SILANG_HOMO">❌ SILANG HOMO</option>
+                            <option value="MACAU_DASAR_GANJIL_BESAR">📊 DASAR GANJIL-BESAR</option>
+                            <option value="MACAU_DASAR_GENAP_KECIL">📊 DASAR GENAP-KECIL</option>
+                            <option value="MACAU_50_50">⚖️ 50-50</option>
+                            <option value="MACAU_KEMBANG_KEMPIS">🌸 KEMBANG KEMPIS</option>
+                        </select>
+                        <div class="input-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="macau-bet-amount">
+                            <i class="fas fa-coins"></i> NOMINAL BET
+                        </label>
+                        <input type="number" id="macau-bet-amount" placeholder="Masukkan nominal bet" min="0">
+                        <div class="input-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="error" id="macau-bet-error">
+                            <i class="fas fa-exclamation-circle"></i> Masukkan nominal bet yang valid!
+                        </div>
+                    </div>
+                    
+                    <button id="macau-calculate-btn">
+                        <i class="fas fa-bolt"></i> HITUNG HADIAH
+                        <span class="badge">TOTO MACAU</span>
+                    </button>
+                    
+                    <div class="result" id="macau-result">
+                        <div class="result-content" id="macau-result-content"></div>
+                        <button class="copy-btn" id="macau-copy-btn">
+                            <i class="fas fa-copy"></i> SALIN HASIL
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
         
         <div class="market-toggle">
             <button class="toggle-btn" id="toggle-markets">
                 <i class="fas fa-eye"></i>
-                <span>Lihat Semua Pasar</span>
+                <span>LIHAT SEMUA PASAR</span>
             </button>
         </div>
         
@@ -902,42 +1003,13 @@
         
         <footer>
             <div class="footer-content">
-                <p><i class="fas fa-copyright"></i> 2023 Kalkulator Hadiah Togel - Cyber Edition</p>
+                <p><i class="fas fa-copyright"></i> 2023 KALKULATOR HADIAH ELEKTRIKON VERSION</p>
                 <p><i class="fas fa-shield-alt"></i> Hanya untuk tujuan informasi. Harap bermain dengan bijak dan bertanggung jawab.</p>
             </div>
         </footer>
     </div>
 
     <script>
-        // Data ikon untuk setiap jenis pasar
-        const marketIcons = {
-            "PRIZE": "fas fa-trophy",
-            "4D_FULL": "fas fa-dice-four",
-            "3D_FULL": "fas fa-dice-three",
-            "2D_FULL": "fas fa-dice-two",
-            "BB": "fas fa-star",
-            "DISC": "fas fa-percentage",
-            "COLOK": "fas fa-bullseye",
-            "SHIO": "fas fa-dragon",
-            "MACAU": "fas fa-flag",
-            "KOMBINASI": "fas fa-puzzle-piece",
-            "TEPI": "fas fa-arrows-alt-h",
-            "SILANG": "fas fa-times",
-            "DASAR": "fas fa-chart-bar",
-            "50_50": "fas fa-balance-scale",
-            "KEMBANG": "fas fa-feather-alt"
-        };
-
-        // Fungsi untuk mendapatkan ikon berdasarkan nama pasar
-        function getMarketIcon(marketName) {
-            for (const [key, icon] of Object.entries(marketIcons)) {
-                if (marketName.includes(key)) {
-                    return icon;
-                }
-            }
-            return "fas fa-chart-line"; // Ikon default
-        }
-
         // Fungsi untuk memformat angka ke format mata uang Indonesia
         function formatMoney(value) {
             return new Intl.NumberFormat('id-ID', {
@@ -953,267 +1025,441 @@
             return Math.round(value);
         }
 
-        // Data pasar dan perhitungan hadiah (SEMUA PASAR)
-        const marketData = [
+        // Data pasar dan perhitungan hadiah untuk Pasaran Reguler
+        const regularMarketData = [
             {
                 id: "PRIZE_1_4D",
                 name: "PRIZE 1 4D",
-                description: "Hadiah utama untuk 4 digit tepat",
-                calculation: "Nominal bet x 6500 (hadiah) = kemenangan"
+                multiplier: 6500
             },
             {
                 id: "PRIZE_1_3D",
                 name: "PRIZE 1 3D",
-                description: "Hadiah utama untuk 3 digit tepat",
-                calculation: "Nominal bet x 650 (hadiah) = kemenangan"
+                multiplier: 650
             },
             {
                 id: "PRIZE_1_2D",
                 name: "PRIZE 1 2D",
-                description: "Hadiah utama untuk 2 digit tepat",
-                calculation: "Nominal bet x 70 (hadiah) = kemenangan"
+                multiplier: 70
             },
             {
                 id: "PRIZE_2_4D",
                 name: "PRIZE 2 4D",
-                description: "Hadiah kedua untuk 4 digit",
-                calculation: "Nominal bet x 2100 (hadiah) = kemenangan"
+                multiplier: 2100
             },
             {
                 id: "PRIZE_2_3D",
                 name: "PRIZE 2 3D",
-                description: "Hadiah kedua untuk 3 digit",
-                calculation: "Nominal bet x 210 (hadiah) = kemenangan"
+                multiplier: 210
             },
             {
                 id: "PRIZE_2_2D",
                 name: "PRIZE 2 2D",
-                description: "Hadiah kedua untuk 2 digit",
-                calculation: "Nominal bet x 20 (hadiah) = kemenangan"
+                multiplier: 20
             },
             {
                 id: "PRIZE_3_4D",
                 name: "PRIZE 3 4D",
-                description: "Hadiah ketiga untuk 4 digit",
-                calculation: "Nominal bet x 1100 (hadiah) = kemenangan"
+                multiplier: 1100
             },
             {
                 id: "PRIZE_3_3D",
                 name: "PRIZE 3 3D",
-                description: "Hadiah ketiga untuk 3 digit",
-                calculation: "Nominal bet x 110 (hadiah) = kemenangan"
+                multiplier: 110
             },
             {
                 id: "PRIZE_3_2D",
                 name: "PRIZE 3 2D",
-                description: "Hadiah ketiga untuk 2 digit",
-                calculation: "Nominal bet x 8 (hadiah) = kemenangan"
+                multiplier: 8
             },
             {
                 id: "4D_FULL",
                 name: "4D FULL",
-                description: "Hadiah penuh untuk 4 digit",
-                calculation: "Nominal bet x 10000 (hadiah) = kemenangan"
+                multiplier: 10000
             },
             {
                 id: "3D_FULL",
                 name: "3D FULL",
-                description: "Hadiah penuh untuk 3 digit",
-                calculation: "Nominal bet x 1000 (hadiah) = kemenangan"
+                multiplier: 1000
             },
             {
                 id: "2D_FULL",
                 name: "2D FULL",
-                description: "Hadiah penuh untuk 2 digit",
-                calculation: "Nominal bet x 100 (hadiah) = kemenangan"
+                multiplier: 100
             },
             {
                 id: "BB_4D_TEPAT",
                 name: "BB 4D TEPAT",
-                description: "Bonanza Besar 4D tepat",
-                calculation: "Nominal bet x 4000 (hadiah) = kemenangan"
+                multiplier: 4000
             },
             {
                 id: "BB_3D_TEPAT",
                 name: "BB 3D TEPAT",
-                description: "Bonanza Besar 3D tepat",
-                calculation: "Nominal bet x 400 (hadiah) = kemenangan"
+                multiplier: 400
             },
             {
                 id: "BB_2D_TEPAT",
                 name: "BB 2D TEPAT",
-                description: "Bonanza Besar 2D tepat",
-                calculation: "Nominal bet x 70 (hadiah) = kemenangan"
+                multiplier: 70
             },
             {
                 id: "BB_4D_TIDAK_TEPAT",
                 name: "BB 4D TIDAK TEPAT",
-                description: "Bonanza Besar 4D tidak tepat",
-                calculation: "Nominal bet x 200 (hadiah) = kemenangan"
+                multiplier: 200
             },
             {
                 id: "BB_3D_TIDAK_TEPAT",
                 name: "BB 3D TIDAK TEPAT",
-                description: "Bonanza Besar 3D tidak tepat",
-                calculation: "Nominal bet x 100 (hadiah) = kemenangan"
+                multiplier: 100
             },
             {
                 id: "BB_2D_TIDAK_TEPAT",
                 name: "BB 2D TIDAK TEPAT",
-                description: "Bonanza Besar 2D tidak tepat",
-                calculation: "Nominal bet x 20 (hadiah) = kemenangan"
+                multiplier: 20
             },
             {
                 id: "DISC_4D",
                 name: "DISC 4D",
-                description: "Diskon besar untuk 4D",
-                calculation: "Nominal bet - 66.50% (diskon) = yang harus dibayar. Hadiah 3000 x nominal bet = kemenangan"
+                discount: 66.5,
+                prizeMultiplier: 3000
             },
             {
                 id: "DISC_3D",
                 name: "DISC 3D",
-                description: "Diskon besar untuk 3D",
-                calculation: "Nominal bet - 59.50% (diskon) = yang harus dibayar. Hadiah 400 x nominal bet = kemenangan"
+                discount: 59.5,
+                prizeMultiplier: 400
             },
             {
                 id: "DISC_2D",
                 name: "DISC 2D",
-                description: "Diskon untuk 2D",
-                calculation: "Nominal bet - 29.50% (diskon) = yang harus dibayar. Hadiah 70 x nominal bet = kemenangan"
+                discount: 29.5,
+                prizeMultiplier: 70
             },
             {
                 id: "DISC_2D_DT",
                 name: "DISC 2D D/T",
-                description: "Diskon untuk 2D Depan/Tengah",
-                calculation: "Nominal bet - 29.50% (diskon) = yang harus dibayar. Hadiah 65 x nominal bet = kemenangan"
+                discount: 29.5,
+                prizeMultiplier: 65
             },
             {
                 id: "COLOK_BEBAS_1_DIGIT",
                 name: "COLOK BEBAS 1 DIGIT",
-                description: "Colok bebas 1 digit",
-                calculation: "Nominal bet - 6% (diskon) = yang harus dibayar. Hadiah 1.5 x nominal bet + modal = kemenangan"
+                discount: 6,
+                multiplier: 1.5
             },
             {
                 id: "COLOK_BEBAS_2_DIGIT",
                 name: "COLOK BEBAS 2 DIGIT",
-                description: "Colok bebas 2 digit",
-                calculation: "Nominal bet - 6% (diskon) = yang harus dibayar. Hadiah 3 x nominal bet + modal = kemenangan"
+                discount: 6,
+                multiplier: 3
             },
             {
                 id: "COLOK_BEBAS_3_DIGIT",
                 name: "COLOK BEBAS 3 DIGIT",
-                description: "Colok bebas 3 digit",
-                calculation: "Nominal bet - 6% (diskon) = yang harus dibayar. Hadiah 4.5 x nominal bet + modal = kemenangan"
+                discount: 6,
+                multiplier: 4.5
             },
             {
                 id: "COLOK_BEBAS_4_DIGIT",
                 name: "COLOK BEBAS 4 DIGIT",
-                description: "Colok bebas 4 digit",
-                calculation: "Nominal bet - 6% (diskon) = yang harus dibayar. Hadiah 6 x nominal bet + modal = kemenangan"
+                discount: 6,
+                multiplier: 6
             },
             {
                 id: "COLOK_BEBAS_2D_2_DIGIT",
                 name: "COLOK BEBAS 2D 2 DIGIT",
-                description: "Colok bebas 2D 2 digit",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 7 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 7
             },
             {
                 id: "COLOK_BEBAS_2D_3_DIGIT",
                 name: "COLOK BEBAS 2D 3 DIGIT",
-                description: "Colok bebas 2D 3 digit",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 11 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 11
             },
             {
                 id: "COLOK_BEBAS_2D_4_DIGIT",
                 name: "COLOK BEBAS 2D 4 DIGIT",
-                description: "Colok bebas 2D 4 digit",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 18 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 18
             },
             {
                 id: "COLOK_NAGA_3_DIGIT",
                 name: "COLOK NAGA 3 DIGIT",
-                description: "Colok naga 3 digit",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 23 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 23
             },
             {
                 id: "COLOK_NAGA_4_DIGIT",
                 name: "COLOK NAGA 4 DIGIT",
-                description: "Colok naga 4 digit",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 35 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 35
             },
             {
                 id: "COLOK_JITU",
                 name: "COLOK JITU",
-                description: "Colok jitu",
-                calculation: "Nominal bet - 6% (diskon) = yang harus dibayar. Hadiah 8 x nominal bet + modal = kemenangan"
+                discount: 6,
+                multiplier: 8
             },
             {
                 id: "SHIO",
                 name: "SHIO",
-                description: "Berdasarkan shio",
-                calculation: "Nominal bet - 5% (diskon) = yang harus dibayar. Hadiah 9.5 x nominal bet + modal = kemenangan"
+                discount: 5,
+                multiplier: 9.5
             },
             {
                 id: "MACAU_SHIO",
                 name: "MACAU SHIO",
-                description: "Macau shio",
-                calculation: "Nominal bet - 10% (diskon) = yang harus dibayar. Hadiah 110 x nominal bet + modal = kemenangan"
+                discount: 10,
+                multiplier: 110
             },
             {
                 id: "KOMBINASI",
                 name: "KOMBINASI",
-                description: "Kombinasi",
-                calculation: "Nominal bet - 8% (diskon) = yang harus dibayar. Hadiah 2.6 x nominal bet + modal = kemenangan"
+                discount: 8,
+                multiplier: 2.6
             },
             {
                 id: "TEPI_TENGAH",
                 name: "TEPI TENGAH",
-                description: "Tepi tengah",
-                calculation: "Nominal bet - 2% (diskon) + (key -) 3% = yang harus dibayar. Jika menang (Hadiah 1:1) + modal = kemenangan"
+                discount: 2,
+                keyMinus: 3
             },
             {
                 id: "SILANG_HOMO",
                 name: "SILANG HOMO",
-                description: "Silang homo",
-                calculation: "Nominal bet - 2% (diskon) + (key -) 3% = yang harus dibayar. Jika menang (Hadiah 1:1) + modal = kemenangan"
+                discount: 2,
+                keyMinus: 3
             },
             {
                 id: "DASAR_GANJIL_BESAR",
                 name: "DASAR GANJIL-BESAR",
-                description: "Dasar ganjil atau besar",
-                calculation: "Nominal bet - 2% (diskon) + (key -) 25% = yang harus dibayar. Jika menang (Hadiah 1:1) + modal = kemenangan"
+                discount: 2,
+                keyMinus: 25
             },
             {
                 id: "DASAR_GENAP_KECIL",
                 name: "DASAR GENAP-KECIL",
-                description: "Dasar genap atau kecil",
-                calculation: "Nominal bet - 2% (diskon) = yang harus dibayar. Perhitungan (key +) 10% x nominal bet = key yang didapat. Jika menang (Hadiah 1:1) + key + modal = kemenangan"
+                discount: 2,
+                keyPlus: 10
             },
             {
                 id: "50_50",
                 name: "50-50",
-                description: "50-50",
-                calculation: "Nominal bet - 2% (diskon) + (key -) 3% = yang harus dibayar. Jika menang (Hadiah 1:1) + modal = kemenangan"
+                discount: 2,
+                keyMinus: 3
             },
             {
                 id: "KEMBANG_KEMPIS",
                 name: "KEMBANG KEMPIS",
-                description: "Kembang kempis",
-                calculation: "Nominal bet - 2% (diskon) + (key -) 3% = yang harus dibayar. Jika menang (Hadiah 1:1) + modal = kemenangan"
+                discount: 2,
+                keyMinus: 3
             }
         ];
 
-        // Fungsi untuk membuat partikel elektrik
-        function createElectricParticles() {
-            const particlesContainer = document.getElementById('electric-particles');
-            const particleCount = 12;
+        // Data pasar dan perhitungan hadiah untuk Toto Macau
+        const macauMarketData = [
+            {
+                id: "MACAU_4D_FULL",
+                name: "4D FULL",
+                multiplier: 9000
+            },
+            {
+                id: "MACAU_3D_FULL",
+                name: "3D FULL",
+                multiplier: 950
+            },
+            {
+                id: "MACAU_2D_FULL",
+                name: "2D FULL",
+                multiplier: 95
+            },
+            {
+                id: "MACAU_BB_4D_TEPAT",
+                name: "BB 4D TEPAT",
+                multiplier: 4000
+            },
+            {
+                id: "MACAU_BB_3D_TEPAT",
+                name: "BB 3D TEPAT",
+                multiplier: 400
+            },
+            {
+                id: "MACAU_BB_2D_TEPAT",
+                name: "BB 2D TEPAT",
+                multiplier: 70
+            },
+            {
+                id: "MACAU_BB_4D_TIDAK_TEPAT",
+                name: "BB 4D TIDAK TEPAT",
+                multiplier: 200
+            },
+            {
+                id: "MACAU_BB_3D_TIDAK_TEPAT",
+                name: "BB 3D TIDAK TEPAT",
+                multiplier: 100
+            },
+            {
+                id: "MACAU_BB_2D_TIDAK_TEPAT",
+                name: "BB 2D TIDAK TEPAT",
+                multiplier: 20
+            },
+            {
+                id: "MACAU_DISC_4D",
+                name: "DISC 4D",
+                discount: 33,
+                prizeMultiplier: 6000
+            },
+            {
+                id: "MACAU_DISC_3D",
+                name: "DISC 3D",
+                discount: 24,
+                prizeMultiplier: 700
+            },
+            {
+                id: "MACAU_DISC_2D",
+                name: "DISC 2D",
+                discount: 15,
+                prizeMultiplier: 80
+            },
+            {
+                id: "MACAU_DISC_2D_DT",
+                name: "DISC 2D D/T",
+                discount: 15,
+                prizeMultiplier: 70
+            },
+            {
+                id: "MACAU_S_DISC_4D",
+                name: "S.DISC 4D",
+                discount: 66.5,
+                prizeMultiplier: 3000
+            },
+            {
+                id: "MACAU_S_DISC_3D",
+                name: "S.DISC 3D",
+                discount: 59.5,
+                prizeMultiplier: 400
+            },
+            {
+                id: "MACAU_S_DISC_2D",
+                name: "S.DISC 2D",
+                discount: 29.5,
+                prizeMultiplier: 70
+            },
+            {
+                id: "MACAU_S_DISC_2D_DT",
+                name: "S.DISC 2D D/T",
+                discount: 29.5,
+                prizeMultiplier: 70
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_1_DIGIT",
+                name: "COLOK BEBAS 1 DIGIT",
+                multiplier: 1.6
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_2_DIGIT",
+                name: "COLOK BEBAS 2 DIGIT",
+                multiplier: 3.2
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_3_DIGIT",
+                name: "COLOK BEBAS 3 DIGIT",
+                multiplier: 4.8
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_4_DIGIT",
+                name: "COLOK BEBAS 4 DIGIT",
+                multiplier: 6.4
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_2D_2_DIGIT",
+                name: "COLOK BEBAS 2D 2 DIGIT",
+                multiplier: 7
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_2D_3_DIGIT",
+                name: "COLOK BEBAS 2D 3 DIGIT",
+                multiplier: 13
+            },
+            {
+                id: "MACAU_COLOK_BEBAS_2D_4_DIGIT",
+                name: "COLOK BEBAS 2D 4 DIGIT",
+                multiplier: 21
+            },
+            {
+                id: "MACAU_COLOK_NAGA_3_DIGIT",
+                name: "COLOK NAGA 3 DIGIT",
+                multiplier: 27
+            },
+            {
+                id: "MACAU_COLOK_NAGA_4_DIGIT",
+                name: "COLOK NAGA 4 DIGIT",
+                multiplier: 41
+            },
+            {
+                id: "MACAU_COLOK_JITU",
+                name: "COLOK JITU",
+                multiplier: 8.3
+            },
+            {
+                id: "MACAU_SHIO",
+                name: "SHIO",
+                multiplier: 10
+            },
+            {
+                id: "MACAU_MACAU_SHIO",
+                name: "MACAU SHIO",
+                multiplier: 110
+            },
+            {
+                id: "MACAU_KOMBINASI",
+                name: "KOMBINASI",
+                multiplier: 2.8
+            },
+            {
+                id: "MACAU_TEPI_TENGAH",
+                name: "TEPI TENGAH",
+                keyMinus: 2.2
+            },
+            {
+                id: "MACAU_SILANG_HOMO",
+                name: "SILANG HOMO",
+                keyMinus: 2.2
+            },
+            {
+                id: "MACAU_DASAR_GANJIL_BESAR",
+                name: "DASAR GANJIL-BESAR",
+                keyMinus: 25
+            },
+            {
+                id: "MACAU_DASAR_GENAP_KECIL",
+                name: "DASAR GENAP-KECIL",
+                keyPlus: 10
+            },
+            {
+                id: "MACAU_50_50",
+                name: "50-50",
+                keyMinus: 5
+            },
+            {
+                id: "MACAU_KEMBANG_KEMPIS",
+                name: "KEMBANG KEMPIS",
+                keyMinus: 2.2
+            }
+        ];
+
+        // Fungsi untuk membuat partikel listrik
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'electric-particle';
+                particle.className = 'particle';
                 
                 // Random size
-                const size = Math.random() * 4 + 2;
+                const size = Math.random() * 6 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -1224,87 +1470,21 @@
                 particle.style.animationDelay = `${Math.random() * 15}s`;
                 
                 // Random animation duration
-                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
 
-        // Fungsi untuk membuat garis sirkuit
-        function createCircuitLines() {
-            const circuitContainer = document.getElementById('circuit-lines');
-            const lineCount = 8;
-            
-            for (let i = 0; i < lineCount; i++) {
-                const isHorizontal = Math.random() > 0.5;
-                const line = document.createElement('div');
-                line.className = `circuit-line ${isHorizontal ? 'horizontal' : 'vertical'}`;
-                
-                // Random position
-                if (isHorizontal) {
-                    line.style.top = `${Math.random() * 100}%`;
-                    line.style.left = `${Math.random() * 100}%`;
-                } else {
-                    line.style.left = `${Math.random() * 100}%`;
-                    line.style.top = `${Math.random() * 100}%`;
-                }
-                
-                // Random animation delay
-                line.style.animationDelay = `${Math.random() * 20}s`;
-                
-                circuitContainer.appendChild(line);
-            }
-        }
-
-        // Fungsi untuk menampilkan kartu pasar
-        function displayMarketCards() {
-            const marketGrid = document.getElementById('market-grid');
-            
-            // Tampilkan SEMUA pasar (tidak dibatasi)
-            marketData.forEach((market, index) => {
-                const card = document.createElement('div');
-                card.className = 'market-card';
-                card.setAttribute('role', 'button');
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('aria-label', `Pilih ${market.name} - ${market.description}`);
-                
-                const marketIcon = getMarketIcon(market.name);
-                
-                card.innerHTML = `
-                    <div class="market-name">
-                        <i class="${marketIcon}"></i> ${market.name}
-                    </div>
-                    <div class="market-description">${market.description}</div>
-                    <div class="calculation">${market.calculation}</div>
-                `;
-                
-                card.addEventListener('click', () => {
-                    document.getElementById('market-type').value = market.id;
-                    document.getElementById('bet-amount').focus();
-                    
-                    // Animasi feedback
-                    card.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        card.style.transform = '';
-                    }, 150);
-                });
-                
-                card.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        document.getElementById('market-type').value = market.id;
-                        document.getElementById('bet-amount').focus();
-                    }
-                });
-                
-                marketGrid.appendChild(card);
-            });
-        }
-
         // Fungsi untuk validasi input
-        function validateInput() {
-            const betAmount = parseFloat(document.getElementById('bet-amount').value);
-            const betError = document.getElementById('bet-error');
-            const calculateBtn = document.getElementById('calculate-btn');
+        function validateInput(isMacau = false) {
+            const betAmountInput = isMacau ? 'macau-bet-amount' : 'bet-amount';
+            const betErrorId = isMacau ? 'macau-bet-error' : 'bet-error';
+            const calculateBtnId = isMacau ? 'macau-calculate-btn' : 'calculate-btn';
+            
+            const betAmount = parseFloat(document.getElementById(betAmountInput).value);
+            const betError = document.getElementById(betErrorId);
+            const calculateBtn = document.getElementById(calculateBtnId);
             
             if (!betAmount || betAmount <= 0) {
                 betError.classList.add('show');
@@ -1327,9 +1507,9 @@
             document.body.removeChild(textarea);
         }
 
-        // Fungsi untuk menghitung hadiah
-        function calculatePrize() {
-            if (!validateInput()) return;
+        // Fungsi untuk menghitung hadiah (Pasaran Reguler)
+        function calculateRegularPrize() {
+            if (!validateInput(false)) return;
             
             const marketType = document.getElementById('market-type').value;
             const betAmount = parseFloat(document.getElementById('bet-amount').value);
@@ -1340,258 +1520,54 @@
             let resultText = '';
             let plainText = ''; // Untuk disalin
             
-            // Logika perhitungan berdasarkan jenis pasar
-            switch(marketType) {
-                case "PRIZE_1_4D":
-                    const prize1_4d = roundToInteger(betAmount * 6500);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 1 4D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 6500 (hadiah) = <span class="money-format">${formatMoney(prize1_4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 1 4D ya bosku\nNominal bet ${formatMoney(betAmount)} x 6500 (hadiah) = ${formatMoney(prize1_4d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_1_3D":
-                    const prize1_3d = roundToInteger(betAmount * 650);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 1 3D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 650 (hadiah) = <span class="money-format">${formatMoney(prize1_3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 1 3D ya bosku\nNominal bet ${formatMoney(betAmount)} x 650 (hadiah) = ${formatMoney(prize1_3d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_1_2D":
-                    const prize1_2d = roundToInteger(betAmount * 70);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 1 2D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 70 (hadiah) = <span class="money-format">${formatMoney(prize1_2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 1 2D ya bosku\nNominal bet ${formatMoney(betAmount)} x 70 (hadiah) = ${formatMoney(prize1_2d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_2_4D":
-                    const prize2_4d = roundToInteger(betAmount * 2100);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 2 4D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 2100 (hadiah) = <span class="money-format">${formatMoney(prize2_4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 2 4D ya bosku\nNominal bet ${formatMoney(betAmount)} x 2100 (hadiah) = ${formatMoney(prize2_4d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_2_3D":
-                    const prize2_3d = roundToInteger(betAmount * 210);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 2 3D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 210 (hadiah) = <span class="money-format">${formatMoney(prize2_3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 2 3D ya bosku\nNominal bet ${formatMoney(betAmount)} x 210 (hadiah) = ${formatMoney(prize2_3d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_2_2D":
-                    const prize2_2d = roundToInteger(betAmount * 20);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 2 2D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 20 (hadiah) = <span class="money-format">${formatMoney(prize2_2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 2 2D ya bosku\nNominal bet ${formatMoney(betAmount)} x 20 (hadiah) = ${formatMoney(prize2_2d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_3_4D":
-                    const prize3_4d = roundToInteger(betAmount * 1100);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 3 4D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 1100 (hadiah) = <span class="money-format">${formatMoney(prize3_4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 3 4D ya bosku\nNominal bet ${formatMoney(betAmount)} x 1100 (hadiah) = ${formatMoney(prize3_4d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_3_3D":
-                    const prize3_3d = roundToInteger(betAmount * 110);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 3 3D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 110 (hadiah) = <span class="money-format">${formatMoney(prize3_3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 3 3D ya bosku\nNominal bet ${formatMoney(betAmount)} x 110 (hadiah) = ${formatMoney(prize3_3d)} kemenangan anda ya bosku`;
-                    break;
-                case "PRIZE_3_2D":
-                    const prize3_2d = roundToInteger(betAmount * 8);
-                    resultText = `⚡ Berikut contoh perhitungan tipe PRIZE 3 2D ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 8 (hadiah) = <span class="money-format">${formatMoney(prize3_2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe PRIZE 3 2D ya bosku\nNominal bet ${formatMoney(betAmount)} x 8 (hadiah) = ${formatMoney(prize3_2d)} kemenangan anda ya bosku`;
-                    break;
-                case "4D_FULL":
-                    const full4d = roundToInteger(betAmount * 10000);
-                    resultText = `⚡ Berikut contoh perhitungan tipe 4D FULL ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 10000 (hadiah) = <span class="money-format">${formatMoney(full4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe 4D FULL ya bosku\nNominal bet ${formatMoney(betAmount)} x 10000 (hadiah) = ${formatMoney(full4d)} kemenangan anda ya bosku`;
-                    break;
-                case "3D_FULL":
-                    const full3d = roundToInteger(betAmount * 1000);
-                    resultText = `⚡ Berikut contoh perhitungan tipe 3D FULL ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 1000 (hadiah) = <span class="money-format">${formatMoney(full3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe 3D FULL ya bosku\nNominal bet ${formatMoney(betAmount)} x 1000 (hadiah) = ${formatMoney(full3d)} kemenangan anda ya bosku`;
-                    break;
-                case "2D_FULL":
-                    const full2d = roundToInteger(betAmount * 100);
-                    resultText = `⚡ Berikut contoh perhitungan tipe 2D FULL ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 100 (hadiah) = <span class="money-format">${formatMoney(full2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe 2D FULL ya bosku\nNominal bet ${formatMoney(betAmount)} x 100 (hadiah) = ${formatMoney(full2d)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_4D_TEPAT":
-                    const bb4d = roundToInteger(betAmount * 4000);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 4D TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 4000 (hadiah) = <span class="money-format">${formatMoney(bb4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 4D TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 4000 (hadiah) = ${formatMoney(bb4d)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_3D_TEPAT":
-                    const bb3d = roundToInteger(betAmount * 400);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 3D TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 400 (hadiah) = <span class="money-format">${formatMoney(bb3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 3D TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 400 (hadiah) = ${formatMoney(bb3d)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_2D_TEPAT":
-                    const bb2d = roundToInteger(betAmount * 70);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 2D TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 70 (hadiah) = <span class="money-format">${formatMoney(bb2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 2D TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 70 (hadiah) = ${formatMoney(bb2d)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_4D_TIDAK_TEPAT":
-                    const bb4dt = roundToInteger(betAmount * 200);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 4D TIDAK TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 200 (hadiah) = <span class="money-format">${formatMoney(bb4dt)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 4D TIDAK TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 200 (hadiah) = ${formatMoney(bb4dt)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_3D_TIDAK_TEPAT":
-                    const bb3dt = roundToInteger(betAmount * 100);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 3D TIDAK TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 100 (hadiah) = <span class="money-format">${formatMoney(bb3dt)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 3D TIDAK TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 100 (hadiah) = ${formatMoney(bb3dt)} kemenangan anda ya bosku`;
-                    break;
-                case "BB_2D_TIDAK_TEPAT":
-                    const bb2dt = roundToInteger(betAmount * 20);
-                    resultText = `⚡ Berikut contoh perhitungan tipe BB 2D TIDAK TEPAT ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x 20 (hadiah) = <span class="money-format">${formatMoney(bb2dt)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe BB 2D TIDAK TEPAT ya bosku\nNominal bet ${formatMoney(betAmount)} x 20 (hadiah) = ${formatMoney(bb2dt)} kemenangan anda ya bosku`;
-                    break;
-                case "DISC_4D":
-                    const disc4d = roundToInteger(betAmount * (1 - 0.665));
-                    const hadiah4d = roundToInteger(3000 * betAmount);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DISC 4D ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 66.50% (diskon) = <span class="money-format">${formatMoney(disc4d)}</span> yang harus anda bayar\n\n🏆 Hadiah 3000 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah4d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DISC 4D ya bosku\nNominal bet ${formatMoney(betAmount)} - 66.50% (diskon) = ${formatMoney(disc4d)} yang harus anda bayar\nHadiah 3000 x ${formatMoney(betAmount)} = ${formatMoney(hadiah4d)} kemenangan anda ya bosku`;
-                    break;
-                case "DISC_3D":
-                    const disc3d = roundToInteger(betAmount * (1 - 0.595));
-                    const hadiah3d = roundToInteger(400 * betAmount);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DISC 3D ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 59.50% (diskon) = <span class="money-format">${formatMoney(disc3d)}</span> yang harus anda bayar\n\n🏆 Hadiah 400 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah3d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DISC 3D ya bosku\nNominal bet ${formatMoney(betAmount)} - 59.50% (diskon) = ${formatMoney(disc3d)} yang harus anda bayar\nHadiah 400 x ${formatMoney(betAmount)} = ${formatMoney(hadiah3d)} kemenangan anda ya bosku`;
-                    break;
-                case "DISC_2D":
-                    const disc2d = roundToInteger(betAmount * (1 - 0.295));
-                    const hadiah2d = roundToInteger(70 * betAmount);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DISC 2D ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 29.50% (diskon) = <span class="money-format">${formatMoney(disc2d)}</span> yang harus anda bayar\n\n🏆 Hadiah 70 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah2d)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DISC 2D ya bosku\nNominal bet ${formatMoney(betAmount)} - 29.50% (diskon) = ${formatMoney(disc2d)} yang harus anda bayar\nHadiah 70 x ${formatMoney(betAmount)} = ${formatMoney(hadiah2d)} kemenangan anda ya bosku`;
-                    break;
-                case "DISC_2D_DT":
-                    const disc2ddt = roundToInteger(betAmount * (1 - 0.295));
-                    const hadiah2ddt = roundToInteger(65 * betAmount);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DISC 2D D/T ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 29.50% (diskon) = <span class="money-format">${formatMoney(disc2ddt)}</span> yang harus anda bayar\n\n🏆 Hadiah 65 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah2ddt)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DISC 2D D/T ya bosku\nNominal bet ${formatMoney(betAmount)} - 29.50% (diskon) = ${formatMoney(disc2ddt)} yang harus anda bayar\nHadiah 65 x ${formatMoney(betAmount)} = ${formatMoney(hadiah2ddt)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_1_DIGIT":
-                    const colok1 = roundToInteger(betAmount * (1 - 0.06));
-                    const hadiahColok1 = roundToInteger((betAmount * 1.5) + colok1);
-                    const bagianHadiah1 = roundToInteger(betAmount * 1.5);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 1 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 6% (diskon) = <span class="money-format">${formatMoney(colok1)}</span> yang harus anda bayar\n\n🏆 Hadiah 1.5 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah1)}</span> + <span class="money-format">${formatMoney(colok1)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok1)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 1 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 6% (diskon) = ${formatMoney(colok1)} yang harus anda bayar\nHadiah 1.5 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah1)} + ${formatMoney(colok1)} (modal) = ${formatMoney(hadiahColok1)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_2_DIGIT":
-                    const colok2 = roundToInteger(betAmount * (1 - 0.06));
-                    const hadiahColok2 = roundToInteger((betAmount * 3) + colok2);
-                    const bagianHadiah2 = roundToInteger(betAmount * 3);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 2 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 6% (diskon) = <span class="money-format">${formatMoney(colok2)}</span> yang harus anda bayar\n\n🏆 Hadiah 3 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah2)}</span> + <span class="money-format">${formatMoney(colok2)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok2)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 2 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 6% (diskon) = ${formatMoney(colok2)} yang harus anda bayar\nHadiah 3 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah2)} + ${formatMoney(colok2)} (modal) = ${formatMoney(hadiahColok2)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_3_DIGIT":
-                    const colok3 = roundToInteger(betAmount * (1 - 0.06));
-                    const hadiahColok3 = roundToInteger((betAmount * 4.5) + colok3);
-                    const bagianHadiah3 = roundToInteger(betAmount * 4.5);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 3 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 6% (diskon) = <span class="money-format">${formatMoney(colok3)}</span> yang harus anda bayar\n\n🏆 Hadiah 4.5 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah3)}</span> + <span class="money-format">${formatMoney(colok3)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok3)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 3 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 6% (diskon) = ${formatMoney(colok3)} yang harus anda bayar\nHadiah 4.5 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah3)} + ${formatMoney(colok3)} (modal) = ${formatMoney(hadiahColok3)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_4_DIGIT":
-                    const colok4 = roundToInteger(betAmount * (1 - 0.06));
-                    const hadiahColok4 = roundToInteger((betAmount * 6) + colok4);
-                    const bagianHadiah4 = roundToInteger(betAmount * 6);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 4 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 6% (diskon) = <span class="money-format">${formatMoney(colok4)}</span> yang harus anda bayar\n\n🏆 Hadiah 6 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah4)}</span> + <span class="money-format">${formatMoney(colok4)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok4)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 4 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 6% (diskon) = ${formatMoney(colok4)} yang harus anda bayar\nHadiah 6 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah4)} + ${formatMoney(colok4)} (modal) = ${formatMoney(hadiahColok4)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_2D_2_DIGIT":
-                    const colok2d2 = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahColok2d2 = roundToInteger((betAmount * 7) + colok2d2);
-                    const bagianHadiah2d2 = roundToInteger(betAmount * 7);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 2D 2 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(colok2d2)}</span> yang harus anda bayar\n\n🏆 Hadiah 7 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah2d2)}</span> + <span class="money-format">${formatMoney(colok2d2)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok2d2)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 2D 2 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(colok2d2)} yang harus anda bayar\nHadiah 7 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah2d2)} + ${formatMoney(colok2d2)} (modal) = ${formatMoney(hadiahColok2d2)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_2D_3_DIGIT":
-                    const colok2d3 = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahColok2d3 = roundToInteger((betAmount * 11) + colok2d3);
-                    const bagianHadiah2d3 = roundToInteger(betAmount * 11);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 2D 3 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(colok2d3)}</span> yang harus anda bayar\n\n🏆 Hadiah 11 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah2d3)}</span> + <span class="money-format">${formatMoney(colok2d3)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok2d3)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 2D 3 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(colok2d3)} yang harus anda bayar\nHadiah 11 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah2d3)} + ${formatMoney(colok2d3)} (modal) = ${formatMoney(hadiahColok2d3)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_BEBAS_2D_4_DIGIT":
-                    const colok2d4 = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahColok2d4 = roundToInteger((betAmount * 18) + colok2d4);
-                    const bagianHadiah2d4 = roundToInteger(betAmount * 18);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK BEBAS 2D 4 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(colok2d4)}</span> yang harus anda bayar\n\n🏆 Hadiah 18 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah2d4)}</span> + <span class="money-format">${formatMoney(colok2d4)}</span> (modal) = <span class="money-format">${formatMoney(hadiahColok2d4)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK BEBAS 2D 4 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(colok2d4)} yang harus anda bayar\nHadiah 18 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah2d4)} + ${formatMoney(colok2d4)} (modal) = ${formatMoney(hadiahColok2d4)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_NAGA_3_DIGIT":
-                    const naga3 = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahNaga3 = roundToInteger((betAmount * 23) + naga3);
-                    const bagianHadiahNaga3 = roundToInteger(betAmount * 23);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK NAGA 3 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(naga3)}</span> yang harus anda bayar\n\n🏆 Hadiah 23 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahNaga3)}</span> + <span class="money-format">${formatMoney(naga3)}</span> (modal) = <span class="money-format">${formatMoney(hadiahNaga3)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK NAGA 3 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(naga3)} yang harus anda bayar\nHadiah 23 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahNaga3)} + ${formatMoney(naga3)} (modal) = ${formatMoney(hadiahNaga3)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_NAGA_4_DIGIT":
-                    const naga4 = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahNaga4 = roundToInteger((betAmount * 35) + naga4);
-                    const bagianHadiahNaga4 = roundToInteger(betAmount * 35);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK NAGA 4 DIGIT ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(naga4)}</span> yang harus anda bayar\n\n🏆 Hadiah 35 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahNaga4)}</span> + <span class="money-format">${formatMoney(naga4)}</span> (modal) = <span class="money-format">${formatMoney(hadiahNaga4)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK NAGA 4 DIGIT ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(naga4)} yang harus anda bayar\nHadiah 35 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahNaga4)} + ${formatMoney(naga4)} (modal) = ${formatMoney(hadiahNaga4)} kemenangan anda ya bosku`;
-                    break;
-                case "COLOK_JITU":
-                    const jitu = roundToInteger(betAmount * (1 - 0.06));
-                    const hadiahJitu = roundToInteger((betAmount * 8) + jitu);
-                    const bagianHadiahJitu = roundToInteger(betAmount * 8);
-                    resultText = `⚡ Berikut contoh perhitungan tipe COLOK JITU ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 6% (diskon) = <span class="money-format">${formatMoney(jitu)}</span> yang harus anda bayar\n\n🏆 Hadiah 8 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahJitu)}</span> + <span class="money-format">${formatMoney(jitu)}</span> (modal) = <span class="money-format">${formatMoney(hadiahJitu)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe COLOK JITU ya bosku\nNominal bet ${formatMoney(betAmount)} - 6% (diskon) = ${formatMoney(jitu)} yang harus anda bayar\nHadiah 8 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahJitu)} + ${formatMoney(jitu)} (modal) = ${formatMoney(hadiahJitu)} kemenangan anda ya bosku`;
-                    break;
-                case "SHIO":
-                    const shio = roundToInteger(betAmount * (1 - 0.05));
-                    const hadiahShio = roundToInteger((betAmount * 9.5) + shio);
-                    const bagianHadiahShio = roundToInteger(betAmount * 9.5);
-                    resultText = `⚡ Berikut contoh perhitungan tipe SHIO ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 5% (diskon) = <span class="money-format">${formatMoney(shio)}</span> yang harus anda bayar\n\n🏆 Hadiah 9.5 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahShio)}</span> + <span class="money-format">${formatMoney(shio)}</span> (modal) = <span class="money-format">${formatMoney(hadiahShio)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe SHIO ya bosku\nNominal bet ${formatMoney(betAmount)} - 5% (diskon) = ${formatMoney(shio)} yang harus anda bayar\nHadiah 9.5 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahShio)} + ${formatMoney(shio)} (modal) = ${formatMoney(hadiahShio)} kemenangan anda ya bosku`;
-                    break;
-                case "MACAU_SHIO":
-                    const macau = roundToInteger(betAmount * (1 - 0.10));
-                    const hadiahMacau = roundToInteger((betAmount * 110) + macau);
-                    const bagianHadiahMacau = roundToInteger(betAmount * 110);
-                    resultText = `⚡ Berikut contoh perhitungan tipe MACAU SHIO ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 10% (diskon) = <span class="money-format">${formatMoney(macau)}</span> yang harus anda bayar\n\n🏆 Hadiah 110 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahMacau)}</span> + <span class="money-format">${formatMoney(betAmount)}</span> (modal) = <span class="money-format">${formatMoney(hadiahMacau)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe MACAU SHIO ya bosku\nNominal bet ${formatMoney(betAmount)} - 10% (diskon) = ${formatMoney(macau)} yang harus anda bayar\nHadiah 110 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahMacau)} + ${formatMoney(betAmount)} (modal) = ${formatMoney(hadiahMacau)} kemenangan anda ya bosku`;
-                    break;
-                case "KOMBINASI":
-                    const kombi = roundToInteger(betAmount * (1 - 0.08));
-                    const hadiahKombi = roundToInteger((betAmount * 2.6) + kombi);
-                    const bagianHadiahKombi = roundToInteger(betAmount * 2.6);
-                    resultText = `⚡ Berikut contoh perhitungan tipe KOMBINASI ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 8% (diskon) = <span class="money-format">${formatMoney(kombi)}</span> yang harus anda bayar\n\n🏆 Hadiah 2.6 x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiahKombi)}</span> + <span class="money-format">${formatMoney(kombi)}</span> (modal) = <span class="money-format">${formatMoney(hadiahKombi)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe KOMBINASI ya bosku\nNominal bet ${formatMoney(betAmount)} - 8% (diskon) = ${formatMoney(kombi)} yang harus anda bayar\nHadiah 2.6 x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiahKombi)} + ${formatMoney(kombi)} (modal) = ${formatMoney(hadiahKombi)} kemenangan anda ya bosku`;
-                    break;
-                case "TEPI_TENGAH":
-                    const tepiTengahDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const tepiTengahKey = roundToInteger(tepiTengahDiskon * (1 + 0.03));
-                    const hadiahTepiTengah = roundToInteger(betAmount + tepiTengahKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe TEPI TENGAH ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(tepiTengahDiskon)}</span> + (key -) 3% = <span class="money-format">${formatMoney(tepiTengahKey)}</span> yang harus anda bayar\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(tepiTengahKey)}</span> (modal) = <span class="money-format">${formatMoney(hadiahTepiTengah)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe TEPI TENGAH ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(tepiTengahDiskon)} + (key -) 3% = ${formatMoney(tepiTengahKey)} yang harus anda bayar\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(tepiTengahKey)} (modal) = ${formatMoney(hadiahTepiTengah)} kemenangan anda ya bosku`;
-                    break;
-                case "SILANG_HOMO":
-                    const silangHomoDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const silangHomoKey = roundToInteger(silangHomoDiskon * (1 + 0.03));
-                    const hadiahSilangHomo = roundToInteger(betAmount + silangHomoKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe SILANG HOMO ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(silangHomoDiskon)}</span> + (key -) 3% = <span class="money-format">${formatMoney(silangHomoKey)}</span> yang harus anda bayar\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(silangHomoKey)}</span> (modal) = <span class="money-format">${formatMoney(hadiahSilangHomo)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe SILANG HOMO ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(silangHomoDiskon)} + (key -) 3% = ${formatMoney(silangHomoKey)} yang harus anda bayar\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(silangHomoKey)} (modal) = ${formatMoney(hadiahSilangHomo)} kemenangan anda ya bosku`;
-                    break;
-                case "DASAR_GANJIL_BESAR":
-                    const dasarGanjilDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const dasarGanjilKey = roundToInteger(dasarGanjilDiskon * (1 + 0.25));
-                    const hadiahDasarGanjil = roundToInteger(betAmount + dasarGanjilKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DASAR GANJIL-BESAR ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(dasarGanjilDiskon)}</span> + (key -) 25% = <span class="money-format">${formatMoney(dasarGanjilKey)}</span> yang harus anda bayar\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(dasarGanjilKey)}</span> (modal) = <span class="money-format">${formatMoney(hadiahDasarGanjil)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DASAR GANJIL-BESAR ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(dasarGanjilDiskon)} + (key -) 25% = ${formatMoney(dasarGanjilKey)} yang harus anda bayar\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(dasarGanjilKey)} (modal) = ${formatMoney(hadiahDasarGanjil)} kemenangan anda ya bosku`;
-                    break;
-                case "DASAR_GENAP_KECIL":
-                    const dasarGenapDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const dasarGenapKey = roundToInteger(betAmount * 0.10);
-                    const hadiahDasarGenap = roundToInteger(betAmount + dasarGenapDiskon + dasarGenapKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe DASAR GENAP-KECIL ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(dasarGenapDiskon)}</span> yang harus anda bayar\n\n🔑 Perhitungan (key +) 10% x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(dasarGenapKey)}</span> key yang anda dapat jika mengalami kemenangan\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(dasarGenapKey)}</span> + <span class="money-format">${formatMoney(dasarGenapDiskon)}</span> (modal) = <span class="money-format">${formatMoney(hadiahDasarGenap)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe DASAR GENAP-KECIL ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(dasarGenapDiskon)} yang harus anda bayar\nPerhitungan (key +) 10% x ${formatMoney(betAmount)} = ${formatMoney(dasarGenapKey)} key yang anda dapat jika mengalami kemenangan\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(dasarGenapKey)} + ${formatMoney(dasarGenapDiskon)} (modal) = ${formatMoney(hadiahDasarGenap)} kemenangan anda ya bosku`;
-                    break;
-                case "50_50":
-                    const limaPuluhDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const limaPuluhKey = roundToInteger(limaPuluhDiskon * (1 + 0.03));
-                    const hadiahLimaPuluh = roundToInteger(betAmount + limaPuluhKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe 50-50 ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(limaPuluhDiskon)}</span> + (key -) 3% = <span class="money-format">${formatMoney(limaPuluhKey)}</span> yang harus anda bayar\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(limaPuluhKey)}</span> (modal) = <span class="money-format">${formatMoney(hadiahLimaPuluh)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe 50-50 ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(limaPuluhDiskon)} + (key -) 3% = ${formatMoney(limaPuluhKey)} yang harus anda bayar\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(limaPuluhKey)} (modal) = ${formatMoney(hadiahLimaPuluh)} kemenangan anda ya bosku`;
-                    break;
-                case "KEMBANG_KEMPIS":
-                    const kembangDiskon = roundToInteger(betAmount * (1 - 0.02));
-                    const kembangKey = roundToInteger(kembangDiskon * (1 + 0.03));
-                    const hadiahKembang = roundToInteger(betAmount + kembangKey);
-                    resultText = `⚡ Berikut contoh perhitungan tipe KEMBANG KEMPIS ya bosku\n\n💸 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - 2% (diskon) = <span class="money-format">${formatMoney(kembangDiskon)}</span> + (key -) 3% = <span class="money-format">${formatMoney(kembangKey)}</span> yang harus anda bayar\n\n🏆 Jika anda menang (Hadiah 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(kembangKey)}</span> (modal) = <span class="money-format">${formatMoney(hadiahKembang)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe KEMBANG KEMPIS ya bosku\nNominal bet ${formatMoney(betAmount)} - 2% (diskon) = ${formatMoney(kembangDiskon)} + (key -) 3% = ${formatMoney(kembangKey)} yang harus anda bayar\nJika anda menang (Hadiah 1:1) ${formatMoney(betAmount)} + ${formatMoney(kembangKey)} (modal) = ${formatMoney(hadiahKembang)} kemenangan anda ya bosku`;
-                    break;
-                default:
-                    resultText = "⚡ Perhitungan untuk pasar ini belum tersedia";
-                    plainText = "Perhitungan untuk pasar ini belum tersedia";
+            // Cari data pasar yang sesuai
+            const market = regularMarketData.find(m => m.id === marketType);
+            
+            if (market) {
+                // Hitung hadiah berdasarkan jenis pasar
+                let hadiah = 0;
+                let diskon = 0;
+                let yangDibayar = betAmount;
+                
+                if (market.multiplier && !market.discount) {
+                    // Perhitungan untuk multiplier tanpa diskon
+                    hadiah = roundToInteger(betAmount * market.multiplier);
+                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💰 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} (HADIAH) = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
+                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} x ${market.multiplier} (HADIAH) = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
+                } else if (market.discount && market.prizeMultiplier) {
+                    // Perhitungan untuk diskon
+                    diskon = roundToInteger(betAmount * (market.discount / 100));
+                    yangDibayar = betAmount - diskon;
+                    hadiah = roundToInteger(betAmount * market.prizeMultiplier);
+                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 HADIAH ${market.prizeMultiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
+                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nHADIAH ${market.prizeMultiplier} x ${formatMoney(betAmount)} = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
+                } else if (market.discount && market.multiplier) {
+                    // Perhitungan untuk diskon dengan multiplier
+                    diskon = roundToInteger(betAmount * (market.discount / 100));
+                    yangDibayar = betAmount - diskon;
+                    const bagianHadiah = roundToInteger(betAmount * market.multiplier);
+                    hadiah = bagianHadiah + yangDibayar;
+                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 HADIAH ${market.multiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah)}</span> + <span class="money-format">${formatMoney(yangDibayar)}</span> (MODAL) = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
+                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nHADIAH ${market.multiplier} x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah)} + ${formatMoney(yangDibayar)} (MODAL) = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
+                } else if (market.keyMinus) {
+                    // Perhitungan untuk key minus
+                    const diskonAmount = roundToInteger(betAmount * (market.discount / 100));
+                    const afterDiscount = betAmount - diskonAmount;
+                    const keyAmount = roundToInteger(afterDiscount * (market.keyMinus / 100));
+                    yangDibayar = afterDiscount + keyAmount;
+                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(afterDiscount)}</span> + (KEY -) ${market.keyMinus}% = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 JIKA ANDA MENANG (HADIAH 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(yangDibayar)}</span> (MODAL) = <span class="money-format">${formatMoney(betAmount + yangDibayar)}</span> KEMENANGAN ANDA`;
+                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(afterDiscount)} + (KEY -) ${market.keyMinus}% = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nJIKA ANDA MENANG (HADIAH 1:1) ${formatMoney(betAmount)} + ${formatMoney(yangDibayar)} (MODAL) = ${formatMoney(betAmount + yangDibayar)} KEMENANGAN ANDA`;
+                } else if (market.keyPlus) {
+                    // Perhitungan untuk key plus
+                    const diskonAmount = roundToInteger(betAmount * (market.discount / 100));
+                    const afterDiscount = betAmount - diskonAmount;
+                    const keyAmount = roundToInteger(betAmount * (market.keyPlus / 100));
+                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(afterDiscount)}</span> YANG HARUS ANDA BAYAR\n\n🔑 PERHITUNGAN (KEY +) ${market.keyPlus}% x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(keyAmount)}</span> KEY YANG ANDA DAPAT JIKA MENGALAMI KEMENANGAN\n\n🏆 JIKA ANDA MENANG (HADIAH 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(keyAmount)}</span> (KEY +) + <span class="money-format">${formatMoney(afterDiscount)}</span> (MODAL) = <span class="money-format">${formatMoney(betAmount + keyAmount + afterDiscount)}</span> KEMENANGAN ANDA`;
+                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(afterDiscount)} YANG HARUS ANDA BAYAR\nPERHITUNGAN (KEY +) ${market.keyPlus}% x ${formatMoney(betAmount)} = ${formatMoney(keyAmount)} KEY YANG ANDA DAPAT JIKA MENGALAMI KEMENANGAN\nJIKA ANDA MENANG (HADIAH 1:1) ${formatMoney(betAmount)} + ${formatMoney(keyAmount)} (KEY +) + ${formatMoney(afterDiscount)} (MODAL) = ${formatMoney(betAmount + keyAmount + afterDiscount)} KEMENANGAN ANDA`;
+                }
+            } else {
+                resultText = "❌ PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
+                plainText = "PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
             }
             
             resultContent.innerHTML = resultText;
@@ -1601,17 +1577,97 @@
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
             // Reset tombol salin
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Salin Hasil';
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
             copyBtn.classList.remove('copied');
             
             // Tambahkan event listener untuk tombol salin
             copyBtn.onclick = () => {
                 copyToClipboard(plainText);
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> TERSALIN!';
                 copyBtn.classList.add('copied');
                 
                 setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Salin Hasil';
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            };
+        }
+
+        // Fungsi untuk menghitung hadiah (Toto Macau)
+        function calculateMacauPrize() {
+            if (!validateInput(true)) return;
+            
+            const marketType = document.getElementById('macau-market-type').value;
+            const betAmount = parseFloat(document.getElementById('macau-bet-amount').value);
+            const resultDiv = document.getElementById('macau-result');
+            const resultContent = document.getElementById('macau-result-content');
+            const copyBtn = document.getElementById('macau-copy-btn');
+            
+            let resultText = '';
+            let plainText = ''; // Untuk disalin
+            
+            // Cari data pasar yang sesuai
+            const market = macauMarketData.find(m => m.id === marketType);
+            
+            if (market) {
+                // Hitung hadiah berdasarkan jenis pasar
+                let hadiah = 0;
+                let diskon = 0;
+                let yangDibayar = betAmount;
+                
+                if (market.multiplier && !market.discount && !market.keyMinus && !market.keyPlus) {
+                    // Perhitungan untuk multiplier tanpa diskon (FULL, BB TEPAT/TIDAK TEPAT)
+                    hadiah = roundToInteger(betAmount * market.multiplier);
+                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} ( hadiah ) = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
+                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} x ${market.multiplier} ( hadiah ) = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
+                } else if (market.discount && market.prizeMultiplier) {
+                    // Perhitungan untuk diskon (DISC dan S.DISC)
+                    diskon = roundToInteger(betAmount * (market.discount / 100));
+                    yangDibayar = betAmount - diskon;
+                    hadiah = roundToInteger(betAmount * market.prizeMultiplier);
+                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% ( diskon ) = <span class="money-format">${formatMoney(yangDibayar)}</span> yang harus anda bayar\n\n🏆 Hadiah ${market.prizeMultiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
+                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} - ${market.discount}% ( diskon ) = ${formatMoney(yangDibayar)} yang harus anda bayar\nHadiah ${market.prizeMultiplier} x ${formatMoney(betAmount)} = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
+                } else if (market.multiplier && !market.discount) {
+                    // Perhitungan untuk COLOK BEBAS, COLOK NAGA, COLOK JITU, SHIO, MACAU SHIO, KOMBINASI
+                    const bagianHadiah = roundToInteger(betAmount * market.multiplier);
+                    hadiah = bagianHadiah + betAmount;
+                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} ( hadiah ) = <span class="money-format">${formatMoney(bagianHadiah)}</span> + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
+                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} x ${market.multiplier} ( hadiah ) = ${formatMoney(bagianHadiah)} + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
+                } else if (market.keyMinus) {
+                    // Perhitungan untuk key minus (TEPI TENGAH, SILANG HOMO, DASAR GANJIL-BESAR, 50-50, KEMBANG KEMPIS)
+                    const keyAmount = roundToInteger(betAmount * (market.keyMinus / 100));
+                    yangDibayar = betAmount + keyAmount;
+                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> + ${market.keyMinus}% ( key - ) = <span class="money-format">${formatMoney(yangDibayar)}</span> yang harus anda bayar\n\n🏆 Jika anda menang ( hadiah 1:1 ) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(betAmount * 2)}</span> kemenangan anda ya bosku`;
+                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} + ${market.keyMinus}% ( key - ) = ${formatMoney(yangDibayar)} yang harus anda bayar\nJika anda menang ( hadiah 1:1 ) ${formatMoney(betAmount)} + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(betAmount * 2)} kemenangan anda ya bosku`;
+                } else if (market.keyPlus) {
+                    // Perhitungan untuk key plus (DASAR GENAP-KECIL)
+                    const keyAmount = roundToInteger(betAmount * (market.keyPlus / 100));
+                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n🔑 Perhitungan ( key + ) ${market.keyPlus}% x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(keyAmount)}</span> key yang anda dapat jika mengalamin kemenangan\n\n🏆 Jika anda menang ( hadiah 1:1 ) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(keyAmount)}</span> ( key + ) + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(betAmount * 2 + keyAmount)}</span> kemenangan anda ya bosku`;
+                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nPerhitungan ( key + ) ${market.keyPlus}% x ${formatMoney(betAmount)} = ${formatMoney(keyAmount)} key yang anda dapat jika mengalamin kemenangan\nJika anda menang ( hadiah 1:1 ) ${formatMoney(betAmount)} + ${formatMoney(keyAmount)} ( key + ) + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(betAmount * 2 + keyAmount)} kemenangan anda ya bosku`;
+                }
+            } else {
+                resultText = "❌ PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
+                plainText = "PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
+            }
+            
+            resultContent.innerHTML = resultText;
+            resultDiv.classList.add('show');
+            
+            // Scroll ke hasil
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Reset tombol salin
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
+            copyBtn.classList.remove('copied');
+            
+            // Tambahkan event listener untuk tombol salin
+            copyBtn.onclick = () => {
+                copyToClipboard(plainText);
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> TERSALIN!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
                     copyBtn.classList.remove('copied');
                 }, 2000);
             };
@@ -1619,42 +1675,72 @@
 
         // Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            createElectricParticles();
-            createCircuitLines();
-            displayMarketCards();
+            createParticles();
             
-            // Event listener untuk tombol toggle pasar
-            const toggleBtn = document.getElementById('toggle-markets');
-            const marketGrid = document.getElementById('market-grid');
-            let isMarketsVisible = false;
+            // Event listener untuk tab buttons
+            const tabRegular = document.getElementById('tab-regular');
+            const tabMacau = document.getElementById('tab-macau');
+            const tabRegularContent = document.getElementById('tab-regular-content');
+            const tabMacauContent = document.getElementById('tab-macau-content');
             
-            toggleBtn.addEventListener('click', () => {
-                isMarketsVisible = !isMarketsVisible;
+            // Fungsi untuk switch tab
+            function switchTab(activeTab, activeContent) {
+                // Remove active class dari semua tabs
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
                 
-                if (isMarketsVisible) {
-                    marketGrid.classList.add('show');
-                    toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>Sembunyikan Pasar</span>';
-                } else {
-                    marketGrid.classList.remove('show');
-                    toggleBtn.innerHTML = '<i class="fas fa-eye"></i><span>Lihat Semua Pasar</span>';
-                }
+                // Add active class ke tab yang dipilih
+                activeTab.classList.add('active');
+                activeContent.classList.add('active');
+            }
+            
+            // Event listener untuk tab regular
+            tabRegular.addEventListener('click', () => {
+                switchTab(tabRegular, tabRegularContent);
             });
             
-            // Event listener untuk tombol hitung
-            document.getElementById('calculate-btn').addEventListener('click', calculatePrize);
+            // Event listener untuk tab macau
+            tabMacau.addEventListener('click', () => {
+                switchTab(tabMacau, tabMacauContent);
+            });
             
-            // Event listener untuk tekan Enter di input bet amount
+            // Event listener untuk tombol hitung regular
+            document.getElementById('calculate-btn').addEventListener('click', calculateRegularPrize);
+            
+            // Event listener untuk tombol hitung macau
+            document.getElementById('macau-calculate-btn').addEventListener('click', calculateMacauPrize);
+            
+            // Event listener untuk tekan Enter di input bet amount regular
             document.getElementById('bet-amount').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    calculatePrize();
+                    calculateRegularPrize();
                 }
             });
             
-            // Event listener untuk validasi real-time
-            document.getElementById('bet-amount').addEventListener('input', validateInput);
+            // Event listener untuk tekan Enter di input bet amount macau
+            document.getElementById('macau-bet-amount').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    calculateMacauPrize();
+                }
+            });
+            
+            // Event listener untuk validasi real-time regular
+            document.getElementById('bet-amount').addEventListener('input', () => {
+                validateInput(false);
+            });
+            
+            // Event listener untuk validasi real-time macau
+            document.getElementById('macau-bet-amount').addEventListener('input', () => {
+                validateInput(true);
+            });
             
             // Nonaktifkan tombol hitung secara default
             document.getElementById('calculate-btn').disabled = true;
+            document.getElementById('macau-calculate-btn').disabled = true;
         });
     </script>
 </body>
