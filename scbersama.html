@@ -33,6 +33,12 @@
             --card-border: rgba(255, 255, 255, 0.2);
             --gold: #FFD700;
             --bronze: #CD7F32;
+            --hoki-primary: #6A1B9A;
+            --hoki-secondary: #9C27B0;
+            --hoki-light: #CE93D8;
+            --hoki-bg: #4A148C;
+            --hoki-gradient: linear-gradient(135deg, #6A1B9A, #9C27B0, #CE93D8);
+            --hoki-dark-gradient: linear-gradient(135deg, #4A148C, #6A1B9A, #9C27B0);
         }
 
         body {
@@ -369,6 +375,578 @@
             margin-bottom: 30px;
             font-weight: 300;
             letter-spacing: 1px;
+        }
+
+        /* HOKIDRAW Generator Container - SUPER CANTIK */
+        .hoki-generator-container {
+            background: var(--hoki-dark-gradient);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 0 auto;
+            max-width: 700px;
+            box-shadow: 
+                0 30px 60px rgba(106, 27, 154, 0.6),
+                0 0 100px rgba(156, 39, 176, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+            animation: hokiGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes hokiGlow {
+            0% { 
+                box-shadow: 
+                    0 30px 60px rgba(106, 27, 154, 0.6),
+                    0 0 100px rgba(156, 39, 176, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+            100% { 
+                box-shadow: 
+                    0 30px 60px rgba(156, 39, 176, 0.8),
+                    0 0 120px rgba(206, 147, 216, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .hoki-generator-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--hoki-gradient);
+            border-radius: 30px;
+            z-index: -1;
+            animation: hokiBorder 3s linear infinite;
+        }
+
+        @keyframes hokiBorder {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .hoki-generator-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--hoki-light), 
+                var(--hoki-secondary), 
+                var(--hoki-primary), 
+                transparent);
+            animation: hokiShimmer 2s linear infinite;
+        }
+
+        @keyframes hokiShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hoki-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(206, 147, 216, 0.5);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            position: relative;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .hoki-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -50px;
+            width: 40px;
+            height: 40px;
+            background: var(--hoki-gradient);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        .hoki-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50px;
+            width: 40px;
+            height: 40px;
+            background: var(--hoki-gradient);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite 0.5s;
+        }
+
+        /* HOKIDRAW Select - SUPER CANTIK */
+        .hoki-select-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .hoki-select {
+            width: 100%;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(206, 147, 216, 0.4);
+            border-radius: 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            appearance: none;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .hoki-select-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid var(--hoki-light);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .hoki-select:focus {
+            outline: none;
+            border-color: var(--hoki-light);
+            box-shadow: 
+                0 0 0 4px rgba(206, 147, 216, 0.3),
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hoki-select:focus + .hoki-select-wrapper::before {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .hoki-select option {
+            background: var(--hoki-bg);
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+        }
+
+        /* HOKIDRAW Buttons - SUPER CANTIK */
+        .hoki-btn {
+            width: 100%;
+            padding: 22px 30px;
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.1), 
+                rgba(255, 0, 0, 0.2));
+            border: 3px solid #FF0000;
+            border-radius: 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            box-shadow: 
+                0 10px 30px rgba(255, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .hoki-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: 0.6s ease;
+        }
+
+        .hoki-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .hoki-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.3), 
+                rgba(255, 0, 0, 0.4));
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(255, 0, 0, 0.5),
+                0 0 60px rgba(255, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hoki-btn:hover::before {
+            left: 100%;
+        }
+
+        .hoki-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .hoki-btn:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        /* HOKIDRAW Result Container - SUPER CANTIK */
+        .hoki-result-container {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid rgba(206, 147, 216, 0.3);
+            max-height: 600px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .hoki-result-container.active {
+            display: block;
+            animation: slideIn 0.6s ease;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .hoki-result-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--hoki-gradient);
+            border-radius: 25px 25px 0 0;
+        }
+
+        /* HOKIDROW Result Item - SUPER CANTIK */
+        .hoki-result-item {
+            background: linear-gradient(135deg, 
+                rgba(106, 27, 154, 0.2), 
+                rgba(156, 39, 176, 0.1));
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(206, 147, 216, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hoki-result-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(206, 147, 216, 0.1), 
+                transparent);
+            transition: 0.8s ease;
+        }
+
+        .hoki-result-item:hover {
+            background: linear-gradient(135deg, 
+                rgba(106, 27, 154, 0.3), 
+                rgba(156, 39, 176, 0.2));
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(106, 27, 154, 0.4),
+                0 0 30px rgba(156, 39, 176, 0.2);
+        }
+
+        .hoki-result-item:hover::before {
+            left: 100%;
+        }
+
+        .hoki-result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .hoki-result-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--hoki-secondary);
+            position: relative;
+        }
+
+        .hoki-result-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--hoki-light);
+        }
+
+        .hoki-result-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--hoki-light);
+            margin-bottom: 10px;
+            text-shadow: 
+                0 3px 10px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(206, 147, 216, 0.5);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(206, 147, 216, 0.5); }
+            100% { text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(206, 147, 216, 0.8); }
+        }
+
+        .hoki-result-date {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .hoki-result-content {
+            font-family: 'Courier New', monospace;
+            line-height: 2;
+        }
+
+        .hoki-result-line {
+            display: flex;
+            margin-bottom: 15px;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(206, 147, 216, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hoki-result-line:hover {
+            background: rgba(206, 147, 216, 0.1);
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        .hoki-result-line:last-child {
+            border-bottom: none;
+        }
+
+        .hoki-result-label {
+            font-weight: 800;
+            color: var(--hoki-light);
+            min-width: 200px;
+            font-size: 18px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hoki-result-value {
+            font-weight: 700;
+            color: white;
+            font-size: 18px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* HOKIDRAW Copy Button - SUPER CANTIK */
+        .hoki-copy-btn {
+            width: 100%;
+            padding: 20px 30px;
+            background: var(--hoki-gradient);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(106, 27, 154, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hoki-copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: 0.6s ease;
+        }
+
+        .hoki-copy-btn.active {
+            display: block;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.3); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05); 
+            }
+            70% { 
+                transform: scale(0.9); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+
+        .hoki-copy-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(106, 27, 154, 0.6),
+                0 0 30px rgba(156, 39, 176, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .hoki-copy-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Premium Tabs */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 12px;
+            max-width: 700px;
+            margin: 0 auto 35px;
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab {
+            padding: 16px 32px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .tab:hover::before {
+            left: 100%;
+        }
+
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* Warna khusus untuk tab HOKIDRAW */
+        .tab.hoki-tab.active {
+            background: var(--hoki-gradient);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+        }
+
+        .tab.hoki-tab.active::after {
+            background: var(--hoki-light);
         }
 
         /* Premium Generator Container */
@@ -794,69 +1372,6 @@
             transform: translateY(-50%) scale(1.1);
         }
 
-        /* Premium Tabs */
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 12px;
-            max-width: 500px;
-            margin: 0 auto 35px;
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .tab {
-            padding: 16px 32px;
-            background: transparent;
-            border: none;
-            border-radius: 12px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .tab:hover::before {
-            left: 100%;
-        }
-
-        .tab.active {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: var(--gold);
-            border-radius: 2px;
-        }
-
         /* Toast Notifications */
         .toast {
             position: fixed;
@@ -1118,6 +1633,22 @@
             font-weight: 400;
         }
 
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--hoki-secondary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -1139,6 +1670,11 @@
 
             .generator-container {
                 padding: 25px;
+            }
+
+            .hoki-generator-container {
+                padding: 30px;
+                margin: 0 20px;
             }
 
             .prediction-result, .all-predictions-container {
@@ -1179,6 +1715,20 @@
 
             .form-container {
                 padding: 25px;
+            }
+
+            .hoki-generator-container {
+                padding: 20px;
+                margin: 0 10px;
+            }
+
+            .hoki-title {
+                font-size: 24px;
+            }
+
+            .hoki-title::before,
+            .hoki-title::after {
+                display: none;
             }
 
             .prediction-result {
@@ -1330,6 +1880,7 @@
             <div class="tab-container">
                 <button class="tab active" id="singleTab">Prediksi Per Pasaran</button>
                 <button class="tab" id="allTab">Semua Pasaran</button>
+                <button class="tab hoki-tab" id="hokiTab">HOKIDRAW</button>
             </div>
 
             <div class="generator-container" id="singleGenerator">
@@ -1423,6 +1974,56 @@
                 </button>
             </div>
 
+            <!-- HOKIDRAW Generator - SUPER CANTIK -->
+            <div class="hoki-generator-container" id="hokiGenerator" style="display: none;">
+                <h2 class="hoki-title">Generator Prediksi HOKIDRAW</h2>
+
+                <div class="hoki-select-wrapper">
+                    <select class="hoki-select" id="hokiSelect">
+                        <option value="HOKIDRAW 00:00">HOKIDRAW 00:00</option>
+                        <option value="HOKIDRAW 01:00">HOKIDRAW 01:00</option>
+                        <option value="HOKIDRAW 02:00">HOKIDRAW 02:00</option>
+                        <option value="HOKIDRAW 03:00">HOKIDRAW 03:00</option>
+                        <option value="HOKIDRAW 04:00">HOKIDRAW 04:00</option>
+                        <option value="HOKIDRAW 05:00">HOKIDRAW 05:00</option>
+                        <option value="HOKIDRAW 06:00">HOKIDRAW 06:00</option>
+                        <option value="HOKIDRAW 07:00">HOKIDRAW 07:00</option>
+                        <option value="HOKIDRAW 08:00">HOKIDRAW 08:00</option>
+                        <option value="HOKIDRAW 09:00">HOKIDRAW 09:00</option>
+                        <option value="HOKIDRAW 10:00">HOKIDRAW 10:00</option>
+                        <option value="HOKIDRAW 11:00">HOKIDRAW 11:00</option>
+                        <option value="HOKIDRAW 12:00">HOKIDRAW 12:00</option>
+                        <option value="HOKIDRAW 13:00">HOKIDRAW 13:00</option>
+                        <option value="HOKIDRAW 14:00">HOKIDRAW 14:00</option>
+                        <option value="HOKIDRAW 15:00">HOKIDRAW 15:00</option>
+                        <option value="HOKIDRAW 16:00">HOKIDRAW 16:00</option>
+                        <option value="HOKIDRAW 17:00">HOKIDRAW 17:00</option>
+                        <option value="HOKIDRAW 18:00">HOKIDRAW 18:00</option>
+                        <option value="HOKIDRAW 19:00">HOKIDRAW 19:00</option>
+                        <option value="HOKIDRAW 20:00">HOKIDRAW 20:00</option>
+                        <option value="HOKIDRAW 21:00">HOKIDRAW 21:00</option>
+                        <option value="HOKIDRAW 22:00">HOKIDRAW 22:00</option>
+                        <option value="HOKIDRAW 23:00">HOKIDRAW 23:00</option>
+                    </select>
+                </div>
+
+                <button class="hoki-btn" id="generateHokiBtn">
+                    <i class="fas fa-magic"></i> Generate Prediksi HOKIDRAW
+                </button>
+
+                <button class="hoki-btn" id="generateAllHokiBtn">
+                    <i class="fas fa-layer-group"></i> Generate Semua Prediksi HOKIDRAW
+                </button>
+
+                <div class="hoki-result-container" id="hokiResultContainer">
+                    <p style="text-align: center; opacity: 0.7;">Pilih waktu dan klik Generate untuk melihat prediksi HOKIDRAW</p>
+                </div>
+
+                <button class="hoki-copy-btn" id="copyHokiBtn">
+                    <i class="fas fa-copy"></i> Salin Prediksi
+                </button>
+            </div>
+
             <!-- Section untuk link-link penting dengan bubble design -->
             <div class="dashboard-card">
                 <div class="dashboard-card-header">
@@ -1468,7 +2069,7 @@
         // Data shio
         const shios = ['TIKUS', 'KERBAU', 'MACAN', 'KELINCI', 'NAGA', 'ULAR', 'KUDA', 'KAMBING', 'MONYET', 'AYAM', 'ANJING', 'BABI'];
 
-        // Data semua pasaran - DIPERBAIKI
+        // Data semua pasaran
         const semuaPasaran = [
             "TOTO MACAU PAGI", "KENTUCKY MIDDAY", "FLORIDA MIDDAY", "HUAHIN 0100", "BANGKOK 0130",
             "NEW YORK MIDDAY", "NORTH CAROLINA DAY", "BRUNEI 02", "OREGON03", "OREGON06",
@@ -1481,6 +2082,14 @@
             "HUAHIN 2100", "CHELSEA21", "TOTOMACAU 5D MALAM", "NEVADA", "BRUNEI 21",
             "TOTOMACAU MALAM II", "POIPET22", "HONGKONG", "TOTO MACAU MALAM III", "TOTOMALI2330",
             "JAKARTA 2330", "KINGKONG 4D MALAM"
+        ];
+
+        // Data HOKIDRAW
+        const hokiDrawTimes = [
+            "HOKIDRAW 00:00", "HOKIDRAW 01:00", "HOKIDRAW 02:00", "HOKIDRAW 03:00", "HOKIDRAW 04:00", "HOKIDRAW 05:00",
+            "HOKIDRAW 06:00", "HOKIDRAW 07:00", "HOKIDRAW 08:00", "HOKIDRAW 09:00", "HOKIDRAW 10:00", "HOKIDRAW 11:00",
+            "HOKIDRAW 12:00", "HOKIDRAW 13:00", "HOKIDRAW 14:00", "HOKIDRAW 15:00", "HOKIDRAW 16:00", "HOKIDRAW 17:00",
+            "HOKIDRAW 18:00", "HOKIDRAW 19:00", "HOKIDRAW 20:00", "HOKIDRAW 21:00", "HOKIDRAW 22:00", "HOKIDRAW 23:00"
         ];
 
         // Data login pribadi
@@ -1541,7 +2150,7 @@
             return Array.from({length}, () => Math.floor(Math.random() * 10)).join('');
         }
 
-        // Fungsi untuk menghasilkan prediksi togel dalam format yang diinginkan - DIPERBAIKI
+        // Fungsi untuk menghasilkan prediksi togel dalam format yang diinginkan
         function generateTogelPrediction(pasaran) {
             const now = new Date();
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -1653,7 +2262,7 @@ Selalu Utamakan Prediksi Sendiri`;
             const copyAllBtn = document.getElementById('copyAllBtn');
 
             // Tampilkan loading
-            allPredictionsContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;">Sedang memuat semua prediksi premium...</p>';
+            allPredictionsContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;"><span class="loading-spinner"></span>Sedang memuat semua prediksi premium...</p>';
             allPredictionsContainer.style.display = 'block';
 
             // Simulasi loading dengan timeout
@@ -1711,6 +2320,104 @@ Selalu Utamakan Prediksi Sendiri`;
             }, 1000);
         }
 
+        // Fungsi untuk menampilkan prediksi HOKIDRAW
+        function displayHokiPrediction(time) {
+            const prediction = generateTogelPrediction(time);
+            const hokiResultContainer = document.getElementById('hokiResultContainer');
+            const copyHokiBtn = document.getElementById('copyHokiBtn');
+
+            // Format teks dengan line breaks
+            const lines = prediction.split('\n');
+            let formattedPrediction = `<div class="hoki-result-item">`;
+            formattedPrediction += '<div class="hoki-result-header">';
+            formattedPrediction += `<div class="hoki-result-title">${lines[0]}</div>`;
+            formattedPrediction += `<div class="hoki-result-date">${lines[1]}</div>`;
+            formattedPrediction += '</div>';
+
+            formattedPrediction += '<div class="hoki-result-content">';
+
+            // Konten prediksi
+            for (let i = 2; i < lines.length; i++) {
+                if (lines[i].trim() !== '') {
+                    const parts = lines[i].split(':');
+                    if (parts.length > 1) {
+                        formattedPrediction += `<div class="hoki-result-line"><span class="hoki-result-label">${parts[0]}:</span> <span class="hoki-result-value">${parts[1]}</span></div>`;
+                    } else {
+                        formattedPrediction += `<div class="hoki-result-line"><span class="hoki-result-value">${lines[i]}</span></div>`;
+                    }
+                }
+            }
+
+            formattedPrediction += '</div>';
+            formattedPrediction += '</div>';
+
+            hokiResultContainer.innerHTML = formattedPrediction;
+            hokiResultContainer.classList.add('active');
+
+            // Tampilkan tombol salin
+            copyHokiBtn.classList.add('active');
+
+            // Simpan teks prediksi untuk disalin
+            hokiResultContainer.setAttribute('data-prediction', prediction);
+
+            showToast('Prediksi HOKIDRAW berhasil digenerate!');
+        }
+
+        // Fungsi untuk menampilkan semua prediksi HOKIDRAW
+        function displayAllHokiPredictions() {
+            const hokiResultContainer = document.getElementById('hokiResultContainer');
+            const copyHokiBtn = document.getElementById('copyHokiBtn');
+
+            // Tampilkan loading
+            hokiResultContainer.innerHTML = '<p style="text-align: center; opacity: 0.7;"><span class="loading-spinner"></span>Sedang memuat semua prediksi HOKIDRAW...</p>';
+            hokiResultContainer.classList.add('active');
+
+            // Simulasi loading dengan timeout
+            setTimeout(() => {
+                let allPredictions = '';
+
+                // Generate prediksi untuk setiap waktu HOKIDRAW
+                hokiDrawTimes.forEach(time => {
+                    const prediction = generateTogelPrediction(time);
+                    const lines = prediction.split('\n');
+
+                    let formattedPrediction = `<div class="hoki-result-item">`;
+                    formattedPrediction += '<div class="hoki-result-header">';
+                    formattedPrediction += `<div class="hoki-result-title">${lines[0]}</div>`;
+                    formattedPrediction += `<div class="hoki-result-date">${lines[1]}</div>`;
+                    formattedPrediction += '</div>';
+
+                    formattedPrediction += '<div class="hoki-result-content">';
+
+                    for (let i = 2; i < lines.length; i++) {
+                        if (lines[i].trim() !== '') {
+                            const parts = lines[i].split(':');
+                            if (parts.length > 1) {
+                                formattedPrediction += `<div class="hoki-result-line"><span class="hoki-result-label">${parts[0]}:</span> <span class="hoki-result-value">${parts[1]}</span></div>`;
+                            } else {
+                                formattedPrediction += `<div class="hoki-result-line"><span class="hoki-result-value">${lines[i]}</span></div>`;
+                            }
+                        }
+                    }
+
+                    formattedPrediction += '</div>';
+                    formattedPrediction += '</div>';
+                    allPredictions += formattedPrediction;
+                });
+
+                // Tampilkan semua prediksi
+                hokiResultContainer.innerHTML = allPredictions;
+
+                // Tampilkan tombol salin
+                copyHokiBtn.classList.add('active');
+
+                // Simpan teks semua prediksi untuk disalin
+                hokiResultContainer.setAttribute('data-all-predictions', hokiDrawTimes.map(time => generateTogelPrediction(time)).join('\n\n'));
+
+                showToast('Semua prediksi HOKIDRAW berhasil digenerate!');
+            }, 1000);
+        }
+
         // Fungsi untuk menyalin prediksi ke clipboard
         function copyPredictionToClipboard() {
             const predictionText = document.getElementById('predictionResult').getAttribute('data-prediction');
@@ -1732,6 +2439,23 @@ Selalu Utamakan Prediksi Sendiri`;
             }).catch(err => {
                 console.error('Gagal menyalin teks: ', err);
                 showToast('Gagal menyalin semua prediksi. Silakan coba lagi.');
+            });
+        }
+
+        // Fungsi untuk menyalin prediksi HOKIDRAW ke clipboard
+        function copyHokiPredictionToClipboard() {
+            const predictionText = document.getElementById('hokiResultContainer').getAttribute('data-prediction');
+
+            if (!predictionText) {
+                showToast('Tidak ada prediksi untuk disalin!');
+                return;
+            }
+
+            navigator.clipboard.writeText(predictionText).then(() => {
+                showToast('Prediksi HOKIDRAW berhasil disalin!');
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+                showToast('Gagal menyalin prediksi HOKIDRAW. Silakan coba lagi.');
             });
         }
 
@@ -1771,11 +2495,24 @@ Selalu Utamakan Prediksi Sendiri`;
         // Fungsi untuk generate semua prediksi
         document.getElementById('generateAllBtn').addEventListener('click', displayAllPredictions);
 
+        // Fungsi untuk generate prediksi HOKIDRAW
+        document.getElementById('generateHokiBtn').addEventListener('click', function() {
+            const hokiSelect = document.getElementById('hokiSelect');
+            const selectedTime = hokiSelect.value;
+            displayHokiPrediction(selectedTime);
+        });
+
+        // Fungsi untuk generate semua prediksi HOKIDRAW
+        document.getElementById('generateAllHokiBtn').addEventListener('click', displayAllHokiPredictions);
+
         // Fungsi untuk menyalin prediksi
         document.getElementById('copyBtn').addEventListener('click', copyPredictionToClipboard);
 
         // Fungsi untuk menyalin semua prediksi
         document.getElementById('copyAllBtn').addEventListener('click', copyAllPredictionsToClipboard);
+
+        // Fungsi untuk menyalin prediksi HOKIDRAW
+        document.getElementById('copyHokiBtn').addEventListener('click', copyHokiPredictionToClipboard);
 
         // Fungsi untuk logout
         document.getElementById('logoutBtn').addEventListener('click', function() {
@@ -1790,6 +2527,7 @@ Selalu Utamakan Prediksi Sendiri`;
             // Sembunyikan tombol salin
             document.getElementById('copyBtn').style.display = 'none';
             document.getElementById('copyAllBtn').style.display = 'none';
+            document.getElementById('copyHokiBtn').classList.remove('active');
         });
 
         // Fitur toggle password
@@ -1812,15 +2550,28 @@ Selalu Utamakan Prediksi Sendiri`;
         document.getElementById('singleTab').addEventListener('click', function() {
             document.getElementById('singleTab').classList.add('active');
             document.getElementById('allTab').classList.remove('active');
+            document.getElementById('hokiTab').classList.remove('active');
             document.getElementById('singleGenerator').style.display = 'block';
             document.getElementById('allGenerator').style.display = 'none';
+            document.getElementById('hokiGenerator').style.display = 'none';
         });
 
         document.getElementById('allTab').addEventListener('click', function() {
             document.getElementById('allTab').classList.add('active');
             document.getElementById('singleTab').classList.remove('active');
+            document.getElementById('hokiTab').classList.remove('active');
             document.getElementById('singleGenerator').style.display = 'none';
             document.getElementById('allGenerator').style.display = 'block';
+            document.getElementById('hokiGenerator').style.display = 'none';
+        });
+
+        document.getElementById('hokiTab').addEventListener('click', function() {
+            document.getElementById('hokiTab').classList.add('active');
+            document.getElementById('singleTab').classList.remove('active');
+            document.getElementById('allTab').classList.remove('active');
+            document.getElementById('singleGenerator').style.display = 'none';
+            document.getElementById('allGenerator').style.display = 'none';
+            document.getElementById('hokiGenerator').style.display = 'block';
         });
 
         // Periksa status login saat halaman dimuat
