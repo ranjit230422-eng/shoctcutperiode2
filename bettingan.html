@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panduan Lengkap Taruhan Togel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff006e;
-            --secondary: #8338ec;
-            --accent: #fb5607;
-            --purple: #7209b7;
-            --pink: #f72585;
+            --primary: #8338ec;
+            --secondary: #3a0ca3;
+            --accent: #ff006e;
+            --gold: #ffd700;
             --dark: #0a0e27;
-            --light: #ffbe0b;
             --text-color: #ffffff;
             --card-bg: rgba(255, 255, 255, 0.1);
             --glass: rgba(255, 255, 255, 0.05);
@@ -24,12 +22,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
             background: #0a0e27;
             color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
@@ -86,7 +84,7 @@
         .orb3 {
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, #fb5607, transparent);
+            background: radial-gradient(circle, #ffd700, transparent);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -118,26 +116,36 @@
             75% { transform: translate(20px, 30px) scale(1.05); }
         }
 
-        /* Stars Background */
-        .stars {
+        /* Gold Particles */
+        .gold-particle {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            box-shadow: 0 0 10px var(--gold);
+            pointer-events: none;
+            opacity: 0;
+            animation: goldFloat 10s infinite;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+        @keyframes goldFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
         }
 
         .container {
@@ -153,14 +161,14 @@
             text-align: center;
             margin-bottom: 60px;
             padding: 60px;
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
+            background: linear-gradient(135deg, rgba(255, 215, 0.1), rgba(131, 56, 236, 0.1));
             backdrop-filter: blur(20px);
             border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
             box-shadow: 
-                0 25px 50px rgba(255, 0, 110, 0.3),
+                0 25px 50px rgba(255, 215, 0, 0.2),
                 0 0 100px rgba(131, 56, 236, 0.2),
-                inset 0 0 50px rgba(255, 255, 255, 0.05);
+                inset 0 0 50px rgba(255, 215, 0, 0.05);
             position: relative;
             overflow: hidden;
             transform: perspective(1000px) rotateX(2deg);
@@ -174,7 +182,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(from 0deg, #ff006e, #8338ec, #fb5607, #ff006e);
+            background: conic-gradient(from 0deg, #ffd700, #8338ec, #ff006e, #ffd700);
             opacity: 0.1;
             animation: rotate 10s linear infinite;
             z-index: -1;
@@ -188,31 +196,21 @@
         header:hover {
             transform: perspective(1000px) rotateX(0deg) scale(1.02);
             box-shadow: 
-                0 30px 60px rgba(255, 0, 110, 0.4),
+                0 30px 60px rgba(255, 215, 0, 0.3),
                 0 0 120px rgba(131, 56, 236, 0.3),
-                inset 0 0 60px rgba(255, 255, 255, 0.1);
+                inset 0 0 60px rgba(255, 215, 0, 0.1);
         }
 
         h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
             margin-bottom: 25px;
-            background: linear-gradient(135deg, #ff006e, #8338ec, #fb5607, #ffbe0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientText 8s ease infinite;
-            background-size: 400% 400%;
+            color: var(--gold);
             font-weight: 900;
             letter-spacing: 3px;
-            text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             position: relative;
             z-index: 2;
-        }
-
-        @keyframes gradientText {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         header p {
@@ -243,13 +241,13 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1.275);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.2);
             position: relative;
             overflow: hidden;
             transform: perspective(1000px) rotateX(0deg);
             box-shadow: 
                 0 15px 35px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+                0 0 0 1px rgba(255, 215, 0, 0.1);
         }
 
         .menu-box::before {
@@ -259,7 +257,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background: linear-gradient(135deg, var(--gold), var(--primary), var(--accent));
             opacity: 0;
             transition: opacity 0.5s ease;
             z-index: 0;
@@ -272,7 +270,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.5s ease;
             z-index: 0;
@@ -281,11 +279,11 @@
         .menu-box:hover {
             transform: perspective(1000px) rotateX(-10deg) translateY(-15px) scale(1.08);
             box-shadow: 
-                0 25px 50px rgba(255, 0, 110, 0.4),
+                0 25px 50px rgba(255, 215, 0, 0.3),
                 0 0 80px rgba(131, 56, 236, 0.3),
-                0 0 120px rgba(255, 0, 110, 0.1),
-                inset 0 0 40px rgba(255, 255, 255, 0.2);
-            border-color: var(--primary);
+                0 0 120px rgba(255, 215, 0, 0.1),
+                inset 0 0 40px rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
         }
 
         .menu-box:hover::before {
@@ -302,15 +300,12 @@
 
         .menu-box i {
             font-size: 3.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gold);
             margin-bottom: 25px;
             position: relative;
             z-index: 1;
             transition: all 0.5s ease;
-            filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.5));
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
         }
 
         .menu-box:hover i {
@@ -330,7 +325,7 @@
 
         .menu-box:hover h3 {
             transform: translateY(-3px);
-            color: var(--light);
+            color: var(--gold);
         }
 
         /* Enhanced Content Sections */
@@ -373,12 +368,12 @@
             margin-bottom: 40px;
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.3),
-                0 0 100px rgba(255, 0, 110, 0.1),
-                inset 0 0 50px rgba(255, 255, 255, 0.05);
+                0 0 100px rgba(255, 215, 0, 0.1),
+                inset 0 0 50px rgba(255, 215, 0, 0.05);
             transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.2);
             transform: perspective(1000px) rotateX(0deg);
         }
 
@@ -389,30 +384,28 @@
             left: 0;
             width: 10px;
             height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
-            box-shadow: 0 0 30px var(--primary);
+            background: linear-gradient(180deg, var(--gold), var(--primary), var(--accent));
+            box-shadow: 0 0 30px var(--gold);
         }
 
         .bet-type:hover {
             transform: perspective(1000px) rotateX(1deg) translateY(-10px);
             box-shadow: 
-                0 35px 70px rgba(255, 0, 110, 0.3),
+                0 35px 70px rgba(255, 215, 0, 0.3),
                 0 0 120px rgba(131, 56, 236, 0.2),
-                inset 0 0 60px rgba(255, 255, 255, 0.1);
+                inset 0 0 60px rgba(255, 215, 0, 0.1);
         }
 
         .bet-type h2 {
+            font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
             margin-bottom: 35px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gold);
             padding-bottom: 20px;
             border-bottom: 3px solid var(--accent);
             position: relative;
             font-weight: 800;
-            text-shadow: 0 2px 20px rgba(255, 0, 110, 0.5);
+            text-shadow: 0 2px 20px rgba(255, 215, 0, 0.5);
         }
 
         .bet-type h2::after {
@@ -422,17 +415,14 @@
             left: 0;
             width: 150px;
             height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            box-shadow: 0 0 20px var(--primary);
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            box-shadow: 0 0 20px var(--gold);
         }
 
         .bet-type h3 {
             font-size: 2rem;
             margin: 40px 0 30px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--secondary);
             font-weight: 700;
             text-shadow: 0 2px 15px rgba(131, 56, 236, 0.5);
         }
@@ -460,15 +450,16 @@
             border-radius: 25px;
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.4),
-                0 0 80px rgba(255, 0, 110, 0.3);
+                0 0 80px rgba(255, 215, 0, 0.3);
             transition: all 0.5s ease;
-            border: 3px solid rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 215, 0, 0.2);
+            cursor: pointer;
         }
 
         .image-container img:hover {
-            transform: scale(1.1) rotateY(10deg);
+            transform: scale(1.05);
             box-shadow: 
-                0 35px 70px rgba(255, 0, 110, 0.4),
+                0 35px 70px rgba(255, 215, 0, 0.4),
                 0 0 120px rgba(131, 56, 236, 0.3);
         }
 
@@ -501,32 +492,32 @@
         }
 
         li::marker {
-            color: var(--primary);
+            color: var(--gold);
             font-weight: bold;
             font-size: 1.3rem;
         }
 
         /* Enhanced Example Box */
         .example {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(131, 56, 236, 0.1));
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(131, 56, 236, 0.1));
             backdrop-filter: blur(15px);
             padding: 40px;
             border-radius: 25px;
             margin: 40px 0;
-            border-left: 10px solid var(--primary);
+            border-left: 10px solid var(--gold);
             position: relative;
-            border: 2px solid rgba(255, 0, 110, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
             box-shadow: 
                 0 20px 40px rgba(0, 0, 0, 0.3),
-                inset 0 0 40px rgba(255, 0, 110, 0.1);
+                inset 0 0 40px rgba(255, 215, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .example:hover {
             transform: translateX(15px);
             box-shadow: 
-                0 25px 50px rgba(255, 0, 110, 0.4),
-                inset 0 0 50px rgba(255, 0, 110, 0.2);
+                0 25px 50px rgba(255, 215, 0, 0.4),
+                inset 0 0 50px rgba(255, 215, 0, 0.2);
         }
 
         .example::before {
@@ -534,24 +525,21 @@
             position: absolute;
             top: 0;
             right: 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--gold), var(--primary));
             color: white;
             padding: 15px 35px;
             border-bottom-left-radius: 20px;
             font-size: 1.2rem;
             font-weight: 800;
-            box-shadow: 0 5px 20px rgba(255, 0, 110, 0.5);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
         }
 
         .example h4 {
             margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gold);
             font-size: 1.4rem;
             font-weight: 700;
-            text-shadow: 0 2px 15px rgba(255, 0, 110, 0.5);
+            text-shadow: 0 2px 15px rgba(255, 215, 0, 0.5);
         }
 
         /* Enhanced Table Styles */
@@ -566,18 +554,18 @@
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.3),
                 0 0 80px rgba(131, 56, 236, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.2);
         }
 
         th, td {
             padding: 25px 35px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             transition: all 0.3s ease;
         }
 
         th {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--gold), var(--primary));
             color: white;
             font-weight: 800;
             text-transform: uppercase;
@@ -591,13 +579,13 @@
         }
 
         tr:hover {
-            background-color: rgba(255, 0, 110, 0.2);
+            background-color: rgba(255, 215, 0, 0.2);
             transform: scale(1.02);
         }
 
         /* Enhanced Back Button */
         .back-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--gold), var(--primary));
             color: white;
             border: none;
             padding: 20px 40px;
@@ -611,7 +599,7 @@
             align-items: center;
             gap: 15px;
             box-shadow: 
-                0 20px 40px rgba(255, 0, 110, 0.4),
+                0 20px 40px rgba(255, 215, 0, 0.4),
                 0 0 80px rgba(131, 56, 236, 0.3);
             position: relative;
             overflow: hidden;
@@ -632,7 +620,7 @@
         .back-btn:hover {
             transform: translateY(-8px) scale(1.05);
             box-shadow: 
-                0 25px 50px rgba(255, 0, 110, 0.5),
+                0 25px 50px rgba(255, 215, 0, 0.5),
                 0 0 100px rgba(131, 56, 236, 0.4);
         }
 
@@ -656,7 +644,7 @@
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.3),
                 0 0 100px rgba(131, 56, 236, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -670,6 +658,57 @@
             height: 200%;
             background: radial-gradient(circle, rgba(131, 56, 236, 0.1) 0%, transparent 50%);
             animation: rotate 15s linear infinite;
+        }
+
+        /* Modal for Image */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            animation: zoomIn 0.3s;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: var(--gold);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); }
+            to { transform: scale(1); }
         }
 
         /* Responsive Design */
@@ -719,43 +758,6 @@
             }
         }
 
-        /* Enhanced Loading Animation */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0a0e27, #1a1a3e, #16213e, #0f3460);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-circle {
-            width: 80px;
-            height: 80px;
-            border: 8px solid rgba(255, 255, 255, 0.1);
-            border-top: 8px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 30px var(--primary);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* Enhanced Scrollbar */
         ::-webkit-scrollbar {
             width: 15px;
@@ -766,13 +768,13 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--gold), var(--primary));
             border-radius: 15px;
-            box-shadow: 0 0 20px var(--primary);
+            box-shadow: 0 0 20px var(--gold);
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, var(--accent), var(--primary));
+            background: linear-gradient(135deg, var(--accent), var(--gold));
         }
     </style>
 </head>
@@ -787,18 +789,13 @@
     <div class="orb orb4"></div>
     <div class="orb orb5"></div>
     
-    <!-- Stars -->
-    <div class="stars" id="stars"></div>
-
-    <!-- Enhanced Loading Animation -->
-    <div class="loader" id="loader">
-        <div class="loader-circle"></div>
-    </div>
+    <!-- Gold Particles -->
+    <div id="goldParticles"></div>
 
     <div class="container">
         <!-- Enhanced Header -->
         <header>
-            <h1><i class="fas fa-dice"></i> Panduan Lengkap Taruhan Togel</h1>
+            <h1>Panduan Lengkap Taruhan Togel</h1>
             <p>Pilih jenis taruhan untuk melihat detailnya</p>
         </header>
 
@@ -818,12 +815,12 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-list"></i> Bet Full</h2>
+                        <h2>Bet Full</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian Bet Full:</strong> Sistem bettingan dimana dari angka yang di bet harus tepat dan sesuai dengan hasil result yang keluar.</p>
 
-                                <h3>Berikut Cara pembelian 4D 3D 2D :</h3>
+                                <h3>Cara pembelian 4D 3D 2D :</h3>
                                 <ol>
                                     <li>Pilih pasaran yang ingin anda mainkan.</li>
                                     <li>Pilih menu 4D 3D 2D</li>
@@ -843,7 +840,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/1XpbLm6q/k-QSkuz-ZTg-Sn3-Wr-Rq-HJQ.png" alt="Contoh Bet Full">
+                                <img src="https://i.postimg.cc/1XpbLm6q/k-QSkuz-ZTg-Sn3-Wr-Rq-HJQ.png" alt="Contoh Bet Full" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -856,7 +853,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-exchange-alt"></i> Bet BB (Bolak Balik)</h2>
+                        <h2>Bet BB (Bolak Balik)</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian Bet BB:</strong> Sistem bettingan dimana dari angka yang di bet, baik urutan tepat maupun bolak-balik, tetap menang dengan pembayaran sesuai aturan.</p>
@@ -866,7 +863,7 @@
                                     <p>Jika kita bet 1234 dan hasil keluar 1234 maka kita akan di bayar x4000 dari bettingan sedangkan jika hasil keluar 2341 maka akan mendapat x200 dari pasangan karena dapat yang sistem BB.</p>
                                 </div>
 
-                                <h3>Berikut Cara pembelian 4D 3D 2D :</h3>
+                                <h3>Cara pembelian 4D 3D 2D :</h3>
                                 <ol>
                                     <li>Pilih pasaran yang ingin anda mainkan.</li>
                                     <li>Pilih menu 4D 3D 2D</li>
@@ -886,7 +883,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png" alt="Contoh Bet BB">
+                                <img src="https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png" alt="Contoh Bet BB" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -899,7 +896,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-th"></i> 4D/3D/2D</h2>
+                        <h2>4D/3D/2D</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p>Termasuk FULL, DISCOUNT, BB, dan pembayaran PRIZE 1, 2, 3.</p>
@@ -936,7 +933,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png" alt="Contoh 4D/3D/2D">
+                                <img src="https://i.postimg.cc/BvkybLBF/8-Usp51-N1-S0-OBGo81z-U706-Q.png" alt="Contoh 4D/3D/2D" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -949,12 +946,12 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-border-style"></i> 2D Depan & Tengah</h2>
+                        <h2>2D Depan & Tengah</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p>Betting pada posisi tertentu: 2D Depan (AB), 2D Tengah (BC), 2D</p>
 
-                                <h3>Berikut Cara pembelian 2D Depan :</h3>
+                                <h3>Cara pembelian 2D Depan :</h3>
                                 <ol>
                                     <li>Pilih pasaran yang ingin anda mainkan.</li>
                                     <li>Pilih menu 2D depan</li>
@@ -965,7 +962,7 @@
                                     <li>Periksa kembali seluruh rincian pembelian anda, jika semua sudah benar & sesuai, Tekan KIRIM.</li>
                                 </ol>
 
-                                <h3>Berikut Cara pembelian 2D Tengah :</h3>
+                                <h3>Cara pembelian 2D Tengah :</h3>
                                 <ol>
                                     <li>Pilih pasaran yang ingin anda mainkan.</li>
                                     <li>Pilih menu 2D Tengah</li>
@@ -985,7 +982,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/ZncV8CpV/z-VQCGib2-Su-Of1-Bt-Wy-Gl-Rug.png" alt="Contoh 2D Depan">
+                                <img src="https://i.postimg.cc/ZncV8CpV/z-VQCGib2-Su-Of1-Bt-Wy-Gl-Rug.png" alt="Contoh 2D Depan" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -998,7 +995,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-marker"></i> Colok Bebas</h2>
+                        <h2>Colok Bebas</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1026,7 +1023,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/bNwTXYQf/F31-HTOGATe-glu5-Yb-Kc-Wb-Q.png" alt="Contoh Colok Bebas">
+                                <img src="https://i.postimg.cc/bNwTXYQf/F31-HTOGATe-glu5-Yb-Kc-Wb-Q.png" alt="Contoh Colok Bebas" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1039,7 +1036,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-map-marker-alt"></i> Colok Bebas 2D</h2>
+                        <h2>Colok Bebas 2D</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1080,7 +1077,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/qRX8SqQn/Iv-Py-a-Pq-Se-SSa6-Cqr-P36-LQ.png" alt="Contoh Colok Bebas 2D">
+                                <img src="https://i.postimg.cc/qRX8SqQn/Iv-Py-a-Pq-Se-SSa6-Cqr-P36-LQ.png" alt="Contoh Colok Bebas 2D" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1093,7 +1090,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-bullseye"></i> Colok Jitu</h2>
+                        <h2>Colok Jitu</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1126,7 +1123,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/5yDKN6d0/Dv8m-Wu-JYSW2-QFta-Cl-D3u7-Q.png" alt="Contoh Colok Jitu">
+                                <img src="https://i.postimg.cc/5yDKN6d0/Dv8m-Wu-JYSW2-QFta-Cl-D3u7-Q.png" alt="Contoh Colok Jitu" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1139,7 +1136,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-compress-alt"></i> Tepi Tengah</h2>
+                        <h2>Tepi Tengah</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1171,7 +1168,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/63mYYyQ0/t4e-WR6-TKT7-CQ-ay-Vx-L4-Bo-A.png" alt="Contoh Tepi Tengah">
+                                <img src="https://i.postimg.cc/63mYYyQ0/t4e-WR6-TKT7-CQ-ay-Vx-L4-Bo-A.png" alt="Contoh Tepi Tengah" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1184,7 +1181,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-dragon"></i> SHIO</h2>
+                        <h2>SHIO</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1252,7 +1249,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/Fs3XkQPq/rc-UUGYMWT-Gcb-S1-CLw-G97-Q.png" alt="Contoh SHIO">
+                                <img src="https://i.postimg.cc/Fs3XkQPq/rc-UUGYMWT-Gcb-S1-CLw-G97-Q.png" alt="Contoh SHIO" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1265,7 +1262,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-venus-mars"></i> Silang Homo</h2>
+                        <h2>Silang Homo</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1291,7 +1288,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/sDFtrNVJ/Vpdb-Gyh1-QVOvbr-DNPa-Yf-Q.png" alt="Contoh Silang Homo">
+                                <img src="https://i.postimg.cc/sDFtrNVJ/Vpdb-Gyh1-QVOvbr-DNPa-Yf-Q.png" alt="Contoh Silang Homo" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1304,7 +1301,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-arrows-alt-h"></i> Kembang Kempis</h2>
+                        <h2>Kembang Kempis</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1343,10 +1340,6 @@
                                 <p>Jika dilakukan pembelian dengan 100rb dan menang maka:</p>
                                 <p>Menang = 100rb + [Indeks kemenangan untuk KEMBANG-KEMPIS]</p>
                             </div>
-
-                            <div class="image-container">
-                                <img src="https://i.postimg.cc/0qTCZffz/placeholder-image.png" alt="Contoh Kembang Kempis">
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -1358,7 +1351,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-th-large"></i> Togel Kombinasi</h2>
+                        <h2>Togel Kombinasi</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1375,7 +1368,7 @@
                                 <div class="example">
                                     <h4>Analisis :</h4>
                                     <p>Keluar : 1845</p>
-                                    <p>Berarti pemenang untuk :</p>
+                                    <p>Berarti pemenang untuk:</p>
                                     <ul>
                                         <li>AS Kecil/Ganjil dan KOP Besar/Genap</li>
                                         <li>KEPALA Kecil/Genap dan EKOR Besar/Ganjil</li>
@@ -1385,7 +1378,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/PqkWf1C9/2w-SJVaia-T227-Ly-N-b-Z8u-JA.png" alt="Contoh Togel Kombinasi">
+                                <img src="https://i.postimg.cc/PqkWf1C9/2w-SJVaia-T227-Ly-N-b-Z8u-JA.png" alt="Contoh Togel Kombinasi" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1398,7 +1391,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-fist-raised"></i> Angka Tarung</h2>
+                        <h2>Angka Tarung</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1416,7 +1409,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/3N6GsGML/g-JRGLLTHSwe8e3-JJ0ay-ng.png" alt="Contoh Angka Tarung">
+                                <img src="https://i.postimg.cc/3N6GsGML/g-JRGLLTHSwe8e3-JJ0ay-ng.png" alt="Contoh Angka Tarung" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1429,7 +1422,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-random"></i> BB Campuran / BBFS</h2>
+                        <h2>BB Campuran / BBFS</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1440,7 +1433,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/KYNMZwS3/g0qhxx-A7-Qq-KVWVmkk-QXrg-A.png" alt="Contoh BB Campuran">
+                                <img src="https://i.postimg.cc/KYNMZwS3/g0qhxx-A7-Qq-KVWVmkk-QXrg-A.png" alt="Contoh BB Campuran" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1453,7 +1446,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-layer-group"></i> Togel Dasar</h2>
+                        <h2>Togel Dasar</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1477,6 +1470,7 @@
                                     <p>Keluar : 5678,</p>
                                     <p>7+8 = 15</p>
                                     <p>Karena angka 15 lebih besar dari 9, kembali dihitung 1+5=6</p>
+                                    <p>Karena angka 15 lebih besar dari 9, kembali dihitung 1+5=6</p>
                                     <p>Berarti keluar : Genap dan Besar</p>
                                 </div>
 
@@ -1491,7 +1485,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/C5f5f6tN/zcq-MNI-8-QGGTl4-Rb6-KFOQg.png" alt="Contoh Togel Dasar">
+                                <img src="https://i.postimg.cc/C5f5f6tN/zcq-MNI-8-QGGTl4-Rb6-KFOQg.png" alt="Contoh Togel Dasar" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1504,7 +1498,7 @@
                     </button>
                     
                     <div class="bet-type">
-                        <h2><i class="fas fa-magic"></i> Pola Colok</h2>
+                        <h2>Pola Colok</h2>
                         <div class="content">
                             <div class="text-content">
                                 <p><strong>Pengertian</strong></p>
@@ -1520,7 +1514,7 @@
                             </div>
 
                             <div class="image-container">
-                                <img src="https://i.postimg.cc/VNpdL8Z6/3-Jbo-KOL2-R3i44-O-Gij-BKyg.png" alt="Contoh Pola Colok">
+                                <img src="https://i.postimg.cc/VNpdL8Z6/3-Jbo-KOL2-R3i44-O-Gij-BKyg.png" alt="Contoh Pola Colok" onclick="openModal(this)">
                             </div>
                         </div>
                     </div>
@@ -1528,48 +1522,46 @@
             </div>
         </div>
 
-        <footer>
-            <p style="font-size: 1.3rem; font-weight: 600;">&copy; 2023 Panduan Lengkap Jenis Taruhan Togel</p>
-        </footer>
-    </div>
+        <!-- Modal for Image -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">×</span>
+            <img class="modal-content" id="modalImage">
+        </div>
 
-    <script>
-        // Create stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 100;
+        <script>
+        // Create gold particles
+        function createGoldParticles() {
+            const container = document.getElementById('goldParticles');
+            const particleCount = 30;
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                starsContainer.appendChild(star);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'gold-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
             }
         }
 
         // Menu items data - SEMUA 16 JENIS TARUHAN
         const menuItems = [
-            { id: 'bet-full', name: 'Bet Full', icon: 'fa-list' },
-            { id: 'bet-bb', name: 'Bet BB', icon: 'fa-exchange-alt' },
-            { id: '4d-3d-2d', name: '4D/3D/2D', icon: 'fa-th' },
-            { id: '2d-depan-tengah', name: '2D Depan & Tengah', icon: 'fa-border-style' },
-            { id: 'colok-bebas', name: 'Colok Bebas', icon: 'fa-marker' },
-            { id: 'colok-bebas-2d', name: 'Colok Bebas 2D', icon: 'fa-map-marker-alt' },
-            { id: 'colok-jitu', name: 'Colok Jitu', icon: 'fa-bullseye' },
-            { id: 'tepi-tengah', name: 'Tepi Tengah', icon: 'fa-compress-alt' },
-            { id: 'shio', name: 'SHIO', icon: 'fa-dragon' },
-            { id: 'silang-homo', name: 'Silang Homo', icon: 'fa-venus-mars' },
-            { id: 'kembang-kempis', name: 'Kembang Kempis', icon: 'fa-arrows-alt-h' },
-            { id: 'togel-kombinasi', name: 'Togel Kombinasi', icon: 'fa-th-large' },
-            { id: 'angka-tarung', name: 'Angka Tarung', icon: 'fa-fist-raised' },
-            { id: 'bb-campuran', name: 'BB Campuran', icon: 'fa-random' },
-            { id: 'togel-dasar', name: 'Togel Dasar', icon: 'fa-layer-group' },
-            { id: 'pola-colok', name: 'Pola Colok', icon: 'fa-magic' }
+            { id: 'bet-full', name: 'Bet Full', icon: 'fa-list', desc: 'Taruhan dengan angka yang harus tepat sesuai result' },
+            { id: 'bet-bb', name: 'Bet BB', icon: 'fa-exchange-alt', desc: 'Taruhan bolak-balik dengan pembayaran sesuai aturan' },
+            { id: '4d-3d-2d', name: '4D/3D/2D', icon: 'fa-th', desc: 'Menebak 4, 3, atau 2 angka' },
+            { id: '2d-depan-tengah', name: '2D Depan & Tengah', icon: 'fa-border-style', desc: 'Taruhan pada posisi 2D depan atau tengah' },
+            { id: 'colok-bebas', name: 'Colok Bebas', icon: 'fa-marker', desc: 'Menebak satu angka dari 4D dengan posisi bebas' },
+            { id: 'colok-bebas-2d', name: 'Colok Bebas 2D', icon: 'fa-map-marker-alt', desc: 'Menebak 2 angka dari 4D' },
+            { id: 'colok-jitu', name: 'Colok Jitu', icon: 'fa-bullseye', desc: 'Menebak 1 angka di posisi tertentu' },
+            { id: 'tepi-tengah', name: 'Tepi Tengah', icon: 'fa-compress-alt', desc: 'Menebak tengah/tepi dari posisi 2D' },
+            { id: 'shio', name: 'SHIO', icon: 'fa-dragon', desc: 'Menebak SHIO dari posisi 2D' },
+            { id: 'silang-homo', name: 'Silang Homo', icon: 'fa-venus-mars', desc: 'Menebak dari posisi Depan, Tengah, Belakang' },
+            { id: 'kembang-kempis', name: 'Kembang Kempis', icon: 'fa-arrows-alt-h', desc: 'Menebak urutan angka naik/turun/sama' },
+            { id: 'togel-kombinasi', name: 'Togel Kombinasi', icon: 'fa-th-large', desc: 'Tebak Genap/Ganjil dan Besar/Kecil' },
+            { id: 'angka-tarung', name: 'Angka Tarung', icon: 'fa-fist-raised', desc: 'Generator acak angka untuk kombinasi' },
+            { id: 'bb-campuran', name: 'BB Campuran', icon: 'fa-random', desc: 'Sistem bettingan dengan angka acak otomatis' },
+            { id: 'togel-dasar', name: 'Togel Dasar', icon: 'fa-layer-group', desc: 'Menebak ganjil/genap dan besar/kecil' },
+            { id: 'pola-colok', name: 'Pola Colok', icon: 'fa-magic', desc: 'Generator untuk menyusun angka colok' }
         ];
 
         // Generate menu items
@@ -1583,6 +1575,7 @@
                 menuBox.innerHTML = `
                     <i class="fas ${item.icon}"></i>
                     <h3>${item.name}</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">${item.desc}</p>
                 `;
                 menuBox.addEventListener('click', () => showSection(item.id));
                 menuGrid.appendChild(menuBox);
@@ -1624,16 +1617,44 @@
             menuGrid.style.animation = 'fadeInUp 0.5s ease';
         }
 
-        // Hide loader when page is loaded
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-        });
+        // Modal functions for images
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            
+            // Add zoom effect to modal content
+            modalImg.style.transform = 'scale(0.5)';
+            modalImg.style.transition = 'transform 0.5s ease';
+            
+            // Add click to close modal when clicking outside of image
+            modalImg.onclick = function(e) {
+                if (e.target === modalImg) {
+                    e.stopPropagation();
+                }
+            }
+            
+            // Add close button functionality
+            const closeBtn = document.querySelector('.close');
+            closeBtn.onclick = function() {
+                closeModal();
+            }
+        }
+
+        // Close modal when clicking outside of image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
 
         // Initialize menu on page load
         document.addEventListener('DOMContentLoaded', function() {
-            createStars();
+            createGoldParticles();
             generateMenu();
         });
 
