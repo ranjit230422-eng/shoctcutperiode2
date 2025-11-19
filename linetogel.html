@@ -3,1020 +3,1828 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Terminal - QRIS & Lainnya</title>
+    <title>Dashboard QRIS - Desain Modern</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
-        
-        :root {
-            --primary: #ff4d6d;
-            --secondary: #9d4edd;
-            --accent: #4cc9f0;
-            --gold: #ffd166;
-            --cyan: #06d6a0;
-            --purple: #7209b7;
-            --orange: #f3722c;
-            --pink: #f72585;
-            --dark: #0d0628;
-            --darker: #05021a;
-            --light: #f8f9fa;
-            --card-bg: rgba(30, 25, 60, 0.85);
-            --glow: 0 0 20px rgba(255, 77, 109, 0.5);
-            --gradient: linear-gradient(135deg, #ff4d6d, #9d4edd, #4cc9f0);
-        }
-        
+
         body {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 77, 109, 0.1) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        .cursor-light {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 77, 109, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: all 0.2s ease;
-        }
-        
-        .cursor-light.active {
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(255, 77, 109, 0.25) 0%, transparent 70%);
-        }
-        
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
+            background: url('https://png.pngtree.com/thumb_back/fh260/background/20240522/pngtree-abstract-gold-scratches-on-a-black-background-image_15685278.jpg') fixed;
+            background-size: cover;
             padding: 20px;
+            color: #d9070e;
+            min-height: 100vh;
         }
-        
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         header {
             text-align: center;
-            margin-bottom: 50px;
-            padding: 30px 20px;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 0, 35, 0.1);
+            color: #ecf0f1;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
             position: relative;
-            border-bottom: 1px solid rgba(255, 77, 109, 0.4);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .logo-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            text-shadow: var(--glow);
-            animation: pulse 3s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
-            letter-spacing: 2px;
-            position: relative;
-        }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 3px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 30px auto 0;
-            line-height: 1.6;
-            position: relative;
-        }
-        
-        .terminal-bar {
-            background: var(--card-bg);
-            border-radius: 12px 12px 0 0;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255, 77, 109, 0.4);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .terminal-button {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .terminal-button:hover {
-            transform: scale(1.2);
-        }
-        
-        .close { background: #ff5f57; }
-        .minimize { background: #ffbd2e; }
-        .maximize { background: #28ca42; }
-        
-        .terminal-title {
-            flex-grow: 1;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
-        
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border-radius: 0 0 15px 15px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 77, 109, 0.2);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .card::before {
-            content: '';
+
+        header::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
-            background: var(--gradient);
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
         }
-        
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), var(--glow);
-            border-color: rgba(255, 77, 109, 0.5);
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(106, 17, 203, 0.2);
         }
-        
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
+
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #bdc3c7;
+        }
+
+        .navigation-buttons {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-        
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #ecf0f1;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .statistics {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(161, 142, 201, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #bdc3c7;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .search-box:focus-within {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: #00b4db;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 16px 25px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            color: #ecf0f1;
+        }
+
+        .search-box input::placeholder {
+            color: #bdc3c7;
+        }
+
+        .search-box button {
+            padding: 16px 25px;
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #ecf0f1;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
         .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1f3b 0%, #2c3e50 100%);
+            color: white;
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .card-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 77, 109, 0.1);
+
+        .bank-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            background: white;
+            padding: 8px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 77, 109, 0.3);
-            box-shadow: 0 0 15px rgba(255, 77, 109, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .ref-code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00b4db;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 16px;
+            color: #ecf0f1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
             transition: all 0.3s ease;
-        }
-        
-        .card:hover .card-icon {
-            transform: rotate(10deg) scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
-        }
-        
-        .card-title {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-            color: var(--light);
             position: relative;
-            display: inline-block;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
-            transition: all 0.3s ease;
         }
-        
-        .card:hover .card-title {
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+
+        .ref-code:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .ref-code::after {
+            content: "Klik untuk menyalin";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            background: #00b4db;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ref-code:hover::after {
+            opacity: 1;
+        }
+
+        .ref-label {
+            font-weight: bold;
+            color: #00b4db;
+            margin-right: 5px;
+        }
+
+        .screenshot-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .screenshot:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #00b4db;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: rgba(249, 249, 249, 0.05);
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot:hover img {
             transform: scale(1.05);
         }
-        
-        .card-title::after {
-            content: '';
+
+        .screenshot::after {
+            content: "Klik untuk memperbesar";
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
-            transition: width 0.3s ease;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 180, 219, 0.8));
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
-        .card:hover .card-title::after {
-            width: 100%;
-        }
-        
-        .card-subtitle {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            font-family: 'Courier New', monospace;
-            color: var(--accent);
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover .card-subtitle {
-            opacity: 1;
-            text-shadow: 0 0 8px rgba(76, 201, 240, 0.5);
-        }
-        
-        .card-description {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex-grow: 1;
-            opacity: 0.9;
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover .card-description {
+
+        .screenshot:hover::after {
             opacity: 1;
         }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: var(--gradient);
-            color: var(--light);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
+
+        .copy-image-btn {
             position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .screenshot-container:hover .copy-image-btn {
+            opacity: 1;
+        }
+
+        .copy-image-btn:hover {
+            background: rgba(0, 180, 219, 0.9);
+        }
+
+        .bank-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            font-size: 14px;
+            color: #bdc3c7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 18px;
+            border-radius: 10px;
+        }
+
+        .rtp-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            font-size: 14px;
+            color: #bdc3c7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 18px;
+            border-radius: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.5s ease;
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
         }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 77, 109, 0.5);
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
         }
-        
-        .btn:hover::before {
-            left: 100%;
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #f9f9f9;
         }
-        
-        .btn i {
-            font-size: 1rem;
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
+
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--primary);
-            margin-right: 8px;
-            box-shadow: 0 0 8px var(--primary);
-            animation: blink 2s infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
         }
-        
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+
+        .close:hover {
+            color: #ff6b6b;
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotate(90deg);
         }
-        
+
         footer {
             text-align: center;
-            margin-top: 70px;
-            padding: 25px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            border-top: 1px solid rgba(255, 77, 109, 0.3);
-            position: relative;
+            margin-top: 40px;
+            padding: 30px;
+            color: white;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .connection-status {
+
+        .no-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            background: rgba(249, 249, 249, 0.05);
+            color: #bdc3c7;
+            gap: 15px;
+            border-radius: 12px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .no-image i {
+            font-size: 3rem;
+            color: #bbb;
+        }
+
+        /* Profil Page Styles */
+        .content-page {
+            display: none;
+        }
+
+        .submenu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .grid-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card h3 {
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
         }
-        
+
+        .profile-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #00b4db;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .profile-image-container::after {
+            content: "Klik untuk memperbesar";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 180, 219, 0.8));
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-image-container:hover::after {
+            opacity: 1;
+        }
+
+        .profile-copy-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .profile-image-container:hover .profile-copy-btn {
+            opacity: 1;
+        }
+
+        .profile-copy-btn:hover {
+            background: rgba(0, 180, 219, 0.9);
+        }
+
+        .profile-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #bdc3c7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid-5 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .dashboard {
                 grid-template-columns: 1fr;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
+            .filters {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 15px;
+            }
+
             .card-header {
+                padding: 15px;
+            }
+
+            .search-box input {
+                padding: 14px 20px;
+            }
+
+            .ref-code::after {
+                display: none;
+            }
+
+            .grid-5, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
                 flex-direction: column;
-                text-align: center;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .profile-image-container::after {
+                font-size: 12px;
+                padding: 8px;
             }
         }
-        
-        /* Animasi teks terminal */
-        .typing {
-            overflow: hidden;
-            border-right: 2px solid var(--primary);
-            white-space: nowrap;
-            margin: 0 auto;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+
+        .card, .profile-card {
+            animation: fadeIn 0.5s ease-out;
         }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary) }
+
+        /* Efek neon untuk judul */
+        .neon-text {
+            text-shadow: 0 0 5px #00b4db, 0 0 10px #00b4db, 0 0 15px #00b4db, 0 0 20px #00b4db;
         }
-        
-        /* Efek scanline */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.03) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            background-size: 100% 4px;
-            z-index: 999;
-            pointer-events: none;
-            animation: scanline 10s linear infinite;
-        }
-        
-        @keyframes scanline {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 0 100%;
-            }
-        }
-        
-        /* Dekorasi sudut */
-        .corner {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-        }
-        
-        .corner-tl {
-            top: 15px;
-            left: 15px;
-            border-top: 2px solid var(--primary);
-            border-left: 2px solid var(--primary);
-        }
-        
-        .corner-tr {
-            top: 15px;
-            right: 15px;
-            border-top: 2px solid var(--primary);
-            border-right: 2px solid var(--primary);
-        }
-        
-        .corner-bl {
-            bottom: 15px;
-            left: 15px;
-            border-bottom: 2px solid var(--primary);
-            border-left: 2px solid var(--primary);
-        }
-        
-        .corner-br {
-            bottom: 15px;
-            right: 15px;
-            border-bottom: 2px solid var(--primary);
-            border-right: 2px solid var(--primary);
-        }
-        
-        /* Efek Bola yang Dinamis */
-        .floating-balls {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .ball {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(5px);
-            opacity: 0.7;
-            animation: float 20s infinite linear;
-            box-shadow: 0 0 20px currentColor;
-        }
-        
+
+        /* Efek floating */
         @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-100px) translateX(100px) rotate(90deg);
-            }
-            50% {
-                transform: translateY(-200px) translateX(-100px) rotate(180deg);
-            }
-            75% {
-                transform: translateY(-100px) translateX(-200px) rotate(270deg);
-            }
-            100% {
-                transform: translateY(0) translateX(0) rotate(360deg);
-            }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        
-        .ball-interactive {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(8px);
-            opacity: 0.8;
-            transition: all 0.5s ease;
-            box-shadow: 0 0 25px currentColor;
-            pointer-events: none;
-            z-index: 10;
+
+        .card:hover, .profile-card:hover {
+            animation: float 3s ease-in-out infinite;
         }
-        
-        /* Efek Bola untuk Tombol */
-        .ball-container {
-            position: relative;
-            display: inline-block;
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
-        
-        .btn-ball {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #0083b0 0%, #00b4db 100%);
+        }
+
+        /* Notifikasi */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: #2c3e50;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
             opacity: 0;
-            transition: all 0.5s ease;
-            filter: blur(3px);
-            box-shadow: 0 0 15px currentColor;
-            z-index: -1;
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
-        
-        .btn:hover ~ .btn-ball {
-            opacity: 0.8;
-            animation: ball-burst 1.5s ease-out forwards;
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
         }
-        
-        @keyframes ball-burst {
-            0% {
-                opacity: 0;
-                transform: scale(0) translateY(0) translateX(0);
-            }
-            20% {
-                opacity: 0.8;
-                transform: scale(1) translateY(0) translateX(0);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1.5) translateY(var(--ty)) translateX(var(--tx));
-            }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
-        
-        /* Warna bola untuk setiap tombol */
-        .btn-1:hover ~ .btn-ball-1 { 
-            background: var(--primary); 
-            color: var(--primary);
-            --ty: -100px;
-            --tx: 50px;
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00b4db;
+            animation: spin 1s ease-in-out infinite;
         }
-        
-        .btn-2:hover ~ .btn-ball-2 { 
-            background: var(--accent); 
-            color: var(--accent);
-            --ty: -120px;
-            --tx: -80px;
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
-        
-        .btn-3:hover ~ .btn-ball-3 { 
-            background: var(--secondary); 
-            color: var(--secondary);
-            --ty: 100px;
-            --tx: 100px;
-        }
-        
-        .btn-4:hover ~ .btn-ball-4 { 
-            background: var(--gold); 
-            color: var(--gold);
-            --ty: 120px;
-            --tx: -60px;
-        }
-        
-        .btn-5:hover ~ .btn-ball-5 { 
-            background: var(--cyan); 
-            color: var(--cyan);
-            --ty: -80px;
-            --tx: -120px;
-        }
-        
-        .btn-6:hover ~ .btn-ball-6 { 
-            background: var(--orange); 
-            color: var(--orange);
-            --ty: 90px;
-            --tx: 70px;
-        }
-        
-        .btn-7:hover ~ .btn-ball-7 { 
-            background: var(--pink); 
-            color: var(--pink);
-            --ty: -110px;
-            --tx: 90px;
-        }
-        
-        .btn-8:hover ~ .btn-ball-8 { 
-            background: var(--purple); 
-            color: var(--purple);
-            --ty: 70px;
-            --tx: -100px;
-        }
-        
-        /* Ukuran dan posisi bola untuk setiap tombol */
-        .btn-ball-1 { width: 35px; height: 35px; top: 8px; left: 15px; }
-        .btn-ball-2 { width: 30px; height: 30px; top: 12px; left: 50px; }
-        .btn-ball-3 { width: 40px; height: 40px; top: 5px; left: 35px; }
-        .btn-ball-4 { width: 25px; height: 25px; top: 15px; left: 70px; }
-        .btn-ball-5 { width: 45px; height: 45px; top: 0px; left: 8px; }
-        .btn-ball-6 { width: 32px; height: 32px; top: 10px; left: 25px; }
-        .btn-ball-7 { width: 38px; height: 38px; top: 7px; left: 60px; }
-        .btn-ball-8 { width: 28px; height: 28px; top: 13px; left: 45px; }
     </style>
 </head>
 <body>
-    <div class="cursor-light" id="cursorLight"></div>
-    <div class="scanlines"></div>
-    <div class="floating-balls" id="floatingBalls"></div>
-    
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
-    
+    <div class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
     <div class="container">
         <header>
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <div>
-                    <h1>LINE TOGEL</h1>
-                    <p class="subtitle typing">JALAN PINTAS TERCEPAT</p>
-                </div>
-            </div>
+            <h1 class="neon-text">Dashboard QRIS</h1>
+            <p class="description">Kelola dan pantau semua transaksi QRIS Anda di satu tempat</p>
         </header>
-        
-        <div class="terminal-bar">
-            <div class="terminal-button close"></div>
-            <div class="terminal-button minimize"></div>
-            <div class="terminal-button maximize"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button class="nav-btn active" id="dashboard-btn">Dashboard QRIS</button>
+            <button class="nav-btn" id="profile-btn">Profil E-Wallet & M-Banking</button>
         </div>
-        
-        <div class="dashboard">
-            <!-- Kartu Asli -->
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-qrcode"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">QRIS</h2>
-                        </div>
-                    </div>
-                    <p class="card-description">Akses sistem pembayaran QRIS untuk transaksi digital yang aman dan efisien. Interface yang dioptimalkan untuk pengalaman pengguna yang mulus.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/qris.html" class="btn btn-1" target="_blank">
-                            <i class="fas fa-terminal"></i> Execute QRIS
-                        </a>
-                        <div class="btn-ball btn-ball-1"></div>
-                    </div>
+
+        <!-- Dashboard QRIS Content -->
+        <div id="dashboard-content">
+            <div class="statistics">
+                <div class="stat-card">
+                    <h3>Total Transaksi</h3>
+                    <div class="value">147</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Bank Terpopuler</h3>
+                    <div class="value">BCA</div>
+                </div>
+                <div class="stat-card">
+                    <h3>E-Wallet Terpopuler</h3>
+                    <div class="value">GOPAY</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Success Rate</h3>
+                    <div class="value">98.5%</div>
                 </div>
             </div>
-            
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-images"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">PENYAMBUNG GAMBAR</h2>
-                        </div>
-                    </div>
-                    <p class="card-description">Repositori terpusat untuk aset media dan visual. Sistem manajemen konten dengan akses cepat dan pencarian yang dioptimalkan.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/gambar.html" class="btn btn-2" target="_blank">
-                            <i class="fas fa-terminal"></i> Access Media
-                        </a>
-                        <div class="btn-ball btn-ball-2"></div>
+
+            <div class="controls">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Cari bank atau nomor referensi...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-share-alt"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">PREDIKSI TOGEL</h2>
-                        </div>
-                    </div>
-                    <p class="card-description">Platform kolaborasi dan berbagi sumber daya. Memungkinkan sinkronisasi data real-time dan manajemen akses terpusat.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/scbersama.html" class="btn btn-3" target="_blank">
-                            <i class="fas fa-terminal"></i> Connect Hub
-                        </a>
-                        <div class="btn-ball btn-ball-3"></div>
-                    </div>
+
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Semua</button>
+                    <button class="filter-btn" data-filter="bank">Bank</button>
+                    <button class="filter-btn" data-filter="ewallet">E-Wallet</button>
+                    <button class="filter-btn" data-filter="rrn">RRN</button>
+                    <button class="filter-btn" data-filter="reference">Referensi</button>
+                    <button class="filter-btn" data-filter="RTP">RTP</button>
                 </div>
             </div>
-            
-            <div class="card">
-                <div class="card-content">
+
+            <div class="dashboard">
+                <!-- BCA Mobile -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
                     <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-dice"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">PLAY TOGEL </h2>
-                        </div>
+                        <img src="https://logo.clearbit.com/bca.co.id" alt="BCA" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BCA'">
+                        <h3>BCA Mobile</h3>
                     </div>
-                    <p class="card-description">Modul hiburan dengan akses ke platform permainan digital. Antarmuka yang responsif dengan sistem keamanan terintegrasi.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/bettingan.html" class="btn btn-4" target="_blank">
-                            <i class="fas fa-terminal"></i> Launch Module
-                        </a>
-                        <div class="btn-ball btn-ball-4"></div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN QRIS</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://iili.io/KGKxMoN.png')">
+                                <img src="https://iili.io/KGKxMoN.png" alt="BCA Mobile QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://iili.io/KGKxMoN.png', 'BCA Mobile QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>BCA Mobile</span>
+                            <span>RRN</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-content">
+
+                <!-- Mandiri -->
+                <div class="card" data-type="bank" data-ref-type="reference">
                     <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">LIVE CHAT LINETOGEL</h2>
-                        </div>
+                        <img src="https://logo.clearbit.com/bankmandiri.co.id" alt="Mandiri" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=MANDIRI'">
+                        <h3>Mandiri</h3>
                     </div>
-                    <p class="card-description">Sistem diagnostik untuk analisis dan resolusi kesalahan. Menyediakan log detail dan solusi untuk masalah teknis.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/kesalahanlc.html" class="btn btn-5" target="_blank">
-                            <i class="fas fa-terminal"></i> Run Diagnostics
-                        </a>
-                        <div class="btn-ball btn-ball-5"></div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">No. Referensi:</span> silahkan memberikan No. Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/vmjRCZ20/AD89vbw-JR2y-Og-Ad1-JGJKPA.png')">
+                                <img src="https://i.postimg.cc/vmjRCZ20/AD89vbw-JR2y-Og-Ad1-JGJKPA.png" alt="Mandiri QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/vmjRCZ20/AD89vbw-JR2y-Og-Ad1-JGJKPA.png', 'Mandiri QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Mandiri</span>
+                            <span>Referensi</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Kartu Baru -->
-            <div class="card">
-                <div class="card-content">
+
+                <!-- SeaBank -->
+                <div class="card" data-type="ewallet" data-ref-type="reference">
                     <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">Live Game</h2>
-                        </div>
+                        <img src="https://logo.clearbit.com/seabank.co.id" alt="SeaBank" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=SEABANK'">
+                        <h3>SeaBank</h3>
                     </div>
-                    <p class="card-description">Silah anda akses pada link yang ada di bawa ya bosku.</p>
-                    <div class="ball-container">
-                        <a href="https://symphonny.vercel.app/Gameplay_livegame.html" class="btn btn-6" target="_blank">
-                            <i class="fas fa-terminal"></i> Play Live
-                        </a>
-                        <div class="btn-ball btn-ball-6"></div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">No. Referensi:</span> silahkan memberikan No. Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/Jnkw8C9M/it-WFgb-Kt-S-WVoku-D-m8-FRA.png')">
+                                <img src="https://i.postimg.cc/Jnkw8C9M/it-WFgb-Kt-S-WVoku-D-m8-FRA.png" alt="SeaBank QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/Jnkw8C9M/it-WFgb-Kt-S-WVoku-D-m8-FRA.png', 'SeaBank QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>SeaBank</span>
+                            <span>Referensi</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-content">
+
+                <!-- BRI -->
+                <div class="card" data-type="bank" data-ref-type="reference">
                     <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div>
-                            <h2 class="card-title">Togel Calculation</h2>
-                        </div>
+                        <img src="https://logo.clearbit.com/bri.co.id" alt="BRI" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BRI'">
+                        <h3>BRI</h3>
                     </div>
-                    <p class="card-description">Sistem perhitungan dan analisis untuk permainan togel. Alat yang membantu dalam prediksi dan perhitungan angka.</p>
-                    <div class="ball-container">
-                        <a href="https://symphonny.vercel.app/Perhitungan_togel.html" class="btn btn-7" target="_blank">
-                            <i class="fas fa-terminal"></i> Calculate
-                        </a>
-                        <div class="btn-ball btn-ball-7"></div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Nomor Referensi:</span> silahkan memberikan No. Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/mrPJ3GZC/HM93-Bxq-XSa-Oslyj-Lpmz-UGg.png')">
+                                <img src="https://i.postimg.cc/mrPJ3GZC/HM93-Bxq-XSa-Oslyj-Lpmz-UGg.png" alt="BRI QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/mrPJ3GZC/HM93-Bxq-XSa-Oslyj-Lpmz-UGg.png', 'BRI QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>BRI</span>
+                            <span>Referensi</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-content">
+
+                <!-- Bank Mega -->
+                <div class="card" data-type="bank" data-ref-type="orderid">
                     <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-play-circle"></i>
+                        <img src="https://logo.clearbit.com/bankmega.com" alt="Bank Mega" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=MEGA'">
+                        <h3>Bank Mega</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Order ID:</span> silahkan memberikan Order ID</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/mDMnqNHr/k-Zhx-VAo-TQSmre-JWUATMblg.png')">
+                                <img src="https://i.postimg.cc/mDMnqNHr/k-Zhx-VAo-TQSmre-JWUATMblg.png" alt="Bank Mega QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/mDMnqNHr/k-Zhx-VAo-TQSmre-JWUATMblg.png', 'Bank Mega QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
                         </div>
-                        <div>
-                            <h2 class="card-title">Gameplay Live</h2>
+                        <div class="bank-info">
+                            <span>Bank Mega</span>
+                            <span>Order ID</span>
                         </div>
                     </div>
-                    <p class="card-description">Platform untuk menonton dan berinteraksi dengan gameplay live. Fitur streaming dan komunitas untuk penggemar game.</p>
-                    <div class="ball-container">
-                        <a href="https://shoctcutperiode2-vrye.onrender.com/livegamecasino.html" class="btn btn-8" target="_blank">
-                            <i class="fas fa-terminal"></i> Watch Gameplay
-                        </a>
-                        <div class="btn-ball btn-ball-8"></div>
+                </div>
+
+                <!-- BNI -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bni.co.id" alt="BNI" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BNI'">
+                        <h3>BNI</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Reff ID / RRN:</span> silahkan memberikan Reff ID / RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/j5z8vxpw/8g-KUhvgb-RN2-DJxl-Dlhif-Yg.png')">
+                                <img src="https://i.postimg.cc/j5z8vxpw/8g-KUhvgb-RN2-DJxl-Dlhif-Yg.png" alt="BNI QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/j5z8vxpw/8g-KUhvgb-RN2-DJxl-Dlhif-Yg.png', 'BNI QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>BNI</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GOPAY -->
+                <div class="card" data-type="ewallet" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/gojek.com" alt="GOPAY" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=GOPAY'">
+                        <h3>GOPAY</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Reff ID:</span> silahkan memberikan Reff ID</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/QChfzLD6/h-Eb-D8e-Sl-C2zz-Tc-Bpjk-MA.png')">
+                                <img src="https://i.postimg.cc/QChfzLD6/h-Eb-D8e-Sl-C2zz-Tc-Bpjk-MA.png" alt="GOPAY QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/QChfzLD6/h-Eb-D8e-Sl-C2zz-Tc-Bpjk-MA.png', 'GOPAY QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>GOPAY</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MYBCA -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bca.co.id" alt="MYBCA" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=MYBCA'">
+                        <h3>MYBCA</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/mD89TKMp/Xr-Fh-R38-R2-On8xkn-Fc-HOdw.png')">
+                                <img src="https://i.postimg.cc/mD89TKMp/Xr-Fh-R38-R2-On8xkn-Fc-HOdw.png" alt="MYBCA QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/mD89TKMp/Xr-Fh-R38-R2-On8xkn-Fc-HOdw.png', 'MYBCA QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>MYBCA</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DANA -->
+                <div class="card" data-type="ewallet" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/dana.id" alt="DANA" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=DANA'">
+                        <h3>DANA</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/jjhwhB8q/n-EDg4tgi-S-GBow-PEmbx-IEA.png')">
+                                <img src="https://i.postimg.cc/jjhwhB8q/n-EDg4tgi-S-GBow-PEmbx-IEA.png" alt="DANA QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/jjhwhB8q/n-EDg4tgi-S-GBow-PEmbx-IEA.png', 'DANA QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>DANA</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BNI Wondr -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bni.co.id" alt="BNI Wondr" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BNI+WONDR'">
+                        <h3>BNI Wondr</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/nzRXyBb6/f-U-Lxp-d-RLe-EC9ciq-Xguw-A.png')">
+                                <img src="https://i.postimg.cc/nzRXyBb6/f-U-Lxp-d-RLe-EC9ciq-Xguw-A.png" alt="BNI Wondr QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/nzRXyBb6/f-U-Lxp-d-RLe-EC9ciq-Xguw-A.png', 'BNI Wondr QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>BNI Wondr</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Jago -->
+                <div class="card" data-type="bank" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/jago.com" alt="Bank Jago" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=JAGO'">
+                        <h3>Bank Jago</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Referensi:</span> silahkan memberikan Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/dQC0nRrJ/osft-Xxw1St-S8Z4Jk-SIPu-Pw.png')">
+                                <img src="https://i.postimg.cc/dQC0nRrJ/osft-Xxw1St-S8Z4Jk-SIPu-Pw.png" alt="Bank Jago QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/dQC0nRrJ/osft-Xxw1St-S8Z4Jk-SIPu-Pw.png', 'Bank Jago QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Bank Jago</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CIMB Niaga -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/cimbniaga.com" alt="CIMB Niaga" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=CIMB'">
+                        <h3>CIMB Niaga</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Kode RRN:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/t4jFtdX5/Ov-Cv-QUI9-TKO6h-Ln7-P5-Tw-Q.png')">
+                                <img src="https://i.postimg.cc/t4jFtdX5/Ov-Cv-QUI9-TKO6h-Ln7-P5-Tw-Q.png" alt="CIMB Niaga QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/t4jFtdX5/Ov-Cv-QUI9-TKO6h-Ln7-P5-Tw-Q.png', 'CIMB Niaga QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>CIMB Niaga</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OVO -->
+                <div class="card" data-type="ewallet" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/ovo.id" alt="OVO" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=OVO'">
+                        <h3>OVO</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/C1BZVdh5/JL4-Te3-Mz-Qt6aj-yd-Wwkhn-Q.png')">
+                                <img src="https://i.postimg.cc/C1BZVdh5/JL4-Te3-Mz-Qt6aj-yd-Wwkhn-Q.png" alt="OVO QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/C1BZVdh5/JL4-Te3-Mz-Qt6aj-yd-Wwkhn-Q.png', 'OVO QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>OVO</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LinkAja -->
+                <div class="card" data-type="ewallet" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/linkaja.id" alt="LinkAja" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=LINKAJA'">
+                        <h3>LinkAja</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/909qy0KK/Y64x-In9-VTCSb-OJNWn0-LZOA.png')">
+                                <img src="https://i.postimg.cc/909qy0KK/Y64x-In9-VTCSb-OJNWn0-LZOA.png" alt="LinkAja QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/909qy0KK/Y64x-In9-VTCSb-OJNWn0-LZOA.png', 'LinkAja QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>LinkAja</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank BTN -->
+                <div class="card" data-type="bank" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/btn.co.id" alt="Bank BTN" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BTN'">
+                        <h3>Bank BTN</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Nomor Referensi:</span> silahkan memberikan Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/pr4F3zbs/w4pq-Sb-Ml-TJa-Ux-Y0jh-Pu-Plg.png')">
+                                <img src="https://i.postimg.cc/pr4F3zbs/w4pq-Sb-Ml-TJa-Ux-Y0jh-Pu-Plg.png" alt="Bank BTN QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/pr4F3zbs/w4pq-Sb-Ml-TJa-Ux-Y0jh-Pu-Plg.png', 'Bank BTN QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Bank BTN</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shopeepay -->
+                <div class="card" data-type="ewallet" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/shopeepay.com" alt="Shopeepay" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=SHOPEEPAY'">
+                        <h3>Shopeepay</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN QRIS</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/h4x7bD7T/Xfx40ppd-RU-y-G6-Hanbzgj-A.png')">
+                                <img src="https://i.postimg.cc/h4x7bD7T/Xfx40ppd-RU-y-G6-Hanbzgj-A.png" alt="Shopeepay QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/h4x7bD7T/Xfx40ppd-RU-y-G6-Hanbzgj-A.png', 'Shopeepay QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Shopeepay</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bsi Byond -->
+                <div class="card" data-type="bank" data-ref-type="rrn">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bsi.co.id" alt="Bsi Byond" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BSI+BYOND'">
+                        <h3>Bsi Byond</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">RRN QRIS:</span> silahkan memberikan RRN QRIS</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/j2KqhrG4/e-Oj-AGN1-SRE24t-Ja-A5pqew.png')">
+                                <img src="https://i.postimg.cc/j2KqhrG4/e-Oj-AGN1-SRE24t-Ja-A5pqew.png" alt="Bsi Byond QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/j2KqhrG4/e-Oj-AGN1-SRE24t-Ja-A5pqew.png', 'Bsi Byond QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Bsi Byond</span>
+                            <span>RRN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bsi -->
+                <div class="card" data-type="bank" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bsi.co.id" alt="Bsi" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BSI'">
+                        <h3>Bsi</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">No. Referensi:</span> silahkan memberikan No. Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/gjNpqLyG/CUBYy9-Xl-Rt-Cuyd0-DQz-MJmw.png')">
+                                <img src="https://i.postimg.cc/gjNpqLyG/CUBYy9-Xl-Rt-Cuyd0-DQz-MJmw.png" alt="Bsi QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/gjNpqLyG/CUBYy9-Xl-Rt-Cuyd0-DQz-MJmw.png', 'Bsi QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Bsi</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blue BCA -->
+                <div class="card" data-type="bank" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/bca.co.id" alt="Blue BCA" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=BLUE+BCA'">
+                        <h3>Blue BCA</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">No. Referensi:</span> silahkan memberikan No. Referensi</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/vmdKTH9h/ks615-VBRTpyk-Tzodj-H60-JA.png')">
+                                <img src="https://i.postimg.cc/vmdKTH9h/ks615-VBRTpyk-Tzodj-H60-JA.png" alt="Blue BCA QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/vmdKTH9h/ks615-VBRTpyk-Tzodj-H60-JA.png', 'Blue BCA QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Blue BCA</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danamon -->
+                <div class="card" data-type="bank" data-ref-type="reference">
+                    <div class="card-header">
+                        <img src="https://logo.clearbit.com/danamon.com" alt="Danamon" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=DANAMON'">
+                        <h3>Danamon</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Reff ID:</span> silahkan memberikan Reff ID</div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/1X5htRk2/1-WUqs-P0-ARYu020-KZaa-My-Cg.png')">
+                                <img src="https://i.postimg.cc/1X5htRk2/1-WUqs-P0-ARYu020-KZaa-My-Cg.png" alt="Danamon QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/1X5htRk2/1-WUqs-P0-ARYu020-KZaa-My-Cg.png', 'Danamon QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="bank-info">
+                            <span>Danamon</span>
+                            <span>Referensi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RTP -->
+                <div class="card" data-type="RTP" data-ref-type="RTP">
+                    <div class="card-header">
+                        <img src="https://lineblog590.com/wp-content/uploads/2025/01/cropped-Screenshot_3-removebg-preview-1.png" alt="RTP" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=RTP'">
+                        <h3>RTP</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">Cara melihat RTP:</span> Silahkan anda melihat pada gambar yang kami berikan </div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/25k0yq1H/d-Og-Os4p-ASYWKEf-N-9x6-Gwg.png')">
+                                <img src="https://i.postimg.cc/25k0yq1H/d-Og-Os4p-ASYWKEf-N-9x6-Gwg.png" alt="CARA LIHAT RTP" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/25k0yq1H/d-Og-Os4p-ASYWKEf-N-9x6-Gwg.png', 'RTP')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="rtp-info">
+                            <span>RTP</span>
+                            <span>GAMBAR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAMBAR CARA DEPO QRIS -->
+                <div class="card" data-type="RTP" data-ref-type="DP QRIS">
+                    <div class="card-header">
+                        <img src="https://i.postimg.cc/8PzrHjKK/Screenshot-3.png" alt="DP QRIS" class="bank-logo" onerror="this.src='https://via.placeholder.com/50?text=DP+QRIS'">
+                        <h3>DP QRIS</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="ref-code"><span class="ref-label">GAMBAR CARA DP QRIS:</span> Silahkan mengikuti perihal gambar yang kami berikan ya bosku </div>
+                        <div class="screenshot-container">
+                            <div class="screenshot" onclick="openModal('https://i.postimg.cc/8PzrHjKK/Screenshot-3.png')">
+                                <img src="https://i.postimg.cc/8PzrHjKK/Screenshot-3.png" alt="DP QRIS" onerror="replaceWithPlaceholder(this)">
+                            </div>
+                            <button class="copy-image-btn" onclick="copyImageToClipboard('https://i.postimg.cc/8PzrHjKK/Screenshot-3.png', 'DP QRIS')">
+                                <i class="fas fa-copy"></i> Salin Gambar
+                            </button>
+                        </div>
+                        <div class="rtp-info">
+                            <span>DP QRIS</span>
+                            <span>GAMBAR</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Profil E-Wallet & M-Banking Content -->
+        <div id="profile-content" class="content-page">
+            <header style="margin-bottom: 30px;">
+                <h1 style="background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Profil E-Wallet & M-Banking</h1>
+                <p class="description">Kumpulan gambar profil untuk berbagai bank dan e-wallet</p>
+            </header>
+
+            <!-- Bank Section -->
+            <div class="controls" style="margin-bottom: 30px;">
+                <h2 style="color: #00b4db; margin-bottom: 20px; text-align: center;">Profil Mobile Banking</h2>
+            </div>
+
+            <div class="submenu-grid grid-5">
+                <!-- Wondr -->
+                <div class="profile-card">
+                    <h3>PROFILE WONDR</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1aJLwwr4o7tdM8JsrGtywek4bYQtcJoGS=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1aJLwwr4o7tdM8JsrGtywek4bYQtcJoGS=w800" alt="Profile Wondr" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1aJLwwr4o7tdM8JsrGtywek4bYQtcJoGS=w800', 'Profile Wondr')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BNI Wondr</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- myBCA -->
+                <div class="profile-card">
+                    <h3>PROFILE myBCA</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1xFY1BkPq947CLHFBiAJzzuL5QB2Ih0KS=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1xFY1BkPq947CLHFBiAJzzuL5QB2Ih0KS=w800" alt="Profile myBCA" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1xFY1BkPq947CLHFBiAJzzuL5QB2Ih0KS=w800', 'Profile myBCA')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BCA</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- m-BCA -->
+                <div class="profile-card">
+                    <h3>PROFILE m-BCA</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1yjTtKM0hiWIoxA-6TuT0GpHPo2QTwC5N=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1yjTtKM0hiWIoxA-6TuT0GpHPo2QTwC5N=w800" alt="Profile m-BCA" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1yjTtKM0hiWIoxA-6TuT0GpHPo2QTwC5N=w800', 'Profile m-BCA')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BCA</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- BNI -->
+                <div class="profile-card">
+                    <h3>PROFILE BNI</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1zPUjDpx_7E4JoHv6gOv3GyDE3ANhf5Tc=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1zPUjDpx_7E4JoHv6gOv3GyDE3ANhf5Tc=w800" alt="Profile BNI" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1zPUjDpx_7E4JoHv6gOv3GyDE3ANhf5Tc=w800', 'Profile BNI')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BNI</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- BRI -->
+                <div class="profile-card">
+                    <h3>PROFILE BRI</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1UiSC-pYXVbXfG_xiuemwIFbl8E_A4b4O=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1UiSC-pYXVbXfG_xiuemwIFbl8E_A4b4O=w800" alt="Profile BRI" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1UiSC-pYXVbXfG_xiuemwIFbl8E_A4b4O=w800', 'Profile BRI')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BRI</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- BSI -->
+                <div class="profile-card">
+                    <h3>PROFILE BSI</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1CYQXmttlGyJCb47Wu2cJatPl0o1Mh5NP=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1CYQXmttlGyJCb47Wu2cJatPl0o1Mh5NP=w800" alt="Profile BSI" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1CYQXmttlGyJCb47Wu2cJatPl0o1Mh5NP=w800', 'Profile BSI')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>BSI</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- CIMB -->
+                <div class="profile-card">
+                    <h3>PROFILE CIMB</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1Fcx-TGcXmo0hM9U7SoNgYESANtbhprVj=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1Fcx-TGcXmo0hM9U7SoNgYESANtbhprVj=w800" alt="Profile CIMB" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1Fcx-TGcXmo0hM9U7SoNgYESANtbhprVj=w800', 'Profile CIMB')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>CIMB</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- DANAMON -->
+                <div class="profile-card">
+                    <h3>PROFILE DANAMON</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/17Wm7dpYj6ie8jY9u3CL2FP1JiMnkG-0p=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/17Wm7dpYj6ie8jY9u3CL2FP1JiMnkG-0p=w800" alt="Profile Danamon" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/17Wm7dpYj6ie8jY9u3CL2FP1JiMnkG-0p=w800', 'Profile Danamon')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>Danamon</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- MANDIRI -->
+                <div class="profile-card">
+                    <h3>PROFILE MANDIRI</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1qIJDO1SJFLr2dDHbsIdCNEPRrWxT2HRz=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1qIJDO1SJFLr2dDHbsIdCNEPRrWxT2HRz=w800" alt="Profile Mandiri" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1qIJDO1SJFLr2dDHbsIdCNEPRrWxT2HRz=w800', 'Profile Mandiri')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>Mandiri</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- MAYBANK -->
+                <div class="profile-card">
+                    <h3>PROFILE MAYBANK</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1qBvxMajD9C8FWguI9VZaanvIgHYaa5-y=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1qBvxMajD9C8FWguI9VZaanvIgHYaa5-y=w800" alt="Profile Maybank" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1qBvxMajD9C8FWguI9VZaanvIgHYaa5-y=w800', 'Profile Maybank')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>Maybank</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+                
+                <!-- SEABANK -->
+                <div class="profile-card">
+                    <h3>PROFILE SEABANK</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/181za_khovJNiuEDQJgqER8C9s7-xtsy4=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/181za_khovJNiuEDQJgqER8C9s7-xtsy4=w800" alt="Profile SeaBank" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/181za_khovJNiuEDQJgqER8C9s7-xtsy4=w800', 'Profile SeaBank')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>SeaBank</span>
+                        <span>Mobile Banking</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls" style="margin: 50px 0 30px 0;">
+                <h2 style="color: #00b4db; margin-bottom: 20px; text-align: center;">Profil E-Wallet</h2>
+            </div>
+
+            <div class="submenu-grid grid-4">
+                <!-- DANA -->
+                <div class="profile-card">
+                    <h3>PROFILE DANA</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1JF8PYmL1yn7DRHznynytOtG09ZDy5-eN=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1JF8PYmL1yn7DRHznynytOtG09ZDy5-eN=w800" alt="Profile DANA" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1JF8PYmL1yn7DRHznynytOtG09ZDy5-eN=w800', 'Profile DANA')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>DANA</span>
+                        <span>E-Wallet</span>
+                    </div>
+                </div>
+                
+                <!-- GOPAY -->
+                <div class="profile-card">
+                    <h3>PROFILE GOPAY</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1ioLHxJTins7VvWE7RDOLf6T6UgoESUzT=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1ioLHxJTins7VvWE7RDOLf6T6UgoESUzT=w800" alt="Profile GOPAY" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1ioLHxJTins7VvWE7RDOLf6T6UgoESUzT=w800', 'Profile GOPAY')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>GOPAY</span>
+                        <span>E-Wallet</span>
+                    </div>
+                </div>
+                
+                <!-- LINKAJA -->
+                <div class="profile-card">
+                    <h3>PROFILE LINKAJA</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1V-YqdqkHBRE9g_xSFnIGZSk29nUCQwLg=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1V-YqdqkHBRE9g_xSFnIGZSk29nUCQwLg=w800" alt="Profile LINKAJA" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1V-YqdqkHBRE9g_xSFnIGZSk29nUCQwLg=w800', 'Profile LINKAJA')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>LINKAJA</span>
+                        <span>E-Wallet</span>
+                    </div>
+                </div>
+                
+                <!-- OVO -->
+                <div class="profile-card">
+                    <h3>PROFILE OVO</h3>
+                    <div class="profile-image-container" onclick="openModal('https://lh3.googleusercontent.com/d/1e-MmH2eU3tD1JXrR5MVih7h3Rdsfzujj=w800')">
+                        <img src="https://lh3.googleusercontent.com/d/1e-MmH2eU3tD1JXrR5MVih7h3Rdsfzujj=w800" alt="Profile OVO" onerror="replaceWithPlaceholder(this)">
+                        <button class="profile-copy-btn" onclick="copyImageToClipboard('https://lh3.googleusercontent.com/d/1e-MmH2eU3tD1JXrR5MVih7h3Rdsfzujj=w800', 'Profile OVO')">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <span>OVO</span>
+                        <span>E-Wallet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk gambar -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-content">
+                <img id="modalImage" src="" alt="QRIS Screenshot">
+            </div>
+        </div>
+
         <footer>
-            <p>Cosmic Terminal v2.1.5 | System Operational</p>
-            <div class="connection-status">
-                <span class="status-indicator"></span>
-                <span>All systems connected</span>
-            </div>
+            <p>© 2023 Dashboard QRIS. Semua hak cipta dilindungi.</p>
         </footer>
     </div>
 
     <script>
-        // Membuat efek bola melayang di latar belakang
-        document.addEventListener('DOMContentLoaded', function() {
-            const floatingBalls = document.getElementById('floatingBalls');
+        // Fungsi untuk navigasi menu
+        document.getElementById('dashboard-btn').addEventListener('click', function() {
+            document.getElementById('dashboard-content').style.display = 'block';
+            document.getElementById('profile-content').style.display = 'none';
             
-            // Membuat bola melayang
-            const ballColors = [
-                '#ff4d6d', '#9d4edd', '#4cc9f0', '#ffd166', '#06d6a0', '#7209b7', '#f3722c', '#f72585'
-            ];
+            // Update active button
+            document.getElementById('dashboard-btn').classList.add('active');
+            document.getElementById('profile-btn').classList.remove('active');
+        });
+
+        document.getElementById('profile-btn').addEventListener('click', function() {
+            document.getElementById('dashboard-content').style.display = 'none';
+            document.getElementById('profile-content').style.display = 'block';
             
-            for (let i = 0; i < 20; i++) {
-                const ball = document.createElement('div');
-                ball.classList.add('ball');
-                
-                const size = Math.random() * 60 + 15;
-                ball.style.width = `${size}px`;
-                ball.style.height = `${size}px`;
-                ball.style.left = `${Math.random() * 100}%`;
-                ball.style.top = `${Math.random() * 100}%`;
-                
-                const color = ballColors[Math.floor(Math.random() * ballColors.length)];
-                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
-                ball.style.color = color;
-                
-                ball.style.animationDelay = `${Math.random() * 20}s`;
-                ball.style.animationDuration = `${Math.random() * 30 + 20}s`;
-                
-                floatingBalls.appendChild(ball);
+            // Update active button
+            document.getElementById('profile-btn').classList.add('active');
+            document.getElementById('dashboard-btn').classList.remove('active');
+        });
+
+        // Fungsi untuk membuka modal dengan gambar
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Tutup modal jika diklik di luar gambar
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
             }
-            
-            // Membuat bola interaktif yang bereaksi terhadap kursor
-            const interactiveBalls = [];
-            for (let i = 0; i < 10; i++) {
-                const ball = document.createElement('div');
-                ball.classList.add('ball-interactive');
-                
-                const size = Math.random() * 50 + 15;
-                ball.style.width = `${size}px`;
-                ball.style.height = `${size}px`;
-                
-                const color = ballColors[Math.floor(Math.random() * ballColors.length)];
-                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
-                ball.style.color = color;
-                
-                ball.style.left = `${Math.random() * 100}%`;
-                ball.style.top = `${Math.random() * 100}%`;
-                
-                floatingBalls.appendChild(ball);
-                interactiveBalls.push(ball);
-            }
-            
-            // Efek lampu kursor
-            const cursorLight = document.getElementById('cursorLight');
-            
-            document.addEventListener('mousemove', (e) => {
-                cursorLight.style.left = e.clientX + 'px';
-                cursorLight.style.top = e.clientY + 'px';
-                
-                // Bola interaktif bereaksi terhadap kursor
-                interactiveBalls.forEach(ball => {
-                    const ballRect = ball.getBoundingClientRect();
-                    const ballX = ballRect.left + ballRect.width / 2;
-                    const ballY = ballRect.top + ballRect.height / 2;
-                    
-                    const distance = Math.sqrt(
-                        Math.pow(e.clientX - ballX, 2) + 
-                        Math.pow(e.clientY - ballY, 2)
-                    );
-                    
-                    if (distance < 200) {
-                        const force = (200 - distance) / 200;
-                        const angle = Math.atan2(
-                            e.clientY - ballY, 
-                            e.clientX - ballX
-                        );
-                        
-                        const moveX = Math.cos(angle) * force * 30;
-                        const moveY = Math.sin(angle) * force * 30;
-                        
-                        ball.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + force * 0.3})`;
-                    } else {
-                        ball.style.transform = 'translate(0, 0) scale(1)';
-                    }
-                });
-            });
-            
-            // Membuat lampu lebih besar saat di atas elemen interaktif
-            const interactiveElements = document.querySelectorAll('.card, .btn, .terminal-button');
-            
-            interactiveElements.forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    cursorLight.classList.add('active');
-                });
-                
-                element.addEventListener('mouseleave', () => {
-                    cursorLight.classList.remove('active');
-                });
-            });
-            
-            // Efek hover untuk kartu dengan delay bertahap
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                card.style.transitionDelay = `${index * 0.05}s`;
-            });
-            
-            // Efek bola tambahan saat hover tombol
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    // Tambahkan bola tambahan
-                    const ballCount = 2;
-                    for (let i = 0; i < ballCount; i++) {
-                        setTimeout(() => {
-                            createButtonBall(this);
-                        }, i * 150);
-                    }
-                });
-            });
-            
-            function createButtonBall(button) {
-                const ball = document.createElement('div');
-                ball.classList.add('ball-interactive');
-                
-                const size = Math.random() * 30 + 15;
-                ball.style.width = `${size}px`;
-                ball.style.height = `${size}px`;
-                
-                const colors = ['#ff4d6d', '#4cc9f0', '#9d4edd', '#ffd166', '#06d6a0', '#f3722c', '#f72585'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                ball.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color}80)`;
-                ball.style.color = color;
-                
-                const buttonRect = button.getBoundingClientRect();
-                const left = buttonRect.left + Math.random() * buttonRect.width;
-                const top = buttonRect.top + Math.random() * buttonRect.height;
-                
-                ball.style.left = `${left}px`;
-                ball.style.top = `${top}px`;
-                ball.style.position = 'fixed';
-                
-                document.body.appendChild(ball);
-                
-                // Animasi bola meledak
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 100 + 30;
-                const targetX = left + Math.cos(angle) * distance;
-                const targetY = top + Math.sin(angle) * distance;
-                
-                ball.animate([
-                    { 
-                        transform: 'scale(0)',
-                        opacity: 0
-                    },
-                    { 
-                        transform: 'scale(1)',
-                        opacity: 0.8
-                    },
-                    { 
-                        transform: `scale(1.5) translate(${targetX - left}px, ${targetY - top}px)`,
-                        opacity: 0
-                    }
-                ], {
-                    duration: 1200,
-                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
-                });
-                
-                // Hapus bola setelah animasi selesai
-                setTimeout(() => {
-                    ball.remove();
-                }, 1200);
+        };
+
+        // Tutup modal dengan tombol ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
             }
         });
+
+        // Fungsi untuk mengganti gambar yang error dengan placeholder
+        function replaceWithPlaceholder(img) {
+            const parent = img.parentElement;
+            parent.innerHTML = '<div class="no-image"><i class="fas fa-image fa-2x"></i><span>Gambar tidak tersedia</span></div>';
+        }
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.dashboard .card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else if (filterValue === 'bank') {
+                        card.style.display = card.getAttribute('data-type') === 'bank' ? 'block' : 'none';
+                    } else if (filterValue === 'ewallet') {
+                        card.style.display = card.getAttribute('data-type') === 'ewallet' ? 'block' : 'none';
+                    } else if (filterValue === 'rrn') {
+                        card.style.display = card.getAttribute('data-ref-type') === 'rrn' ? 'block' : 'none';
+                    } else if (filterValue === 'reference') {
+                        const refType = card.getAttribute('data-ref-type');
+                        card.style.display = (refType === 'reference' || refType === 'orderid') ? 'block' : 'none';
+                    } else if (filterValue === 'RTP') {
+                        card.style.display = card.getAttribute('data-type') === 'RTP' ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-btn');
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            let found = false;
+
+            if (searchTerm === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                showNotification('Menampilkan semua kartu');
+                return;
+            }
+
+            cards.forEach(card => {
+                const bankName = card.querySelector('.card-header h3').textContent.toLowerCase();
+                const refCode = card.querySelector('.ref-code').textContent.toLowerCase();
+
+                if (bankName.includes(searchTerm) || refCode.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (found) {
+                showNotification('Pencarian ditemukan');
+            } else {
+                showNotification('Tidak ada hasil yang ditemukan', 'error');
+            }
+        }
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Add animation to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card, .profile-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+
+            notificationText.textContent = message;
+            notification.className = 'notification show';
+
+            if (type === 'error') {
+                notification.style.background = '#ff6b6b';
+                notification.style.color = 'white';
+            } else {
+                notification.style.background = 'white';
+                notification.style.color = '#2c3e50';
+            }
+
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 3000);
+        }
+
+        // Simulasi loading saat halaman pertama dimuat
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+            }, 1000);
+        });
+
+        // Salin teks referensi ketika diklik
+        document.querySelectorAll('.ref-code').forEach(el => {
+            el.addEventListener('click', function() {
+                const textToCopy = this.textContent.replace('RRN QRIS:', '')
+                    .replace('No. Referensi:', '')
+                    .replace('Nomor Referensi:', '')
+                    .replace('Reff ID / RRN:', '')
+                    .replace('Order ID:', '')
+                    .replace('Reff ID:', '')
+                    .replace('Kode RRN:', '')
+                    .replace('Referensi:', '')
+                    .replace('Cara melihat RTP:', '')
+                    .replace('GAMBAR CARA DP QRIS:', '')
+                    .trim();
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showNotification('Teks berhasil disalin: ' + textToCopy);
+                }).catch(err => {
+                    showNotification('Gagal menyalin teks', 'error');
+                });
+            });
+        });
+
+        // Fungsi untuk menyalin gambar ke clipboard
+        async function copyImageToClipboard(imageUrl, imageName) {
+            try {
+                // Fetch the image
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+
+                // Copy to clipboard
+                await navigator.clipboard.write([
+                    new ClipboardItem({
+                        [blob.type]: blob
+                    })
+                ]);
+
+                showNotification(`Gambar ${imageName} berhasil disalin`);
+            } catch (err) {
+                console.error('Error copying image: ', err);
+                showNotification('Gagal menyalin gambar', 'error');
+            }
+        }
     </script>
 </body>
-
 </html>
-
-
-
-
