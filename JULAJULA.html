@@ -14,6 +14,7 @@
             --accent-cyan: #00d2ff;
             --accent-magenta: #ff00ff;
             --accent-purple: #9d50bb;
+            --accent-red: #e74c3c;
             --text-primary: #f0f0f0;
             --text-muted: #a0a0a0;
             --card-bg: rgba(255, 255, 255, 0.05);
@@ -273,8 +274,9 @@
         .btn-primary { background: linear-gradient(135deg, var(--accent-cyan), #0077be); box-shadow: 0 0 15px var(--accent-cyan); }
         .btn-secondary { background: linear-gradient(135deg, var(--accent-magenta), #b300b3); box-shadow: 0 0 15px var(--accent-magenta); }
         .btn-swap { background: linear-gradient(135deg, var(--accent-purple), #6a0dad); box-shadow: 0 0 15px var(--accent-purple); }
-        .btn-logout { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 0 15px #e74c3c; } /* BARU: Gaya untuk tombol logout */
-        .btn-change-pass { background: linear-gradient(135deg, #f39c12, #e67e22); box-shadow: 0 0 15px #f39c12; } /* BARU: Gaya untuk tombol ganti pass */
+        .btn-logout { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 0 15px #e74c3c; }
+        .btn-change-pass { background: linear-gradient(135deg, #f39c12, #e67e22); box-shadow: 0 0 15px #f39c12; }
+        .btn-delete { background: linear-gradient(135deg, var(--accent-red), #c0392b); box-shadow: 0 0 15px var(--accent-red); }
         
         .btn:hover:not(:disabled) {
             transform: translateY(-2px);
@@ -368,7 +370,11 @@
         .player-info p { opacity: 0.9; font-size: 0.9rem; }
         .player-details { font-size: 0.85rem; margin-top: 12px; opacity: 0.9; }
         .player-details i { margin-right: 8px; color: rgba(255,255,255,0.8); }
-        .edit-btn {
+        .player-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .edit-btn, .delete-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -382,6 +388,11 @@
             background: rgba(255, 255, 255, 0.3); 
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        .delete-btn:hover {
+            background: rgba(231, 76, 60, 0.7);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
         }
         
         /* --- TABEL --- */
@@ -477,7 +488,7 @@
             </div>
         </div>
 
-        <!-- BARU: Modal Ganti Password -->
+        <!-- Modal Ganti Password -->
         <div id="changePasswordModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header" style="background: linear-gradient(135deg, #f39c12, #e67e22);"><h2><i class="fas fa-key"></i> Ganti Password</h2><span class="close-pass">&times;</span></div>
@@ -499,7 +510,7 @@
                 <div><span class="info-box"><i class="far fa-calendar-alt"></i> Mulai: Desember 2025</span><span class="info-box"><i class="fas fa-money-bill-wave"></i> Penarikan: Tgl 25</span><span class="info-box"><i class="fas fa-clock"></i> Periode: 6 Bulan</span></div>
                 <div class="financial-info">
                     <div id="totalFunds"><i class="fas fa-wallet"></i> Total Dana: Rp 0</div>
-                    <!-- BARU: Tombol Logout dan Ganti Password -->
+                    <!-- Tombol Logout dan Ganti Password -->
                     <button class="btn btn-change-pass" id="changePasswordBtn"><i class="fas fa-key"></i> Ganti Password</button>
                     <button class="btn btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</button>
                 </div>
@@ -538,12 +549,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- DATA PEMAIN DAN KONFIGURASI ---
             const initialPlayers = [
-                { name: "RANJIT", id: "X1068990", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" }, // BARU: Tambahkan password default
-                { name: "SUHAN RAZ", id: "C5862955", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" },
-                { name: "AMRUL", id: "E2365928", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" },
-                { name: "AGUNG DEDI IRAWAN", id: "E7089147", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" },
-                { name: "JONROMAN PURBA", id: "C8491005", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" },
-                { name: "RAHMADI SORMIN", id: "E0685561", bankName: "", accountNumber: "", ewalletProvider: "", password: "123" }
+                { name: "RANJIT", id: "X1068990", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: true },
+                { name: "SUHAN RAZ", id: "C5862955", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: false },
+                { name: "AMRUL", id: "E2365928", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: false },
+                { name: "AGUNG DEDI IRAWAN", id: "E7089147", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: false },
+                { name: "JONROMAN PURBA", id: "C8491005", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: false },
+                { name: "RAHMADI SORMIN", id: "E0685561", bankName: "", accountNumber: "", ewalletProvider: "", password: "123", isAdmin: false }
             ];
             const months = ["Desember", "Januari", "Februari", "Maret", "April", "Mei"];
             const years = [2025, 2026, 2026, 2026, 2026, 2026];
@@ -601,6 +612,9 @@
                         if (!player.password) {
                             data.players[index].password = initialPlayers[index].password;
                         }
+                        if (player.isAdmin === undefined) {
+                            data.players[index].isAdmin = initialPlayers[index].isAdmin;
+                        }
                     });
                     if (typeof data.generateCount === 'undefined') data.generateCount = 0;
                     return data;
@@ -634,15 +648,19 @@
                 }
                 let orderHTML = '<h3 style="color:var(--text-primary); margin-bottom: 20px;">Urutan Penarikan Saat Ini:</h3><div class="order-display">';
                 appData.drawerOrder.forEach((playerIndex, orderNum) => {
-                    const player = appData.players[playerIndex];
-                    orderHTML += `<div class="order-item"><div class="order-number">${orderNum + 1}</div><span>${player.name}</span></div>`;
+                    if (playerIndex !== -1 && playerIndex < appData.players.length) {
+                        const player = appData.players[playerIndex];
+                        orderHTML += `<div class="order-item"><div class="order-number">${orderNum + 1}</div><span>${player.name}</span></div>`;
+                    }
                 });
                 orderHTML += '</div>';
                 orderDisplayContainer.innerHTML = orderHTML;
                 swapOrderSelect.innerHTML = '';
                 appData.drawerOrder.forEach((playerIndex, orderNum) => {
-                    const player = appData.players[playerIndex];
-                    swapOrderSelect.innerHTML += `<option value="${orderNum}">Urutan ${orderNum + 1} (${player.name})</option>`;
+                    if (playerIndex !== -1 && playerIndex < appData.players.length) {
+                        const player = appData.players[playerIndex];
+                        swapOrderSelect.innerHTML += `<option value="${orderNum}">Urutan ${orderNum + 1} (${player.name})</option>`;
+                    }
                 });
                 swapPlayerSelect.innerHTML = '';
                 appData.players.forEach(player => {
@@ -652,35 +670,82 @@
             }
 
             function renderApp() {
-                const appData = loadData(); playersGrid.innerHTML = ''; let totalFunds = 0;
+                const appData = loadData(); 
+                playersGrid.innerHTML = ''; 
+                let totalFunds = 0;
                 const gradientColors = [['#00d2ff', '#0077be'], ['#ff00ff', '#b300b3'], ['#9d50bb', '#6e0b8a'], ['#f0ff00', '#c0d600'], ['#ff9a00', '#ff6200'], ['#00ff88', '#00b366']];
+                
                 appData.players.forEach((player, playerIndex) => {
-                    const card = document.createElement('div'); card.className = 'card';
+                    const card = document.createElement('div'); 
+                    card.className = 'card';
                     
                     const orderNumber = appData.drawerOrder.indexOf(playerIndex);
                     const orderDisplay = orderNumber !== -1 ? `<span class="player-order-tag">URUTAN ${orderNumber + 1}</span>` : '';
                     
                     const bankInfo = player.bankName ? `<div class="player-details"><i class="fas fa-university"></i> ${player.bankName} - ${player.accountNumber}</div>` : '';
                     const ewalletInfo = player.ewalletProvider ? `<div class="player-details"><i class="fas fa-wallet"></i> ${player.ewalletProvider}</div>` : '';
-                    card.innerHTML = `<div class="player-header" style="background: linear-gradient(to right, ${gradientColors[playerIndex][0]}, ${gradientColors[playerIndex][1]});"><div class="player-info"><h2>${player.name} ${orderDisplay}</h2><p>ID: ${player.id}</p>${bankInfo}${ewalletInfo}</div><button class="edit-btn" data-player-index="${playerIndex}"><i class="fas fa-edit"></i></button></div><table class="schedule-table"><thead><tr><th>Bulan</th><th>Iuran</th><th>Info Penarikan</th><th>Status</th></tr></thead><tbody></tbody></table>`;
+                    
+                    // Tombol hapus hanya muncul untuk admin (RANJIT)
+                    const deleteButtonHtml = currentUser === "RANJIT" && !player.isAdmin ? 
+                        `<button class="delete-btn" data-player-index="${playerIndex}" title="Hapus Pemain"><i class="fas fa-trash"></i></button>` : '';
+                    
+                    card.innerHTML = `
+                        <div class="player-header" style="background: linear-gradient(to right, ${gradientColors[playerIndex % 6][0]}, ${gradientColors[playerIndex % 6][1]});">
+                            <div class="player-info">
+                                <h2>${player.name} ${orderDisplay}</h2>
+                                <p>ID: ${player.id}</p>
+                                ${bankInfo}
+                                ${ewalletInfo}
+                            </div>
+                            <div class="player-actions">
+                                <button class="edit-btn" data-player-index="${playerIndex}" title="Edit Info"><i class="fas fa-edit"></i></button>
+                                ${deleteButtonHtml}
+                            </div>
+                        </div>
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>Bulan</th>
+                                    <th>Iuran</th>
+                                    <th>Info Penarikan</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    `;
                     playersGrid.appendChild(card);
                     const tableBody = card.querySelector('tbody');
                     for (let i = 0; i < months.length; i++) {
-                        const row = document.createElement('tr'); const isDrawer = appData.drawerOrder[i] === playerIndex; const hasPaid = appData.paymentStatus[playerIndex][i];
-                        if (hasPaid) totalFunds += appData.monthlyContribution; if (i === 0) row.classList.add('highlight'); if (isDrawer) row.classList.add('current-drawer');
+                        const row = document.createElement('tr'); 
+                        const isDrawer = appData.drawerOrder[i] === playerIndex; 
+                        const hasPaid = appData.paymentStatus[playerIndex][i];
+                        if (hasPaid) totalFunds += appData.monthlyContribution; 
+                        if (i === 0) row.classList.add('highlight'); 
+                        if (isDrawer) row.classList.add('current-drawer');
                         
                         let drawerInfo = "Belum ditentukan";
-                        if (appData.drawerOrder[i] !== -1) {
-                            const drawerPlayer = appData.players[appData.drawerOrder[i]]; const potentialTotal = appData.monthlyContribution * appData.players.length;
+                        if (appData.drawerOrder[i] !== -1 && appData.drawerOrder[i] < appData.players.length) {
+                            const drawerPlayer = appData.players[appData.drawerOrder[i]]; 
+                            const potentialTotal = appData.monthlyContribution * appData.players.length;
                             let details = `<strong>Rp ${potentialTotal.toLocaleString('id-ID')}</strong><br>`;
                             if (drawerPlayer.bankName) details += `Bank: ${drawerPlayer.bankName} (${drawerPlayer.accountNumber})<br>`;
                             if (drawerPlayer.ewalletProvider) details += `E-Wallet: ${drawerPlayer.ewalletProvider}`;
                             drawerInfo = (isDrawer ? `<i class="fas fa-user-check"></i> Anda` : `<i class="fas fa-user"></i> ${drawerPlayer.name}`) + `<br><small>${details}</small>`;
                         }
                         
-                        const statusButton = document.createElement('button'); statusButton.className = 'btn-confirm';
-                        if (hasPaid) { statusButton.className += ' btn-paid'; statusButton.innerHTML = '<i class="fas fa-check-circle"></i> Lunas'; statusButton.disabled = true; }
-                        else { statusButton.className += ' btn-unpaid'; statusButton.innerHTML = '<i class="fas fa-times-circle"></i> Belum Bayar'; statusButton.addEventListener('click', () => togglePayment(playerIndex, i)); }
+                        const statusButton = document.createElement('button'); 
+                        statusButton.className = 'btn-confirm';
+                        if (hasPaid) { 
+                            statusButton.className += ' btn-paid'; 
+                            statusButton.innerHTML = '<i class="fas fa-check-circle"></i> Lunas'; 
+                            statusButton.disabled = true; 
+                        }
+                        else { 
+                            statusButton.className += ' btn-unpaid'; 
+                            statusButton.innerHTML = '<i class="fas fa-times-circle"></i> Belum Bayar'; 
+                            statusButton.addEventListener('click', () => togglePayment(playerIndex, i)); 
+                        }
                         
                         row.innerHTML = `
                             <td class="month">${months[i]} ${years[i]}</td>
@@ -688,11 +753,13 @@
                             <td class="drawer-info">${drawerInfo}</td>
                             <td class="payment-status"></td>
                         `;
-                        row.querySelector('.payment-status').appendChild(statusButton); tableBody.appendChild(row);
+                        row.querySelector('.payment-status').appendChild(statusButton); 
+                        tableBody.appendChild(row);
                     }
                 });
                 totalFundsEl.innerHTML = `<i class="fas fa-wallet"></i> Total Dana: Rp ${totalFunds.toLocaleString('id-ID')}`;
                 
+                // Event listeners untuk tombol edit
                 document.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const index = e.currentTarget.dataset.playerIndex;
@@ -704,61 +771,138 @@
                         openEditModal(parseInt(index));
                     });
                 });
+                
+                // Event listeners untuk tombol hapus
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.playerIndex;
+                        deletePlayer(parseInt(index));
+                    });
+                });
+                
                 renderOrderDisplay();
             }
 
+            function deletePlayer(playerIndex) {
+                const appData = loadData();
+                const playerToDelete = appData.players[playerIndex];
+                
+                if (!confirm(`Apakah Anda yakin ingin menghapus pemain "${playerToDelete.name}"? Semua data pembayaran dan urutan terkait akan dihapus.`)) {
+                    return;
+                }
+                
+                // Hapus pemain dari array
+                appData.players.splice(playerIndex, 1);
+                
+                // Hapus status pembayaran pemain
+                appData.paymentStatus.splice(playerIndex, 1);
+                
+                // Perbarui drawer order
+                const newDrawerOrder = [];
+                appData.drawerOrder.forEach(orderIndex => {
+                    if (orderIndex === playerIndex) {
+                        // Jika yang dihapus adalah yang ada di urutan, ganti dengan -1
+                        newDrawerOrder.push(-1);
+                    } else if (orderIndex > playerIndex) {
+                        // Kurangi indeks jika lebih besar dari indeks yang dihapus
+                        newDrawerOrder.push(orderIndex - 1);
+                    } else {
+                        // Tetap sama jika lebih kecil
+                        newDrawerOrder.push(orderIndex);
+                    }
+                });
+                appData.drawerOrder = newDrawerOrder;
+                
+                // Simpan data dan render ulang
+                saveData(appData);
+                renderApp();
+                showNotification(`Pemain "${playerToDelete.name}" berhasil dihapus!`);
+            }
+
             function togglePayment(playerIndex, monthIndex) {
-                const appData = loadData(); appData.paymentStatus[playerIndex][monthIndex] = !appData.paymentStatus[playerIndex][monthIndex]; saveData(appData); renderApp();
+                const appData = loadData(); 
+                appData.paymentStatus[playerIndex][monthIndex] = !appData.paymentStatus[playerIndex][monthIndex]; 
+                saveData(appData); 
+                renderApp();
                 const action = appData.paymentStatus[playerIndex][monthIndex] ? 'dikonfirmasi' : 'dibatalkan';
                 showNotification(`Pembayaran ${appData.players[playerIndex].name} untuk bulan ${months[monthIndex]} ${action}.`);
             }
 
             function openEditModal(playerIndex) {
-                const appData = loadData(); const player = appData.players[playerIndex]; currentEditingPlayerIndex = playerIndex;
+                const appData = loadData(); 
+                const player = appData.players[playerIndex]; 
+                currentEditingPlayerIndex = playerIndex;
                 document.getElementById('bankName').value = player.bankName || ''; 
                 document.getElementById('accountNumber').value = player.accountNumber || ''; 
                 document.getElementById('ewalletProvider').value = player.ewalletProvider || '';
                 editModal.style.display = 'block';
             }
 
-            function closeEditModal() { editModal.style.display = 'none'; currentEditingPlayerIndex = -1; }
+            function closeEditModal() { 
+                editModal.style.display = 'none'; 
+                currentEditingPlayerIndex = -1; 
+            }
 
             function savePlayerInfo(event) {
-                event.preventDefault(); if (currentEditingPlayerIndex === -1) return;
+                event.preventDefault(); 
+                if (currentEditingPlayerIndex === -1) return;
                 const appData = loadData();
                 appData.players[currentEditingPlayerIndex].bankName = document.getElementById('bankName').value;
                 appData.players[currentEditingPlayerIndex].accountNumber = document.getElementById('accountNumber').value;
                 appData.players[currentEditingPlayerIndex].ewalletProvider = document.getElementById('ewalletProvider').value;
-                saveData(appData); renderApp(); closeEditModal(); showNotification('Info pemain berhasil diperbarui!');
+                saveData(appData); 
+                renderApp(); 
+                closeEditModal(); 
+                showNotification('Info pemain berhasil diperbarui!');
             }
 
             function generateDrawers() {
                 const appData = loadData();
                 const remainingGenerates = MAX_GENERATE_COUNT - appData.generateCount;
-                if (remainingGenerates <= 0) { showNotification('Batas generate telah tercapai!', 'error'); return; }
+                if (remainingGenerates <= 0) { 
+                    showNotification('Batas generate telah tercapai!', 'error'); 
+                    return; 
+                }
                 if (confirm(`Anda memiliki ${remainingGenerates} kesempatan generate lagi. Generate ulang akan mereset status pembayaran. Lanjutkan?`)) {
                     let order = Array.from({length: appData.players.length}, (_, i) => i);
-                    for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+                    for (let i = order.length - 1; i > 0; i--) { 
+                        const j = Math.floor(Math.random() * (i + 1)); 
+                        [order[i], order[j]] = [order[j], order[i]]; 
+                    }
+                    // Isi sisa urutan dengan -1 jika jumlah pemain kurang dari 6
+                    while (order.length < 6) {
+                        order.push(-1);
+                    }
                     appData.drawerOrder = order;
                     appData.paymentStatus = appData.players.map(() => Array(6).fill(false));
                     appData.generateCount++;
-                    saveData(appData); renderApp();
+                    saveData(appData); 
+                    renderApp();
                     showNotification(`Urutan penarikan berhasil dibuat! Sisa generate: ${MAX_GENERATE_COUNT - appData.generateCount}`);
-                } else { showNotification('Generate dibatalkan.', 'error'); }
+                } else { 
+                    showNotification('Generate dibatalkan.', 'error'); 
+                }
             }
 
             function swapOrder() {
                 const appData = loadData();
                 const orderToChange = parseInt(swapOrderSelect.value);
                 const newPlayerName = swapPlayerSelect.value;
-                if (isNaN(orderToChange) || !newPlayerName) { showNotification('Pilih urutan dan pemain yang valid.', 'error'); return; }
+                if (isNaN(orderToChange) || !newPlayerName) { 
+                    showNotification('Pilih urutan dan pemain yang valid.', 'error'); 
+                    return; 
+                }
                 const playerIndexAtSelectedOrder = appData.drawerOrder[orderToChange];
                 const newPlayerIndex = appData.players.findIndex(p => p.name === newPlayerName);
-                if (playerIndexAtSelectedOrder === newPlayerIndex) { showNotification('Pemain tersebut sudah menempati urutan ini.', 'error'); return; }
+                if (playerIndexAtSelectedOrder === newPlayerIndex) { 
+                    showNotification('Pemain tersebut sudah menempati urutan ini.', 'error'); 
+                    return; 
+                }
                 const currentOrderOfNewPlayer = appData.drawerOrder.indexOf(newPlayerIndex);
                 appData.drawerOrder[currentOrderOfNewPlayer] = playerIndexAtSelectedOrder;
                 appData.drawerOrder[orderToChange] = newPlayerIndex;
-                saveData(appData); renderApp();
+                saveData(appData); 
+                renderApp();
                 showNotification(`Urutan ${newPlayerName} berhasil diubah ke urutan ke-${orderToChange + 1}!`);
             }
 
@@ -770,7 +914,7 @@
                 }
             }
             
-            // --- BARU: FUNGSI-FUNGSI LOGIN & PASSWORD ---
+            // --- FUNGSI LOGIN & PASSWORD ---
             function handleLogin(event) {
                 event.preventDefault();
                 const username = document.getElementById('username').value.trim().toUpperCase();
@@ -874,7 +1018,12 @@
             document.getElementById('resetBtn').addEventListener('click', resetData);
             document.querySelector('.close').addEventListener('click', closeEditModal);
             editForm.addEventListener('submit', savePlayerInfo);
-            window.addEventListener('click', (event) => { if (event.target == editModal || event.target == changePasswordModal) { closeEditModal(); closeChangePasswordModal(); } });
+            window.addEventListener('click', (event) => { 
+                if (event.target == editModal || event.target == changePasswordModal) { 
+                    closeEditModal(); 
+                    closeChangePasswordModal(); 
+                } 
+            });
             swapBtn.addEventListener('click', swapOrder);
 
             // --- INISIALISASI APLIKASI ---
