@@ -20,6 +20,7 @@
             --red-gradient-light: linear-gradient(135deg, #EF5350 0%, #D32F2F 100%);
             --gold: #FFD700;
             --gold-light: #FFE55C;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FF8F00 100%);
             --white: #FFFFFF;
             --gray-light: #F5F5F5;
             --gray: #9E9E9E;
@@ -30,10 +31,13 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
             --shadow-red: 0 10px 30px rgba(211, 47, 47, 0.3);
+            --shadow-gold: 0 10px 30px rgba(255, 215, 0, 0.3);
             --radius: 20px;
             --radius-sm: 12px;
             --radius-lg: 30px;
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass-bg: rgba(26, 26, 26, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -44,7 +48,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+            background: linear-gradient(135deg, #000000 0%, #0A0A0A 100%);
             color: var(--gray-light);
             min-height: 100vh;
             overflow-x: hidden;
@@ -58,10 +62,12 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 20% 30%, rgba(211, 47, 47, 0.1) 0%, transparent 20%),
-                        radial-gradient(circle at 80% 70%, rgba(211, 47, 47, 0.08) 0%, transparent 20%),
-                        radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 15%),
-                        linear-gradient(135deg, #000000 0%, #0A0A0A 100%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(211, 47, 47, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(211, 47, 47, 0.12) 0%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 15%),
+                radial-gradient(circle at 60% 20%, rgba(76, 175, 80, 0.08) 0%, transparent 15%),
+                linear-gradient(135deg, #000000 0%, #0A0A0A 100%);
             overflow: hidden;
         }
 
@@ -70,13 +76,41 @@
             border-radius: 50%;
             background: var(--red-gradient);
             opacity: 0.1;
-            animation: float 25s infinite ease-in-out;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .particle:nth-child(2n) {
+            background: var(--gold-gradient);
+            animation-delay: -10s;
         }
 
         @keyframes float {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-30px, -20px) rotate(120deg); }
-            66% { transform: translate(15px, 25px) rotate(240deg); }
+            33% { transform: translate(-40px, -30px) rotate(120deg); }
+            66% { transform: translate(20px, 30px) rotate(240deg); }
+        }
+
+        /* Glow Effects */
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 40px rgba(211, 47, 47, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .glow-effect:hover::after {
+            opacity: 1;
         }
 
         /* Login Page */
@@ -86,66 +120,101 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,26,0.9) 100%);
         }
 
         .login-card {
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow-lg);
-            padding: 60px 50px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                var(--shadow-lg),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 70px 60px;
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             position: relative;
             overflow: hidden;
             animation: slideUp 0.8s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(60px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(60px) rotateX(-10deg);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0);
+            }
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
         }
 
         .logo {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             color: var(--red-light);
-            filter: drop-shadow(0 0 15px rgba(211, 47, 47, 0.5));
-            margin-bottom: 25px;
+            filter: drop-shadow(0 0 25px rgba(211, 47, 47, 0.6));
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .login-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(45deg, var(--red-light), var(--gold));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         .login-subtitle {
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         /* Form Styles */
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: 600;
-            color: var(--gray-light);
-            font-size: 1rem;
+            color: var(--white);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         .input-group {
@@ -154,44 +223,77 @@
 
         .form-input {
             width: 100%;
-            padding: 18px 20px 18px 60px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 20px 25px 20px 70px;
+            background: rgba(255, 255, 255, 0.07);
             border: 2px solid var(--gray-dark);
             border-radius: var(--radius-sm);
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: var(--transition);
             color: var(--white);
+            font-weight: 500;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--red-light);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 0 4px rgba(211, 47, 47, 0.15),
+                inset 0 0 20px rgba(211, 47, 47, 0.1);
+            transform: translateY(-2px);
         }
 
         .input-icon {
             position: absolute;
-            left: 20px;
+            left: 25px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--red-light);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus + .input-icon {
+            color: var(--gold);
+            transform: translateY(-50%) scale(1.1);
         }
 
         /* Buttons */
         .btn {
-            padding: 18px 35px;
+            padding: 20px 40px;
             border: none;
             border-radius: var(--radius-sm);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
@@ -199,167 +301,278 @@
             color: var(--white);
             width: 100%;
             box-shadow: var(--shadow-red);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(211, 47, 47, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 50px rgba(211, 47, 47, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #EF5350 0%, #D32F2F 100%);
         }
 
         .btn-secondary {
             background: linear-gradient(135deg, var(--gray-dark) 0%, var(--black-light) 100%);
             color: var(--white);
+            border: 2px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--red-light);
         }
 
         .btn-success {
             background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
             color: var(--white);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
         }
 
         .btn-warning {
             background: linear-gradient(135deg, var(--warning) 0%, #EF6C00 100%);
             color: var(--white);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 152, 0, 0.4);
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold) 0%, #FF8F00 100%);
+            background: var(--gold-gradient);
             color: var(--black);
             font-weight: 800;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-gold);
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
         }
 
         .login-footer {
             text-align: center;
-            margin-top: 35px;
+            margin-top: 45px;
             color: var(--gray);
-            font-size: 0.9rem;
-            padding-top: 20px;
+            font-size: 1rem;
+            padding-top: 30px;
             border-top: 1px solid var(--gray-dark);
+            line-height: 1.8;
         }
 
         /* Main App */
         .main-container {
             display: none;
             min-height: 100vh;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Sidebar */
         .sidebar {
-            width: 300px;
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
+            width: 320px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            box-shadow: 
+                var(--shadow),
+                inset 1px 0 0 var(--glass-border);
             display: flex;
             flex-direction: column;
             position: fixed;
             height: 100vh;
             z-index: 1000;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid var(--glass-border);
+            transform: translateX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar-header {
-            padding: 40px 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
 
         .brand-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--red-light);
-            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.5));
+            filter: drop-shadow(0 0 15px rgba(211, 47, 47, 0.5));
+            animation: floatIcon 6s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
         }
 
         .brand-text h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             background: linear-gradient(45deg, var(--red-light), var(--gold));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         .brand-text p {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--gray);
+            font-weight: 500;
         }
 
         .nav-menu {
             flex: 1;
-            padding: 30px 20px;
+            padding: 40px 25px;
             overflow-y: auto;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 18px 25px;
-            margin-bottom: 12px;
+            padding: 22px 30px;
+            margin-bottom: 15px;
             border-radius: var(--radius-sm);
             color: var(--gray);
             text-decoration: none;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--red-gradient);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.07);
             color: var(--white);
-            transform: translateX(10px);
+            transform: translateX(15px);
+            border-color: var(--glass-border);
+        }
+
+        .nav-item:hover::before {
+            transform: translateX(0);
         }
 
         .nav-item.active {
             background: linear-gradient(90deg, rgba(211, 47, 47, 0.2) 0%, rgba(211, 47, 47, 0.1) 100%);
             color: var(--white);
             border-left: 4px solid var(--red-light);
+            box-shadow: var(--shadow-red);
         }
 
         .nav-icon {
-            font-size: 1.4rem;
-            margin-right: 20px;
+            font-size: 1.6rem;
+            margin-right: 25px;
             color: var(--red-light);
+            min-width: 30px;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: scale(1.2);
+            color: var(--gold);
         }
 
         .nav-text {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         .user-card {
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.8) 100%);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(10, 10, 10, 0.9) 100%);
+            border-top: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--red-gradient);
         }
 
         .user-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
             background: var(--red-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 800;
-            font-size: 1.5rem;
+            font-weight: 900;
+            font-size: 1.8rem;
             box-shadow: var(--shadow-red);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .user-card:hover .user-avatar {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.5);
         }
 
         .user-info h4 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--white);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .user-info p {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--gray);
+            font-weight: 500;
         }
 
         .logout-btn {
@@ -367,21 +580,27 @@
             border: none;
             color: var(--gray);
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             transition: var(--transition);
             margin-left: auto;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid transparent;
         }
 
         .logout-btn:hover {
             color: var(--red-light);
+            background: rgba(211, 47, 47, 0.1);
+            border-color: rgba(211, 47, 47, 0.2);
+            transform: rotate(90deg);
         }
 
         /* Main Content */
         .main-content {
-            margin-left: 300px;
-            padding: 40px;
-            width: calc(100% - 300px);
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(26, 26, 26, 0.4) 100%);
+            margin-left: 320px;
+            padding: 50px;
+            width: calc(100% - 320px);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(26, 26, 26, 0.5) 100%);
             min-height: 100vh;
         }
 
@@ -389,18 +608,208 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             flex-wrap: wrap;
             gap: 30px;
-            padding: 30px;
-            background: rgba(26, 26, 26, 0.9);
+            padding: 40px;
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
         }
 
         .page-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .page-title i {
+            color: var(--red-light);
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.5));
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .datetime-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(10, 10, 10, 0.9) 100%);
+            padding: 25px 35px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+            min-width: 280px;
+            transition: var(--transition);
+        }
+
+        .datetime-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--red-light);
+            box-shadow: var(--shadow-red);
+        }
+
+        .datetime-card i {
+            color: var(--red-light);
+            font-size: 1.8rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            border-color: var(--red-light);
+            box-shadow: 
+                var(--shadow-lg),
+                0 0 40px rgba(211, 47, 47, 0.2);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--red-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+            box-shadow: var(--shadow-red);
+            transition: var(--transition);
+        }
+
+        .card:hover .card-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .card-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .card-value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-footer {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--glass-border);
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        .table-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            margin-bottom: 50px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .table-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .table-title {
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--white);
             display: flex;
@@ -408,134 +817,9 @@
             gap: 20px;
         }
 
-        .page-title i {
-            color: var(--red-light);
-            font-size: 2rem;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .datetime-card {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.8) 100%);
-            padding: 20px 30px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.1rem;
-            min-width: 250px;
-        }
-
-        .datetime-card i {
-            color: var(--red-light);
-            font-size: 1.5rem;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius);
-            padding: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--red-light);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            background: var(--red-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 25px;
-            box-shadow: var(--shadow-red);
-        }
-
-        .card-icon i {
-            font-size: 2rem;
-            color: white;
-        }
-
-        .card-content h3 {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 8px;
-        }
-
-        .card-value {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1;
-        }
-
-        .card-footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-            color: var(--gray);
-        }
-
-        /* Tables */
-        .table-container {
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 35px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .table-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
         .table-title i {
             color: var(--red-light);
+            font-size: 1.8rem;
         }
 
         .table {
@@ -544,22 +828,35 @@
         }
 
         .table th {
-            background: linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, transparent 100%);
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.15) 0%, transparent 100%);
+            padding: 25px;
             text-align: left;
             font-weight: 700;
             color: var(--white);
-            border-bottom: 2px solid var(--red-dark);
+            border-bottom: 3px solid var(--red-dark);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         .table td {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-bottom: 1px solid var(--glass-border);
             color: var(--gray-light);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .table tr {
+            transition: var(--transition);
         }
 
         .table tr:hover {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .table tr:hover td {
+            color: var(--white);
+            transform: translateX(10px);
         }
 
         .table tr:last-child td {
@@ -569,92 +866,210 @@
         /* Status Badges */
         .badge {
             display: inline-block;
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .badge:hover {
+            transform: translateY(-3px);
         }
 
         .badge-success {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
             color: #4CAF50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
         }
 
         .badge-warning {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2) 0%, rgba(255, 152, 0, 0.1) 100%);
             color: #FF9800;
-            border: 1px solid rgba(255, 152, 0, 0.3);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.2);
         }
 
         .badge-danger {
-            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2) 0%, rgba(244, 67, 54, 0.1) 100%);
             color: #F44336;
-            border: 1px solid rgba(244, 67, 54, 0.3);
+            border: 2px solid rgba(244, 67, 54, 0.3);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.2);
         }
 
         .badge-primary {
-            background: linear-gradient(135deg, rgba(211, 47, 47, 0.2) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.2) 0%, rgba(211, 47, 47, 0.1) 100%);
             color: var(--red-light);
-            border: 1px solid rgba(211, 47, 47, 0.3);
+            border: 2px solid rgba(211, 47, 47, 0.3);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.2);
         }
 
-        /* Bank Selection */
+        /* Bank Grid & Cards */
         .bank-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
-            margin: 30px 0;
-            max-height: 400px;
+            margin: 35px 0;
+            max-height: 500px;
             overflow-y: auto;
-            padding: 10px;
+            padding: 15px;
         }
 
         .bank-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--glass-border);
             border-radius: var(--radius-sm);
-            padding: 25px;
+            padding: 30px;
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--red-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .bank-card:hover {
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--red-light);
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-red);
+            box-shadow: 
+                var(--shadow-red),
+                0 0 30px rgba(211, 47, 47, 0.2);
+        }
+
+        .bank-card:hover::before {
+            transform: scaleX(1);
         }
 
         .bank-card.selected {
             border-color: var(--red-light);
-            background: linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.15) 0%, rgba(211, 47, 47, 0.05) 100%);
             box-shadow: var(--shadow-red);
         }
 
+        .bank-card.selected::before {
+            transform: scaleX(1);
+        }
+
         .bank-icon {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             margin: 0 auto 20px;
-            border-radius: 15px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--red-gradient);
+            font-size: 2rem;
+            font-weight: 900;
+            transition: var(--transition);
+        }
+
+        .bank-card:hover .bank-icon {
+            transform: rotate(10deg) scale(1.1);
         }
 
         .bank-name {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--white);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         .bank-type {
             font-size: 0.9rem;
             color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Bank Display Card */
+        .bank-display-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bank-display-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--red-gradient);
+        }
+
+        .bank-display-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--red-light);
+            box-shadow: var(--shadow-red);
+        }
+
+        .bank-display-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .bank-display-card:hover .bank-display-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .bank-display-info {
+            flex: 1;
+        }
+
+        .bank-display-name {
+            font-weight: 800;
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .bank-display-number {
+            font-family: monospace;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .bank-display-holder {
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         /* Modal */
@@ -665,8 +1080,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -674,71 +1089,114 @@
             animation: fadeIn 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .modal {
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(30px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
             border-radius: var(--radius-lg);
-            padding: 50px;
+            padding: 60px;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             max-height: 90vh;
             overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: slideUp 0.5s ease;
+            border: 1px solid var(--glass-border);
+            animation: modalSlideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                var(--shadow-lg),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        @keyframes modalSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(80px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 45px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .modal-title {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 2.3rem;
+            font-weight: 900;
             color: var(--white);
+            letter-spacing: 1px;
         }
 
         .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 2rem;
             color: var(--gray);
             cursor: pointer;
             transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
             color: var(--red-light);
+            border-color: var(--red-light);
+            transform: rotate(90deg);
+            background: rgba(211, 47, 47, 0.1);
         }
 
         /* Notification */
         .notification {
             position: fixed;
-            top: 40px;
-            right: 40px;
-            padding: 25px 35px;
+            top: 50px;
+            right: 50px;
+            padding: 30px 40px;
             border-radius: var(--radius);
             color: white;
-            font-weight: 700;
+            font-weight: 800;
             z-index: 3000;
             box-shadow: var(--shadow-lg);
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             transform: translateX(150%);
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 400px;
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            max-width: 450px;
+            letter-spacing: 0.5px;
+        }
+
+        .notification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: currentColor;
+            opacity: 0.8;
         }
 
         .notification.show {
@@ -746,15 +1204,15 @@
         }
 
         .notification-success {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(46, 125, 50, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(46, 125, 50, 0.95) 100%);
         }
 
         .notification-warning {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.9) 0%, rgba(239, 108, 0, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(239, 108, 0, 0.95) 100%);
         }
 
         .notification-error {
-            background: linear-gradient(135deg, rgba(211, 47, 47, 0.9) 0%, rgba(183, 28, 28, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.95) 0%, rgba(183, 28, 28, 0.95) 100%);
         }
 
         /* Responsive */
@@ -765,68 +1223,124 @@
             .main-content {
                 margin-left: 280px;
                 width: calc(100% - 280px);
+                padding: 40px;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
         }
 
         @media (max-width: 992px) {
             .sidebar {
-                width: 80px;
+                width: 90px;
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
             }
             .sidebar-header {
-                padding: 20px;
+                padding: 30px 20px;
             }
             .brand-text, .user-info, .nav-text, .logout-btn {
                 display: none;
             }
             .nav-icon {
                 margin-right: 0;
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             .nav-item {
                 justify-content: center;
-                padding: 20px;
+                padding: 25px;
+            }
+            .nav-item:hover {
+                transform: translateX(0) scale(1.1);
             }
             .main-content {
-                margin-left: 80px;
-                width: calc(100% - 80px);
-                padding: 25px;
+                margin-left: 0;
+                width: 100%;
+                padding: 30px;
             }
             .content-header {
                 flex-direction: column;
                 align-items: flex-start;
+                padding: 30px;
             }
             .header-actions {
                 width: 100%;
                 justify-content: space-between;
                 flex-wrap: wrap;
+                gap: 20px;
             }
             .datetime-card {
                 min-width: 200px;
+            }
+            .bank-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
         }
 
         @media (max-width: 768px) {
             .login-card {
-                padding: 40px 30px;
+                padding: 50px 40px;
+            }
+            .login-title {
+                font-size: 2.5rem;
+            }
+            .logo {
+                font-size: 3.5rem;
             }
             .cards-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
             .page-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .table {
                 display: block;
                 overflow-x: auto;
             }
             .modal {
-                padding: 35px;
+                padding: 40px;
             }
             .content-header {
-                padding: 20px;
+                padding: 25px;
             }
             .datetime-card {
                 min-width: 100%;
+            }
+            .bank-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 40px 30px;
+            }
+            .login-title {
+                font-size: 2rem;
+            }
+            .form-input {
+                padding: 18px 20px 18px 60px;
+            }
+            .btn {
+                padding: 18px 30px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+            .card {
+                padding: 30px;
+            }
+            .card-icon {
+                width: 70px;
+                height: 70px;
+                margin-right: 20px;
+            }
+            .card-value {
+                font-size: 2.2rem;
             }
         }
 
@@ -834,96 +1348,133 @@
         .sidebar-toggle {
             display: none;
             position: fixed;
-            top: 25px;
-            left: 25px;
+            top: 30px;
+            left: 30px;
             z-index: 1001;
             background: var(--red-gradient);
             color: white;
             border: none;
-            width: 55px;
-            height: 55px;
-            border-radius: 15px;
-            font-size: 1.8rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            font-size: 2rem;
             cursor: pointer;
             box-shadow: var(--shadow-red);
             transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .sidebar-toggle:hover {
-            transform: rotate(90deg);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.6);
         }
 
         @media (max-width: 992px) {
             .sidebar-toggle {
-                display: block;
-            }
-            .sidebar {
-                left: -100%;
-                transition: left 0.4s ease;
-            }
-            .sidebar.active {
-                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--red-gradient);
-            border-radius: 5px;
+            border-radius: 6px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, var(--red-light) 0%, var(--red-primary) 100%);
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
         }
 
         /* Dashboard Special Styles */
         .dashboard-highlight {
-            background: linear-gradient(135deg, rgba(211, 47, 47, 0.2) 0%, rgba(183, 28, 28, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.25) 0%, rgba(183, 28, 28, 0.25) 100%);
             color: white;
-            padding: 40px;
+            padding: 45px;
             border-radius: var(--radius);
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             border: 1px solid rgba(211, 47, 47, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-red);
+        }
+
+        .dashboard-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
         }
 
         .dashboard-highlight h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.3rem;
+            margin-bottom: 20px;
             color: var(--white);
-            font-weight: 800;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
         .dashboard-highlight p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+            opacity: 0.95;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            font-weight: 500;
         }
 
         /* Profile Bank Info */
         .bank-info-display {
-            background: rgba(26, 26, 26, 0.9);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-radius: var(--radius);
-            padding: 35px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bank-info-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-gradient);
         }
 
         .bank-info-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 22px 0;
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .bank-info-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 0 -15px;
+            border-radius: 8px;
         }
 
         .bank-info-row:last-child {
@@ -933,19 +1484,20 @@
         .bank-info-label {
             color: var(--gray);
             font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .bank-info-value {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--white);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         /* Loading Animation */
         .loading {
             display: inline-block;
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: var(--red-light);
@@ -955,15 +1507,130 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Enhanced Search */
+        .bank-search-container {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .bank-category-filter {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--gray);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .category-btn:hover {
+            border-color: var(--red-light);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .category-btn.active {
+            background: var(--red-gradient);
+            color: white;
+            border-color: var(--red-light);
+            box-shadow: var(--shadow-red);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--red-gradient);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-red);
+            transition: var(--transition);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 
+                0 0 40px rgba(211, 47, 47, 0.6),
+                var(--shadow-red);
+        }
+
+        /* Bank Colors */
+        .bank-color-bca { background: linear-gradient(135deg, #0066B3 0%, #003366 100%); }
+        .bank-color-mandiri { background: linear-gradient(135deg, #0033A0 0%, #001F5C 100%); }
+        .bank-color-bri { background: linear-gradient(135deg, #0054A5 0%, #003366 100%); }
+        .bank-color-bni { background: linear-gradient(135deg, #0038A6 0%, #002366 100%); }
+        .bank-color-cimb { background: linear-gradient(135deg, #E2231A 0%, #A6110A 100%); }
+        .bank-color-danamon { background: linear-gradient(135deg, #E2231A 0%, #A6110A 100%); }
+        .bank-color-permata { background: linear-gradient(135deg, #6AA13A 0%, #4A7A1F 100%); }
+        .bank-color-bsi { background: linear-gradient(135deg, #009639 0%, #006B2B 100%); }
+        .bank-color-btn { background: linear-gradient(135deg, #F58220 0%, #D26900 100%); }
+        .bank-color-bjb { background: linear-gradient(135deg, #004B87 0%, #002B50 100%); }
+        .bank-color-mega { background: linear-gradient(135deg, #D70000 0%, #990000 100%); }
+        .bank-color-panin { background: linear-gradient(135deg, #004B87 0%, #002B50 100%); }
+        .bank-color-ocbc { background: linear-gradient(135deg, #0066B3 0%, #003366 100%); }
+        .bank-color-maybank { background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); }
+        .bank-color-hsbc { background: linear-gradient(135deg, #DB0011 0%, #A8000D 100%); }
+        .bank-color-citibank { background: linear-gradient(135deg, #0055A4 0%, #003366 100%); }
+        .bank-color-bukopin { background: linear-gradient(135deg, #E2231A 0%, #A6110A 100%); }
+        .bank-color-muamalat { background: linear-gradient(135deg, #00A79D 0%, #007A73 100%); }
+        .bank-color-bca-syariah { background: linear-gradient(135deg, #0066B3 0%, #003366 100%); }
+        .bank-color-bni-syariah { background: linear-gradient(135deg, #0038A6 0%, #002366 100%); }
+        .bank-color-bri-syariah { background: linear-gradient(135deg, #0054A5 0%, #003366 100%); }
+        .bank-color-mandiri-syariah { background: linear-gradient(135deg, #0033A0 0%, #001F5C 100%); }
+        .bank-color-gopay { background: linear-gradient(135deg, #00AA13 0%, #007A0E 100%); }
+        .bank-color-ovo { background: linear-gradient(135deg, #4C2A8C 0%, #321A5C 100%); }
+        .bank-color-dana { background: linear-gradient(135deg, #108EE9 0%, #0A6AA8 100%); }
+        .bank-color-linkaja { background: linear-gradient(135deg, #E61E2B 0%, #A6141D 100%); }
+        .bank-color-shopeepay { background: linear-gradient(135deg, #EE4D2D 0%, #C53A1F 100%); }
+        .bank-color-jenius { background: linear-gradient(135deg, #FF6B00 0%, #CC5500 100%); }
+        .bank-color-sakuku { background: linear-gradient(135deg, #00A79D 0%, #007A73 100%); }
+        .bank-color-flip { background: linear-gradient(135deg, #FF6B00 0%, #CC5500 100%); }
+        .bank-color-doku { background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); }
+        .bank-color-ipaymu { background: linear-gradient(135deg, #00A79D 0%, #007A73 100%); }
+        .bank-color-xendit { background: linear-gradient(135deg, #4C2A8C 0%, #321A5C 100%); }
+        .bank-color-akulaku { background: linear-gradient(135deg, #FF6B00 0%, #CC5500 100%); }
+        .bank-color-kredivo { background: linear-gradient(135deg, #00A79D 0%, #007A73 100%); }
+        .bank-color-indodana { background: linear-gradient(135deg, #E2231A 0%, #A6110A 100%); }
+        .bank-color-jago { background: linear-gradient(135deg, #00AA13 0%, #007A0E 100%); }
+        .bank-color-sea-bank { background: linear-gradient(135deg, #EE4D2D 0%, #C53A1F 100%); }
+        .bank-color-neo { background: linear-gradient(135deg, #00A79D 0%, #007A73 100%); }
+        .bank-color-allo { background: linear-gradient(135deg, #0066B3 0%, #003366 100%); }
+        .bank-color-bpd { background: linear-gradient(135deg, #0033A0 0%, #001F5C 100%); }
+        .bank-color-default { background: var(--red-gradient); }
     </style>
 </head>
 <body>
     <!-- Background Particles -->
     <div class="bg-particles">
-        <div class="particle" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
-        <div class="particle" style="width: 200px; height: 200px; top: 60%; left: 80%;"></div>
-        <div class="particle" style="width: 150px; height: 150px; top: 80%; left: 15%;"></div>
-        <div class="particle" style="width: 250px; height: 250px; top: 20%; left: 70%;"></div>
+        <div class="particle" style="width: 350px; height: 350px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 250px; height: 250px; top: 60%; left: 80%; animation-delay: -5s;"></div>
+        <div class="particle" style="width: 200px; height: 200px; top: 80%; left: 15%; animation-delay: -10s;"></div>
+        <div class="particle" style="width: 300px; height: 300px; top: 20%; left: 70%; animation-delay: -15s;"></div>
+        <div class="particle" style="width: 150px; height: 150px; top: 40%; left: 30%; animation-delay: -7s;"></div>
     </div>
 
     <!-- Notification -->
@@ -978,7 +1645,7 @@
             <div class="login-header">
                 <i class="fas fa-hand-holding-usd logo"></i>
                 <h1 class="login-title">Jula Jula Premium</h1>
-                <p class="login-subtitle">Sistem Pembayaran Kelompok Eksklusif</p>
+                <p class="login-subtitle">Sistem Pembayaran Eksklusif untuk Kelompok 7 Anggota</p>
             </div>
             
             <form id="login-form">
@@ -1050,6 +1717,10 @@
                     <i class="fas fa-user-cog nav-icon"></i>
                     <span class="nav-text">Profil & Bank</span>
                 </a>
+                <a href="#" class="nav-item" data-page="all-banks">
+                    <i class="fas fa-university nav-icon"></i>
+                    <span class="nav-text">Semua Bank</span>
+                </a>
             </div>
             
             <div class="user-card">
@@ -1090,7 +1761,7 @@
                 </div>
                 
                 <div class="cards-grid">
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-wallet"></i>
@@ -1103,7 +1774,7 @@
                         <div class="card-footer">Dana terkumpul dari 7 anggota premium</div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
                             <div class="card-icon" style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);">
                                 <i class="fas fa-user-check"></i>
@@ -1116,9 +1787,9 @@
                         <div class="card-footer">Semua anggota telah membayar</div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
-                            <div class="card-icon" style="background: linear-gradient(135deg, var(--gold) 0%, #FF8F00 100%);">
+                            <div class="card-icon" style="background: var(--gold-gradient);">
                                 <i class="fas fa-hand-holding-usd"></i>
                             </div>
                             <div class="card-content">
@@ -1169,17 +1840,17 @@
                     </div>
                 </div>
                 
-                <div class="card" style="background: linear-gradient(135deg, rgba(211, 47, 47, 0.3) 0%, rgba(183, 28, 28, 0.3) 100%); border-color: var(--red-light);">
+                <div class="card" style="background: linear-gradient(135deg, rgba(211, 47, 47, 0.35) 0%, rgba(183, 28, 28, 0.35) 100%); border-color: var(--red-light);">
                     <div class="card-header">
-                        <div class="card-icon" style="background: rgba(255,255,255,0.2);">
+                        <div class="card-icon" style="background: rgba(255,255,255,0.3);">
                             <i class="fas fa-user-check"></i>
                         </div>
                         <div class="card-content">
-                            <h3 style="color: white; opacity: 0.9;">Penerima Dana Saat Ini</h3>
+                            <h3 style="color: white; opacity: 0.95;">Penerima Dana Saat Ini</h3>
                             <div class="card-value" style="color: white;" id="current-recipient-name">AMRUL</div>
                         </div>
                     </div>
-                    <div class="card-footer" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.9);">
+                    <div class="card-footer" style="border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.95);">
                         Transfer sebelum tanggal 25 Desember 2025
                     </div>
                 </div>
@@ -1190,12 +1861,35 @@
                             <i class="fas fa-university"></i> Informasi Transfer
                         </h2>
                         <button class="btn btn-gold" id="copy-all-btn">
-                            <i class="fas fa-copy"></i> Salin Semua
+                            <i class="fas fa-copy"></i> Salin Semua Bank
                         </button>
                     </div>
                     <div id="transfer-details">
                         <!-- Transfer details will be loaded here -->
                     </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2 class="table-title">
+                            <i class="fas fa-history"></i> Riwayat Transfer Bulan Ini
+                        </h2>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Bank/E-Wallet</th>
+                                <th>No. Rekening/ID</th>
+                                <th>Status</th>
+                                <th>Tanggal Transfer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transfer-history-table">
+                            <!-- Riwayat transfer akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
@@ -1213,30 +1907,56 @@
                     </div>
                 </div>
                 
+                <div class="cards-grid">
+                    <div class="card glow-effect">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Bank Terisi</h3>
+                                <div class="card-value" id="bank-filled-count">7/7</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">Semua anggota sudah mengisi bank</div>
+                    </div>
+                    
+                    <div class="card glow-effect">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Total Dana/Bulan</h3>
+                                <div class="card-value">Rp 35 Jt</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">Rp 5 juta per anggota</div>
+                    </div>
+                    
+                    <div class="card glow-effect">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: var(--gold-gradient);">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Siklus Selesai</h3>
+                                <div class="card-value">7 Bulan</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">1 siklus penuh</div>
+                    </div>
+                </div>
+                
                 <div class="table-container">
                     <div class="table-header">
                         <h2 class="table-title">
                             <i class="fas fa-address-card"></i> Informasi Lengkap Anggota
                         </h2>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Lengkap</th>
-                                <th>Username</th>
-                                <th>Bank</th>
-                                <th>No. Rekening</th>
-                                <th>Status Bank</th>
-                                <th>Bulan Narik</th>
-                                <th>Tanggal</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="members-table">
-                            <!-- Data akan diisi oleh JavaScript -->
-                        </tbody>
-                    </table>
+                    <div id="members-bank-cards">
+                        <!-- Bank cards akan diisi oleh JavaScript -->
+                    </div>
                 </div>
             </div>
             
@@ -1255,7 +1975,7 @@
                 </div>
                 
                 <div class="cards-grid">
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-calendar-day"></i>
@@ -1268,7 +1988,7 @@
                         <div class="card-footer">Setiap bulan tanggal 25</div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
                             <div class="card-icon" style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);">
                                 <i class="fas fa-money-bill-wave"></i>
@@ -1281,9 +2001,9 @@
                         <div class="card-footer">Rp 5,000,000 per bulan</div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card glow-effect">
                         <div class="card-header">
-                            <div class="card-icon" style="background: linear-gradient(135deg, var(--gold) 0%, #FF8F00 100%);">
+                            <div class="card-icon" style="background: var(--gold-gradient);">
                                 <i class="fas fa-robot"></i>
                             </div>
                             <div class="card-content">
@@ -1306,8 +2026,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Bank</th>
-                                <th>No. Rekening</th>
+                                <th>Bank/E-Wallet</th>
+                                <th>No. Rekening/ID</th>
                                 <th>Bulan Narik</th>
                                 <th>Status</th>
                                 <th>Terakhir Bayar</th>
@@ -1334,7 +2054,7 @@
                     </div>
                 </div>
                 
-                <div class="card">
+                <div class="card glow-effect">
                     <div class="card-header">
                         <div class="card-icon" id="profile-avatar-icon">
                             A
@@ -1342,7 +2062,7 @@
                         <div class="card-content">
                             <h3>Informasi Profil</h3>
                             <div class="card-value" id="profile-name">Amrul</div>
-                            <div class="card-footer" id="profile-role" style="color: var(--gold);">Administrator</div>
+                            <div class="card-footer" id="profile-role" style="color: var(--gold); font-weight: 700;">Administrator</div>
                         </div>
                     </div>
                 </div>
@@ -1368,15 +2088,15 @@
                             <i class="fas fa-key"></i> Keamanan Akun
                         </h2>
                     </div>
-                    <div style="padding: 25px;">
+                    <div style="padding: 30px;">
                         <div class="form-group">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-input" id="profile-username" value="amrul" readonly style="background: rgba(255, 255, 255, 0.05);">
+                            <input type="text" class="form-input" id="profile-username" value="amrul" readonly style="background: rgba(255, 255, 255, 0.07);">
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Password Saat Ini</label>
-                            <input type="password" class="form-input" id="current-password" value="jula123" readonly style="background: rgba(255, 255, 255, 0.05);">
+                            <input type="password" class="form-input" id="current-password" value="jula123" readonly style="background: rgba(255, 255, 255, 0.07);">
                         </div>
                         
                         <div class="form-group">
@@ -1389,14 +2109,61 @@
                             <input type="password" class="form-input" id="confirm-password" placeholder="Konfirmasi password baru">
                         </div>
                         
-                        <button class="btn btn-success" id="update-password-btn" style="margin-top: 20px;">
+                        <button class="btn btn-success" id="update-password-btn" style="margin-top: 25px;">
                             <i class="fas fa-key"></i> Update Password
                         </button>
                     </div>
                 </div>
             </div>
+            
+            <!-- All Banks Page -->
+            <div id="all-banks-page" class="page-content" style="display: none;">
+                <div class="content-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-university"></i> Semua Bank & E-Wallet
+                    </h1>
+                    <div class="header-actions">
+                        <div class="datetime-card">
+                            <i class="fas fa-bank"></i>
+                            <span>50+ Bank & E-Wallet</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-highlight">
+                    <h2>Koleksi Lengkap Bank dan E-Wallet Indonesia</h2>
+                    <p>Tersedia lebih dari 50 pilihan bank konvensional, syariah, digital, dan e-wallet untuk memudahkan transaksi Anda</p>
+                </div>
+                
+                <div class="bank-search-container">
+                    <div class="input-group">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type="text" class="form-input" id="all-banks-search" placeholder="Cari bank atau e-wallet...">
+                    </div>
+                </div>
+                
+                <div class="bank-category-filter" id="bank-categories">
+                    <!-- Kategori akan diisi oleh JavaScript -->
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2 class="table-title">
+                            <i class="fas fa-list"></i> Daftar Lengkap
+                        </h2>
+                    </div>
+                    <div class="bank-grid" id="all-banks-grid">
+                        <!-- Semua bank akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Floating Action Button for Quick Actions -->
+    <button class="fab" id="fab" title="Aksi Cepat">
+        <i class="fas fa-bolt"></i>
+    </button>
 
     <!-- Bank Selection Modal -->
     <div class="modal-overlay" id="bank-modal">
@@ -1406,12 +2173,15 @@
                 <button class="modal-close" id="close-bank-modal">&times;</button>
             </div>
             
-            <div class="form-group">
-                <label class="form-label">Cari Bank/E-Wallet</label>
+            <div class="bank-search-container">
                 <div class="input-group">
                     <i class="fas fa-search input-icon"></i>
                     <input type="text" class="form-input" id="bank-search" placeholder="Cari nama bank atau e-wallet...">
                 </div>
+            </div>
+            
+            <div class="bank-category-filter" id="modal-bank-categories">
+                <!-- Kategori akan diisi oleh JavaScript -->
             </div>
             
             <div class="bank-grid" id="bank-grid">
@@ -1433,32 +2203,93 @@
                 <input type="text" class="form-input" id="account-holder" placeholder="Nama sesuai rekening">
             </div>
             
-            <div id="bank-error" style="color: var(--red-light); margin-bottom: 20px; display: none;"></div>
+            <div id="bank-error" style="color: var(--red-light); margin-bottom: 25px; display: none; padding: 15px; background: rgba(211, 47, 47, 0.1); border-radius: var(--radius-sm); border: 1px solid rgba(211, 47, 47, 0.3);"></div>
             
-            <button class="btn btn-primary" id="save-bank-btn" style="width: 100%; margin-top: 20px;">
+            <button class="btn btn-primary" id="save-bank-btn" style="width: 100%; margin-top: 25px;">
                 <i class="fas fa-save"></i> Simpan Informasi Bank
             </button>
         </div>
     </div>
 
     <script>
-        // Data Bank
+        // DATA BANK LENGKAP INDONESIA - 50+ BANK & E-WALLET
         const bankList = [
-            { id: 'bca', name: 'BCA', type: 'Bank', color: '#0066B3' },
-            { id: 'mandiri', name: 'Bank Mandiri', type: 'Bank', color: '#0033A0' },
-            { id: 'bri', name: 'BRI', type: 'Bank', color: '#0054A5' },
-            { id: 'bni', name: 'BNI', type: 'Bank', color: '#0038A6' },
-            { id: 'cimb', name: 'CIMB Niaga', type: 'Bank', color: '#E2231A' },
-            { id: 'danamon', name: 'Bank Danamon', type: 'Bank', color: '#E2231A' },
-            { id: 'permata', name: 'Bank Permata', type: 'Bank', color: '#6AA13A' },
-            { id: 'bsi', name: 'Bank Syariah Indonesia', type: 'Bank Syariah', color: '#009639' },
-            { id: 'btn', name: 'Bank BTN', type: 'Bank', color: '#F58220' },
-            { id: 'bjb', name: 'Bank BJB', type: 'Bank', color: '#004B87' },
-            { id: 'gopay', name: 'GoPay', type: 'E-Wallet', color: '#00AA13' },
-            { id: 'ovo', name: 'OVO', type: 'E-Wallet', color: '#4C2A8C' },
-            { id: 'dana', name: 'DANA', type: 'E-Wallet', color: '#108EE9' },
-            { id: 'linkaja', name: 'LinkAja', type: 'E-Wallet', color: '#E61E2B' },
-            { id: 'shopeepay', name: 'ShopeePay', type: 'E-Wallet', color: '#EE4D2D' }
+            // Bank Umum Nasional
+            { id: 'bca', name: 'BCA', type: 'Bank Umum', category: 'bank-nasional', color: '#0066B3', bgClass: 'bank-color-bca' },
+            { id: 'mandiri', name: 'Bank Mandiri', type: 'Bank Umum', category: 'bank-nasional', color: '#0033A0', bgClass: 'bank-color-mandiri' },
+            { id: 'bri', name: 'BRI', type: 'Bank Umum', category: 'bank-nasional', color: '#0054A5', bgClass: 'bank-color-bri' },
+            { id: 'bni', name: 'BNI', type: 'Bank Umum', category: 'bank-nasional', color: '#0038A6', bgClass: 'bank-color-bni' },
+            { id: 'cimb', name: 'CIMB Niaga', type: 'Bank Umum', category: 'bank-nasional', color: '#E2231A', bgClass: 'bank-color-cimb' },
+            { id: 'danamon', name: 'Bank Danamon', type: 'Bank Umum', category: 'bank-nasional', color: '#E2231A', bgClass: 'bank-color-danamon' },
+            { id: 'permata', name: 'Bank Permata', type: 'Bank Umum', category: 'bank-nasional', color: '#6AA13A', bgClass: 'bank-color-permata' },
+            { id: 'mega', name: 'Bank Mega', type: 'Bank Umum', category: 'bank-nasional', color: '#D70000', bgClass: 'bank-color-mega' },
+            { id: 'panin', name: 'Bank Panin', type: 'Bank Umum', category: 'bank-nasional', color: '#004B87', bgClass: 'bank-color-panin' },
+            { id: 'ocbc', name: 'Bank OCBC NISP', type: 'Bank Umum', category: 'bank-nasional', color: '#0066B3', bgClass: 'bank-color-ocbc' },
+            { id: 'maybank', name: 'Maybank Indonesia', type: 'Bank Umum', category: 'bank-nasional', color: '#FF0000', bgClass: 'bank-color-maybank' },
+            { id: 'hsbc', name: 'HSBC Indonesia', type: 'Bank Umum', category: 'bank-nasional', color: '#DB0011', bgClass: 'bank-color-hsbc' },
+            { id: 'citibank', name: 'Citibank', type: 'Bank Umum', category: 'bank-nasional', color: '#0055A4', bgClass: 'bank-color-citibank' },
+            { id: 'bukopin', name: 'Bank Bukopin', type: 'Bank Umum', category: 'bank-nasional', color: '#E2231A', bgClass: 'bank-color-bukopin' },
+            
+            // Bank Syariah
+            { id: 'bsi', name: 'Bank Syariah Indonesia (BSI)', type: 'Bank Syariah', category: 'bank-syariah', color: '#009639', bgClass: 'bank-color-bsi' },
+            { id: 'muamalat', name: 'Bank Muamalat', type: 'Bank Syariah', category: 'bank-syariah', color: '#00A79D', bgClass: 'bank-color-muamalat' },
+            { id: 'bca-syariah', name: 'BCA Syariah', type: 'Bank Syariah', category: 'bank-syariah', color: '#0066B3', bgClass: 'bank-color-bca-syariah' },
+            { id: 'bni-syariah', name: 'BNI Syariah', type: 'Bank Syariah', category: 'bank-syariah', color: '#0038A6', bgClass: 'bank-color-bni-syariah' },
+            { id: 'bri-syariah', name: 'BRI Syariah', type: 'Bank Syariah', category: 'bank-syariah', color: '#0054A5', bgClass: 'bank-color-bri-syariah' },
+            { id: 'mandiri-syariah', name: 'Bank Mandiri Syariah', type: 'Bank Syariah', category: 'bank-syariah', color: '#0033A0', bgClass: 'bank-color-mandiri-syariah' },
+            
+            // Bank Pemerintah
+            { id: 'btn', name: 'Bank BTN', type: 'Bank Pemerintah', category: 'bank-pemerintah', color: '#F58220', bgClass: 'bank-color-btn' },
+            { id: 'bjb', name: 'Bank BJB', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#004B87', bgClass: 'bank-color-bjb' },
+            { id: 'bank-dki', name: 'Bank DKI', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#004B87', bgClass: 'bank-color-bank-dki' },
+            { id: 'bank-diy', name: 'Bank DIY', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0066B3', bgClass: 'bank-color-bank-diy' },
+            { id: 'bank-ntb', name: 'Bank NTB', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#00A79D', bgClass: 'bank-color-bank-ntb' },
+            { id: 'bank-ntt', name: 'Bank NTT', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#FF0000', bgClass: 'bank-color-bank-ntt' },
+            { id: 'bank-sulselbar', name: 'Bank Sulselbar', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0033A0', bgClass: 'bank-color-bank-sulselbar' },
+            { id: 'bank-sultra', name: 'Bank Sultra', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0066B3', bgClass: 'bank-color-bank-sultra' },
+            { id: 'bank-kalbar', name: 'Bank Kalbar', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#00A79D', bgClass: 'bank-color-bank-kalbar' },
+            { id: 'bank-kalsel', name: 'Bank Kalsel', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#FF0000', bgClass: 'bank-color-bank-kalsel' },
+            { id: 'bank-kalteng', name: 'Bank Kalteng', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0033A0', bgClass: 'bank-color-bank-kalteng' },
+            { id: 'bank-kaltim', name: 'Bank Kaltim', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0066B3', bgClass: 'bank-color-bank-kaltim' },
+            { id: 'bank-papua', name: 'Bank Papua', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#00A79D', bgClass: 'bank-color-bank-papua' },
+            { id: 'bank-maluku', name: 'Bank Maluku', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#FF0000', bgClass: 'bank-color-bank-maluku' },
+            { id: 'bank-bali', name: 'Bank Bali', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0033A0', bgClass: 'bank-color-bank-bali' },
+            { id: 'bank-jatim', name: 'Bank Jatim', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#0066B3', bgClass: 'bank-color-bank-jatim' },
+            { id: 'bank-jateng', name: 'Bank Jateng', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#00A79D', bgClass: 'bank-color-bank-jateng' },
+            { id: 'bank-jabar', name: 'Bank Jabar', type: 'Bank Daerah', category: 'bank-pemerintah', color: '#FF0000', bgClass: 'bank-color-bank-jabar' },
+            
+            // Bank Digital
+            { id: 'jago', name: 'Bank Jago', type: 'Bank Digital', category: 'bank-digital', color: '#00AA13', bgClass: 'bank-color-jago' },
+            { id: 'sea-bank', name: 'SeaBank', type: 'Bank Digital', category: 'bank-digital', color: '#EE4D2D', bgClass: 'bank-color-sea-bank' },
+            { id: 'neo', name: 'Bank Neo Commerce', type: 'Bank Digital', category: 'bank-digital', color: '#00A79D', bgClass: 'bank-color-neo' },
+            { id: 'allo', name: 'Allo Bank', type: 'Bank Digital', category: 'bank-digital', color: '#0066B3', bgClass: 'bank-color-allo' },
+            { id: 'jenius', name: 'Jenius', type: 'Bank Digital', category: 'bank-digital', color: '#FF6B00', bgClass: 'bank-color-jenius' },
+            { id: 'digibank', name: 'Digibank by DBS', type: 'Bank Digital', category: 'bank-digital', color: '#004B87', bgClass: 'bank-color-bpd' },
+            
+            // E-Wallet
+            { id: 'gopay', name: 'GoPay', type: 'E-Wallet', category: 'e-wallet', color: '#00AA13', bgClass: 'bank-color-gopay' },
+            { id: 'ovo', name: 'OVO', type: 'E-Wallet', category: 'e-wallet', color: '#4C2A8C', bgClass: 'bank-color-ovo' },
+            { id: 'dana', name: 'DANA', type: 'E-Wallet', category: 'e-wallet', color: '#108EE9', bgClass: 'bank-color-dana' },
+            { id: 'linkaja', name: 'LinkAja', type: 'E-Wallet', category: 'e-wallet', color: '#E61E2B', bgClass: 'bank-color-linkaja' },
+            { id: 'shopeepay', name: 'ShopeePay', type: 'E-Wallet', category: 'e-wallet', color: '#EE4D2D', bgClass: 'bank-color-shopeepay' },
+            { id: 'sakuku', name: 'Sakuku BCA', type: 'E-Wallet', category: 'e-wallet', color: '#00A79D', bgClass: 'bank-color-sakuku' },
+            { id: 'flip', name: 'Flip', type: 'E-Wallet', category: 'e-wallet', color: '#FF6B00', bgClass: 'bank-color-flip' },
+            { id: 'doku', name: 'DOKU', type: 'E-Wallet', category: 'e-wallet', color: '#FF0000', bgClass: 'bank-color-doku' },
+            { id: 'ipaymu', name: 'iPaymu', type: 'E-Wallet', category: 'e-wallet', color: '#00A79D', bgClass: 'bank-color-ipaymu' },
+            { id: 'xendit', name: 'Xendit', type: 'E-Wallet', category: 'e-wallet', color: '#4C2A8C', bgClass: 'bank-color-xendit' },
+            { id: 'akulaku', name: 'Akulaku', type: 'E-Wallet', category: 'e-wallet', color: '#FF6B00', bgClass: 'bank-color-akulaku' },
+            { id: 'kredivo', name: 'Kredivo', type: 'E-Wallet', category: 'e-wallet', color: '#00A79D', bgClass: 'bank-color-kredivo' },
+            { id: 'indodana', name: 'Indodana', type: 'E-Wallet', category: 'e-wallet', color: '#E2231A', bgClass: 'bank-color-indodana' }
+        ];
+
+        // Kategori Bank
+        const bankCategories = [
+            { id: 'all', name: 'Semua', icon: 'fas fa-list' },
+            { id: 'bank-nasional', name: 'Bank Nasional', icon: 'fas fa-landmark' },
+            { id: 'bank-syariah', name: 'Bank Syariah', icon: 'fas fa-star-and-crescent' },
+            { id: 'bank-pemerintah', name: 'Bank Pemerintah', icon: 'fas fa-building-columns' },
+            { id: 'bank-digital', name: 'Bank Digital', icon: 'fas fa-mobile-alt' },
+            { id: 'e-wallet', name: 'E-Wallet', icon: 'fas fa-wallet' }
         ];
 
         // Data Anggota
@@ -1473,6 +2304,7 @@
                 bankId: "bca",
                 accountNumber: "1234567890",
                 accountHolder: "AMRUL",
+                bankColor: "bank-color-bca",
                 bankVerified: true,
                 pullOrder: 1,
                 pullMonth: "Desember 2025",
@@ -1489,17 +2321,18 @@
                 username: "ranjit",
                 password: "jula123",
                 memberId: "X1068990",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "Bank Mandiri",
+                bankId: "mandiri",
+                accountNumber: "9876543210",
+                accountHolder: "RANJIT",
+                bankColor: "bank-color-mandiri",
+                bankVerified: true,
                 pullOrder: 2,
                 pullMonth: "Januari 2026",
                 pullDate: "25 Januari 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "22 Desember 2025",
                 phone: "081234567891",
                 email: "ranjit@email.com"
             },
@@ -1509,17 +2342,18 @@
                 username: "charlie",
                 password: "jula123",
                 memberId: "C7377694 / E9519110",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "BRI",
+                bankId: "bri",
+                accountNumber: "5432167890",
+                accountHolder: "CHARLIE",
+                bankColor: "bank-color-bri",
+                bankVerified: true,
                 pullOrder: 3,
                 pullMonth: "Februari 2026",
                 pullDate: "25 Februari 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "23 Desember 2025",
                 phone: "081234567892",
                 email: "charlie@email.com"
             },
@@ -1529,17 +2363,18 @@
                 username: "suhan",
                 password: "jula123",
                 memberId: "C5862955",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "BNI",
+                bankId: "bni",
+                accountNumber: "1230984567",
+                accountHolder: "SUHAN RAZ",
+                bankColor: "bank-color-bni",
+                bankVerified: true,
                 pullOrder: 4,
                 pullMonth: "Maret 2026",
                 pullDate: "25 Maret 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "24 Desember 2025",
                 phone: "081234567893",
                 email: "suhan@email.com"
             },
@@ -1549,17 +2384,18 @@
                 username: "fajar",
                 password: "jula123",
                 memberId: "C8993287",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "GoPay",
+                bankId: "gopay",
+                accountNumber: "089512345678",
+                accountHolder: "M FAJAR SIDDIK",
+                bankColor: "bank-color-gopay",
+                bankVerified: true,
                 pullOrder: 5,
                 pullMonth: "April 2026",
                 pullDate: "25 April 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "24 Desember 2025",
                 phone: "081234567894",
                 email: "fajar@email.com"
             },
@@ -1569,17 +2405,18 @@
                 username: "wiliam",
                 password: "jula123",
                 memberId: "E0227447",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "OVO",
+                bankId: "ovo",
+                accountNumber: "081234567890",
+                accountHolder: "WILIAM",
+                bankColor: "bank-color-ovo",
+                bankVerified: true,
                 pullOrder: 6,
                 pullMonth: "Mei 2026",
                 pullDate: "25 Mei 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "24 Desember 2025",
                 phone: "081234567895",
                 email: "wiliam@email.com"
             },
@@ -1589,17 +2426,18 @@
                 username: "agung",
                 password: "jula123",
                 memberId: "E7089147",
-                bank: "",
-                bankId: "",
-                accountNumber: "",
-                accountHolder: "",
-                bankVerified: false,
+                bank: "DANA",
+                bankId: "dana",
+                accountNumber: "085712345678",
+                accountHolder: "AGUNG DEDI IRAWAN",
+                bankColor: "bank-color-dana",
+                bankVerified: true,
                 pullOrder: 7,
                 pullMonth: "Juni 2026",
                 pullDate: "25 Juni 2026",
                 amount: 35000000,
-                paymentStatus: "pending",
-                lastPayment: "",
+                paymentStatus: "paid",
+                lastPayment: "24 Desember 2025",
                 phone: "081234567896",
                 email: "agung@email.com"
             }
@@ -1608,13 +2446,22 @@
         let currentUser = null;
         let currentRecipient = membersData.find(m => m.pullOrder === 1);
         let currentBankSelection = null;
+        let currentCategory = 'all';
 
         document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Cek apakah user sudah login sebelumnya
+            checkAutoLogin();
+            
             loadDataFromStorage();
             setupLogin();
             setupNavigation();
             setupBankModal();
             setupProfile();
+            setupFab();
             updateDateTime();
             setInterval(updateDateTime, 1000);
             
@@ -1628,24 +2475,84 @@
             });
             
             document.getElementById('bank-search').addEventListener('input', filterBanks);
+            document.getElementById('all-banks-search').addEventListener('input', filterAllBanks);
             document.getElementById('logout-btn').addEventListener('click', logout);
             
             renderAllTables();
-        });
+            renderBankCategories();
+            renderAllBanksPage();
+        }
+
+        // Fitur Stay Login
+        function checkAutoLogin() {
+            const loggedInUser = localStorage.getItem('julaJulaLoggedInUser');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                const member = membersData.find(m => m.username === user.username);
+                
+                if (member && member.password === user.password) {
+                    // Auto login
+                    performLogin(member);
+                }
+            }
+        }
+
+        function saveLoginState(user) {
+            const loginData = {
+                username: user.username,
+                password: user.password,
+                timestamp: new Date().getTime()
+            };
+            localStorage.setItem('julaJulaLoggedInUser', JSON.stringify(loginData));
+        }
+
+        function clearLoginState() {
+            localStorage.removeItem('julaJulaLoggedInUser');
+        }
+
+        function performLogin(user) {
+            currentUser = user;
+            
+            document.getElementById('user-avatar').textContent = user.username.charAt(0).toUpperCase();
+            document.getElementById('user-name').textContent = user.fullName;
+            document.getElementById('user-role').textContent = user.id === 1 ? 'Administrator' : 'Anggota';
+            document.getElementById('profile-avatar-icon').textContent = user.username.charAt(0).toUpperCase();
+            document.getElementById('profile-name').textContent = user.fullName;
+            document.getElementById('profile-role').textContent = user.id === 1 ? 'Administrator' : 'Anggota';
+            document.getElementById('profile-username').value = user.username;
+            document.getElementById('current-password').value = user.password;
+            
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-container').style.display = 'block';
+            
+            renderAllTables();
+            
+            showNotification(`Selamat datang kembali, ${user.fullName}!`, 'success');
+            
+            // Simpan status login
+            saveLoginState(user);
+        }
 
         function loadDataFromStorage() {
             const savedMembers = localStorage.getItem('julaJulaMembers');
             if (savedMembers) {
-                const parsed = JSON.parse(savedMembers);
-                if (parsed && parsed.length === membersData.length) {
-                    membersData = parsed;
+                try {
+                    const parsed = JSON.parse(savedMembers);
+                    if (parsed && parsed.length === membersData.length) {
+                        membersData = parsed;
+                    }
+                } catch (e) {
+                    console.error('Error loading data:', e);
                 }
+            } else {
+                saveDataToStorage();
             }
         }
 
         function saveDataToStorage() {
             localStorage.setItem('julaJulaMembers', JSON.stringify(membersData));
-            showNotification('Data berhasil disimpan!', 'success');
+            sessionStorage.setItem('julaJulaMembers', JSON.stringify(membersData));
+            showNotification('Data berhasil disimpan secara online!', 'success');
         }
 
         function setupLogin() {
@@ -1663,23 +2570,7 @@
                     const user = membersData.find(m => m.username === username && m.password === password);
                     
                     if (user) {
-                        currentUser = user;
-                        
-                        document.getElementById('user-avatar').textContent = user.username.charAt(0).toUpperCase();
-                        document.getElementById('user-name').textContent = user.fullName;
-                        document.getElementById('user-role').textContent = user.id === 1 ? 'Administrator' : 'Anggota';
-                        document.getElementById('profile-avatar-icon').textContent = user.username.charAt(0).toUpperCase();
-                        document.getElementById('profile-name').textContent = user.fullName;
-                        document.getElementById('profile-role').textContent = user.id === 1 ? 'Administrator' : 'Anggota';
-                        document.getElementById('profile-username').value = user.username;
-                        document.getElementById('current-password').value = user.password;
-                        
-                        document.getElementById('login-page').style.display = 'none';
-                        document.getElementById('app-container').style.display = 'block';
-                        
-                        renderAllTables();
-                        
-                        showNotification(`Selamat datang, ${user.fullName}!`, 'success');
+                        performLogin(user);
                     } else {
                         showNotification('Username atau password salah!', 'error');
                     }
@@ -1714,8 +2605,57 @@
                         updateTransferPage();
                     } else if (page === 'profile') {
                         updateProfilePage();
+                    } else if (page === 'members') {
+                        updateMembersPage();
+                    } else if (page === 'all-banks') {
+                        renderAllBanksPage();
                     }
                 });
+            });
+        }
+
+        function setupFab() {
+            const fab = document.getElementById('fab');
+            fab.addEventListener('click', function() {
+                const quickActions = [
+                    { label: 'Salin Semua Bank', action: copyAllBankInfo },
+                    { label: 'Lihat Penerima', action: () => document.querySelector('[data-page="transfer"]').click() },
+                    { label: 'Cek Status', action: () => document.querySelector('[data-page="payments"]').click() },
+                    { label: 'Semua Bank', action: () => document.querySelector('[data-page="all-banks"]').click() }
+                ];
+                
+                const randomAction = quickActions[Math.floor(Math.random() * quickActions.length)];
+                randomAction.action();
+                
+                showNotification(`Aksi cepat: ${randomAction.label}`, 'success');
+            });
+        }
+
+        function renderBankCategories() {
+            const mainCategories = document.getElementById('bank-categories');
+            const modalCategories = document.getElementById('modal-bank-categories');
+            
+            bankCategories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = `category-btn ${category.id === 'all' ? 'active' : ''}`;
+                button.innerHTML = `<i class="${category.icon}"></i> ${category.name}`;
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentCategory = category.id;
+                    filterBanks();
+                });
+                
+                const modalButton = button.cloneNode(true);
+                modalButton.addEventListener('click', () => {
+                    document.querySelectorAll('#modal-bank-categories .category-btn').forEach(btn => btn.classList.remove('active'));
+                    modalButton.classList.add('active');
+                    currentCategory = category.id;
+                    filterBanks();
+                });
+                
+                mainCategories.appendChild(button);
+                modalCategories.appendChild(modalButton);
             });
         }
 
@@ -1761,10 +2701,12 @@
             saveBankBtn.addEventListener('click', function() {
                 let bankName = '';
                 let bankId = '';
+                let bankColorClass = 'bank-color-default';
                 
                 if (currentBankSelection) {
                     bankName = currentBankSelection.name;
                     bankId = currentBankSelection.id;
+                    bankColorClass = currentBankSelection.bgClass;
                 } else {
                     bankName = document.getElementById('custom-bank').value.trim();
                     if (!bankName) {
@@ -1792,6 +2734,7 @@
                     currentUser.bankId = bankId;
                     currentUser.accountNumber = accountNumber;
                     currentUser.accountHolder = accountHolder;
+                    currentUser.bankColor = bankColorClass;
                     currentUser.bankVerified = true;
                     
                     const memberIndex = membersData.findIndex(m => m.id === currentUser.id);
@@ -1824,8 +2767,9 @@
                 const bankCard = document.createElement('div');
                 bankCard.className = 'bank-card';
                 bankCard.setAttribute('data-bank-id', bank.id);
+                bankCard.setAttribute('data-category', bank.category);
                 bankCard.innerHTML = `
-                    <div class="bank-icon" style="background: ${bank.color}">
+                    <div class="bank-icon ${bank.bgClass}">
                         ${bank.name.charAt(0)}
                     </div>
                     <div class="bank-name">${bank.name}</div>
@@ -1845,9 +2789,81 @@
             });
         }
 
+        function renderAllBanksPage() {
+            const allBanksGrid = document.getElementById('all-banks-grid');
+            allBanksGrid.innerHTML = '';
+            
+            bankList.forEach(bank => {
+                const bankCard = document.createElement('div');
+                bankCard.className = 'bank-card';
+                bankCard.setAttribute('data-bank-id', bank.id);
+                bankCard.setAttribute('data-category', bank.category);
+                bankCard.innerHTML = `
+                    <div class="bank-icon ${bank.bgClass}">
+                        ${bank.name.charAt(0)}
+                    </div>
+                    <div class="bank-name">${bank.name}</div>
+                    <div class="bank-type">${bank.type}</div>
+                `;
+                
+                bankCard.addEventListener('click', function() {
+                    showCustomModal(bank.name, `
+                        <div style="padding: 20px;">
+                            <div class="bank-display-card" style="margin: 0 0 30px 0;">
+                                <div class="bank-display-icon ${bank.bgClass}">
+                                    ${bank.name.charAt(0)}
+                                </div>
+                                <div class="bank-display-info">
+                                    <div class="bank-display-name">${bank.name}</div>
+                                    <div class="bank-type" style="color: var(--gray); margin-top: 5px;">${bank.type}</div>
+                                </div>
+                            </div>
+                            <div style="display: grid; gap: 15px;">
+                                <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
+                                    <span style="color: var(--gray);">Kategori</span>
+                                    <strong style="color: var(--white);">${getCategoryName(bank.category)}</strong>
+                                </div>
+                                <div style="padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
+                                    <h3 style="margin-bottom: 15px; color: var(--white);">Status Ketersediaan</h3>
+                                    <span class="badge badge-success">Tersedia di Jula Jula</span>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+                
+                allBanksGrid.appendChild(bankCard);
+            });
+        }
+
+        function getCategoryName(categoryId) {
+            const category = bankCategories.find(c => c.id === categoryId);
+            return category ? category.name : 'Lainnya';
+        }
+
         function filterBanks() {
             const searchTerm = document.getElementById('bank-search').value.toLowerCase();
-            const bankCards = document.querySelectorAll('.bank-card');
+            const bankCards = document.querySelectorAll('#bank-grid .bank-card');
+            
+            bankCards.forEach(card => {
+                const bankName = card.querySelector('.bank-name').textContent.toLowerCase();
+                const bankType = card.querySelector('.bank-type').textContent.toLowerCase();
+                const category = card.getAttribute('data-category');
+                
+                const matchesSearch = bankName.includes(searchTerm) || bankType.includes(searchTerm);
+                const matchesCategory = currentCategory === 'all' || category === currentCategory;
+                
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterAllBanks() {
+            const searchTerm = document.getElementById('all-banks-search').value.toLowerCase();
+            const bankCards = document.querySelectorAll('#all-banks-grid .bank-card');
             
             bankCards.forEach(card => {
                 const bankName = card.querySelector('.bank-name').textContent.toLowerCase();
@@ -1897,6 +2913,9 @@
                     document.getElementById('confirm-password').value = '';
                     
                     showNotification('Password berhasil diperbarui!', 'success');
+                    
+                    // Update login state dengan password baru
+                    saveLoginState(currentUser);
                 }
             });
         }
@@ -1905,30 +2924,29 @@
             const bankInfoContent = document.getElementById('bank-info-content');
             
             if (currentUser && currentUser.bank && currentUser.accountNumber) {
+                const bankColorClass = currentUser.bankColor || 'bank-color-default';
                 bankInfoContent.innerHTML = `
-                    <div class="bank-info-row">
-                        <div class="bank-info-label">Nama Bank</div>
-                        <div class="bank-info-value">${currentUser.bank}</div>
+                    <div class="bank-display-card">
+                        <div class="bank-display-icon ${bankColorClass}">
+                            ${currentUser.bank.charAt(0)}
+                        </div>
+                        <div class="bank-display-info">
+                            <div class="bank-display-name">${currentUser.bank}</div>
+                            <div class="bank-display-number">${currentUser.accountNumber}</div>
+                            <div class="bank-display-holder">${currentUser.accountHolder}</div>
+                        </div>
                     </div>
-                    <div class="bank-info-row">
-                        <div class="bank-info-label">Nomor Rekening/ID</div>
-                        <div class="bank-info-value">${currentUser.accountNumber}</div>
-                    </div>
-                    <div class="bank-info-row">
-                        <div class="bank-info-label">Nama Pemilik</div>
-                        <div class="bank-info-value">${currentUser.accountHolder}</div>
-                    </div>
-                    <div class="bank-info-row">
-                        <div class="bank-info-label">Status</div>
-                        <div class="badge badge-success">Aktif</div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('${currentUser.accountNumber}')">
+                            <i class="fas fa-copy"></i> Salin No. Rekening
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-check-circle"></i> Bank Terverifikasi
+                        </button>
                     </div>
                 `;
             } else {
                 bankInfoContent.innerHTML = `
-                    <div class="bank-info-row">
-                        <div class="bank-info-label">Status</div>
-                        <div class="badge badge-warning">Belum diisi</div>
-                    </div>
                     <div style="padding: 30px; text-align: center; color: var(--gray);">
                         <i class="fas fa-university" style="font-size: 3.5rem; margin-bottom: 20px; opacity: 0.3;"></i>
                         <h3 style="margin-bottom: 15px; color: var(--white);">Informasi Bank Belum Lengkap</h3>
@@ -1947,11 +2965,52 @@
             }
         }
 
+        function updateMembersPage() {
+            const membersBankCards = document.getElementById('members-bank-cards');
+            membersBankCards.innerHTML = '';
+            
+            membersData.forEach(member => {
+                const bankCard = document.createElement('div');
+                const bankColorClass = member.bankColor || 'bank-color-default';
+                
+                bankCard.className = 'bank-display-card';
+                bankCard.innerHTML = `
+                    <div class="bank-display-icon ${bankColorClass}">
+                        ${member.bank ? member.bank.charAt(0) : '?'}
+                    </div>
+                    <div class="bank-display-info">
+                        <div class="bank-display-name">${member.fullName}</div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="color: var(--gray);">Bank/E-Wallet:</span>
+                            <strong style="color: var(--white);">${member.bank || 'Belum diisi'}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="color: var(--gray);">No. Rekening/ID:</span>
+                            <strong style="color: var(--gold); font-family: monospace;">${member.accountNumber || '-'}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--gray);">Bulan Narik:</span>
+                            <strong style="color: var(--white);">${member.pullMonth}</strong>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="viewMemberDetail(${member.id})" style="align-self: center; padding: 12px 20px;">
+                        <i class="fas fa-eye"></i> Detail
+                    </button>
+                `;
+                
+                membersBankCards.appendChild(bankCard);
+            });
+            
+            const bankFilledCount = membersData.filter(m => m.bank && m.accountNumber).length;
+            document.getElementById('bank-filled-count').textContent = `${bankFilledCount}/7`;
+        }
+
         function renderAllTables() {
             renderPullOrderTable();
-            renderMembersTable();
+            updateMembersPage();
             renderPaymentTable();
             updateTransferPage();
+            renderTransferHistoryTable();
         }
 
         function renderPullOrderTable() {
@@ -1983,44 +3042,6 @@
                     <td>${member.bank || '-'}</td>
                     <td>${member.accountNumber || '-'}</td>
                     <td><span class="badge ${statusBadge}">${statusText}</span></td>
-                `;
-                
-                tableBody.appendChild(row);
-            });
-        }
-
-        function renderMembersTable() {
-            const tableBody = document.getElementById('members-table');
-            tableBody.innerHTML = '';
-            
-            membersData.forEach(member => {
-                const row = document.createElement('tr');
-                
-                let bankStatus = '';
-                let bankStatusText = '';
-                
-                if (member.bank && member.accountNumber) {
-                    bankStatus = 'badge-success';
-                    bankStatusText = 'Lengkap';
-                } else {
-                    bankStatus = 'badge-warning';
-                    bankStatusText = 'Belum diisi';
-                }
-                
-                row.innerHTML = `
-                    <td>${member.id}</td>
-                    <td><strong>${member.fullName}</strong></td>
-                    <td>${member.username}</td>
-                    <td>${member.bank || '-'}</td>
-                    <td>${member.accountNumber || '-'}</td>
-                    <td><span class="badge ${bankStatus}">${bankStatusText}</span></td>
-                    <td>${member.pullMonth}</td>
-                    <td>${member.pullDate}</td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="viewMember(${member.id})" style="padding: 10px 15px;">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
                 `;
                 
                 tableBody.appendChild(row);
@@ -2071,6 +3092,9 @@
                 
                 tableBody.appendChild(row);
             });
+            
+            const paidMembers = membersData.filter(m => m.lastPayment).length;
+            document.getElementById('paid-members').textContent = `${paidMembers}/7`;
         }
 
         function updateTransferPage() {
@@ -2079,16 +3103,30 @@
             const transferDetails = document.getElementById('transfer-details');
             
             if (currentRecipient.bank && currentRecipient.accountNumber) {
+                const bankColorClass = currentRecipient.bankColor || 'bank-color-default';
+                
                 transferDetails.innerHTML = `
+                    <div style="margin-bottom: 30px;">
+                        <div class="bank-display-card" style="margin-bottom: 0;">
+                            <div class="bank-display-icon ${bankColorClass}">
+                                ${currentRecipient.bank.charAt(0)}
+                            </div>
+                            <div class="bank-display-info">
+                                <div class="bank-display-name">${currentRecipient.bank}</div>
+                                <div class="bank-display-number">${currentRecipient.accountNumber}</div>
+                                <div class="bank-display-holder">${currentRecipient.fullName}</div>
+                            </div>
+                        </div>
+                    </div>
                     <div style="padding: 30px; background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm); margin-bottom: 25px;">
                         <h3 style="margin-bottom: 25px; color: var(--white);">Instruksi Transfer</h3>
                         <div style="display: grid; gap: 20px;">
                             <div style="display: flex; justify-content: space-between; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
-                                <span style="font-weight: 600; color: var(--gray);">Bank Tujuan</span>
+                                <span style="font-weight: 600; color: var(--gray);">Bank/E-Wallet Tujuan</span>
                                 <strong style="color: var(--white);">${currentRecipient.bank}</strong>
                             </div>
                             <div style="display: flex; justify-content: space-between; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
-                                <span style="font-weight: 600; color: var(--gray);">Nomor Rekening</span>
+                                <span style="font-weight: 600; color: var(--gray);">Nomor Rekening/ID</span>
                                 <strong style="color: var(--white); font-family: monospace;">${currentRecipient.accountNumber}</strong>
                             </div>
                             <div style="display: flex; justify-content: space-between; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
@@ -2121,28 +3159,62 @@
             }
         }
 
-        function viewMember(memberId) {
+        function renderTransferHistoryTable() {
+            const tableBody = document.getElementById('transfer-history-table');
+            tableBody.innerHTML = '';
+            
+            membersData.forEach(member => {
+                const row = document.createElement('tr');
+                let status = '';
+                let statusBadge = '';
+                let transferDate = '';
+                
+                if (member.lastPayment) {
+                    status = 'Selesai';
+                    statusBadge = 'badge-success';
+                    transferDate = member.lastPayment;
+                } else if (member.id === currentRecipient.id) {
+                    status = 'Dalam Proses';
+                    statusBadge = 'badge-primary';
+                    transferDate = 'Menunggu';
+                } else {
+                    status = 'Menunggu';
+                    statusBadge = 'badge-warning';
+                    transferDate = '-';
+                }
+                
+                row.innerHTML = `
+                    <td>${member.pullOrder}</td>
+                    <td><strong>${member.fullName}</strong></td>
+                    <td>${member.bank || '-'}</td>
+                    <td>${member.accountNumber || '-'}</td>
+                    <td><span class="badge ${statusBadge}">${status}</span></td>
+                    <td>${transferDate}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function viewMemberDetail(memberId) {
             const member = membersData.find(m => m.id === memberId);
             if (!member) return;
             
-            let bankInfo = '';
-            if (member.bank && member.accountNumber) {
-                bankInfo = `
-                    <p><strong>Bank:</strong> ${member.bank}</p>
-                    <p><strong>No. Rekening:</strong> ${member.accountNumber}</p>
-                    <p><strong>Pemilik:</strong> ${member.accountHolder}</p>
-                `;
-            } else {
-                bankInfo = '<p style="color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> Belum mengisi bank</p>';
-            }
+            const bankColorClass = member.bankColor || 'bank-color-default';
             
             const modalContent = `
                 <div style="padding: 20px;">
                     <h2 style="margin-bottom: 25px; color: var(--white);">Detail Anggota</h2>
                     <div style="display: grid; gap: 15px;">
-                        <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
-                            <span style="color: var(--gray);">Nama Lengkap</span>
-                            <strong style="color: var(--white);">${member.fullName}</strong>
+                        <div class="bank-display-card" style="margin: 0;">
+                            <div class="bank-display-icon ${bankColorClass}">
+                                ${member.bank ? member.bank.charAt(0) : '?'}
+                            </div>
+                            <div class="bank-display-info">
+                                <div class="bank-display-name">${member.bank || 'Belum diisi'}</div>
+                                <div class="bank-display-number">${member.accountNumber || '-'}</div>
+                                <div class="bank-display-holder">${member.fullName}</div>
+                            </div>
                         </div>
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
                             <span style="color: var(--gray);">Username</span>
@@ -2152,10 +3224,6 @@
                             <span style="color: var(--gray);">ID Anggota</span>
                             <strong style="color: var(--gold);">${member.memberId}</strong>
                         </div>
-                        <div style="padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
-                            <h3 style="margin-bottom: 15px; color: var(--white);">Informasi Bank</h3>
-                            ${bankInfo}
-                        </div>
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
                             <span style="color: var(--gray);">Bulan Narik</span>
                             <strong style="color: var(--white);">${member.pullMonth}</strong>
@@ -2163,6 +3231,12 @@
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
                             <span style="color: var(--gray);">Tanggal Narik</span>
                             <strong style="color: var(--white);">${member.pullDate}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
+                            <span style="color: var(--gray);">Status Bank</span>
+                            <span class="badge ${member.bankVerified ? 'badge-success' : 'badge-warning'}">
+                                ${member.bankVerified ? 'Terverifikasi' : 'Belum diisi'}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -2184,11 +3258,11 @@
                             <strong style="color: var(--white);">${member.fullName}</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
-                            <span style="color: var(--gray);">Bank</span>
+                            <span style="color: var(--gray);">Bank/E-Wallet</span>
                             <strong style="color: var(--white);">${member.bank || '-'}</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
-                            <span style="color: var(--gray);">No. Rekening</span>
+                            <span style="color: var(--gray);">No. Rekening/ID</span>
                             <strong style="color: var(--gold);">${member.accountNumber || '-'}</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-sm);">
@@ -2226,6 +3300,7 @@
                 membersData[memberIndex].paymentStatus = 'paid';
                 saveDataToStorage();
                 renderPaymentTable();
+                renderTransferHistoryTable();
                 showNotification('Pembayaran berhasil dikonfirmasi!', 'success');
             }
         }
@@ -2237,7 +3312,7 @@
         }
 
         function copyAllBankInfo() {
-            let text = 'DAFTAR BANK ANGGOTA JULA JULA\n\n';
+            let text = 'DAFTAR BANK & E-WALLET ANGGOTA JULA JULA\n\n';
             membersData.forEach(member => {
                 if (member.bank && member.accountNumber) {
                     text += `${member.fullName}: ${member.bank} - ${member.accountNumber}\n`;
@@ -2259,6 +3334,7 @@
                         membersData[memberIndex].paymentStatus = 'paid';
                         saveDataToStorage();
                         renderPaymentTable();
+                        renderTransferHistoryTable();
                         showNotification(`Pembayaran ke ${currentRecipient.fullName} berhasil dikonfirmasi!`, 'success');
                     }
                 }
@@ -2328,6 +3404,10 @@
 
         function logout() {
             if (confirm('Apakah Anda yakin ingin keluar?')) {
+                // Clear login state
+                clearLoginState();
+                
+                // Reset UI
                 currentUser = null;
                 document.getElementById('app-container').style.display = 'none';
                 document.getElementById('login-page').style.display = 'flex';
