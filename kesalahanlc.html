@@ -3,1744 +3,1099 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Hadiah Togel - Elektrikon Edition</title>
+    <title>Event Scatter Mahjong Ways</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00f3ff;
-            --primary-dark: #00a8b5;
-            --secondary: #9d4edd;
-            --accent: #ff00ff;
-            --success: #00ff88;
-            --warning: #ffaa00;
-            --danger: #ff0066;
-            --info: #00a8ff;
-            --text: #e0e0ff;
-            --text-light: #a0a0c0;
-            --text-lighter: #8080a0;
-            --background: #0a0a1a;
-            --card-bg: rgba(16, 16, 40, 0.85);
-            --card-bg-alt: rgba(30, 30, 60, 0.7);
-            --border: rgba(0, 243, 255, 0.3);
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.6);
-            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.7);
-            --radius: 20px;
-            --radius-sm: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.15s ease;
+            --primary: #FF6B35;
+            --secondary: #2EC4B6;
+            --accent: #FF9F1C;
+            --dark: #1A1A2E;
+            --darker: #0D0D1A;
+            --light: #F5F5F5;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.3);
         }
         
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
-            font-family: 'Exo 2', 'Orbitron', sans-serif;
-            background: #000428;
-            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            background: linear-gradient(135deg, var(--darker), var(--dark), #16213E);
+            color: var(--light);
             min-height: 100vh;
-            color: var(--text);
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        .space-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #3a1c71, #1a1a4a);
-            box-shadow: 
-                0 0 80px rgba(157, 78, 221, 0.5),
-                inset -20px -20px 40px rgba(0, 0, 0, 0.7);
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            right: 10%;
-            animation: float 20s infinite ease-in-out;
-        }
-        
-        .planet::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: 
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 30%),
-                radial-gradient(circle at 20% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
-        }
-        
-        .planet-ring {
-            position: absolute;
-            width: 450px;
-            height: 80px;
-            background: transparent;
-            border: 10px solid rgba(157, 78, 221, 0.3);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(75deg);
-            box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
-        }
-        
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.8), transparent),
-                radial-gradient(2px 2px at 40% 70%, rgba(255, 255, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.6), transparent),
-                radial-gradient(1px 1px at 80% 50%, rgba(255, 255, 255, 0.6), transparent),
-                radial-gradient(2px 2px at 30% 80%, rgba(255, 255, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 70% 10%, rgba(255, 255, 255, 0.6), transparent),
-                radial-gradient(2px 2px at 90% 40%, rgba(255, 255, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 10% 60%, rgba(255, 255, 255, 0.6), transparent);
-            animation: twinkle 5s infinite ease-in-out;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(10px) rotate(240deg); }
+            padding: 20px;
+            background-attachment: fixed;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 40px 30px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            box-shadow: 
-                var(--shadow-xl),
-                0 0 30px rgba(0, 243, 255, 0.2);
             position: relative;
-            overflow: hidden;
-            animation: slideDown 0.8s ease-out;
-            border: 1px solid var(--border);
         }
         
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            animation: gradientShift 3s ease infinite;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .logo {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 159, 28, 0.6);
         }
         
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
-            letter-spacing: 1px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-weight: 400;
         }
         
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            gap: 10px;
-        }
-        
-        .tab-btn {
-            background: rgba(16, 16, 40, 0.8);
-            backdrop-filter: blur(10px);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow-md);
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        
-        .tab-btn:hover {
-            background: var(--primary);
-            color: #0a0a1a;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .tab-btn.active {
-            background: var(--primary);
-            color: #0a0a1a;
-            box-shadow: 
-                0 10px 25px rgba(0, 243, 255, 0.3),
-                0 0 15px var(--primary);
-        }
-        
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .calculator-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            padding: 35px;
-            box-shadow: 
-                var(--shadow-xl),
-                0 0 30px rgba(0, 243, 255, 0.1);
-            margin-bottom: 30px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-            border: 1px solid var(--border);
-        }
-        
-        .calculator-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .calculator-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--primary);
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-            letter-spacing: 1px;
-        }
-        
-        .calculator-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--primary);
-        }
-        
-        .calculator-form {
+        .content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            position: relative;
-            z-index: 1;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 35px;
+        }
+        
+        @media (max-width: 1000px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section, .result-section {
+            background: var(--glass-dark);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .input-section:hover, .result-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .section-title {
+            color: var(--accent);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+            font-size: 1.7rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .form-group {
-            position: relative;
+            margin-bottom: 25px;
         }
         
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: var(--text);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
+            color: var(--secondary);
+            font-size: 1.1rem;
         }
         
-        label i {
-            color: var(--primary);
-            font-size: 1rem;
-        }
-        
-        select, input {
+        input, textarea {
             width: 100%;
-            padding: 16px 18px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            transition: var(--transition);
-            background-color: rgba(10, 10, 30, 0.7);
-            font-weight: 500;
-            appearance: none;
-            cursor: pointer;
-            color: var(--text);
-            font-family: 'Exo 2', sans-serif;
+            padding: 16px 20px;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s;
         }
         
-        select:hover, input:hover {
+        input:focus, textarea:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 243, 255, 0.1);
-        }
-        
-        select:focus, input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.15), 0 0 15px var(--primary);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 107, 53, 0.4);
+            background: rgba(0, 0, 0, 0.3);
         }
         
-        .input-icon {
-            position: absolute;
-            right: 18px;
-            top: 44px;
-            color: var(--text-lighter);
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        
-        select:focus ~ .input-icon,
-        input:focus ~ .input-icon {
-            color: var(--primary);
+        textarea {
+            min-height: 150px;
+            resize: vertical;
         }
         
         button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #0a0a1a;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
             border: none;
-            padding: 18px 25px;
-            border-radius: var(--radius-sm);
+            padding: 18px 30px;
             font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
-            transition: var(--transition);
-            grid-column: span 2;
+            width: 100%;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+            margin-top: 15px;
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 
-                0 10px 25px rgba(0, 243, 255, 0.3),
-                0 0 15px var(--primary);
-            position: relative;
-            overflow: hidden;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
-        }
-        
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        button:hover::before {
-            left: 100%;
         }
         
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 15px 35px rgba(0, 243, 255, 0.4),
-                0 0 25px var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 107, 53, 0.6);
         }
         
         button:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
         }
         
-        button:disabled {
-            background: linear-gradient(135deg, var(--text-lighter), var(--text-light));
-            transform: none;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        
-        .result {
-            margin-top: 25px;
+        .data-result {
+            background: rgba(0, 0, 0, 0.4);
             padding: 25px;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 243, 255, 0.1));
-            border-radius: var(--radius-sm);
-            text-align: left;
+            border-radius: 15px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .data-result h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 12px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .data-item {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        
+        .data-item:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .data-item strong {
+            display: inline-block;
+            width: 150px;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .data-item span {
+            flex: 1;
+            word-break: break-all;
+            color: var(--light);
             font-weight: 500;
-            display: none;
-            border-left: 5px solid var(--success);
-            box-shadow: var(--shadow-md);
+        }
+        
+        .link-text {
+            color: var(--accent);
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .link-text:hover {
+            color: var(--primary);
+        }
+        
+        .tile {
+            display: inline-block;
+            width: 45px;
+            height: 55px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            margin: 0 10px;
+            border-radius: 10px;
             position: relative;
-            overflow: hidden;
-            animation: slideIn 0.5s ease;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            transform: rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
         }
         
-        .result.show {
-            display: block;
+        .tile:nth-child(2) {
+            animation-delay: 0.7s;
         }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .tile:nth-child(3) {
+            animation-delay: 1.4s;
         }
         
-        .result-content {
-            white-space: pre-line;
-            line-height: 1.7;
-            color: var(--text);
-            font-size: 1rem;
+        @keyframes float {
+            0%, 100% { transform: rotate(15deg) translateY(0) rotateY(0); }
+            33% { transform: rotate(15deg) translateY(-15px) rotateY(20deg); }
+            66% { transform: rotate(15deg) translateY(10px) rotateY(-20deg); }
+        }
+        
+        .tile::before {
+            content: "";
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background: var(--dark);
+            border-radius: 50%;
+            top: 13px;
+            left: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .decoration {
+            text-align: center;
+            margin: 35px 0;
+        }
+        
+        .instructions {
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .instructions h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .instructions ol {
+            padding-left: 25px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 1.05rem;
         }
         
         .copy-btn {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            background: var(--primary);
-            color: #0a0a1a;
-            border: none;
-            border-radius: var(--radius-sm);
-            padding: 8px 14px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
+            background: linear-gradient(to right, var(--dark), #2A4B8C);
+            width: auto;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
+            justify-content: center;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            margin-left: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
         }
         
         .copy-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(26, 42, 108, 0.6);
         }
         
-        .copy-btn.copied {
-            background: var(--success);
+        .copy-btn i {
+            margin-right: 8px;
         }
         
-        .market-toggle {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .toggle-btn {
-            background: rgba(16, 16, 40, 0.8);
-            backdrop-filter: blur(10px);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow-md);
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        
-        .toggle-btn:hover {
-            background: var(--primary);
-            color: #0a0a1a;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .market-grid {
-            display: none;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .market-grid.show {
+        .gallery {
             display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 25px;
+        }
+        
+        .gallery-item {
+            height: 140px;
+            background: linear-gradient(45deg, var(--dark), #2A4B8C);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.08) rotate(2deg);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            border-radius: 10px;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+        
+        .gallery-item::after {
+            content: "Klik untuk memperbesar";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--light);
+            font-size: 0.8rem;
+            padding: 5px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        .success-message {
+            background: rgba(46, 196, 182, 0.3);
+            color: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s;
+            font-weight: 500;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .market-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius-sm);
+        .raw-data {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 25px;
+            font-family: 'Fira Code', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+        }
+        
+        .final-result {
+            background: linear-gradient(45deg, rgba(255, 159, 28, 0.2), rgba(255, 107, 53, 0.2));
+            border: 2px solid var(--accent);
+            border-radius: 18px;
             padding: 25px;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            animation: cardEntrance 0.6s ease-out;
-            animation-fill-mode: backwards;
-            border: 1px solid var(--border);
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(255, 159, 28, 0.3);
         }
         
-        .market-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .market-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .market-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 
-                var(--shadow-xl),
-                0 0 20px rgba(0, 243, 255, 0.2);
-        }
-        
-        .market-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--primary);
+        .final-result h4 {
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-family: 'Orbitron', sans-serif;
+            justify-content: center;
+            gap: 12px;
         }
         
-        .market-name i {
+        .final-data {
             font-size: 1.1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.8;
         }
         
-        .market-description {
-            font-size: 0.9rem;
-            color: var(--text-light);
+        .final-data div {
             margin-bottom: 15px;
-            line-height: 1.5;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
         }
         
-        .calculation {
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.08), rgba(157, 78, 221, 0.08));
+        .final-data div i {
+            margin-right: 12px;
+            color: var(--secondary);
+            width: 25px;
+        }
+        
+        .info-box {
+            background: rgba(255, 159, 28, 0.2);
+            border-left: 4px solid var(--accent);
+            padding: 18px;
+            margin: 25px 0;
+            border-radius: 10px;
+            font-size: 1.05rem;
+        }
+        
+        .debug-info {
+            background: rgba(255, 255, 255, 0.05);
             padding: 15px;
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
-            line-height: 1.5;
-            border-left: 3px solid var(--primary);
-            color: var(--text);
-            font-weight: 500;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Fira Code', monospace;
         }
         
-        footer {
+        /* Modal for image preview */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.95);
+            animation: fadeIn 0.4s;
+        }
+        
+        .modal-content {
+            display: block;
+            margin: 0 auto;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+            animation: zoom 0.4s;
+            border: 3px solid var(--accent);
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0.9); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: var(--light);
+            font-size: 45px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        .loader {
+            display: none;
             text-align: center;
-            padding: 30px;
-            color: var(--text-light);
-            font-size: 0.95rem;
+            margin: 25px 0;
+            color: var(--accent);
+        }
+        
+        .loader .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid var(--primary);
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .credit {
+            text-align: center;
             margin-top: 40px;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
+        .pulse {
+            animation: pulse 2s infinite;
         }
         
-        .error {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 8px;
-            display: none;
-            font-weight: 500;
-            animation: shake 0.5s ease;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        .error.show {
-            display: block;
+        .link-item {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+            justify-content: space-between;
         }
         
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            color: #0a0a1a;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 8px;
-            vertical-align: middle;
-            box-shadow: var(--shadow-sm);
-            font-family: 'Orbitron', sans-serif;
+        .link-text {
+            flex: 1;
+            margin-right: 10px;
+            word-break: break-all;
         }
         
-        .money-format {
-            font-weight: 700;
-            color: var(--success);
-            background: rgba(0, 255, 136, 0.15);
-            padding: 2px 6px;
-            border-radius: 4px;
-            display: inline-block;
+        .link-item i {
+            color: var(--accent);
+            margin-right: 10px;
         }
         
-        .electric-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .copy-link-btn {
+            background: linear-gradient(to right, var(--dark), #2A4B8C);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .copy-link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+        }
+        
+        .link-section {
+            margin-top: 20px;
+        }
+        
+        .link-section h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .copy-all-links-btn {
+            background: linear-gradient(to right, #4A235A, #6A2C70);
+            margin-top: 10px;
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
         }
         
-        .particle {
-            position: absolute;
-            background: rgba(0, 243, 255, 0.3);
-            border-radius: 50%;
-            animation: electricFloat 15s infinite linear;
-            box-shadow: 0 0 10px var(--primary);
+        .copy-all-links-btn:hover {
+            background: linear-gradient(to right, #6A2C70, #8E44AD);
         }
-        
-        @keyframes electricFloat {
-            from {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            to {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .calculator-form {
-                grid-template-columns: 1fr;
-            }
-            
-            button {
-                grid-column: 1;
-            }
-            
-            .market-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .calculator-title {
-                font-size: 1.5rem;
-            }
-            
-            header {
-                padding: 30px 20px;
-            }
-            
-            .calculator-section {
-                padding: 25px 20px;
-            }
-            
-            .planet {
-                width: 200px;
-                height: 200px;
-                top: 5%;
-                right: 5%;
-            }
-            
-            .planet-ring {
-                width: 300px;
-                height: 50px;
-            }
-            
-            .tab-container {
-                flex-wrap: wrap;
-            }
-        }
-        
-        @keyframes cardEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .market-card:nth-child(1) { animation-delay: 0.1s; }
-        .market-card:nth-child(2) { animation-delay: 0.2s; }
-        .market-card:nth-child(3) { animation-delay: 0.3s; }
-        .market-card:nth-child(4) { animation-delay: 0.4s; }
-        .market-card:nth-child(5) { animation-delay: 0.5s; }
-        .market-card:nth-child(6) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
-    <div class="space-background">
-        <div class="stars"></div>
-        <div class="planet"></div>
-        <div class="planet-ring"></div>
-    </div>
-    
-    <div class="electric-particles" id="particles"></div>
-    
     <div class="container">
         <header>
-            <h1><i class="fas fa-bolt"></i> KALKULATOR HADIAH ELEKTRIKON</h1>
-            <p class="subtitle">Premium Calculator - Futuristic Edition</p>
+            <div class="logo">
+                <i class="fas fa-dragon"></i>
+            </div>
+            <h1>Event Scatter Mahjong Ways</h1>
+            <p class="subtitle">Input Data Scatter untuk Mahjong Ways 1 dan Ways 2</p>
+            <div class="decoration">
+                <span class="tile"></span>
+                <span class="tile"></span>
+                <span class="tile"></span>
+            </div>
         </header>
         
-        <div class="tab-container">
-            <button class="tab-btn active" id="tab-regular">
-                <i class="fas fa-dice"></i>
-                PASARAN REGULER
-            </button>
-            <button class="tab-btn" id="tab-macau">
-                <i class="fas fa-crown"></i>
-                TOTO MACAU 4D
-            </button>
-        </div>
-        
-        <!-- Tab Pasaran Reguler -->
-        <div class="tab-content active" id="tab-regular-content">
-            <section class="calculator-section">
-                <h2 class="calculator-title">⚡ KALKULATOR HADIAH PREMIUM</h2>
-                <div class="calculator-form">
+        <div class="content">
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-pencil-alt"></i> Input Data Scatter</h2>
+                <form id="scatterForm">
                     <div class="form-group">
-                        <label for="market-type">
-                            <i class="fas fa-microchip"></i> PILIH JENIS PASAR
-                        </label>
-                        <select id="market-type">
-                            <option value="PRIZE_1_4D">🏆 PRIZE 1 4D</option>
-                            <option value="PRIZE_1_3D">🏆 PRIZE 1 3D</option>
-                            <option value="PRIZE_1_2D">🏆 PRIZE 1 2D</option>
-                            <option value="PRIZE_2_4D">🥈 PRIZE 2 4D</option>
-                            <option value="PRIZE_2_3D">🥈 PRIZE 2 3D</option>
-                            <option value="PRIZE_2_2D">🥈 PRIZE 2 2D</option>
-                            <option value="PRIZE_3_4D">🥉 PRIZE 3 4D</option>
-                            <option value="PRIZE_3_3D">🥉 PRIZE 3 3D</option>
-                            <option value="PRIZE_3_2D">🥉 PRIZE 3 2D</option>
-                            <option value="4D_FULL">🎲 4D FULL</option>
-                            <option value="3D_FULL">🎲 3D FULL</option>
-                            <option value="2D_FULL">🎲 2D FULL</option>
-                            <option value="BB_4D_TEPAT">⭐ BB 4D TEPAT</option>
-                            <option value="BB_3D_TEPAT">⭐ BB 3D TEPAT</option>
-                            <option value="BB_2D_TEPAT">⭐ BB 2D TEPAT</option>
-                            <option value="BB_4D_TIDAK_TEPAT">⭐ BB 4D TIDAK TEPAT</option>
-                            <option value="BB_3D_TIDAK_TEPAT">⭐ BB 3D TIDAK TEPAT</option>
-                            <option value="BB_2D_TIDAK_TEPAT">⭐ BB 2D TIDAK TEPAT</option>
-                            <option value="DISC_4D">💰 DISC 4D</option>
-                            <option value="DISC_3D">💰 DISC 3D</option>
-                            <option value="DISC_2D">💰 DISC 2D</option>
-                            <option value="DISC_2D_DT">💰 DISC 2D D/T</option>
-                            <option value="COLOK_BEBAS_1_DIGIT">🎯 COLOK BEBAS 1 DIGIT</option>
-                            <option value="COLOK_BEBAS_2_DIGIT">🎯 COLOK BEBAS 2 DIGIT</option>
-                            <option value="COLOK_BEBAS_3_DIGIT">🎯 COLOK BEBAS 3 DIGIT</option>
-                            <option value="COLOK_BEBAS_4_DIGIT">🎯 COLOK BEBAS 4 DIGIT</option>
-                            <option value="COLOK_BEBAS_2D_2_DIGIT">🎯 COLOK BEBAS 2D 2 DIGIT</option>
-                            <option value="COLOK_BEBAS_2D_3_DIGIT">🎯 COLOK BEBAS 2D 3 DIGIT</option>
-                            <option value="COLOK_BEBAS_2D_4_DIGIT">🎯 COLOK BEBAS 2D 4 DIGIT</option>
-                            <option value="COLOK_NAGA_3_DIGIT">🐉 COLOK NAGA 3 DIGIT</option>
-                            <option value="COLOK_NAGA_4_DIGIT">🐉 COLOK NAGA 4 DIGIT</option>
-                            <option value="COLOK_JITU">🎯 COLOK JITU</option>
-                            <option value="SHIO">🐲 SHIO</option>
-                            <option value="MACAU_SHIO">🏮 MACAU SHIO</option>
-                            <option value="KOMBINASI">🧩 KOMBINASI</option>
-                            <option value="TEPI_TENGAH">↔️ TEPI TENGAH</option>
-                            <option value="SILANG_HOMO">❌ SILANG HOMO</option>
-                            <option value="DASAR_GANJIL_BESAR">📊 DASAR GANJIL-BESAR</option>
-                            <option value="DASAR_GENAP_KECIL">📊 DASAR GENAP-KECIL</option>
-                            <option value="50_50">⚖️ 50-50</option>
-                            <option value="KEMBANG_KEMPIS">🌸 KEMBANG KEMPIS</option>
-                        </select>
-                        <div class="input-icon">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
+                        <label for="rawData"><i class="fas fa-paste"></i> Data Scatter (Tempel data di sini):</label>
+                        <textarea id="rawData" rows="6" placeholder="Tempel data scatter di sini. Contoh: Zalora99	https://cdn.files-text.com/...	082220319460	ABDUL ROHMAN	1965274850234734080	BET 2,000 - 8,000" required></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="bet-amount">
-                            <i class="fas fa-coins"></i> NOMINAL BET
-                        </label>
-                        <input type="number" id="bet-amount" placeholder="Masukkan nominal bet" min="0">
-                        <div class="input-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <div class="error" id="bet-error">
-                            <i class="fas fa-exclamation-circle"></i> Masukkan nominal bet yang valid!
-                        </div>
-                    </div>
+                    <button type="submit" class="pulse"><i class="fas fa-cogs"></i> Proses Data</button>
+                </form>
+                
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Contoh Format Data:</h3>
+                    <div class="raw-data">Zalora99	https://cdn.files-text.com/us-south1/api/lc/att/13376070/d16ec5f4d411d88f5f499e0689fb8df0/Screenshot_2025-09-09-11-43-49-868_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/4bddc07ac065f1228abb090dec0865d2/Screenshot_2025-09-09-11-58-34-817_com.android.chrome.jpg	https://cdn.files-text.com/us-south1/api/lc/att/13376070/69292afa442f2008abf99ff1f146dea1/Screenshot_2025-09-09-11-45-52-907_com.android.chrome.jpg	082220319460	ABDUL ROHMAN	1965274850234734080	BET 2,000 - 8,000</div>
                     
-                    <button id="calculate-btn">
-                        <i class="fas fa-bolt"></i> HITUNG HADIAH
-                        <span class="badge">ELEKTRIKON</span>
-                    </button>
-                    
-                    <div class="result" id="result">
-                        <div class="result-content" id="result-content"></div>
-                        <button class="copy-btn" id="copy-btn">
-                            <i class="fas fa-copy"></i> SALIN HASIL
-                        </button>
+                    <div class="info-box">
+                        <strong><i class="fas fa-lightbulb"></i> Perhatian:</strong> Sistem akan mengambil kode tiket yang panjang (bukan nomor rekening) dan hanya nominal depan pada bettingan.
                     </div>
                 </div>
-            </section>
-        </div>
-        
-        <!-- Tab Toto Macau -->
-        <div class="tab-content" id="tab-macau-content">
-            <section class="calculator-section">
-                <h2 class="calculator-title">👑 KALKULATOR HADIAH TOTO MACAU 4D</h2>
-                <div class="calculator-form">
-                    <div class="form-group">
-                        <label for="macau-market-type">
-                            <i class="fas fa-crown"></i> PILIH JENIS PASAR
-                        </label>
-                        <select id="macau-market-type">
-                            <option value="MACAU_4D_FULL">🎲 4D FULL</option>
-                            <option value="MACAU_3D_FULL">🎲 3D FULL</option>
-                            <option value="MACAU_2D_FULL">🎲 2D FULL</option>
-                            <option value="MACAU_BB_4D_TEPAT">⭐ BB 4D TEPAT</option>
-                            <option value="MACAU_BB_3D_TEPAT">⭐ BB 3D TEPAT</option>
-                            <option value="MACAU_BB_2D_TEPAT">⭐ BB 2D TEPAT</option>
-                            <option value="MACAU_BB_4D_TIDAK_TEPAT">⭐ BB 4D TIDAK TEPAT</option>
-                            <option value="MACAU_BB_3D_TIDAK_TEPAT">⭐ BB 3D TIDAK TEPAT</option>
-                            <option value="MACAU_BB_2D_TIDAK_TEPAT">⭐ BB 2D TIDAK TEPAT</option>
-                            <option value="MACAU_DISC_4D">💰 DISC 4D</option>
-                            <option value="MACAU_DISC_3D">💰 DISC 3D</option>
-                            <option value="MACAU_DISC_2D">💰 DISC 2D</option>
-                            <option value="MACAU_DISC_2D_DT">💰 DISC 2D D/T</option>
-                            <option value="MACAU_S_DISC_4D">💰 S.DISC 4D</option>
-                            <option value="MACAU_S_DISC_3D">💰 S.DISC 3D</option>
-                            <option value="MACAU_S_DISC_2D">💰 S.DISC 2D</option>
-                            <option value="MACAU_S_DISC_2D_DT">💰 S.DISC 2D D/T</option>
-                            <option value="MACAU_COLOK_BEBAS_1_DIGIT">🎯 COLOK BEBAS 1 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_2_DIGIT">🎯 COLOK BEBAS 2 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_3_DIGIT">🎯 COLOK BEBAS 3 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_4_DIGIT">🎯 COLOK BEBAS 4 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_2D_2_DIGIT">🎯 COLOK BEBAS 2D 2 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_2D_3_DIGIT">🎯 COLOK BEBAS 2D 3 DIGIT</option>
-                            <option value="MACAU_COLOK_BEBAS_2D_4_DIGIT">🎯 COLOK BEBAS 2D 4 DIGIT</option>
-                            <option value="MACAU_COLOK_NAGA_3_DIGIT">🐉 COLOK NAGA 3 DIGIT</option>
-                            <option value="MACAU_COLOK_NAGA_4_DIGIT">🐉 COLOK NAGA 4 DIGIT</option>
-                            <option value="MACAU_COLOK_JITU">🎯 COLOK JITU</option>
-                            <option value="MACAU_SHIO">🐲 SHIO</option>
-                            <option value="MACAU_MACAU_SHIO">🏮 MACAU SHIO</option>
-                            <option value="MACAU_KOMBINASI">🧩 KOMBINASI</option>
-                            <option value="MACAU_TEPI_TENGAH">↔️ TEPI TENGAH</option>
-                            <option value="MACAU_SILANG_HOMO">❌ SILANG HOMO</option>
-                            <option value="MACAU_DASAR_GANJIL_BESAR">📊 DASAR GANJIL-BESAR</option>
-                            <option value="MACAU_DASAR_GENAP_KECIL">📊 DASAR GENAP-KECIL</option>
-                            <option value="MACAU_50_50">⚖️ 50-50</option>
-                            <option value="MACAU_KEMBANG_KEMPIS">🌸 KEMBANG KEMPIS</option>
-                        </select>
-                        <div class="input-icon">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="macau-bet-amount">
-                            <i class="fas fa-coins"></i> NOMINAL BET
-                        </label>
-                        <input type="number" id="macau-bet-amount" placeholder="Masukkan nominal bet" min="0">
-                        <div class="input-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <div class="error" id="macau-bet-error">
-                            <i class="fas fa-exclamation-circle"></i> Masukkan nominal bet yang valid!
-                        </div>
-                    </div>
-                    
-                    <button id="macau-calculate-btn">
-                        <i class="fas fa-bolt"></i> HITUNG HADIAH
-                        <span class="badge">TOTO MACAU</span>
-                    </button>
-                    
-                    <div class="result" id="macau-result">
-                        <div class="result-content" id="macau-result-content"></div>
-                        <button class="copy-btn" id="macau-copy-btn">
-                            <i class="fas fa-copy"></i> SALIN HASIL
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div class="market-toggle">
-            <button class="toggle-btn" id="toggle-markets">
-                <i class="fas fa-eye"></i>
-                <span>LIHAT SEMUA PASAR</span>
-            </button>
-        </div>
-        
-        <div class="market-grid" id="market-grid">
-            <!-- Kartu pasar akan diisi oleh JavaScript -->
-        </div>
-        
-        <footer>
-            <div class="footer-content">
-                <p><i class="fas fa-copyright"></i> 2023 KALKULATOR HADIAH ELEKTRIKON VERSION</p>
-                <p><i class="fas fa-shield-alt"></i> Hanya untuk tujuan informasi. Harap bermain dengan bijak dan bertanggung jawab.</p>
             </div>
-        </footer>
+            
+            <div class="result-section">
+                <h3 class="section-title"><i class="fas fa-search"></i> Hasil Ekstraksi Data</h3>
+                
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Memproses data...</p>
+                </div>
+                
+                <div class="data-result">
+                    <h4><i class="fas fa-database"></i> Data yang Diekstrak:</h4>
+                    <div class="data-item">
+                        <strong><i class="fas fa-user"></i> User ID:</strong> 
+                        <span id="resultUserId">-</span>
+                        <button class="copy-btn" data-copy="resultUserId"><i class="fas fa-copy"></i> Salin</button>
+                    </div>
+                    <div class="data-item">
+                        <strong><i class="fas fa-ticket-alt"></i> Kode Tiket:</strong> 
+                        <span id="resultTicketCode">-</span>
+                        <button class="copy-btn" data-copy="resultTicketCode"><i class="fas fa-copy"></i> Salin</button>
+                    </div>
+                    <div class="data-item">
+                        <strong><i class="fas fa-user-tag"></i> Nama Pemain:</strong> 
+                        <span id="resultPlayerName">-</span>
+                        <button class="copy-btn" data-copy="resultPlayerName"><i class="fas fa-copy"></i> Salin</button>
+                    </div>
+                    <div class="data-item">
+                        <strong><i class="fas fa-coins"></i> Bettingan:</strong> 
+                        <span id="resultBetting">-</span>
+                        <button class="copy-btn" data-copy="resultBetting"><i class="fas fa-copy"></i> Salin</button>
+                    </div>
+                    
+                    <div class="link-section">
+                        <h4><i class="fas fa-link"></i> Link Screenshot:</h4>
+                        <div class="link-container" id="linkContainer">
+                            <!-- Link akan ditambahkan di sini -->
+                        </div>
+                        <button class="copy-all-links-btn copy-btn" id="copyAllLinksBtn">
+                            <i class="fas fa-copy"></i> Salin Semua Link Sekaligus
+                        </button>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top: 25px;"><i class="fas fa-images"></i> Galeri Screenshot:</h4>
+                <div class="gallery" id="imageGallery">
+                    <div class="gallery-item">Gambar akan muncul di sini</div>
+                </div>
+                
+                <div class="final-result">
+                    <h4><i class="fas fa-clipboard-list"></i> Hasil Format Scatter</h4>
+                    <div class="final-data">
+                        <div><i class="fas fa-user"></i> User ID: <span id="finalUserId">-</span></div>
+                        <div><i class="fas fa-ticket-alt"></i> Kode Tiket: <span id="finalTicketCode">-</span></div>
+                        <div><i class="fas fa-user-tag"></i> Nama Pemain: <span id="finalPlayerName">-</span></div>
+                        <div><i class="fas fa-link"></i> Link Screenshot: 
+                            <div class="link-container" id="finalLinkContainer">
+                                <!-- Link akan ditambahkan di sini -->
+                            </div>
+                            <button class="copy-all-links-btn copy-btn" id="copyAllLinksFinalBtn">
+                                <i class="fas fa-copy"></i> Salin Semua Link Sekaligus
+                            </button>
+                        </div>
+                        <div><i class="fas fa-coins"></i> Bettingan: <span id="finalBetting">-</span></div>
+                    </div>
+                    <button class="copy-btn" id="copyAllBtn" style="width: 100%; margin-top: 20px;"><i class="fas fa-copy"></i> Salin Semua Data</button>
+                </div>
+                
+                <div class="success-message" id="copySuccess">
+                    <i class="fas fa-check-circle"></i> Teks berhasil disalin!
+                </div>
+                
+                <div class="debug-info" id="debugInfo">
+                    <!-- Informasi debug akan ditampilkan di sini -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-book"></i> Petunjuk Penggunaan:</h3>
+            <ol>
+                <li>Salin data scatter dari dokumen (termasuk User ID, link screenshot, kode tiket, nama pemain, dan bettingan)</li>
+                <li>Tempel data yang telah disalin ke dalam textarea "Data Scatter"</li>
+                <li>Klik tombol "Proses Data" untuk mengekstrak informasi</li>
+                <li>Data yang diekstrak akan ditampilkan di sisi kanan</li>
+                <li>Klik gambar screenshot untuk melihatnya dalam ukuran besar</li>
+                <li>Gunakan tombol "Salin" untuk menyalin data tertentu</li>
+                <li>Gunakan tombol "Salin Semua Link Sekaligus" untuk menyalin semua link screenshot</li>
+                <li>Gunakan tombol "Salin Semua Data" untuk menyalin semua data termasuk link</li>
+            </ol>
+        </div>
+        
+        <div class="credit">
+            <p>Dibuat dengan <i class="fas fa-heart" style="color: var(--primary);"></i> untuk Event Scatter Mahjong Ways</p>
+        </div>
+    </div>
+
+    <!-- Modal for image preview -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
     </div>
 
     <script>
-        // Fungsi untuk memformat angka ke format mata uang Indonesia
-        function formatMoney(value) {
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(value);
-        }
-
-        // Fungsi untuk membulatkan nilai ke bilangan bulat
-        function roundToInteger(value) {
-            return Math.round(value);
-        }
-
-        // Data pasar dan perhitungan hadiah untuk Pasaran Reguler
-        const regularMarketData = [
-            {
-                id: "PRIZE_1_4D",
-                name: "PRIZE 1 4D",
-                multiplier: 6500
-            },
-            {
-                id: "PRIZE_1_3D",
-                name: "PRIZE 1 3D",
-                multiplier: 650
-            },
-            {
-                id: "PRIZE_1_2D",
-                name: "PRIZE 1 2D",
-                multiplier: 70
-            },
-            {
-                id: "PRIZE_2_4D",
-                name: "PRIZE 2 4D",
-                multiplier: 2100
-            },
-            {
-                id: "PRIZE_2_3D",
-                name: "PRIZE 2 3D",
-                multiplier: 210
-            },
-            {
-                id: "PRIZE_2_2D",
-                name: "PRIZE 2 2D",
-                multiplier: 20
-            },
-            {
-                id: "PRIZE_3_4D",
-                name: "PRIZE 3 4D",
-                multiplier: 1100
-            },
-            {
-                id: "PRIZE_3_3D",
-                name: "PRIZE 3 3D",
-                multiplier: 110
-            },
-            {
-                id: "PRIZE_3_2D",
-                name: "PRIZE 3 2D",
-                multiplier: 8
-            },
-            {
-                id: "4D_FULL",
-                name: "4D FULL",
-                multiplier: 10000
-            },
-            {
-                id: "3D_FULL",
-                name: "3D FULL",
-                multiplier: 1000
-            },
-            {
-                id: "2D_FULL",
-                name: "2D FULL",
-                multiplier: 100
-            },
-            {
-                id: "BB_4D_TEPAT",
-                name: "BB 4D TEPAT",
-                multiplier: 4000
-            },
-            {
-                id: "BB_3D_TEPAT",
-                name: "BB 3D TEPAT",
-                multiplier: 400
-            },
-            {
-                id: "BB_2D_TEPAT",
-                name: "BB 2D TEPAT",
-                multiplier: 70
-            },
-            {
-                id: "BB_4D_TIDAK_TEPAT",
-                name: "BB 4D TIDAK TEPAT",
-                multiplier: 200
-            },
-            {
-                id: "BB_3D_TIDAK_TEPAT",
-                name: "BB 3D TIDAK TEPAT",
-                multiplier: 100
-            },
-            {
-                id: "BB_2D_TIDAK_TEPAT",
-                name: "BB 2D TIDAK TEPAT",
-                multiplier: 20
-            },
-            {
-                id: "DISC_4D",
-                name: "DISC 4D",
-                discount: 66.5,
-                prizeMultiplier: 3000
-            },
-            {
-                id: "DISC_3D",
-                name: "DISC 3D",
-                discount: 59.5,
-                prizeMultiplier: 400
-            },
-            {
-                id: "DISC_2D",
-                name: "DISC 2D",
-                discount: 29.5,
-                prizeMultiplier: 70
-            },
-            {
-                id: "DISC_2D_DT",
-                name: "DISC 2D D/T",
-                discount: 29.5,
-                prizeMultiplier: 65
-            },
-            {
-                id: "COLOK_BEBAS_1_DIGIT",
-                name: "COLOK BEBAS 1 DIGIT",
-                discount: 6,
-                multiplier: 1.5
-            },
-            {
-                id: "COLOK_BEBAS_2_DIGIT",
-                name: "COLOK BEBAS 2 DIGIT",
-                discount: 6,
-                multiplier: 3
-            },
-            {
-                id: "COLOK_BEBAS_3_DIGIT",
-                name: "COLOK BEBAS 3 DIGIT",
-                discount: 6,
-                multiplier: 4.5
-            },
-            {
-                id: "COLOK_BEBAS_4_DIGIT",
-                name: "COLOK BEBAS 4 DIGIT",
-                discount: 6,
-                multiplier: 6
-            },
-            {
-                id: "COLOK_BEBAS_2D_2_DIGIT",
-                name: "COLOK BEBAS 2D 2 DIGIT",
-                discount: 10,
-                multiplier: 7
-            },
-            {
-                id: "COLOK_BEBAS_2D_3_DIGIT",
-                name: "COLOK BEBAS 2D 3 DIGIT",
-                discount: 10,
-                multiplier: 11
-            },
-            {
-                id: "COLOK_BEBAS_2D_4_DIGIT",
-                name: "COLOK BEBAS 2D 4 DIGIT",
-                discount: 10,
-                multiplier: 18
-            },
-            {
-                id: "COLOK_NAGA_3_DIGIT",
-                name: "COLOK NAGA 3 DIGIT",
-                discount: 10,
-                multiplier: 23
-            },
-            {
-                id: "COLOK_NAGA_4_DIGIT",
-                name: "COLOK NAGA 4 DIGIT",
-                discount: 10,
-                multiplier: 35
-            },
-            {
-                id: "COLOK_JITU",
-                name: "COLOK JITU",
-                discount: 6,
-                multiplier: 8
-            },
-            {
-                id: "SHIO",
-                name: "SHIO",
-                discount: 5,
-                multiplier: 9.5
-            },
-            {
-                id: "MACAU_SHIO",
-                name: "MACAU SHIO",
-                discount: 10,
-                multiplier: 110
-            },
-            {
-                id: "KOMBINASI",
-                name: "KOMBINASI",
-                discount: 8,
-                multiplier: 2.6
-            },
-            {
-                id: "TEPI_TENGAH",
-                name: "TEPI TENGAH",
-                discount: 2,
-                keyMinus: 3
-            },
-            {
-                id: "SILANG_HOMO",
-                name: "SILANG HOMO",
-                discount: 2,
-                keyMinus: 3
-            },
-            {
-                id: "DASAR_GANJIL_BESAR",
-                name: "DASAR GANJIL-BESAR",
-                discount: 2,
-                keyMinus: 25
-            },
-            {
-                id: "DASAR_GENAP_KECIL",
-                name: "DASAR GENAP-KECIL",
-                discount: 2,
-                keyPlus: 10
-            },
-            {
-                id: "50_50",
-                name: "50-50",
-                discount: 2,
-                keyMinus: 3
-            },
-            {
-                id: "KEMBANG_KEMPIS",
-                name: "KEMBANG KEMPIS",
-                discount: 2,
-                keyMinus: 3
-            }
-        ];
-
-        // Data pasar dan perhitungan hadiah untuk Toto Macau
-        const macauMarketData = [
-            {
-                id: "MACAU_4D_FULL",
-                name: "4D FULL",
-                multiplier: 9000
-            },
-            {
-                id: "MACAU_3D_FULL",
-                name: "3D FULL",
-                multiplier: 950
-            },
-            {
-                id: "MACAU_2D_FULL",
-                name: "2D FULL",
-                multiplier: 95
-            },
-            {
-                id: "MACAU_BB_4D_TEPAT",
-                name: "BB 4D TEPAT",
-                multiplier: 4000
-            },
-            {
-                id: "MACAU_BB_3D_TEPAT",
-                name: "BB 3D TEPAT",
-                multiplier: 400
-            },
-            {
-                id: "MACAU_BB_2D_TEPAT",
-                name: "BB 2D TEPAT",
-                multiplier: 70
-            },
-            {
-                id: "MACAU_BB_4D_TIDAK_TEPAT",
-                name: "BB 4D TIDAK TEPAT",
-                multiplier: 200
-            },
-            {
-                id: "MACAU_BB_3D_TIDAK_TEPAT",
-                name: "BB 3D TIDAK TEPAT",
-                multiplier: 100
-            },
-            {
-                id: "MACAU_BB_2D_TIDAK_TEPAT",
-                name: "BB 2D TIDAK TEPAT",
-                multiplier: 20
-            },
-            {
-                id: "MACAU_DISC_4D",
-                name: "DISC 4D",
-                discount: 33,
-                prizeMultiplier: 6000
-            },
-            {
-                id: "MACAU_DISC_3D",
-                name: "DISC 3D",
-                discount: 24,
-                prizeMultiplier: 700
-            },
-            {
-                id: "MACAU_DISC_2D",
-                name: "DISC 2D",
-                discount: 15,
-                prizeMultiplier: 80
-            },
-            {
-                id: "MACAU_DISC_2D_DT",
-                name: "DISC 2D D/T",
-                discount: 15,
-                prizeMultiplier: 70
-            },
-            {
-                id: "MACAU_S_DISC_4D",
-                name: "S.DISC 4D",
-                discount: 66.5,
-                prizeMultiplier: 3000
-            },
-            {
-                id: "MACAU_S_DISC_3D",
-                name: "S.DISC 3D",
-                discount: 59.5,
-                prizeMultiplier: 400
-            },
-            {
-                id: "MACAU_S_DISC_2D",
-                name: "S.DISC 2D",
-                discount: 29.5,
-                prizeMultiplier: 70
-            },
-            {
-                id: "MACAU_S_DISC_2D_DT",
-                name: "S.DISC 2D D/T",
-                discount: 29.5,
-                prizeMultiplier: 70
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_1_DIGIT",
-                name: "COLOK BEBAS 1 DIGIT",
-                multiplier: 1.6
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_2_DIGIT",
-                name: "COLOK BEBAS 2 DIGIT",
-                multiplier: 3.2
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_3_DIGIT",
-                name: "COLOK BEBAS 3 DIGIT",
-                multiplier: 4.8
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_4_DIGIT",
-                name: "COLOK BEBAS 4 DIGIT",
-                multiplier: 6.4
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_2D_2_DIGIT",
-                name: "COLOK BEBAS 2D 2 DIGIT",
-                multiplier: 7
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_2D_3_DIGIT",
-                name: "COLOK BEBAS 2D 3 DIGIT",
-                multiplier: 13
-            },
-            {
-                id: "MACAU_COLOK_BEBAS_2D_4_DIGIT",
-                name: "COLOK BEBAS 2D 4 DIGIT",
-                multiplier: 21
-            },
-            {
-                id: "MACAU_COLOK_NAGA_3_DIGIT",
-                name: "COLOK NAGA 3 DIGIT",
-                multiplier: 27
-            },
-            {
-                id: "MACAU_COLOK_NAGA_4_DIGIT",
-                name: "COLOK NAGA 4 DIGIT",
-                multiplier: 41
-            },
-            {
-                id: "MACAU_COLOK_JITU",
-                name: "COLOK JITU",
-                multiplier: 8.3
-            },
-            {
-                id: "MACAU_SHIO",
-                name: "SHIO",
-                multiplier: 10
-            },
-            {
-                id: "MACAU_MACAU_SHIO",
-                name: "MACAU SHIO",
-                multiplier: 110
-            },
-            {
-                id: "MACAU_KOMBINASI",
-                name: "KOMBINASI",
-                multiplier: 2.8
-            },
-            {
-                id: "MACAU_TEPI_TENGAH",
-                name: "TEPI TENGAH",
-                keyMinus: 2.2
-            },
-            {
-                id: "MACAU_SILANG_HOMO",
-                name: "SILANG HOMO",
-                keyMinus: 2.2
-            },
-            {
-                id: "MACAU_DASAR_GANJIL_BESAR",
-                name: "DASAR GANJIL-BESAR",
-                keyMinus: 25
-            },
-            {
-                id: "MACAU_DASAR_GENAP_KECIL",
-                name: "DASAR GENAP-KECIL",
-                keyPlus: 10
-            },
-            {
-                id: "MACAU_50_50",
-                name: "50-50",
-                keyMinus: 5
-            },
-            {
-                id: "MACAU_KEMBANG_KEMPIS",
-                name: "KEMBANG KEMPIS",
-                keyMinus: 2.2
-            }
-        ];
-
-        // Fungsi untuk membuat partikel listrik
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('scatterForm');
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            const copyAllBtn = document.getElementById('copyAllBtn');
+            const copyAllLinksBtn = document.getElementById('copyAllLinksBtn');
+            const copyAllLinksFinalBtn = document.getElementById('copyAllLinksFinalBtn');
+            const copySuccess = document.getElementById('copySuccess');
+            const debugInfo = document.getElementById('debugInfo');
+            const loader = document.getElementById('loader');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close');
+            const linkContainer = document.getElementById('linkContainer');
+            const finalLinkContainer = document.getElementById('finalLinkContainer');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
+            // Simpan link globally untuk akses mudah
+            let allImageLinks = [];
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                // Random size
-                const size = Math.random() * 6 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                // Show loader
+                loader.style.display = 'block';
                 
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
+                // Ambil nilai dari form
+                const rawData = document.getElementById('rawData').value;
                 
-                // Random animation delay
-                particle.style.animationDelay = `${Math.random() * 15}s`;
-                
-                // Random animation duration
-                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Fungsi untuk validasi input
-        function validateInput(isMacau = false) {
-            const betAmountInput = isMacau ? 'macau-bet-amount' : 'bet-amount';
-            const betErrorId = isMacau ? 'macau-bet-error' : 'bet-error';
-            const calculateBtnId = isMacau ? 'macau-calculate-btn' : 'calculate-btn';
-            
-            const betAmount = parseFloat(document.getElementById(betAmountInput).value);
-            const betError = document.getElementById(betErrorId);
-            const calculateBtn = document.getElementById(calculateBtnId);
-            
-            if (!betAmount || betAmount <= 0) {
-                betError.classList.add('show');
-                calculateBtn.disabled = true;
-                return false;
-            } else {
-                betError.classList.remove('show');
-                calculateBtn.disabled = false;
-                return true;
-            }
-        }
-
-        // Fungsi untuk menyalin teks ke clipboard
-        function copyToClipboard(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-        }
-
-        // Fungsi untuk menghitung hadiah (Pasaran Reguler)
-        function calculateRegularPrize() {
-            if (!validateInput(false)) return;
-            
-            const marketType = document.getElementById('market-type').value;
-            const betAmount = parseFloat(document.getElementById('bet-amount').value);
-            const resultDiv = document.getElementById('result');
-            const resultContent = document.getElementById('result-content');
-            const copyBtn = document.getElementById('copy-btn');
-            
-            let resultText = '';
-            let plainText = ''; // Untuk disalin
-            
-            // Cari data pasar yang sesuai
-            const market = regularMarketData.find(m => m.id === marketType);
-            
-            if (market) {
-                // Hitung hadiah berdasarkan jenis pasar
-                let hadiah = 0;
-                let diskon = 0;
-                let yangDibayar = betAmount;
-                
-                if (market.multiplier && !market.discount) {
-                    // Perhitungan untuk multiplier tanpa diskon
-                    hadiah = roundToInteger(betAmount * market.multiplier);
-                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💰 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} (HADIAH) = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
-                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} x ${market.multiplier} (HADIAH) = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
-                } else if (market.discount && market.prizeMultiplier) {
-                    // Perhitungan untuk diskon
-                    diskon = roundToInteger(betAmount * (market.discount / 100));
-                    yangDibayar = betAmount - diskon;
-                    hadiah = roundToInteger(betAmount * market.prizeMultiplier);
-                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 HADIAH ${market.prizeMultiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
-                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nHADIAH ${market.prizeMultiplier} x ${formatMoney(betAmount)} = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
-                } else if (market.discount && market.multiplier) {
-                    // Perhitungan untuk diskon dengan multiplier
-                    diskon = roundToInteger(betAmount * (market.discount / 100));
-                    yangDibayar = betAmount - diskon;
-                    const bagianHadiah = roundToInteger(betAmount * market.multiplier);
-                    hadiah = bagianHadiah + yangDibayar;
-                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 HADIAH ${market.multiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(bagianHadiah)}</span> + <span class="money-format">${formatMoney(yangDibayar)}</span> (MODAL) = <span class="money-format">${formatMoney(hadiah)}</span> KEMENANGAN ANDA`;
-                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nHADIAH ${market.multiplier} x ${formatMoney(betAmount)} = ${formatMoney(bagianHadiah)} + ${formatMoney(yangDibayar)} (MODAL) = ${formatMoney(hadiah)} KEMENANGAN ANDA`;
-                } else if (market.keyMinus) {
-                    // Perhitungan untuk key minus
-                    const diskonAmount = roundToInteger(betAmount * (market.discount / 100));
-                    const afterDiscount = betAmount - diskonAmount;
-                    const keyAmount = roundToInteger(afterDiscount * (market.keyMinus / 100));
-                    yangDibayar = afterDiscount + keyAmount;
-                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(afterDiscount)}</span> + (KEY -) ${market.keyMinus}% = <span class="money-format">${formatMoney(yangDibayar)}</span> YANG HARUS ANDA BAYAR\n\n🏆 JIKA ANDA MENANG (HADIAH 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(yangDibayar)}</span> (MODAL) = <span class="money-format">${formatMoney(betAmount + yangDibayar)}</span> KEMENANGAN ANDA`;
-                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(afterDiscount)} + (KEY -) ${market.keyMinus}% = ${formatMoney(yangDibayar)} YANG HARUS ANDA BAYAR\nJIKA ANDA MENANG (HADIAH 1:1) ${formatMoney(betAmount)} + ${formatMoney(yangDibayar)} (MODAL) = ${formatMoney(betAmount + yangDibayar)} KEMENANGAN ANDA`;
-                } else if (market.keyPlus) {
-                    // Perhitungan untuk key plus
-                    const diskonAmount = roundToInteger(betAmount * (market.discount / 100));
-                    const afterDiscount = betAmount - diskonAmount;
-                    const keyAmount = roundToInteger(betAmount * (market.keyPlus / 100));
-                    resultText = `⚡ BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\n\n💸 NOMINAL BET <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% (DISKON) = <span class="money-format">${formatMoney(afterDiscount)}</span> YANG HARUS ANDA BAYAR\n\n🔑 PERHITUNGAN (KEY +) ${market.keyPlus}% x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(keyAmount)}</span> KEY YANG ANDA DAPAT JIKA MENGALAMI KEMENANGAN\n\n🏆 JIKA ANDA MENANG (HADIAH 1:1) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(keyAmount)}</span> (KEY +) + <span class="money-format">${formatMoney(afterDiscount)}</span> (MODAL) = <span class="money-format">${formatMoney(betAmount + keyAmount + afterDiscount)}</span> KEMENANGAN ANDA`;
-                    plainText = `BERIKUT CONTOH PERHITUNGAN TIPE ${market.name.toUpperCase()}\nNOMINAL BET ${formatMoney(betAmount)} - ${market.discount}% (DISKON) = ${formatMoney(afterDiscount)} YANG HARUS ANDA BAYAR\nPERHITUNGAN (KEY +) ${market.keyPlus}% x ${formatMoney(betAmount)} = ${formatMoney(keyAmount)} KEY YANG ANDA DAPAT JIKA MENGALAMI KEMENANGAN\nJIKA ANDA MENANG (HADIAH 1:1) ${formatMoney(betAmount)} + ${formatMoney(keyAmount)} (KEY +) + ${formatMoney(afterDiscount)} (MODAL) = ${formatMoney(betAmount + keyAmount + afterDiscount)} KEMENANGAN ANDA`;
-                }
-            } else {
-                resultText = "❌ PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
-                plainText = "PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
-            }
-            
-            resultContent.innerHTML = resultText;
-            resultDiv.classList.add('show');
-            
-            // Scroll ke hasil
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            
-            // Reset tombol salin
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
-            copyBtn.classList.remove('copied');
-            
-            // Tambahkan event listener untuk tombol salin
-            copyBtn.onclick = () => {
-                copyToClipboard(plainText);
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> TERSALIN!';
-                copyBtn.classList.add('copied');
-                
+                // Simulasikan loading (bisa dihapus di production)
                 setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
-                    copyBtn.classList.remove('copied');
-                }, 2000);
-            };
-        }
-
-        // Fungsi untuk menghitung hadiah (Toto Macau)
-        function calculateMacauPrize() {
-            if (!validateInput(true)) return;
+                    // Proses data
+                    processScatterData(rawData);
+                    // Hide loader
+                    loader.style.display = 'none';
+                }, 1000);
+            });
             
-            const marketType = document.getElementById('macau-market-type').value;
-            const betAmount = parseFloat(document.getElementById('macau-bet-amount').value);
-            const resultDiv = document.getElementById('macau-result');
-            const resultContent = document.getElementById('macau-result-content');
-            const copyBtn = document.getElementById('macau-copy-btn');
-            
-            let resultText = '';
-            let plainText = ''; // Untuk disalin
-            
-            // Cari data pasar yang sesuai
-            const market = macauMarketData.find(m => m.id === marketType);
-            
-            if (market) {
-                // Hitung hadiah berdasarkan jenis pasar
-                let hadiah = 0;
-                let diskon = 0;
-                let yangDibayar = betAmount;
+            // Fungsi untuk memproses data scatter
+            function processScatterData(data) {
+                // Split data by tab atau spasi
+                const parts = data.split(/\s+/);
                 
-                if (market.multiplier && !market.discount && !market.keyMinus && !market.keyPlus) {
-                    // Perhitungan untuk multiplier tanpa diskon (FULL, BB TEPAT/TIDAK TEPAT)
-                    hadiah = roundToInteger(betAmount * market.multiplier);
-                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} ( hadiah ) = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} x ${market.multiplier} ( hadiah ) = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
-                } else if (market.discount && market.prizeMultiplier) {
-                    // Perhitungan untuk diskon (DISC dan S.DISC)
-                    diskon = roundToInteger(betAmount * (market.discount / 100));
-                    yangDibayar = betAmount - diskon;
-                    hadiah = roundToInteger(betAmount * market.prizeMultiplier);
-                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> - ${market.discount}% ( diskon ) = <span class="money-format">${formatMoney(yangDibayar)}</span> yang harus anda bayar\n\n🏆 Hadiah ${market.prizeMultiplier} x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} - ${market.discount}% ( diskon ) = ${formatMoney(yangDibayar)} yang harus anda bayar\nHadiah ${market.prizeMultiplier} x ${formatMoney(betAmount)} = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
-                } else if (market.multiplier && !market.discount) {
-                    // Perhitungan untuk COLOK BEBAS, COLOK NAGA, COLOK JITU, SHIO, MACAU SHIO, KOMBINASI
-                    const bagianHadiah = roundToInteger(betAmount * market.multiplier);
-                    hadiah = bagianHadiah + betAmount;
-                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> x ${market.multiplier} ( hadiah ) = <span class="money-format">${formatMoney(bagianHadiah)}</span> + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(hadiah)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} x ${market.multiplier} ( hadiah ) = ${formatMoney(bagianHadiah)} + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(hadiah)} kemenangan anda ya bosku`;
-                } else if (market.keyMinus) {
-                    // Perhitungan untuk key minus (TEPI TENGAH, SILANG HOMO, DASAR GANJIL-BESAR, 50-50, KEMBANG KEMPIS)
-                    const keyAmount = roundToInteger(betAmount * (market.keyMinus / 100));
-                    yangDibayar = betAmount + keyAmount;
-                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n💰 Nominal bet <span class="money-format">${formatMoney(betAmount)}</span> + ${market.keyMinus}% ( key - ) = <span class="money-format">${formatMoney(yangDibayar)}</span> yang harus anda bayar\n\n🏆 Jika anda menang ( hadiah 1:1 ) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(betAmount * 2)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nNominal bet ${formatMoney(betAmount)} + ${market.keyMinus}% ( key - ) = ${formatMoney(yangDibayar)} yang harus anda bayar\nJika anda menang ( hadiah 1:1 ) ${formatMoney(betAmount)} + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(betAmount * 2)} kemenangan anda ya bosku`;
-                } else if (market.keyPlus) {
-                    // Perhitungan untuk key plus (DASAR GENAP-KECIL)
-                    const keyAmount = roundToInteger(betAmount * (market.keyPlus / 100));
-                    resultText = `👑 Berikut contoh perhitungan tipe ${market.name} ya bosku\n\n🔑 Perhitungan ( key + ) ${market.keyPlus}% x <span class="money-format">${formatMoney(betAmount)}</span> = <span class="money-format">${formatMoney(keyAmount)}</span> key yang anda dapat jika mengalamin kemenangan\n\n🏆 Jika anda menang ( hadiah 1:1 ) <span class="money-format">${formatMoney(betAmount)}</span> + <span class="money-format">${formatMoney(keyAmount)}</span> ( key + ) + <span class="money-format">${formatMoney(betAmount)}</span> ( modal ) = <span class="money-format">${formatMoney(betAmount * 2 + keyAmount)}</span> kemenangan anda ya bosku`;
-                    plainText = `Berikut contoh perhitungan tipe ${market.name} ya bosku\nPerhitungan ( key + ) ${market.keyPlus}% x ${formatMoney(betAmount)} = ${formatMoney(keyAmount)} key yang anda dapat jika mengalamin kemenangan\nJika anda menang ( hadiah 1:1 ) ${formatMoney(betAmount)} + ${formatMoney(keyAmount)} ( key + ) + ${formatMoney(betAmount)} ( modal ) = ${formatMoney(betAmount * 2 + keyAmount)} kemenangan anda ya bosku`;
+                // Tampilkan info debug
+                debugInfo.innerHTML = `<strong>Parts:</strong> ${JSON.stringify(parts)}`;
+                debugInfo.style.display = 'block';
+                
+                // Inisialisasi variabel
+                let userId = '';
+                let ticketCode = '';
+                let playerName = '';
+                let betting = '';
+                const imageLinks = [];
+                const possibleTicketCodes = [];
+                
+                // Iterasi melalui setiap bagian
+                for (let i = 0; i < parts.length; i++) {
+                    const part = parts[i];
+                    
+                    // Deteksi link gambar
+                    if (part.startsWith('http') && (part.includes('.jpg') || part.includes('.png') || part.includes('.jpeg'))) {
+                        imageLinks.push(part);
+                    }
+                    // Deteksi user ID (biasanya di awal)
+                    else if (i === 0 && !part.includes('http')) {
+                        userId = part;
+                    }
+                    // Deteksi kode tiket (angka, panjang biasanya lebih dari 10 digit)
+                    else if (/^\d+$/.test(part) && part.length > 10) {
+                        possibleTicketCodes.push(part);
+                    }
+                    // Deteksi nama (huruf saja, minimal 2 kata)
+                    else if (/^[A-Za-z\s]+$/.test(part) && part.split(' ').length >= 2 && !playerName) {
+                        playerName = part;
+                        // Jika nama terdiri dari beberapa bagian, gabungkan
+                        for (let j = i + 1; j < parts.length; j++) {
+                            if (/^[A-Za-z\s]+$/.test(parts[j])) {
+                                playerName += ' ' + parts[j];
+                            } else {
+                                break;
+                            }
+                        }
+                    }
                 }
-            } else {
-                resultText = "❌ PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
-                plainText = "PERHITUNGAN UNTUK PASAR INI BELUM TERSEDIA";
+                
+                // Proses bettingan - cari bagian yang mengandung "BET"
+                let betFound = false;
+                for (let i = 0; i < parts.length; i++) {
+                    if (parts[i].includes('BET')) {
+                        betFound = true;
+                        // Ambil angka setelah "BET"
+                        for (let j = i + 1; j < parts.length; j++) {
+                            if (parts[j] && /^[\d,]+$/.test(parts[j].replace(/\./g, ''))) {
+                                betting = parts[j].replace(/\./g, '');
+                                break;
+                            } else if (parts[j] && parts[j].includes('-')) {
+                                // Jika ada tanda minus, ambil bagian pertama
+                                const betParts = parts[j].split('-');
+                                if (betParts[0] && /^[\d,]+$/.test(betParts[0].replace(/\./g, ''))) {
+                                    betting = betParts[0].replace(/\./g, '');
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                
+                // Jika tidak menemukan "BET", cari pola angka dengan koma
+                if (!betFound) {
+                    for (let i = 0; i < parts.length; i++) {
+                        if (parts[i] && /^[\d,]+-[\d,]+$/.test(parts[i])) {
+                            // Format: 2,000-8,000
+                            const betParts = parts[i].split('-');
+                            if (betParts[0] && /^[\d,]+$/.test(betParts[0].replace(/\./g, ''))) {
+                                betting = betParts[0].replace(/\./g, '');
+                            }
+                            break;
+                        } else if (parts[i] && /^[\d,]+$/.test(parts[i].replace(/\./g, '')) && 
+                                  parts[i+1] && parts[i+1] === '-' && 
+                                  parts[i+2] && /^[\d,]+$/.test(parts[i+2].replace(/\./g, ''))) {
+                            // Format: 2,000 - 8,000 (terpisah)
+                            betting = parts[i].replace(/\./g, '');
+                            break;
+                        }
+                    }
+                }
+                
+                // Ambil kode tiket yang paling panjang (biasanya yang benar)
+                if (possibleTicketCodes.length > 0) {
+                    // Urutkan dari yang terpanjang
+                    possibleTicketCodes.sort((a, b) => b.length - a.length);
+                    ticketCode = possibleTicketCodes[0];
+                }
+                
+                // Tampilkan hasil ekstraksi
+                document.getElementById('resultUserId').textContent = userId || '-';
+                document.getElementById('resultTicketCode').textContent = ticketCode || '-';
+                document.getElementById('resultPlayerName').textContent = playerName || '-';
+                document.getElementById('resultBetting').textContent = betting || '-';
+                
+                // Tampilkan di hasil final
+                document.getElementById('finalUserId').textContent = userId || '-';
+                document.getElementById('finalTicketCode').textContent = ticketCode || '-';
+                document.getElementById('finalPlayerName').textContent = playerName || '-';
+                document.getElementById('finalBetting').textContent = betting || '-';
+                
+                // Simpan link globally
+                allImageLinks = imageLinks;
+                
+                // Tampilkan link screenshot
+                linkContainer.innerHTML = '';
+                finalLinkContainer.innerHTML = '';
+                
+                if (imageLinks.length > 0) {
+                    imageLinks.forEach((link, index) => {
+                        // Untuk panel hasil
+                        const linkItem = document.createElement('div');
+                        linkItem.className = 'link-item';
+                        linkItem.innerHTML = `
+                            <div>
+                                <i class="fas fa-link"></i>
+                                <span class="link-text">${link}</span>
+                            </div>
+                            <button class="copy-link-btn" data-link="${link}">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
+                        `;
+                        linkContainer.appendChild(linkItem);
+                        
+                        // Untuk panel final result
+                        const finalLinkItem = document.createElement('div');
+                        finalLinkItem.className = 'link-item';
+                        finalLinkItem.innerHTML = `
+                            <div>
+                                <i class="fas fa-link"></i>
+                                <span class="link-text">${link}</span>
+                            </div>
+                            <button class="copy-link-btn" data-link="${link}">
+                                <i class="fas fa-copy"></i> Salin
+                            </button>
+                        `;
+                        finalLinkContainer.appendChild(finalLinkItem);
+                    });
+                    
+                    // Tambahkan event listener untuk tombol salin link
+                    document.querySelectorAll('.copy-link-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const link = this.getAttribute('data-link');
+                            copyToClipboard(link);
+                        });
+                    });
+                } else {
+                    linkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
+                    finalLinkContainer.innerHTML = '<div class="link-item"><i class="fas fa-exclamation-circle"></i> Tidak ada link screenshot yang ditemukan</div>';
+                }
+                
+                // Tampilkan gambar di galeri
+                const imageGallery = document.getElementById('imageGallery');
+                imageGallery.innerHTML = '';
+                
+                if (imageLinks.length > 0) {
+                    imageLinks.forEach(link => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = link;
+                        img.alt = 'Bukti Screenshot';
+                        img.onerror = function() {
+                            galleryItem.innerHTML = '<span>Gagal memuat gambar</span>';
+                            galleryItem.style.color = '#fff';
+                            galleryItem.style.textAlign = 'center';
+                            galleryItem.style.display = 'flex';
+                            galleryItem.style.alignItems = 'center';
+                            galleryItem.style.justifyContent = 'center';
+                        };
+                        
+                        // Add click event to open modal
+                        img.addEventListener('click', function() {
+                            modal.style.display = 'block';
+                            modalImg.src = this.src;
+                        });
+                        
+                        galleryItem.appendChild(img);
+                        imageGallery.appendChild(galleryItem);
+                    });
+                } else {
+                    imageGallery.innerHTML = '<div class="gallery-item">Tidak ada gambar yang ditemukan</div>';
+                }
             }
             
-            resultContent.innerHTML = resultText;
-            resultDiv.classList.add('show');
+            // Close modal when clicking on X
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
             
-            // Scroll ke hasil
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
             
-            // Reset tombol salin
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
-            copyBtn.classList.remove('copied');
-            
-            // Tambahkan event listener untuk tombol salin
-            copyBtn.onclick = () => {
-                copyToClipboard(plainText);
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> TERSALIN!';
-                copyBtn.classList.add('copied');
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> SALIN HASIL';
-                    copyBtn.classList.remove('copied');
-                }, 2000);
-            };
-        }
-
-        // Inisialisasi saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            
-            // Event listener untuk tab buttons
-            const tabRegular = document.getElementById('tab-regular');
-            const tabMacau = document.getElementById('tab-macau');
-            const tabRegularContent = document.getElementById('tab-regular-content');
-            const tabMacauContent = document.getElementById('tab-macau-content');
-            
-            // Fungsi untuk switch tab
-            function switchTab(activeTab, activeContent) {
-                // Remove active class dari semua tabs
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
+            // Copy functionality untuk tombol individual
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const elementId = this.getAttribute('data-copy');
+                    const textToCopy = document.getElementById(elementId).textContent;
+                    
+                    copyToClipboard(textToCopy);
                 });
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
+            });
+            
+            // Copy functionality untuk tombol salin semua
+            copyAllBtn.addEventListener('click', function() {
+                const userId = document.getElementById('finalUserId').textContent;
+                const ticketCode = document.getElementById('finalTicketCode').textContent;
+                const playerName = document.getElementById('finalPlayerName').textContent;
+                const betting = document.getElementById('finalBetting').textContent;
+                
+                // Get all links
+                const links = [];
+                document.querySelectorAll('#finalLinkContainer .link-text').forEach(item => {
+                    links.push(item.textContent.trim());
                 });
                 
-                // Add active class ke tab yang dipilih
-                activeTab.classList.add('active');
-                activeContent.classList.add('active');
+                const textToCopy = `User ID: ${userId}\nKode Tiket: ${ticketCode}\nNama Pemain: ${playerName}\nLink Screenshot:\n${links.join('\n')}\nBettingan: ${betting}`;
+                
+                copyToClipboard(textToCopy);
+            });
+            
+            // Copy functionality untuk tombol salin semua link
+            copyAllLinksBtn.addEventListener('click', function() {
+                if (allImageLinks.length > 0) {
+                    const textToCopy = allImageLinks.join('\n');
+                    copyToClipboard(textToCopy);
+                } else {
+                    alert('Tidak ada link untuk disalin');
+                }
+            });
+            
+            // Copy functionality untuk tombol salin semua link di final result
+            copyAllLinksFinalBtn.addEventListener('click', function() {
+                if (allImageLinks.length > 0) {
+                    const textToCopy = allImageLinks.join('\n');
+                    copyToClipboard(textToCopy);
+                } else {
+                    alert('Tidak ada link untuk disalin');
+                }
+            });
+            
+            // Fungsi untuk menyalin teks ke clipboard
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(function() {
+                    copySuccess.style.display = 'block';
+                    setTimeout(function() {
+                        copySuccess.style.display = 'none';
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Gagal menyalin teks: ', err);
+                    // Fallback untuk browser yang tidak support clipboard API
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    copySuccess.style.display = 'block';
+                    setTimeout(function() {
+                        copySuccess.style.display = 'none';
+                    }, 2000);
+                });
             }
-            
-            // Event listener untuk tab regular
-            tabRegular.addEventListener('click', () => {
-                switchTab(tabRegular, tabRegularContent);
-            });
-            
-            // Event listener untuk tab macau
-            tabMacau.addEventListener('click', () => {
-                switchTab(tabMacau, tabMacauContent);
-            });
-            
-            // Event listener untuk tombol hitung regular
-            document.getElementById('calculate-btn').addEventListener('click', calculateRegularPrize);
-            
-            // Event listener untuk tombol hitung macau
-            document.getElementById('macau-calculate-btn').addEventListener('click', calculateMacauPrize);
-            
-            // Event listener untuk tekan Enter di input bet amount regular
-            document.getElementById('bet-amount').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    calculateRegularPrize();
-                }
-            });
-            
-            // Event listener untuk tekan Enter di input bet amount macau
-            document.getElementById('macau-bet-amount').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    calculateMacauPrize();
-                }
-            });
-            
-            // Event listener untuk validasi real-time regular
-            document.getElementById('bet-amount').addEventListener('input', () => {
-                validateInput(false);
-            });
-            
-            // Event listener untuk validasi real-time macau
-            document.getElementById('macau-bet-amount').addEventListener('input', () => {
-                validateInput(true);
-            });
-            
-            // Nonaktifkan tombol hitung secara default
-            document.getElementById('calculate-btn').disabled = true;
-            document.getElementById('macau-calculate-btn').disabled = true;
         });
     </script>
 </body>
