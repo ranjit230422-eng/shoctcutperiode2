@@ -1,0 +1,1537 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linetogel Dashboard - Cyberpunk Neon V2.1</title>
+    
+    <!-- Font: Orbitron (Futuristic) & Rajdhani (Tech) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* --- CYBERPUNK NEON PALETTE --- */
+            --bg-dark: #050505;
+            --bg-panel: rgba(20, 20, 25, 0.7);
+            --bg-card: rgba(30, 30, 35, 0.6);
+            
+            --primary-neon: #00f3ff; /* Cyan */
+            --secondary-neon: #bc13fe; /* Purple */
+            --accent-neon: #0aff0a; /* Green */
+            --danger-neon: #ff003c; /* Red */
+            
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            
+            --border-glow: 0 0 10px rgba(0, 243, 255, 0.5);
+            --box-glow: 0 0 20px rgba(0, 0, 0, 0.5);
+            
+            --radius: 12px;
+            
+            --sidebar-width: 280px;
+            --header-height: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            /* --- BACKGROUND BARU --- */
+            background: radial-gradient(circle at 50% -20%, #2d1b69, #0f172a 60%, #000000 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            /* Digital Grid Background Overlay */
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Ambient Glow Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(188, 19, 254, 0.1), transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(0, 243, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 243, 255, 0.1);
+        }
+
+        .brand-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-neon);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px var(--primary-neon);
+            letter-spacing: 1px;
+        }
+        .brand-logo span { color: white; text-shadow: none; }
+
+        .sidebar-menu {
+            padding: 30px 16px;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary-neon);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+            box-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .nav-item i {
+            width: 24px;
+            margin-right: 12px;
+            text-align: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 243, 255, 0.05);
+            color: var(--text-main);
+            text-shadow: 0 0 5px var(--text-main);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.15), transparent);
+            color: var(--primary-neon);
+            border-color: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+
+        .nav-item.active::before { transform: scaleY(1); }
+        .nav-item.active i { text-shadow: 0 0 10px var(--primary-neon); }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+
+        /* --- MAIN WRAPPER --- */
+        .main-wrapper {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            background: rgba(5, 5, 5, 0.8);
+        }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header {
+            display: none;
+            height: 60px;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        .menu-btn {
+            background: transparent;
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        /* --- CONTENT AREA --- */
+        .main-content {
+            padding: 30px;
+            flex: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- TOP BAR & BONUS PANEL --- */
+        .top-bar-container {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar {
+            background: var(--bg-panel);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 24px;
+            /* --- PERUBAHAN DISINI --- */
+            width: auto;
+            max-width: 320px; /* Batas lebar agar tidak melebar */
+            flex: none; /* Matikan flex-grow */
+            /* ---------------------- */
+            border-radius: var(--radius);
+            box-shadow: var(--box-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-tag {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 5px var(--primary-neon);
+        }
+
+        /* --- BONUS TODAY PANEL --- */
+        .bonus-today-panel {
+            background: rgba(0, 0, 0, 0.986); 
+            border: 1px solid rgb(0, 242, 255);
+            width: 400px;
+            min-width: 300px;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .bonus-today-header {
+            border-bottom: 1px solid rgb(154, 0, 243);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--primary-neon);
+            text-shadow: 0 0 5px var(--secondary-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-date-time {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Rajdhani', monospace;
+            font-size: 0.9rem;
+            box-shadow: 0 0 5px rgba(188, 19, 254, 0.3);
+        }
+
+        .bonus-today-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .bonus-today-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+        
+        .bonus-today-item:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        
+        .bonus-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 5px var(--primary-neon);
+        }
+
+        .bonus-details h4 { font-size: 0.95rem; font-weight: 600; color: white; }
+        .bonus-details p { font-size: 0.8rem; color: var(--text-muted); }
+
+        .status-box {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border: 1px solid var(--accent-neon);
+            color: var(--accent-neon);
+            border-radius: 4px;
+            margin-left: auto;
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--accent-neon);
+        }
+
+        /* --- TABS --- */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 12px 24px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 8px 8px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+            background: rgba(0, 243, 255, 0.05);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-neon);
+            border-color: var(--primary-neon);
+            background: linear-gradient(180deg, rgba(0, 243, 255, 0.2), transparent);
+            box-shadow: 0 -5px 15px rgba(0, 243, 255, 0.15);
+        }
+
+        .tab-content-section { display: none; }
+        .tab-content-section.active { display: block; }
+
+        /* --- GRID & CARDS (STATUS TAB) --- */
+        .section-wrapper { margin-bottom: 40px; }
+
+        .day-title {
+            display: inline-block;
+            background: var(--bg-card);
+            color: var(--primary-neon);
+            padding: 8px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-neon);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            text-transform: uppercase;
+        }
+
+        .day-title.reject {
+            color: var(--danger-neon);
+            border-color: var(--danger-neon);
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.2);
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 320px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--box-glow);
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            border-color: rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            z-index: 2;
+            font-weight: bold;
+        }
+
+        .st-wait { background: rgba(0, 243, 255, 0.1); color: var(--primary-neon); border: 1px solid var(--primary-neon); }
+        .st-proc { background: rgba(255, 179, 0, 0.1); color: #ffb300; border: 1px solid #ffb300; }
+        .st-done { background: rgba(10, 255, 10, 0.1); color: var(--accent-neon); border: 1px solid var(--accent-neon); }
+        .st-step { background: rgba(188, 19, 254, 0.1); color: var(--secondary-neon); border: 1px solid var(--secondary-neon); }
+        .st-reject { background: rgba(255, 0, 60, 0.1); color: var(--danger-neon); border: 1px solid var(--danger-neon); animation: neon-pulse 2s infinite; }
+
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 5px var(--danger-neon); }
+            50% { box-shadow: 0 0 20px var(--danger-neon); }
+            100% { box-shadow: 0 0 5px var(--danger-neon); }
+        }
+
+        .card-content {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-area {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            flex-grow: 1;
+            min-height: 180px;
+            overflow-y: auto;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            border-radius: 6px;
+        }
+        .text-area::-webkit-scrollbar { width: 8px; }
+        .text-area::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+        .text-area::-webkit-scrollbar-thumb { background: var(--primary-neon); border-radius: 4px; }
+
+        .btn-action {
+            background: transparent;
+            color: var(--primary-neon);
+            border: 1px solid var(--primary-neon);
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            width: 100%;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 5px var(--primary-neon);
+        }
+
+        .btn-action:hover {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-neon);
+        }
+        
+        .btn-action.copied { 
+            background: var(--accent-neon); 
+            color: #000;
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 20px var(--accent-neon);
+        }
+
+        /* --- INFO BONUS LINE (TAB 2) --- */
+        .tab-header-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .btn-copy-all-big {
+            background: transparent;
+            color: var(--secondary-neon);
+            border: 1px solid var(--secondary-neon);
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 5px var(--secondary-neon);
+            transition: 0.3s;
+        }
+        .btn-copy-all-big:hover {
+            background: var(--secondary-neon);
+            color: #fff;
+            box-shadow: 0 0 20px var(--secondary-neon);
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 24px;
+        }
+
+        .bonus-info-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--box-glow);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .bonus-info-card:hover {
+            border-color: var(--secondary-neon);
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
+        }
+
+        .bonus-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius) var(--radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bonus-card-header h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .btn-copy-mini {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .btn-copy-mini:hover { 
+            border-color: var(--primary-neon); 
+            color: var(--primary-neon); 
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); 
+        }
+
+        .bonus-card-body {
+            padding: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            color: #d0d0d0;
+            line-height: 1.6;
+            overflow-y: auto;
+            max-height: 350px;
+            white-space: pre-line;
+        }
+        
+        /* Step Box Style */
+        .step-box {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-neon);
+            text-shadow: 0 0 5px var(--primary-neon);
+        }
+
+        /* --- TOAST --- */
+        #toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+        .toast {
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid var(--accent-neon);
+            box-shadow: 0 0 20px var(--accent-neon);
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+            animation: slideIn 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1100px) {
+            .bonus-grid { grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
+            .top-bar-container { flex-direction: column; }
+            .bonus-today-panel { width: 100%; }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); width: 260px; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+            .sidebar.active { transform: translateX(0); }
+            .main-wrapper { margin-left: 0; }
+            .mobile-header { display: flex; }
+            .main-content { padding: 20px 16px; }
+            .grid-row { flex-wrap: wrap; }
+            .info-card { min-width: 100%; }
+            
+            .overlay {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.8); z-index: 99;
+                display: none;
+            }
+            .overlay.active { display: block; }
+        }
+        
+        @media (max-width: 600px) {
+            .bonus-grid { grid-template-columns: 1fr; }
+            .tab-container { flex-wrap: wrap; }
+            .tab-btn { width: 100%; text-align: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">
+                <i class="fas fa-microchip"></i> LINE<span>TOGEL</span>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="nav-item active" onclick="handleNavClick(event, 'link-status', 'tab-status')"><i class="fas fa-bullhorn"></i> STATUS BONUS</li>
+            <li class="nav-item" onclick="handleNavClick(event, 'link-reject', 'tab-reject')"><i class="fas fa-ban"></i> ALASAN DITOLAK</li>
+            <li class="nav-item" onclick="handleNavClick(event, 'link-info', 'tab-full')"><i class="fas fa-file-contract"></i> INFO BONUS LINE</li>
+        </ul>
+        <div class="sidebar-footer">
+            <div>SYSTEM ONLINE</div>
+            <div style="margin-top: 5px; font-size: 0.7rem; color: var(--primary-neon);">CYBERPUNK V2.1</div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+        
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <div class="brand-logo" style="font-size: 1rem;">
+                <i class="fas fa-microchip"></i> LINE<span>TOGEL</span>
+            </div>
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <div class="main-content">
+            
+            <!-- Top Bar with Bonus Today Panel -->
+            <div class="top-bar-container">
+                <div class="top-bar">
+                    <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: rgb(255, 255, 255);">
+                        <i class="fas fa-bullhorn" style="color: var(--primary-neon); margin-right: 10px;"></i> BONUS LINE TOGEL
+                    </div>
+                    <div class="user-tag">ADMIN ACCESS</div>
+                </div>
+                
+                <div class="bonus-today-panel">
+                    <div class="bonus-today-header">
+                        <div class="panel-title">
+                            <i class="fas fa-gift"></i> BONUS TODAY
+                        </div>
+                        <div class="current-date-time" id="current-datetime">
+                            <span id="current-day">MON</span>, <span id="current-date">01 JAN</span>
+                        </div>
+                    </div>
+                    <div class="bonus-today-content" id="bonus-today-list">
+                        <!-- JS will load -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB NAVIGATION -->
+            <div class="tab-container" id="status-tabs">
+                <button class="tab-btn active" onclick="handleNavClick(event, 'link-status', 'tab-status')">STATUS BONUS</button>
+                <button class="tab-btn" onclick="handleNavClick(event, 'link-reject', 'tab-reject')">ALASAN DITOLAK</button>
+                <button class="tab-btn" onclick="handleNavClick(event, 'link-info', 'tab-full')">INFO BONUS LINE</button>
+            </div>
+
+            <!-- === TAB 1: STATUS UPDATES === -->
+            <div id="tab-status" class="tab-content-section active">
+                
+                <!-- 1. BONUS LIVE GAMES -->
+                <div class="section-wrapper">
+                    <div class="day-title">BONUS LIVE GAMES (SENIN)</div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-wait">WAITING</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg1">Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES , LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg1', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-proc">PROCESS</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg2">Untuk hari ini adalah BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES , LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE sedang di bagikan dan bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg2', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-done">COMPLETED</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg3">Yth member setia Linetogel, Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN Up TO 5% LIVE GAMES , LIVE CASINO PRAGMATIC dan BONUS CASHBACK KEKALAHAN ARCADE telah selesai dibagikan, silahkan di check didalam akun anda. Untuk periode bonus dihitung dari hari Senin S/D Minggu. Terimakasih atas perhatiannya salam JP</div>
+                                <button class="btn-action" onclick="copyOnly('msg3', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. BONUS SLOT GAMES -->
+                <div class="section-wrapper">
+                    <div class="day-title">BONUS SLOT GAMES (SELASA)</div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-wait">WAITING</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg4">Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery belum di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg4', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-proc">PROCESS</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg5">Untuk hari ini adalah BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES ) dan BONUS CASHBACK 5% KEKALAHAN E-lottery sedang di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg5', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-done">COMPLETED</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg6">Yth member setia Linetogel, Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS CASHBACK KEKALAHAN 5% ( SLOT GAMES & E-LOTTERY ) telah selesai dibagikan, silahkan di check didalam akun anda. Untuk periode bonus dihitung dari hari Selasa S/D Senin. Terimakasih atas perhatiannya salam JP</div>
+                                <button class="btn-action" onclick="copyOnly('msg6', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. BONUS EXTRA TURN OVER -->
+                <div class="section-wrapper">
+                    <div class="day-title">EXTRA TURNOVER SLOT (TGL 1,11,21)</div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-wait">WAITING</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg7">Untuk hari ini adalah EXTRA BONUS TURNOVER SLOT UP TO Rp.10.000.000 belum di bagikan dan akan di bagikan secara otomatis oleh sistem kami secara bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg7', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-proc">PROCESS</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg8">Untuk hari ini adalah EXTRA BONUS TURNOVER SLOT UP TO Rp.10.000.000 sedang di bagikan dan akan di bagikan secara otomatis dan bertahap tanpa perlu di klaim ya bosku. Mohon kesabarannya hingga pembagian bonus selesai ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg8', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-done">COMPLETED</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg9">Yth member setia Linetogel, Untuk pembagian EXTRA BONUS TURNOVER SLOT UP TO Rp.10.000.000 telah selesai dibagikan ya bosku. Perihal tersebut sudah di bagikan sesuai dengan syarat dan ketentuan yang berlaku ya bosku. Seluruh keputusan LINETOGEL adalah mutlak dan tidak dapat di ganggu-gugat. Terima Kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg9', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. BONUS ROLLINGAN -->
+                <div class="section-wrapper">
+                    <div class="day-title">BONUS ROLLINGAN (KAMIS)</div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-wait">WAITING</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg10">Untuk hari ini adalah Bonus Rollingan turnover ( LIVEGAMES, SLOTGAMES, LIVECASINO PRAGMATIC , E-LOTTERY & ARCADE ) akan masuk secara otomatis apabila memenuhi syarat dan ketentuan yang berlaku, lebih kurang sekitar jam 11.00 (WIB) , oleh karena itu mohon untuk bersabar, Terima kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg10', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-proc">ESTIMASI</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg11">Untuk estimasi silahkan di tunggu seperti informasi yang sudah berikan di atas , terima kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg11', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-done">COMPLETED</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg12">Yth Member Setia Linetogel, Kami ingin menginformasikan kepada seluruh member kami, bahwa BONUS ROLLINGAN LIVEGAMES, SLOTGAMES, LIVECASINO PRAGMATIC , E-LOTTERY & ARCADE telah selesai dibagikan, silahkan di check didalam akun anda. Untuk periode bonus dihitung dari hari KAMIS S/D RABU. Terimakasih atas perhatiannya salam JP.</div>
+                                <button class="btn-action" onclick="copyOnly('msg12', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. BONUS ULANG TAHUN VIP -->
+                <div class="section-wrapper">
+                    <div class="day-title">BONUS ULANG TAHUN VIP</div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-step">STEP 1</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg13">Mohon maaf bosku untuk perihal hadiah ulang tahun member VIP, silahkan anda menghubungi nomor wa yang ada pada memo yang sudah di info kan sebelum nya ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg13', this)"><i class="far fa-copy"></i> SALIN STEP 1</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-step">STEP 2</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg14">Mohon maaf bosku, untuk perihal nomor WA VIP tidak dapat kami berikan apabila anda member VIP kami maka pihak VIP kami akan langsung menghungi anda. Terima Kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg14', this)"><i class="far fa-copy"></i> SALIN STEP 2</button>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="status-badge st-step">STEP 3</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg15">Mohon maaf bosku, untuk perihal tersebut akan di hubungi langsung secara otomatis oleh pihak VIP kami ya bosku</div>
+                                <button class="btn-action" onclick="copyOnly('msg15', this)"><i class="far fa-copy"></i> SALIN STEP 3</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === TAB 3: ALASAN DITOLAK === -->
+            <div id="tab-reject" class="tab-content-section">
+                
+                <!-- 1. MENANG SLOT GAMES -->
+                <div class="section-wrapper">
+                    <div class="day-title reject">
+                        <i class="fas fa-times-circle"></i> JIKA MASIH MENANG
+                    </div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-reject">REJECTED</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg-reject-1">Mohon maaf bosku disini kami cekkan akun anda mengalami kemenangan pada permainan SLOT GAMES selama seminggu terakhir ya bosku.
+Sehingga tidak memenuhi syarat bonus Cashback Kekalahan tersebut ya bosku Terima kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg-reject-1', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. GAK PERNAH DAPAT BONUS -->
+                <div class="section-wrapper">
+                    <div class="day-title reject">
+                        <i class="fas fa-question-circle"></i> GAK PERNAH DAPAT BONUS
+                    </div>
+                    <div class="grid-row">
+                        <div class="info-card">
+                            <div class="status-badge st-reject">SYSTEM INFO</div>
+                            <div class="card-content">
+                                <div class="text-area" id="msg-reject-2">Mohon maaf bosku, jika user id anda memenuhi syarat dan ketentuan yang berlaku maka bonus akan otomatis masuk ke akun anda tanpa perlu di klaim di live chat ya bosku, Terima kasih</div>
+                                <button class="btn-action" onclick="copyOnly('msg-reject-2', this)"><i class="far fa-copy"></i> SALIN DATA</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- === TAB 2: FULL INFO (INFO BONUS LENGKAP) === -->
+            <div id="tab-full" class="tab-content-section">
+                <div class="tab-header-action">
+                    <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: white;">INFO BONUS LINE LENGKAP</div>
+                    <button class="btn-copy-all-big" onclick="copyAllBonusContent()"><i class="far fa-copy"></i> SALIN SEMUA</button>
+                </div>
+
+                <div class="bonus-grid">
+                    
+                    <!-- 1. Bonus Event -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-star" style="color: #ffb300;"></i> BONUS EVENT</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('event')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-event">
+Untuk Event Bonus saat ini kami memiliki :
+
+• Bonus Event Scatter Mahjong Ways I dan Mahjong Ways 2
+
+• Bonus Event Buy Spin 25% & Free Spin 20%
+
+• Bonus Event Gates Of Olympus Super Scatter
+                        </div>
+                    </div>
+
+                    <!-- 2. Bonus Extra Slot -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-bolt" style="color: #ffb300;"></i> BONUS EXTRA SLOT</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('extra')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-extra">
+Bonus Extra Turnover Slot Games = Bonus yang didapatkan setiap tanggal 01, 11, dan 21 dengan sistem level ( berdasarkan turnover bettingan anda dalam permainan Slot Games selama 10 hari )
+                        </div>
+                    </div>
+
+                    <!-- 3. Bonus Arcade -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-gamepad" style="color: var(--secondary-neon);"></i> BONUS ARCADE</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('arcade')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-arcade">
+Untuk Promo Bonus permainan Arcade saat ini kami memiliki :
+
+• Bonus Referral Arcade = Bonus Referral sebesar 0.1%
+  Khusus untuk permainan Arcade ( Dibagikan setiap hari )
+
+• Bonus Rollingan turnover sebesar 0,5% dari total bettingan
+  Khusus untuk permainan Arcade ( Dibagikan setiap Hari Kamis setelah jadwal maintenance selesai diperkirakan pukul 11.00 WIB )
+
+• Bonus Cashback 5%  ( Arcade ) = Bonus Kekalahan 5% hanya berlaku untuk permainan Arcade.
+  Minimal kekalahan Rp.100.000, Otomatis dibagikan setiap Hari Senin.
+                        </div>
+                    </div>
+
+                    <!-- 4. Bonus E-Lottery -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-ticket-alt" style="color: var(--primary-neon);"></i> BONUS E-LOTTERY</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('elottery')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-elottery">
+Untuk Promo Bonus Permainan E-Lottery saat ini kami memiliki :
+
+• Bonus Referral E-Lottery = Bonus Referral sebesar 0.1%
+  Khusus untuk permainan E-Lottery ( Dibagikan setiap hari )
+
+• Bonus Rollingan turnover sebesar 0,5% dari total bettingan
+  Khusus untuk permainan E-Lottery ( Dibagikan setiap Hari Kamis setelah jadwal maintenance selesai diperkirakan pukul 11.00 WIB )
+
+• Bonus Cashback 5% ( E-Lottery ) = Bonus Kekalahan 5% hanya berlaku untuk permainan E-Lottery.
+  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Selasa.
+                        </div>
+                    </div>
+
+                    <!-- 5. Bonus Referral -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-users" style="color: var(--accent-neon);"></i> BONUS REFERRAL</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('referral')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-referral">
+Untuk Promo Bonus Referral saat ini kami memiliki :
+
+• Bonus Referral Togel = Bonus referral sebesar 0,5% => khusus untuk permainan Togel , dibagikan setiap hari Setiap buka pasaran.
+
+• Bonus Referral Slot Games = Bonus Referral sebesar 0,1% => khusus untuk permainan Slot Games , dibagikan setiap hari.
+
+• Bonus Referral Live Casino = Bonus Referral sebesar 0,1% => khusus untuk permainan Live Games , dibagikan setiap hari.
+
+• Bonus Referral ARCADE = Bonus Referral sebesar 0,1% (dibagikan setiap hari)
+
+• Bonus Referral E-Lottery = Bonus Referral sebesar 0,1% (dibagikan setiap hari)
+                        </div>
+                    </div>
+
+                    <!-- 6. Bonus Rollingan -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-sync-alt" style="color: var(--secondary-neon);"></i> BONUS ROLLINGAN</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('rollingan')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-rollingan">
+Untuk bonus rollingan saat ini kami memiliki :
+
+• Bonus Rollingan turnover LIVE GAMES sebesar 0,5% dari total bettingan
+
+• Bonus Rollingan turnover PRAGMATIC PLAY sebesar 0,5% dari total bettingan
+
+• Bonus Rollingan turnover ARCADE sebesar 0,5% dari total bettingan
+
+• Bonus Rollingan turnover SLOT sebesar 0,5% dari total bettingan
+
+• Bonus Rollingan turnover E-Lottery sebesar 0,5% dari total bettingan
+
+NB: bonus rollingan dibagikan setiap hari KAMIS setelah jadwal maintenance akan di bagikan secara otomatis lebih kurang pukul 11:00 WIB secara bertahap tanpa perlu di klaim ya bosku
+                        </div>
+                    </div>
+
+                    <!-- 7. Bonus Cashback -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-heart-broken" style="color: var(--danger-neon);"></i> BONUS CASHBACK / KEKALAHAN</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('cashback')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-cashback">
+Untuk bonus cashback kekalahan yang kami miliki saat ini :
+
+• Bonus Cashback up to 5% ( Live Games )  Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games.
+  Minimal kekalahan Rp.100.000,Untuk nominal 100,000- 249,999,999 Bonus yang didapat 2,5% dari total kekalahan
+  Untuk nominal 250,000,000 - 999,999,999,999 Bonus yang didapat 5% dari total kekalahan dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+
+• Bonus Cashback 5% ( Slot Games )  Bonus Kekalahan 5% hanya berlaku untuk permainan Slot Games.
+  Minimal kekalahan Rp.100.000, Otomatis dibagikan setiap Hari Selasa tanpa perlu diklaim.
+
+• Bonus Cashback 5%  ( Live Games PRAGMATIC  )  Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games PRAGMATIC
+  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+
+• Bonus Cashback 5% ( E-lottery )  Bonus Kekalahan 5% hanya berlaku untuk permainan E-lottery
+  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Selasa tanpa perlu diklaim.
+
+• Bonus Cashback 5% ( Arcade ) = Bonus Kekalahan 5% hanya berlaku untuk permainan Arcade
+  Minimal kekalahan Rp.100.000, Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+
+NB : tidak ada bonus deposit harian / bonus new member
+                        </div>
+                    </div>
+
+                    <!-- 8. Bonus Slot Games -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-slot-machine" style="color: var(--primary-neon);"></i> BONUS SLOT GAMES</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('slotgames')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-slotgames">
+Untuk Promo Bonus Slot Games saat ini kami memiliki  :
+
+• Bonus Referral Slot Games = Bonus Referral sebesar 0.1% => Khusus untuk permainan Slot Games , dibagikan setiap hari.
+
+• Bonus Rollingan turnover sebesar 0,5% dari total bettingan => khusus untuk permainan Slot Games , dibagikan setiap hari KAMIS setelah jadwal maintenance selesai diperkirakan pukul 11.00 WIB
+
+• Bonus Cashback 5% ( Slot Games ) = Bonus Kekalahan 5% hanya berlaku untuk permainan Slot Games.
+  Minimal kekalahan Rp.100.000, Otomatis dibagikan setiap Hari Selasa.
+
+• Bonus Extra Turnover Slot Games = Bonus yang didapatkan setiap tanggal 01, 11, dan 21 dengan sistem level ( berdasarkan turnover bettingan anda dalam permainan Slot Games selama 10 hari )
+                        </div>
+                    </div>
+
+                    <!-- 9. Bonus Live Games -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-gamepad" style="color: var(--accent-neon);"></i> BONUS LIVE GAMES</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('livegames')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-livegames">
+Untuk bonus live games yang kami miliki saat ini  :
+
+• Bonus Cashback up to 5% ( Live Games ) = Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games.
+  Minimal kekalahan Rp.100.000,Untuk nominal 100,000- 249,999,999 =Bonus yang didapat 2,5% dari total kekalahan
+  Untuk nominal 250,000,000 - 999,999,999,999 =Bonus yang didapat 5% dari total kekalahan Minimal TURNOVER harus 3x dari nilai kalah ,Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+
+• Bonus Cashback 5%  ( Live Games PRAGMATIC  ) = Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games PRAGMATIC
+  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+
+• Bonus Rollingan turnover sebesar 0,5% dari total bettingan => khusus untuk permainan LIVE GAMES, dibagikan setiap hari KAMIS setelah jadwal maintenance selesai.
+
+• Bonus Rollingan turnover LIVE GAMES PRAGMATIC 0,5 dari total bettingan ( dibagikan setiap hari KAMIS setelah maintenance selesai )
+                        </div>
+                    </div>
+
+                    <!-- 10. Bonus VIP -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-crown" style="color: #ffb300;"></i> BONUS VIP</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('vip')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-vip">
+Untuk promo bonus Khusus Member VIP saat ini kami memiliki :
+
+- BONUS CASHBACK LIVEGAMES 8% ( Up Bonus 3% dari biasanya )
+- BONUS CASHBACK SLOT GAMES 12% ( Up Bonus 7% dari biasanya )
+- ROLLINGAN TURNOVER SLOT GAMES 0,8% ( Up Bonus 0,3% dari biasanya )
+- ROLLINGAN TURNOVER LIVEGAMES 0,6% ( Up Bonus 0,1% dari biasanya )
+- BONUS ULANG TAHUN MEMBER VIP
+                        </div>
+                    </div>
+
+                    <!-- 11. Member VIP (Reset Password) -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-user-shield" style="color: var(--secondary-neon);"></i> MEMBER VIP</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('membervip')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-membervip">
+Mohon maaf bosku untuk perihal pergantian data dan reset password mohon untuk menghubungi pihak Whatsapp VIP kami untuk melakukan verifikasi kepemilikan akun anda ya bosku, Terima Kasih.
+                        </div>
+                    </div>
+
+                    <!-- 12. BONUS ULANG TAHUN -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-birthday-cake" style="color: var(--danger-neon);"></i> BONUS ULANG TAHUN</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('ulangtahun')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-ulangtahun">
+mohon maaf bosku untuk perihal hadiah ulang tahun member VIP, silahkan anda menghubungi nomor wa yang ada pada memo yang sudah di info kan sebelum nya ya bosku
+                        </div>
+                    </div>
+
+                    <!-- 13. Bonus Ulang Tahun VIP (Step by Step) -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-birthday-cake" style="color: var(--danger-neon);"></i> BONUS ULTAH VIP - RESPON</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('ulangtahunresp')">Copy All</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-ulangtahunresp">
+                            <div class="step-box">
+                                <div class="step-header">
+                                    <strong>STEP 1:</strong>
+                                    <button class="btn-copy-mini" onclick="copyUlangTahunStep('step1')">Copy Step 1</button>
+                                </div>
+                                <div id="step1-content">Mohon maaf bosku untuk perihal hadiah ulang tahun member VIP, silahkan anda menghubungi nomor wa yang ada pada memo yang sudah di info kan sebelum nya ya bosku</div>
+                            </div>
+                            
+                            <div class="step-box">
+                                <div class="step-header">
+                                    <strong>STEP 2:</strong>
+                                    <button class="btn-copy-mini" onclick="copyUlangTahunStep('step2')">Copy Step 2</button>
+                                </div>
+                                <div id="step2-content">Mohon maaf bosku, untuk perihal nomor WA VIP tidak dapat kami berikan apabila anda member VIP kami maka pihak VIP kami akan langsung menghungi anda. Terima Kasih</div>
+                            </div>
+                            
+                            <div class="step-box">
+                                <div class="step-header">
+                                    <strong>STEP 3:</strong>
+                                    <button class="btn-copy-mini" onclick="copyUlangTahunStep('step3')">Copy Step 3</button>
+                                </div>
+                                <div id="step3-content">Mohon maaf bosku, untuk perihal tersebut akan di hubungi langsung secara otomatis oleh pihak VIP kami ya bosku</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 14. HABIS MAINTENANCE -->
+                    <div class="bonus-info-card">
+                        <div class="bonus-card-header">
+                            <h4><i class="fas fa-tools" style="color: #e60b0b;"></i> HABIS MAINTENANCE</h4>
+                            <button class="btn-copy-mini" onclick="copyBonusContent('maintenance')">Copy</button>
+                        </div>
+                        <div class="bonus-card-body" id="bonus-content-maintenance">
+Kepada seluruh member setia LINE TOGEL , kami informasikan bahwa saat ini Maintenance Rutin kami telah selesai, Untuk permainan Togel sudah dapat melakukan bettingan kembali, sedangkan untuk permainan Livegame & Slot silahkan anda menunggu beberapa saat hingga Livegame & Slot kembali normal, Terima kasih atas kerjasamanya
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script>
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateBonusToday();
+        });
+
+        // ===== NAVIGATION & TAB FUNCTIONS =====
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        document.getElementById('overlay').addEventListener('click', toggleSidebar);
+
+        function handleNavClick(evt, linkId, tabId) {
+            if(evt) evt.preventDefault();
+            
+            // Close sidebar on mobile
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            if (window.innerWidth <= 900 && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+
+            // Reset contents
+            document.querySelectorAll(".tab-content-section").forEach(el => {
+                el.style.display = "none"; 
+                el.classList.remove("active");
+            });
+            
+            // Reset tabs
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            
+            // Reset sidebar
+            document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
+
+            // Activate
+            const targetTab = document.getElementById(tabId);
+            if(targetTab) { 
+                targetTab.style.display = "block"; 
+                targetTab.classList.add("active");
+            }
+            
+            // Find and activate button
+            const btn = Array.from(document.querySelectorAll(".tab-btn")).find(b => b.getAttribute('onclick').includes(tabId));
+            if(btn) btn.classList.add("active");
+
+            // Activate sidebar
+            const link = document.querySelector(`.nav-item[onclick*='${linkId}']`);
+            if(link) link.classList.add("active");
+        }
+
+        // ===== DATE AND TIME FUNCTIONS =====
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Format day
+            const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+            const dayName = days[now.getDay()];
+            
+            // Format date
+            const date = now.getDate();
+            const month = now.getMonth() + 1;
+            const dateString = `${date} ${month < 10 ? '0'+month : month}`;
+            
+            // Format time
+            const timeString = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+            });
+            
+            // Update elements
+            document.getElementById('current-day').textContent = dayName.substring(0, 3);
+            document.getElementById('current-date').textContent = dateString;
+        }
+
+        // ===== BONUS TODAY PANEL FUNCTIONS =====
+        function updateBonusToday() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const dateOfMonth = now.getDate();
+            
+            // Clear current bonus list
+            const bonusList = document.getElementById('bonus-today-list');
+            bonusList.innerHTML = '';
+            
+            // Create bonus items based on day of week
+            let bonusItems = [];
+            
+            // Senin (Monday) - day 1
+            if (dayOfWeek === 1) {
+                bonusItems = [
+                    {
+                        icon: 'fa-gamepad',
+                        name: 'Cashback Live Games',
+                        desc: 'Up to 5%',
+                        status: 'ACTIVE'
+                    },
+                    {
+                        icon: 'fa-dice',
+                        name: 'Cashback Casino',
+                        desc: 'Pragmatic 5%',
+                        status: 'ACTIVE'
+                    },
+                    {
+                        icon: 'fa-gamepad',
+                        name: 'Cashback Arcade',
+                        desc: '5%',
+                        status: 'ACTIVE'
+                    }
+                ];
+            }
+            // Selasa (Tuesday) - day 2
+            else if (dayOfWeek === 2) {
+                bonusItems = [
+                    {
+                        icon: 'fa-slot-machine',
+                        name: 'Cashback Slot',
+                        desc: '5%',
+                        status: 'ACTIVE'
+                    },
+                    {
+                        icon: 'fa-ticket-alt',
+                        name: 'Cashback E-Lottery',
+                        desc: '5%',
+                        status: 'ACTIVE'
+                    }
+                ];
+            }
+            // Kamis (Thursday) - day 4
+            else if (dayOfWeek === 4) {
+                bonusItems = [
+                    {
+                        icon: 'fa-sync-alt',
+                        name: 'Rollingan All',
+                        desc: '~11:00 WIB',
+                        status: 'SOON'
+                    }
+                ];
+            }
+            // Other days
+            else {
+                bonusItems = [
+                    {
+                        icon: 'fa-calendar-day',
+                        name: 'No Bonus Today',
+                        desc: 'Check other days',
+                        status: 'NONE'
+                    },
+                    {
+                        icon: 'fa-users',
+                        name: 'Referral',
+                        desc: 'Always Active',
+                        status: 'ACTIVE'
+                    }
+                ];
+            }
+            
+            // Add regular bonus items
+            bonusItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'bonus-today-item';
+                div.innerHTML = `
+                    <div class="bonus-icon"><i class="fas ${item.icon}"></i></div>
+                    <div class="bonus-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                    <div class="status-box">${item.status}</div>
+                `;
+                bonusList.appendChild(div);
+            });
+            
+            // Add extra bonus if today is 1, 11, or 21
+            if ([1, 11, 21].includes(dateOfMonth)) {
+                const div = document.createElement('div');
+                div.className = 'bonus-today-item';
+                div.style.borderColor = '#ffb300'; // Highlight border
+                div.innerHTML = `
+                    <div class="bonus-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="bonus-details">
+                        <h4>EXTRA TURNOVER</h4>
+                        <p>Slot up to 10jt</p>
+                    </div>
+                    <div class="status-box" style="color: #ffb300; border-color: #ffb300;">SPECIAL</div>
+                `;
+                bonusList.appendChild(div);
+            }
+        }
+
+        // ===== TOAST NOTIFICATION =====
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-neon)"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s reverse forwards';
+                toast.addEventListener('animationend', () => toast.remove());
+            }, 3000);
+        }
+
+        // ===== COPY FUNCTIONS FOR STATUS TAB =====
+        function copyOnly(elementId, btn) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHtml = btn.innerHTML;
+                const originalClass = btn.className;
+                
+                btn.innerHTML = '<i class="fas fa-check"></i> DISALIN';
+                btn.classList.add('copied');
+                
+                showToast("DATA DISALIN");
+
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.className = originalClass;
+                }, 2000);
+            }).catch(err => showToast("GAGAL MENYALIN"));
+        }
+
+        // ===== COPY FUNCTIONS FOR INFO BONUS LINE =====
+        function copyBonusContent(sectionId) {
+            try {
+                const element = document.getElementById(`bonus-content-${sectionId}`);
+                if (!element) {
+                    showToast("KONTEN TIDAK DITEMUKAN");
+                    return;
+                }
+                
+                const textToCopy = element.innerText; // Hanya isi kontennya saja
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast("INFO DISALIN");
+                }).catch(err => {
+                    showToast("GAGAL MENYALIN");
+                });
+            } catch (error) {
+                showToast("SYSTEM ERROR");
+            }
+        }
+
+        // ===== FUNGSI UNTUK COPY STEP ULANG TAHUN (Tab 2) =====
+        function copyUlangTahunStep(stepId) {
+            const stepContents = {
+                'step1': 'Mohon maaf bosku untuk perihal hadiah ulang tahun member VIP, silahkan anda menghubungi nomor wa yang ada pada memo yang sudah di info kan sebelum nya ya bosku',
+                'step2': 'Mohon maaf bosku, untuk perihal nomor WA VIP tidak dapat kami berikan apabila anda member VIP kami maka pihak VIP kami akan langsung menghungi anda. Terima Kasih',
+                'step3': 'Mohon maaf bosku, untuk perihal tersebut akan di hubungi langsung secara otomatis oleh pihak VIP kami ya bosku'
+            };
+            
+            const textToCopy = stepContents[stepId];
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast(`STEP ${stepId.charAt(4)} DISALIN`);
+            }).catch(err => {
+                showToast("GAGAL MENYALIN");
+            });
+        }
+
+        // ===== COPY ALL BONUS CONTENT =====
+        function copyAllBonusContent() {
+            try {
+                const sections = [
+                    'event', 'extra', 'arcade', 'elottery',
+                    'referral', 'rollingan', 'cashback',
+                    'slotgames', 'livegames', 'vip', 'membervip',
+                    'ulangtahun', 'ulangtahunresp', 'maintenance'
+                ];
+                
+                let allText = '';
+                
+                sections.forEach((sectionId, index) => {
+                    const element = document.getElementById(`bonus-content-${sectionId}`);
+                    if (element) {
+                        allText += element.innerText; 
+                        if (index < sections.length - 1) {
+                            allText += '\n\n';
+                        }
+                    }
+                });
+                
+                if (!allText.trim()) {
+                    showToast("TIDAK ADA KONTEN");
+                    return;
+                }
+                
+                navigator.clipboard.writeText(allText).then(() => {
+                    showToast("SEMUA KONTEN DISALIN");
+                }).catch(err => {
+                    showToast("GAGAL MENYALIN");
+                });
+            } catch (error) {
+                showToast("SYSTEM ERROR");
+            }
+        }
+    </script>
+</body>
+</html>
