@@ -13,21 +13,24 @@
     <style>
         :root {
             /* --- CYBERPUNK NEON PALETTE --- */
-            --bg-dark: #0ef10e;
+            --bg-body: #050505;
             --bg-panel: rgba(10, 10, 10, 0.85);
             --bg-card: rgba(0, 0, 0, 0.6);
             
-            --primary-neon: #00f3ff; /* Cyan */
-            --secondary-neon: #13f6fe; /* Purple */
+            --primary-neon: #00f3ff; /* Cyan (Process) */
+            --secondary-neon: #bc13fe; /* Purple */
             --accent-neon:  #fafffa; /* Orange for Bonus Line Title */
-            --danger-neon: #eafa07; /* Red for Reject */
-            --warn-neon: #ffb300; /* Yellow/Gold for Warnings */
+            --danger-neon: #eafa07; /* Red/Yellow for Reject (Legacy) */
+            --warn-neon: #ffb300; /* Yellow/Orange (Waiting) */
             
-            --text-main: #f70000;
+            /* NEW: Success Green for COMPLETED */
+            --success-neon: #00ff41; 
+            
+            --text-main: #ffffff;
             --text-muted: #a0a0a0;
             
             --border-glow: 0 0 10px rgba(0, 243, 255, 0.5);
-            --box-glow: 0 0 20px rgb(235, 234, 234);
+            --box-glow: 0 0 20px rgba(235, 234, 234, 0.1);
             
             --radius: 12px;
             
@@ -45,7 +48,7 @@
         body {
             background-color: var(--bg-body);
             background: url('https://cdn.areabermain.club/assets/cdn/az6/2026/01/08/20260108/0e9b0ec9a88ad88a5935bc5802bc41a5/linetogel-background-07januari2026.jpg') center/cover no-repeat fixed;
-            color: var(--text-color);
+            color: var(--text-main);
             font-family: 'Roboto Mono', monospace;
             padding: 20px;
             min-height: 100vh;
@@ -55,19 +58,22 @@
         }
 
         /* Ambient Glow Background */
-        bg-neon-grid {
+        .bg-neon-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: url('https://cdn.areabermain.club/assets/cdn/az6/2026/01/08/20260108/0e9b0ec9a88ad88a5935bc5802bc41a5/linetogel-background-07januari2026.jpg');
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* --- SIDEBAR --- */
         .sidebar {
             width: var(--sidebar-width);
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(95, 130, 133, 0.95);
             backdrop-filter: blur(15px);
             height: 100vh;
             position: fixed;
@@ -146,7 +152,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(0, 243, 255, 0.05);
+            background: rgba(3, 242, 255, 0.952);
             color: var(--text-main);
             text-shadow: 0 0 5px var(--text-main);
         }
@@ -159,11 +165,11 @@
         }
 
         .nav-item.active::before { transform: scaleY(1); }
-        .nav-item.active i { text-shadow: 0 0 10px var(--blue-neon); }
+        .nav-item.active i { text-shadow: 0 0 10px var(--primary-neon); }
 
         .sidebar-footer {
             padding: 20px;
-            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            border-top: 1px solid rgba(4, 242, 255, 0.945);
             text-align: center;
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -264,7 +270,7 @@
         .panel-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
-            color: #ffffff; /* CHANGED TO WHITE */
+            color: #ffffff; 
             text-shadow: 0 0 5px #ffffff;
             display: flex;
             align-items: center;
@@ -273,8 +279,8 @@
 
         .current-date-time {
             background: rgba(0,0,0,0.6); 
-            border: 1px solid #ffffff; /* CHANGED TO WHITE */
-            color: #ffffff; /* CHANGED TO WHITE */
+            border: 1px solid #ffffff; 
+            color: #ffffff; 
             padding: 6px 12px;
             border-radius: 6px;
             font-family: 'Rajdhani', monospace;
@@ -308,7 +314,7 @@
             width: 32px;
             height: 32px;
             border-radius: 6px;
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(6, 223, 235, 0.1);
             border: 1px solid var(--primary-neon);
             color: var(--primary-neon);
             display: flex;
@@ -338,7 +344,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgb(241, 241, 241);
             padding-bottom: 0;
             overflow-x: auto;
         }
@@ -362,7 +368,7 @@
         .tab-btn:hover { 
             color: var(--primary-neon); 
             text-shadow: 0 0 10px var(--primary-neon);
-            background: rgba(0, 243, 255, 0.05); 
+            background: rgb(3, 238, 250); 
         }
         
         .tab-btn.active {
@@ -389,11 +395,10 @@
             font-size: 0.9rem;
             margin-bottom: 20px;
             border: 1px solid var(--primary-neon);
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 10px rgba(3, 228, 240, 0.938);
             text-transform: uppercase;
         }
 
-        /* CHANGED REJECT STYLE TO WHITE */
         .day-title.reject {
             color: #ffffff;
             border-color: #ffffff;
@@ -416,7 +421,7 @@
             flex: 1;
             min-width: 320px;
             background: var(--bg-card);
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(247, 0, 0, 0.2);
             border-radius: var(--radius);
             padding: 0;
             display: flex;
@@ -447,13 +452,53 @@
             font-weight: bold;
         }
 
+        /* --- STATUS COLORS UPDATED HERE --- */
         
-        @keyframes neon-pulse {
-            0% { box-shadow: 0 0 5px var(--danger-neon); }
-            50% { box-shadow: 0 0 20px var(--danger-neon); }
-            100% { box-shadow: 0 0 5px var(--danger-neon); }
+        /* WAITING - Kuning/Oranye */
+        .st-wait {
+            background: rgba(255, 179, 0, 0.1);
+            border: 1px solid var(--warn-neon);
+            color: var(--warn-neon);
+            text-shadow: 0 0 5px var(--warn-neon);
+            box-shadow: 0 0 8px rgba(255, 179, 0, 0.4);
         }
 
+        /* PROCESS - Biru Cyan */
+        .st-proc {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            text-shadow: 0 0 5px var(--primary-neon);
+            box-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+        }
+
+        /* COMPLETED - Hijau Neon */
+        .st-done {
+            background: rgba(10, 255, 0, 0.1);
+            border: 1px solid var(--success-neon);
+            color: var(--success-neon);
+            text-shadow: 0 0 5px var(--success-neon);
+            box-shadow: 0 0 8px rgba(10, 255, 0, 0.4);
+        }
+        
+        /* STYLES FOR STEP & REJECT (Bonus) */
+        .st-step {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            text-shadow: 0 0 5px #ffffff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .st-reject {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        /* --- CARD CONTENT --- */
         .card-content {
             padding: 24px;
             flex-grow: 1;
@@ -462,8 +507,8 @@
         }
 
         .text-area {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(110, 79, 79, 0.3);
+            border: 1px solid rgba(56, 45, 45, 0.911);
             padding: 16px;
             flex-grow: 1;
             min-height: 180px;
@@ -498,18 +543,18 @@
 
         .btn-action:hover {
             background: var(--primary-neon);
-            color: #000;
+            color: #e61010;
             box-shadow: 0 0 20px var(--primary-neon);
         }
         
         .btn-action.copied { 
-            background: var(--accent-neon); 
+            background: var(--success-neon); /* Ubah ke hijau saat copy */
             color: #000;
-            border-color: var(--accent-neon);
-            box-shadow: 0 0 20px var(--accent-neon);
+            border-color: var(--success-neon);
+            box-shadow: 0 0 20px var(--success-neon);
         }
 
-        /* --- INFO BONUS LINE (TAB 2) --- */
+        /* --- INFO BONUS LINE (TAB 3) --- */
         .tab-header-action {
             display: flex;
             justify-content: space-between;
@@ -517,10 +562,13 @@
             margin-bottom: 24px;
         }
 
+        /* === UPDATED: Tombol Copy dengan Tulisan Hitam & Background Putih === */
+        
         .btn-copy-all-big {
-            background: transparent;
-            color: var(--secondary-neon);
-            border: 1px solid var(--secondary-neon);
+            /* Changed to White Background with Black Text */
+            background: #ffffff;
+            color: #ec0808;
+            border: 1px solid #f30000;
             padding: 12px 24px;
             border-radius: 6px;
             cursor: pointer;
@@ -530,13 +578,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 5px var(--secondary-neon);
+            box-shadow: 0 0 5px rgb(255, 3, 3);
             transition: 0.3s;
         }
         .btn-copy-all-big:hover {
-            background: var(--secondary-neon);
-            color: #fff;
-            box-shadow: 0 0 20px var(--secondary-neon);
+            background: #f0f0f0;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
         .bonus-grid {
@@ -547,7 +595,7 @@
 
         .bonus-info-card {
             background: var(--bg-card);
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(252, 7, 7, 0.1);
             border-radius: var(--radius);
             display: flex;
             flex-direction: column;
@@ -557,13 +605,13 @@
         }
         .bonus-info-card:hover {
             border-color: var(--secondary-neon);
-            box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
+            box-shadow: 0 0 25px rgba(169, 3, 235, 0.2);
         }
 
         .bonus-card-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgb(247, 4, 4);
+            background: rgb(247, 2, 2);
             border-radius: var(--radius) var(--radius) 0 0;
             display: flex;
             justify-content: space-between;
@@ -579,21 +627,24 @@
             color: white;
         }
 
+        /* === UPDATED: Tombol Copy Mini dengan Tulisan Hitam & Background Putih === */
         .btn-copy-mini {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #000000;
+            color: #000000; /* Hitam sesuai permintaan */
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 0.85rem;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Rajdhani', sans-serif;
+            font-weight: bold; /* Menebalkan agar terlihat jelas */
         }
         .btn-copy-mini:hover { 
-            border-color: var(--primary-neon); 
-            color: var(--primary-neon); 
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); 
+            background: #ffffff;
+            border-color: #000000;
+            color: #000000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .bonus-card-body {
@@ -634,7 +685,7 @@
         }
         .toast {
             background: rgba(10, 10, 15, 0.95);
-            border: 1px solid var(--accent-neon);
+            border: 1px solid var(--success-neon); /* Green border for success toast */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             color: #fff;
             padding: 16px 24px;
@@ -1196,10 +1247,10 @@ NB : tidak ada bonus deposit harian / bonus new member</div>
 
 • Bonus Cashback up to 5% ( Live Games )  Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games.
   Minimal kekalahan Rp.100.000,Untuk nominal 100,000- 249,999,999 =Bonus yang didapat 2,5% dari total kekalahan
-  Untuk nominal 250,000,000 - 999,999,999,999 =Bonus yang didapat 5% dari total kekalahan Minimal TURNOVER harus 3x dari nilai kalah ,Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+  Untuk nominal 250,000,000 - 999,999,999,999 =Bonus yang didapat 5% dari total kekalahan Minimal TURNOVER harus 3x dari nilai kalah ,Otomatis dibagikan setiap Hari Senin tanpa perlu di klaim.
 
 • Bonus Cashback 5%  ( Live Games PRAGMATIC  )  Bonus Kekalahan 5% hanya berlaku untuk permainan Live Games PRAGMATIC
-  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Senin tanpa perlu diklaim.
+  Minimal kekalahan Rp.100.000 dan Minimal TURNOVER harus 3x dari nilai kalah Otomatis dibagikan setiap Hari Senin tanpa perlu di klaim.
 
 • Bonus Rollingan turnover sebesar 0,5% dari total bettingan => khusus untuk permainan LIVE GAMES, dibagikan setiap hari KAMIS setelah jadwal maintenance selesai diperkirakan pukul 11:00 WIB
 
@@ -1504,7 +1555,7 @@ NB : tidak ada bonus deposit harian / bonus new member</div>
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-neon)"></i> ${message}`;
+            toast.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success-neon)"></i> ${message}`; // Using success green icon
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.animation = 'slideIn 0.3s reverse forwards';
@@ -1632,5 +1683,3 @@ NB : tidak ada bonus deposit harian / bonus new member</div>
     </script>
 </body>
 </html>
-
-
