@@ -781,9 +781,9 @@
             <!-- Top Bar with Bonus Today Panel -->
             <div class="top-bar-container">
                 <div class="top-bar">
-                    <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: white; text-align: center;">
+                    <div style="font-family: 'Orbitron', sans-serif; font-size: 3.3rem; color: white; text-align: center;">
                         <i class="fas fa-bullhorn" style="color: var(--primary-neon); margin-right: 10px;"></i> 
-                        <span style="color: var(--accent-neon);">BONUS PADA LINE TOGEL</span>
+                        <span style="color: var(--accent-neon);">BONUS LINE TOGEL</span>
                     </div>
                 </div>
                 
@@ -793,7 +793,7 @@
                             <i class="fas fa-gift"></i> BONUS TODAY
                         </div>
                         <div class="current-date-time" id="current-datetime">
-                            <span id="current-day">MON</span>, <span id="current-date">01 JAN</span>
+                            <span id="current-day">MON</span>, <span id="current-date">01 JAN</span>, <span id="current-time">00:00:00</span>
                         </div>
                     </div>
                     <div class="bonus-today-content" id="bonus-today-list">
@@ -1407,28 +1407,36 @@ NB : tidak ada bonus deposit harian / bonus new member</div>
 
         // ===== DATE AND TIME FUNCTIONS =====
         function updateDateTime() {
-            const now = new Date();
-            
-            // Format day
-            const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
-            const dayName = days[now.getDay()];
-            
-            // Format date
-            const date = now.getDate();
-            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGS', 'SEP', 'OKT', 'NOV', 'DES'];
-            const monthName = months[now.getMonth()];
-            const dateString = `${date} ${monthName}`;
-            
-            // Update elements
-            document.getElementById('current-day').textContent = dayName.substring(0, 3);
-            document.getElementById('current-date').textContent = dateString;
-        }
+    const now = new Date();
+    const days = ['MIN', 'SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB'];
+    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+    // Format waktu (2 digit untuk jam, menit, detik)
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+
+    // Update elemen HTML
+    document.getElementById('current-day').textContent = days[now.getDay()];
+    document.getElementById('current-date').textContent = 
+        `${String(now.getDate()).padStart(2, '0')} ${months[now.getMonth()]}`;
+    document.getElementById('current-time').textContent = timeString;
+}
+
+// Update setiap detik
+updateDateTime();
+setInterval(updateDateTime, 1000);
 
         // ===== BONUS TODAY PANEL FUNCTIONS =====
         function updateBonusToday() {
             const now = new Date();
             const dayOfWeek = now.getDay();
             const dateOfMonth = now.getDate();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
             
             // Clear current bonus list
             const bonusList = document.getElementById('bonus-today-list');
