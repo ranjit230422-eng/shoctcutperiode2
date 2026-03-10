@@ -3,59 +3,628 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Highlighter Pro - Instalasi Otomatis</title>
+    <title>Highlighter Pro - Internal Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #0a0c1a;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .card {
-            background: rgba(20,25,45,0.9);
-            border-radius: 30px;
-            padding: 30px;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid #ff6b4a;
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            min-height: 100vh;
+            background: #0a0c1a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #4a3aff;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: #ff6b4a;
+            bottom: -200px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: #00d4aa;
+            top: 40%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 80px) scale(1.2); }
+        }
+
+        .glass-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(15, 20, 35, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 107, 74, 0.3);
+            border-radius: 48px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,107,74,0.2) inset;
+        }
+
+        .update-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 107, 74, 0.15);
+            border: 1px solid rgba(255, 107, 74, 0.5);
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            color: #ffb4a2;
+            margin-bottom: 1.5rem;
+        }
+
+        .update-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6b4a;
+            box-shadow: 0 0 10px #ff6b4a;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .badge {
+            background: #ff6b4a;
+            color: #0a0c1a;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
         h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
+
+        h1 span {
+            background: linear-gradient(135deg, #ffb4a2, #ff6b4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #aaaac0;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            border-left: 3px solid #ff6b4a;
+            padding-left: 1rem;
+        }
+
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .script-card {
+            background: rgba(20, 25, 45, 0.7);
+            border-radius: 32px;
+            padding: 2rem 1.5rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 107, 74, 0.3);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card:hover {
+            border-color: #ff6b4a;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px #ff6b4a40;
+        }
+
+        .card-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #ff6b4a20 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .script-card:hover .card-glow { opacity: 1; }
+
+        .script-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .script-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-card p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
         .btn {
             display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #ff6b4a, #ff8a6a);
-            color: #0a0c1a;
-            font-weight: bold;
-            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
             text-decoration: none;
-            font-size: 18px;
-            margin: 20px 0;
-            transition: 0.3s;
+            background: transparent;
+            border: 1px solid #ff6b4a;
+            color: #ffb4a2;
+            transition: 0.2s;
         }
-        .btn:hover {
-            transform: scale(1.05);
+
+        .btn-installed {
+            background: linear-gradient(135deg, #ff6b4a, #ff8a6a);
+            border: none;
+            color: #0a0c1a;
+            font-weight: 700;
+        }
+
+        .btn-installed:hover {
+            background: #ff8a6a;
+            box-shadow: 0 0 15px #ff6b4a;
+        }
+
+        .config-warning {
+            background: rgba(0,0,0,0.3);
+            border-radius: 32px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255,107,74,0.3);
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .pulse-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .config-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .config-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ui-toggle {
+            width: 44px;
+            height: 24px;
+            background: #ff6b4a;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 0 0 10px #ff6b4a;
+        }
+        .ui-toggle.active::after {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+        }
+
+        .config-text h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        .config-text p {
+            font-size: 0.9rem;
+            color: #aaaac0;
+        }
+
+        .tutorial-box {
+            background: rgba(255,107,74,0.1);
+            border-left: 4px solid #ff6b4a;
+            padding: 1rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+        }
+
+        .tutorial {
+            margin: 2rem 0;
+        }
+
+        .tutorial h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .steps {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            background: #ff6b4a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0a0c1a;
+        }
+
+        footer {
+            text-align: center;
+            opacity: 0.7;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .floating-update-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff6b4a;
+            color: #0a0c1a;
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            z-index: 100;
             box-shadow: 0 0 20px #ff6b4a;
         }
-        .note {
-            font-size: 14px;
-            color: #aaaac0;
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: #1a1f35;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 1px solid #ff6b4a;
+            color: white;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close-modal {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .changelog-title {
+            margin-bottom: 1.5rem;
+        }
+        .log-entry {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .log-entry.latest {
+            border-left: 3px solid #ff6b4a;
+            padding-left: 1rem;
+        }
+        .log-date {
+            font-size: 0.8rem;
+            color: #ffb4a2;
+            margin-bottom: 0.2rem;
+        }
+        .log-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .log-tag {
+            background: #ff6b4a;
+            color: #0a0c1a;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+        }
+        .log-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .log-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Highlighter Pro</h1>
-        <p>Klik tombol di bawah untuk menginstal skrip secara otomatis ke Tampermonkey.</p>
-        <a href="https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js" class="btn">🚀 Pasang Sekarang</a>
-        <p class="note">Pastikan Tampermonkey sudah terpasang di browser Anda.</p>
+    <div class="background-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
+
+    <main class="glass-container">
+        <header>
+            <div class="update-status-pill">
+                <div class="update-status-dot"></div>
+                <div class="update-status-text">System Updated: Mar 10, 2026</div>
+            </div>
+            <div class="badge neon-blue">Internal Team Only</div>
+            <h1>Highlighter <span>Pro</span> Suite</h1>
+            <p class="subtitle">Kumpulan tools premium untuk optimasi kerja LiveChat.</p>
+        </header>
+
+        <!-- Script Grid -->
+        <section class="script-grid">
+            <div class="script-card">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="script-icon">🎨</div>
+                    <h3>Highlighter Pro</h3>
+                    <p>Dashboard melayang, mewarnai keyword penting (Depo/WD), dan Auto-Response template.</p>
+                    <a href="https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js" class="btn btn-installed" target="_blank">Pasang Sekarang</a>
+                </div>
+            </div>
+
+            <div class="script-card">
+                <div class="card-glow" style="background: var(--neon-purple);"></div>
+                <div class="card-content">
+                    <div class="script-icon">📑</div>
+                    <h3>Duplicate Checker</h3>
+                    <p>Mendeteksi pesan spam atau duplikat dari agent secara otomatis dengan warna merah.</p>
+                    <a href="https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js" class="btn btn-installed" target="_blank">Pasang Sekarang</a>
+                </div>
+            </div>
+
+            <div class="script-card">
+                <div class="card-glow" style="background: var(--neon-green);"></div>
+                <div class="card-content">
+                    <div class="script-icon">⏱️</div>
+                    <h3>UI & SLA Tracker</h3>
+                    <p>Indikator SLA sidebar, notifikasi toast, dan <b>Tracker Pengecekan (2/4 menit)</b> otomatis.</p>
+                    <a href="https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js" class="btn btn-installed" target="_blank">Pasang Sekarang</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Configuration Section -->
+        <section class="config-warning">
+            <div class="config-header">
+                <span class="pulse-icon">⚠️</span>
+                <h2>PENTING: Konfigurasi Kelola Ekstensi</h2>
+            </div>
+            <p>Agar script berjalan 100% lancar, Anda <b>WAJIB</b> mengaktifkan ijin berikut di pengaturan Tampermonkey
+                Anda:</p>
+
+            <div class="config-steps">
+                <div class="config-item">
+                    <div class="config-img-box">
+                        <div class="ui-toggle active"></div>
+                    </div>
+                    <div class="config-text">
+                        <h4>1. Izinkan Skrip Pengguna</h4>
+                        <p>Wajib ON agar script bisa membaca perubahan di halaman LiveChat.</p>
+                    </div>
+                </div>
+
+                <div class="config-item">
+                    <div class="config-img-box">
+                        <div class="ui-toggle active"></div>
+                    </div>
+                    <div class="config-text">
+                        <h4>2. Izinkan dalam Mode Samaran</h4>
+                        <p>Wajib ON jika Anda sering bekerja menggunakan tab Incognito.</p>
+                    </div>
+                </div>
+
+                <div class="config-item">
+                    <div class="config-img-box">
+                        <div class="ui-toggle active"></div>
+                    </div>
+                    <div class="config-text">
+                        <h4>3. Ijin Akses ke URL File</h4>
+                        <p>Memungkinkan script melakukan update otomatis secara instan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-box">
+                <p><strong>Cara ke Pengaturan:</strong> Klik kanan icon Tampermonkey > Pilih <strong>Kelola
+                        Ekstensi</strong> (Manage Extension) > Scroll ke bawah dan <strong>Centang Semua Biru</strong>
+                    seperti gambar di bawah.</p>
+            </div>
+        </section>
+
+        <section class="tutorial">
+            <h2>Langkah Penting Update Otomatis</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">!</div>
+                    <p>Setelah klik pasang, pastikan Anda <strong>me-refresh</strong> halaman LiveChat agar fitur
+                        berjalan.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">↻</div>
+                    <p>Fitur <strong>Update Otomatis</strong> aktif. Jika ada perbaikan, script Anda akan terupdate
+                        sendiri.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Highlighter Pro Internal Team. Semua script sudah dioptimasi.</p>
+        </footer>
+    </main>
+
+    <!-- Floating Update Button -->
+    <div class="floating-update-btn" id="openChangelog">
+        <div class="update-status-dot"></div>
+        <span>System Updates</span>
+    </div>
+
+    <!-- Changelog Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="close-modal" id="closeModal">&times;</div>
+            <h2 class="changelog-title">System Update Hub</h2>
+
+            <!-- Latest Update -->
+            <div class="log-entry latest">
+                <div class="log-date">MARET 10, 2026</div>
+                <div class="log-header">V2.2 - The Security & Utility Update <span class="log-tag">Latest</span></div>
+                <ul class="log-list">
+                    <li><b>Smart Auto-Scroll ✨:</b> Tambahan tombol roket mini 🚀 (warna pink-glow) untuk kembali ke
+                        atas dashboard secara instan tanpa perlu scroll manual.</li>
+                    <li><b>Data Vault (Export/Import):</b> Fitur pencadangan data kini tersedia. Simpan semua kata kunci
+                        & template Anda ke dalam file `.json` sebagai backup permanen.</li>
+                    <li><b>Anti-Reset Storage:</b> Sistem penyimpanan diperkuat menggunakan GM_Storage. Restart PC,
+                        shutdown, atau "Clear Cache" browser <b>TIDAK</b> akan menghapus settingan Anda.</li>
+                    <li><b>Disaster Recovery:</b> Jika Anda mengganti PC atau terjadi error fatal, cukup gunakan fitur
+                        <b>Import</b> menggunakan file backup yang sudah di-export sebelumnya.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Previous Update -->
+            <div class="log-entry">
+                <div class="log-date">JANUARI 22, 2026</div>
+                <div class="log-header">V2.1 - The Control Update</div>
+                <ul class="log-list">
+                    <li><b>SLA Notification Toggles:</b> Ditambahkan kontrol ON/OFF untuk notifikasi 2 & 3 menit
+                        langsung dari dashboard.</li>
+                    <li><b>UI Optimization:</b> Panel SLA dipindahkan ke posisi teratas dashboard untuk akses lebih
+                        cepat.</li>
+                    <li><b>Instant Sync:</b> Notifikasi kini langsung hilang saat dimatikan via toggle tanpa perlu
+                        refresh.</li>
+                </ul>
+            </div>
+
+            <!-- Legend Info -->
+            <div class="tutorial-box" style="margin-top:20px; text-align: left; opacity: 0.9;">
+                <p style="font-size: 11px; margin-bottom: 8px;">💡 <b>Cara Pakai Backup:</b> Menuju <b>Settings (icon
+                        ⚙️)</b> di Dashboard > Klik <b>EXPORT</b> untuk simpan data ke PC. Klik <b>IMPORT</b> untuk
+                    mengembalikan data.</p>
+                <p style="font-size: 11px;">🛡️ <b>Aman:</b> Sekalipun Anda restart PC atau hapus history, data tetap
+                    ada! Selalu lakukan Export setelah menambah banyak kata kunci baru sebagai tindakan jaga-jaga.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const openBtn = document.getElementById('openChangelog');
+        const closeBtn = document.getElementById('closeModal');
+        const modal = document.getElementById('modalOverlay');
+
+        openBtn.onclick = () => modal.classList.add('active');
+        closeBtn.onclick = () => modal.classList.remove('active');
+
+        // Close on outside click
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Mousemove effect for orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, idx) => {
+                const speed = (idx + 1) * 20;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
