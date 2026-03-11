@@ -248,7 +248,7 @@
             color: #9d4dff;
         }
 
-        /* Step 2 - Four small steps */
+        /* Step 2 - Four small steps with images */
         .step-two {
             display: flex;
             gap: 1rem;
@@ -287,10 +287,13 @@
             font-weight: 800;
             font-size: 1.1rem;
         }
-        .step-two-item i {
-            font-size: 1.6rem;
-            color: #4d9fff;
+        .step-two-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
             margin-bottom: 0.4rem;
+            border: 1px solid #4d9fff;
         }
         .step-two-item p {
             color: #c0d0ff;
@@ -802,7 +805,7 @@
             <span><strong>PERHATIAN:</strong> Halaman ini dibuka langsung dari file lokal. Gunakan <strong>Live Server</strong> untuk pengalaman terbaik.</span>
         </div>
 
-        <!-- STEPS ROW: STEP 1 (BESAR) + STEP 2 (KECIL) -->
+        <!-- STEPS ROW: STEP 1 (BESAR) + STEP 2 (KECIL DENGAN GAMBAR) -->
         <div class="steps-row">
             <!-- STEP 1: TAMPERMONKEY INSTALL -->
             <div class="step-one-card">
@@ -824,30 +827,30 @@
                 </div>
             </div>
 
-            <!-- STEP 2: EMPAT LANGKAH KECIL (GAMBAR 1-4) -->
+            <!-- STEP 2: EMPAT LANGKAH KECIL DENGAN GAMBAR -->
             <div class="step-two">
-                <!-- 2.1 -->
+                <!-- 2.1 - Ganti src dengan URL gambar asli jika berbeda -->
                 <div class="step-two-item">
                     <div class="step-two-number"><span>2.1</span></div>
-                    <i class="fas fa-store"></i>
+                    <img src="https://i.postimg.cc/3Wy0Gm2L/1.jpg" alt="Langkah 2.1" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+1';">
                     <p>Buka Chrome Web Store</p>
                 </div>
                 <!-- 2.2 -->
                 <div class="step-two-item">
                     <div class="step-two-number"><span>2.2</span></div>
-                    <i class="fas fa-search"></i>
+                    <img src="https://i.postimg.cc/QKpXb883/2.jpg" alt="Langkah 2.2" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+2';">
                     <p>Cari "Tampermonkey"</p>
                 </div>
                 <!-- 2.3 -->
                 <div class="step-two-item">
                     <div class="step-two-number"><span>2.3</span></div>
-                    <i class="fas fa-plus-circle"></i>
+                    <img src="https://i.postimg.cc/R6t9SSnJ/3.jpg" alt="Langkah 2.3" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+3';">
                     <p>Klik "Add to Chrome"</p>
                 </div>
                 <!-- 2.4 -->
                 <div class="step-two-item">
                     <div class="step-two-number"><span>2.4</span></div>
-                    <i class="fas fa-check-circle"></i>
+                    <img src="https://i.postimg.cc/pm1tKhf8/4.jpg" alt="Langkah 2.4" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+4';">
                     <p>Konfirmasi instalasi</p>
                 </div>
             </div>
