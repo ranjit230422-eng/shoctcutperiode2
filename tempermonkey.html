@@ -29,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* ---------- BACKGROUND EFFECTS (BIRU/UNGU) ---------- */
+        /* ---------- BACKGROUND EFFECTS ---------- */
         .background {
             position: fixed;
             top: 0;
@@ -127,30 +127,58 @@
             width: 100%;
         }
 
-        /* ---------- STEP 1: TAMPERMONKEY ---------- */
-        .step-one {
-            margin-bottom: 2.5rem;
+        /* ---------- PROTOCOL WARNING ---------- */
+        .protocol-warning {
+            background: rgba(255, 200, 100, 0.1);
+            border: 1px solid #ffaa33;
+            border-radius: 60px;
+            padding: 1rem 2.5rem;
+            margin-bottom: 2rem;
             display: flex;
-            justify-content: flex-start;
-            animation: fadeInLeft 0.8s ease;
+            align-items: center;
+            gap: 1.5rem;
+            backdrop-filter: blur(10px);
+            color: #ffddbb;
+            font-weight: 500;
+            box-shadow: 0 0 25px rgba(255,170,50,0.2);
         }
+        .protocol-warning i {
+            font-size: 2rem;
+            color: #ffaa33;
+        }
+        .protocol-warning.hidden {
+            display: none;
+        }
+
+        /* ---------- STEPS ROW (STEP 1 + STEP 2) ---------- */
+        .steps-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Step 1 - Tampermonkey Install */
         .step-one-card {
             background: linear-gradient(145deg, #121612, #1a1f1a);
             border: 1px solid rgba(77, 159, 255, 0.4);
             border-radius: 60px;
-            padding: 1.2rem 2.5rem 1.2rem 1.8rem;
+            padding: 1.2rem 2rem 1.2rem 1.8rem;
             box-shadow: 0 0 30px rgba(77, 159, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 2rem;
-            max-width: 100%;
+            gap: 1.5rem;
             flex-wrap: wrap;
+            min-width: 400px;
+            flex: 1 1 auto;
+            animation: fadeInLeft 0.8s ease;
         }
         .step-number-badge {
             background: linear-gradient(135deg, #4d9fff, #9d4dff);
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -161,7 +189,7 @@
         .step-number-badge span {
             color: #fff;
             font-weight: 900;
-            font-size: 2.2rem;
+            font-size: 2rem;
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
         .step-one-content {
@@ -169,35 +197,36 @@
         }
         .step-one-label {
             color: #aac8ff;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 1px;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .step-one-title {
             color: white;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .step-one-desc {
             color: #c0c0c0;
-            font-size: 0.95rem;
-            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
         }
         .btn-download {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: linear-gradient(135deg, #4d9fff, #9d4dff);
             color: #fff;
-            padding: 0.8rem 2rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 50px;
-            font-weight: 700;
+            font-weight: 600;
             text-decoration: none;
             transition: 0.3s;
             box-shadow: 0 0 20px rgba(77, 159, 255, 0.3);
             border: none;
+            font-size: 0.9rem;
         }
         .btn-download:hover {
             transform: scale(1.05);
@@ -205,11 +234,11 @@
         }
         .step-one-icons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
         }
         .step-one-icons i {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         .fa-check-circle {
             color: #4d9fff;
@@ -217,6 +246,57 @@
         }
         .fa-shield-alt {
             color: #9d4dff;
+        }
+
+        /* Step 2 - Four small steps */
+        .step-two {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            flex: 2 1 auto;
+            justify-content: flex-start;
+        }
+        .step-two-item {
+            background: rgba(18, 22, 18, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77, 159, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.8rem;
+            width: 130px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+        }
+        .step-two-item:hover {
+            border-color: #4d9fff;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px -10px rgba(77,159,255,0.4);
+        }
+        .step-two-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.6rem;
+        }
+        .step-two-number span {
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .step-two-item i {
+            font-size: 1.6rem;
+            color: #4d9fff;
+            margin-bottom: 0.4rem;
+        }
+        .step-two-item p {
+            color: #c0d0ff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            line-height: 1.3;
         }
 
         @keyframes pulse {
@@ -232,7 +312,7 @@
         /* ---------- HEADER ---------- */
         .header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             animation: fadeInUp 1s ease;
         }
         .badge {
@@ -242,13 +322,13 @@
             background: rgba(77, 159, 255, 0.1);
             border: 1px solid rgba(77, 159, 255, 0.3);
             backdrop-filter: blur(10px);
-            padding: 0.7rem 2.2rem;
+            padding: 0.6rem 2rem;
             border-radius: 60px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 1px;
             color: #aac8ff;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             box-shadow: 0 0 20px rgba(77, 159, 255, 0.2);
             position: relative;
             overflow: hidden;
@@ -271,10 +351,10 @@
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: inline-block;
             position: relative;
         }
@@ -327,12 +407,12 @@
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #c0d0ff;
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
             background: rgba(77, 159, 255, 0.05);
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             border-radius: 60px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(77,159,255,0.2);
@@ -346,18 +426,18 @@
         .stats {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin: 3rem 0;
+            gap: 2.5rem;
+            margin: 2.5rem 0;
             flex-wrap: wrap;
         }
         .stat-item {
             text-align: center;
             background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.8rem;
             border-radius: 40px;
             border: 1px solid rgba(77,159,255,0.2);
-            min-width: 140px;
+            min-width: 120px;
             transition: 0.3s;
         }
         .stat-item:hover {
@@ -366,13 +446,13 @@
             transform: translateY(-5px);
         }
         .stat-number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #4d9fff;
             text-shadow: 0 0 15px rgba(77,159,255,0.5);
         }
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #b0b0b0;
         }
 
@@ -380,8 +460,8 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 4rem 0;
+            gap: 1.8rem;
+            margin: 3rem 0;
             perspective: 2000px;
         }
 
@@ -390,7 +470,7 @@
             backdrop-filter: blur(16px) saturate(180%);
             border: 1px solid rgba(77, 159, 255, 0.25);
             border-radius: 40px;
-            padding: 2.5rem 2rem;
+            padding: 2rem 1.8rem;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -409,7 +489,7 @@
         }
 
         .card:hover {
-            transform: rotateX(2deg) rotateY(2deg) translateY(-12px) scale(1.02);
+            transform: rotateX(2deg) rotateY(2deg) translateY(-10px) scale(1.02);
             border-color: #4d9fff;
             box-shadow: 0 40px 70px -15px rgba(77,159,255,0.4);
         }
@@ -454,8 +534,8 @@
         }
 
         .card-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
             background: linear-gradient(135deg, #4d9fff, #9d4dff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -467,9 +547,9 @@
         }
 
         .card h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             background: linear-gradient(135deg, #fff, #c0d0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -477,33 +557,33 @@
 
         .card p {
             color: #c0d0d0;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
 
         .feature-list {
             list-style: none;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             text-align: left;
         }
         .feature-list li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             color: #d0e0f0;
-            font-size: 1rem;
+            font-size: 0.95rem;
             border-bottom: 1px dashed rgba(77,159,255,0.15);
-            padding-bottom: 0.8rem;
+            padding-bottom: 0.6rem;
             position: relative;
             cursor: help;
             transition: 0.2s;
         }
         .feature-list li i {
             color: #4d9fff;
-            font-size: 1.3rem;
-            width: 28px;
+            font-size: 1.2rem;
+            width: 24px;
             text-shadow: 0 0 8px currentColor;
         }
         .feature-list li::after {
@@ -513,15 +593,15 @@
             left: 0;
             background: #1a1f1a;
             color: #4d9fff;
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             white-space: nowrap;
             border: 1px solid #4d9fff;
-            box-shadow: 0 0 20px rgba(77,159,255,0.3);
+            box-shadow: 0 0 15px rgba(77,159,255,0.3);
             z-index: 30;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(8px);
             transition: opacity 0.3s, transform 0.3s;
             pointer-events: none;
             backdrop-filter: blur(4px);
@@ -535,13 +615,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 12px;
             width: 100%;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             background: rgba(77, 159, 255, 0.1);
             border: 1.5px solid rgba(77, 159, 255, 0.4);
             border-radius: 60px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: #c0d0ff;
             text-decoration: none;
@@ -580,7 +660,7 @@
             box-shadow: 0 10px 25px rgba(77,159,255,0.4);
         }
         .btn:hover i {
-            transform: translateX(8px) scale(1.1);
+            transform: translateX(6px) scale(1.1);
         }
 
         /* ---------- CONFIG PANEL ---------- */
@@ -589,14 +669,14 @@
             backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(77, 159, 255, 0.2);
             border-radius: 50px;
-            padding: 3rem;
-            margin: 4rem 0;
+            padding: 2.5rem;
+            margin: 3rem 0;
             box-shadow: 0 30px 50px -30px rgba(77,159,255,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
         }
 
         .config-panel h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -605,7 +685,7 @@
         }
         .config-panel h2 i {
             color: #4d9fff;
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             filter: drop-shadow(0 0 10px rgba(77,159,255,0.3));
             animation: spin 8s linear infinite;
         }
@@ -614,77 +694,59 @@
             to { transform: rotate(360deg); }
         }
 
-        .steps {
+        .steps-config {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 2.5rem 0;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .step-item {
+        .step-config-item {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 30px;
-            padding: 2rem 1.8rem;
+            padding: 1.5rem 1.5rem;
             border: 1px solid rgba(77, 159, 255, 0.15);
             transition: 0.3s;
             backdrop-filter: blur(8px);
             position: relative;
             overflow: hidden;
         }
-        .step-item:hover {
+        .step-config-item:hover {
             border-color: #4d9fff;
             transform: translateY(-5px);
             box-shadow: 0 20px 30px -10px rgba(77,159,255,0.3);
         }
-        .step-item::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(77,159,255,0.05), transparent);
-            transform: rotate(45deg);
-            animation: stepShine 8s infinite;
-        }
-        @keyframes stepShine {
-            0% { left: -50%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
+        .step-config-number {
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #4d9fff, #9d4dff);
-            border-radius: 18px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #fff;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             box-shadow: 0 0 15px rgba(77,159,255,0.5);
         }
-
-        .step-item p {
+        .step-config-item p {
             color: #c0d0d0;
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
-        .step-item strong {
+        .step-config-item strong {
             color: #fff;
         }
 
         .tutorial-box {
             background: rgba(77, 159, 255, 0.08);
             border-left: 6px solid #4d9fff;
-            padding: 1.8rem;
+            padding: 1.5rem;
             border-radius: 24px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #d0e0f0;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -692,7 +754,7 @@
             backdrop-filter: blur(5px);
         }
         .tutorial-box i {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #4d9fff;
         }
 
@@ -702,8 +764,8 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            margin-top: 4rem;
-            padding: 2rem 0 1rem;
+            margin-top: 3rem;
+            padding: 1.5rem 0 0.5rem;
             border-top: 1px solid rgba(77,159,255,0.2);
             color: #808080;
         }
@@ -713,8 +775,8 @@
         }
         .footer .social a {
             color: #808080;
-            font-size: 1.5rem;
-            margin-left: 1.5rem;
+            font-size: 1.4rem;
+            margin-left: 1.2rem;
             transition: 0.3s;
             display: inline-block;
         }
@@ -723,35 +785,12 @@
             transform: translateY(-5px);
         }
 
-        /* ---------- PROTOCOL WARNING ---------- */
-        .protocol-warning {
-            background: rgba(255, 200, 100, 0.1);
-            border: 1px solid #ffaa33;
-            border-radius: 60px;
-            padding: 1.2rem 2.5rem;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            backdrop-filter: blur(10px);
-            color: #ffddbb;
-            font-weight: 500;
-            box-shadow: 0 0 25px rgba(255,170,50,0.2);
-        }
-        .protocol-warning i {
-            font-size: 2rem;
-            color: #ffaa33;
-        }
-        .protocol-warning.hidden {
-            display: none;
-        }
-
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 1100px) {
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .steps {
+            .steps-config {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -759,16 +798,18 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            .steps {
+            .steps-config {
                 grid-template-columns: 1fr;
             }
             h1 {
-                font-size: 3rem;
+                font-size: 2.8rem;
+            }
+            .steps-row {
+                flex-direction: column;
+                align-items: stretch;
             }
             .step-one-card {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1.5rem;
+                min-width: auto;
             }
         }
 
@@ -789,24 +830,25 @@
     </div>
 
     <div class="container">
-        <!-- Protocol warning (only shown when opened from file://) -->
+        <!-- Protocol warning -->
         <div class="protocol-warning" id="protocolWarning">
             <i class="fas fa-exclamation-triangle"></i>
             <span><strong>PERHATIAN:</strong> Halaman ini dibuka langsung dari file lokal. Gunakan <strong>Live Server</strong> untuk pengalaman terbaik.</span>
         </div>
 
-        <!-- STEP 1: INSTALL TAMPERMONKEY -->
-        <div class="step-one">
+        <!-- STEPS ROW: STEP 1 (BESAR) + STEP 2 (KECIL) -->
+        <div class="steps-row">
+            <!-- STEP 1: TAMPERMONKEY INSTALL -->
             <div class="step-one-card">
                 <div class="step-number-badge">
                     <span>1</span>
                 </div>
                 <div class="step-one-content">
                     <div class="step-one-label">LANGKAH WAJIB PERTAMA</div>
-                    <div class="step-one-title">Download & Install Tampermonkey</div>
-                    <div class="step-one-desc">Ekstensi wajib untuk menjalankan semua script Detektor Linetogel</div>
+                    <div class="step-one-title">Install Tampermonkey</div>
+                    <div class="step-one-desc">Ekstensi wajib untuk semua script</div>
                     <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" class="btn-download">
-                        <i class="fas fa-download"></i> Download dari Chrome Web Store
+                        <i class="fas fa-download"></i> Chrome Web Store
                         <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
@@ -815,12 +857,40 @@
                     <i class="fas fa-shield-alt"></i>
                 </div>
             </div>
+
+            <!-- STEP 2: EMPAT LANGKAH KECIL (GAMBAR 1-4) -->
+            <div class="step-two">
+                <!-- 2.1 -->
+                <div class="step-two-item">
+                    <div class="step-two-number"><span>2.1</span></div>
+                    <i class="fas fa-store"></i>
+                    <p>Buka Chrome Web Store</p>
+                </div>
+                <!-- 2.2 -->
+                <div class="step-two-item">
+                    <div class="step-two-number"><span>2.2</span></div>
+                    <i class="fas fa-search"></i>
+                    <p>Cari "Tampermonkey"</p>
+                </div>
+                <!-- 2.3 -->
+                <div class="step-two-item">
+                    <div class="step-two-number"><span>2.3</span></div>
+                    <i class="fas fa-plus-circle"></i>
+                    <p>Klik "Add to Chrome"</p>
+                </div>
+                <!-- 2.4 -->
+                <div class="step-two-item">
+                    <div class="step-two-number"><span>2.4</span></div>
+                    <i class="fas fa-check-circle"></i>
+                    <p>Konfirmasi instalasi</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Header -->
+        <!-- HEADER -->
         <div class="header">
             <div class="badge">
-                <i class="fas fa-bolt"></i> DETEKTOR LINETOGEL v4.5
+                <i class="fas fa-bolt"></i> DETEKTOR LINETOGEL v5.0
                 <i class="fas fa-crown" style="color:gold;"></i>
             </div>
             <h1 class="glitch" data-text="DETEKTOR LINETOGEL">DETEKTOR <span>LINETOGEL</span></h1>
@@ -829,7 +899,7 @@
             </div>
         </div>
 
-        <!-- Stats -->
+        <!-- STATS -->
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-number">1.2k+</div>
@@ -845,18 +915,18 @@
             </div>
         </div>
 
-        <!-- Cards -->
+        <!-- CARDS GRID -->
         <div class="cards-grid">
             <!-- Highlighter Pro -->
             <div class="card">
                 <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
                 <h3>Highlighter Pro</h3>
-                <p>Dashboard melayang dengan penyorotan kata kunci cerdas dan template respons cepat.</p>
+                <p>Dashboard melayang, sorot kata kunci, template respons cepat.</p>
                 <ul class="feature-list">
-                    <li data-tooltip="6 grup warna berbeda (biru, ungu, hijau, dll)"><i class="fas fa-check-circle"></i> 6 grup warna neon</li>
-                    <li data-tooltip="Klik kata kunci untuk memunculkan template balasan"><i class="fas fa-check-circle"></i> Auto-response popup</li>
-                    <li data-tooltip="Simpan dan muat ulang konfigurasi kapan saja"><i class="fas fa-check-circle"></i> Export/import data</li>
-                    <li data-tooltip="Drag & drop orb mengambang ke posisi favorit"><i class="fas fa-check-circle"></i> Drag & drop orb</li>
+                    <li data-tooltip="6 grup warna berbeda"><i class="fas fa-check-circle"></i> 6 grup warna neon</li>
+                    <li data-tooltip="Klik kata kunci untuk balasan"><i class="fas fa-check-circle"></i> Auto-response popup</li>
+                    <li data-tooltip="Simpan/muat konfigurasi"><i class="fas fa-check-circle"></i> Export/import data</li>
+                    <li data-tooltip="Drag & drop orb"><i class="fas fa-check-circle"></i> Drag & drop orb</li>
                 </ul>
                 <button class="btn" id="installHighlighter">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -867,12 +937,12 @@
             <div class="card">
                 <div class="card-icon"><i class="fas fa-clone"></i></div>
                 <h3>Duplicate Checker</h3>
-                <p>Deteksi pesan duplikat secara real-time dengan peringatan yang jelas.</p>
+                <p>Deteksi pesan duplikat real-time dengan peringatan jelas.</p>
                 <ul class="feature-list">
-                    <li data-tooltip="Pesan duplikat langsung disorot dengan background biru"><i class="fas fa-check-circle"></i> Sorot pesan duplikat</li>
-                    <li data-tooltip="Peringatan sebelum mengirim pesan yang sama"><i class="fas fa-check-circle"></i> Peringatan sebelum kirim</li>
-                    <li data-tooltip="Informasi jumlah duplikat mengambang di atas input"><i class="fas fa-check-circle"></i> HUD informasi</li>
-                    <li data-tooltip="Efek pulse biru yang menarik perhatian"><i class="fas fa-check-circle"></i> Animasi pulse</li>
+                    <li data-tooltip="Sorot duplikat"><i class="fas fa-check-circle"></i> Sorot pesan duplikat</li>
+                    <li data-tooltip="Peringatan sebelum kirim"><i class="fas fa-check-circle"></i> Peringatan sebelum kirim</li>
+                    <li data-tooltip="HUD informasi"><i class="fas fa-check-circle"></i> HUD informasi</li>
+                    <li data-tooltip="Animasi pulse"><i class="fas fa-check-circle"></i> Animasi pulse</li>
                 </ul>
                 <button class="btn" id="installDuplicate">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -883,12 +953,12 @@
             <div class="card">
                 <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
                 <h3>UI & SLA Tracker</h3>
-                <p>Indikator SLA sidebar, notifikasi toast, dan tracker otomatis 2/4 menit.</p>
+                <p>Indikator SLA, notifikasi toast, tracker 2/4 menit.</p>
                 <ul class="feature-list">
-                    <li data-tooltip="Notifikasi pop-up saat 2 dan 4 menit"><i class="fas fa-check-circle"></i> Notifikasi 2 & 4 menit</li>
-                    <li data-tooltip="Aktif/nonaktifkan notifikasi langsung dari dashboard"><i class="fas fa-check-circle"></i> Toggle on/off</li>
-                    <li data-tooltip="Indikator waktu berjalan di sisi layar"><i class="fas fa-check-circle"></i> Indikator waktu</li>
-                    <li data-tooltip="Update waktu real-time tanpa perlu refresh"><i class="fas fa-check-circle"></i> Sinkronisasi real-time</li>
+                    <li data-tooltip="Notifikasi 2 & 4 menit"><i class="fas fa-check-circle"></i> Notifikasi 2 & 4 menit</li>
+                    <li data-tooltip="Toggle on/off"><i class="fas fa-check-circle"></i> Toggle on/off</li>
+                    <li data-tooltip="Indikator waktu"><i class="fas fa-check-circle"></i> Indikator waktu</li>
+                    <li data-tooltip="Sinkronisasi real-time"><i class="fas fa-check-circle"></i> Sinkronisasi real-time</li>
                 </ul>
                 <button class="btn" id="installSLA">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -896,20 +966,20 @@
             </div>
         </div>
 
-        <!-- Config Panel -->
+        <!-- CONFIG PANEL -->
         <div class="config-panel">
             <h2><i class="fas fa-cog fa-spin"></i> Konfigurasi Wajib</h2>
-            <div class="steps">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <p><strong>Izinkan Skrip Pengguna</strong><br> Agar skrip dapat berjalan di LiveChat.</p>
+            <div class="steps-config">
+                <div class="step-config-item">
+                    <div class="step-config-number">1</div>
+                    <p><strong>Izinkan Skrip Pengguna</strong><br> Agar skrip berjalan di LiveChat.</p>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
+                <div class="step-config-item">
+                    <div class="step-config-number">2</div>
                     <p><strong>Mode Samaran</strong><br> Aktifkan untuk tab incognito.</p>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
+                <div class="step-config-item">
+                    <div class="step-config-number">3</div>
                     <p><strong>Akses URL File</strong><br> Untuk update otomatis.</p>
                 </div>
             </div>
@@ -919,10 +989,10 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- FOOTER -->
         <div class="footer">
             <div class="copyright">
-                <i class="fas fa-shield-alt"></i> 2026 Detektor Linetogel Internal. All rights reserved.
+                <i class="fas fa-shield-alt"></i> 2026 Detektor Linetogel Internal
             </div>
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
