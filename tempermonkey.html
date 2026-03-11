@@ -248,7 +248,7 @@
             color: #9d4dff;
         }
 
-        /* Step 2 - Five steps with clickable images (popup) */
+        /* Step 2 - Five steps with clickable images (popup) - Ukuran lebih proporsional */
         .step-two {
             display: flex;
             gap: 1rem;
@@ -261,8 +261,8 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(77, 159, 255, 0.2);
             border-radius: 20px;
-            padding: 0.8rem 0.5rem;
-            width: 130px;
+            padding: 1rem 0.8rem;
+            width: 140px;
             text-align: center;
             transition: 0.3s;
             box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
@@ -274,22 +274,23 @@
             box-shadow: 0 15px 25px -10px rgba(77,159,255,0.4);
         }
         .step-two-label {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #aac8ff;
             background: rgba(77,159,255,0.2);
-            padding: 0.2rem 0.4rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 30px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             display: inline-block;
             border: 1px solid #4d9fff;
+            letter-spacing: 0.5px;
         }
         .step-two-item img {
-            width: 55px;
-            height: 55px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 0.4rem;
+            border-radius: 14px;
+            margin-bottom: 0.6rem;
             border: 1px solid #4d9fff;
             transition: transform 0.2s;
             pointer-events: none;
@@ -299,14 +300,14 @@
         }
         .step-two-item p {
             color: #c0d0ff;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-top: 0.2rem;
             pointer-events: none;
         }
 
-        /* ---------- MODAL POPUP ---------- */
+        /* ---------- MODAL POPUP - Ukuran disesuaikan agar gambar tidak terlalu besar ---------- */
         .modal {
             display: none;
             position: fixed;
@@ -325,14 +326,17 @@
         }
         .modal-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 80%;
+            max-height: 80%;
+            width: auto;
+            height: auto;
             animation: zoomIn 0.3s;
         }
         .modal-content img {
-            width: 100%;
+            width: auto;
             height: auto;
-            max-height: 80vh;
+            max-width: 100%;
+            max-height: 70vh; /* Lebih kecil dari sebelumnya */
             border-radius: 20px;
             border: 3px solid #4d9fff;
             box-shadow: 0 0 40px #4d9fff;
@@ -832,7 +836,7 @@
                 min-width: auto;
             }
             .step-two-item {
-                width: 110px;
+                width: 130px;
             }
         }
 
@@ -881,30 +885,30 @@
                 </div>
             </div>
 
-            <!-- STEP 2: LANGKAH 2 SAMPAI 5 DENGAN GAMBAR -->
+            <!-- STEP 2: LANGKAH 2 SAMPAI 5 DENGAN GAMBAR (UKURAN LEBIH BESAR) -->
             <div class="step-two">
                 <!-- LANGKAH KE 2 -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 2</div>
-                    <img src="https://i.postimg.cc/3Wy0Gm2L/1.jpg" alt="Langkah 2" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+1';">
+                    <img src="https://i.postimg.cc/3Wy0Gm2L/1.jpg" alt="Langkah 2" onerror="this.onerror=null; this.src='https://via.placeholder.com/70x70?text=Gambar+1';">
                     <p>Buka Chrome Web Store</p>
                 </div>
                 <!-- LANGKAH KE 3 -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 3</div>
-                    <img src="https://i.postimg.cc/QKpXb883/2.jpg" alt="Langkah 3" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+2';">
+                    <img src="https://i.postimg.cc/QKpXb883/2.jpg" alt="Langkah 3" onerror="this.onerror=null; this.src='https://via.placeholder.com/70x70?text=Gambar+2';">
                     <p>Cari "Tampermonkey"</p>
                 </div>
                 <!-- LANGKAH KE 4 -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 4</div>
-                    <img src="https://i.postimg.cc/R6t9SSnJ/3.jpg" alt="Langkah 4" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+3';">
+                    <img src="https://i.postimg.cc/R6t9SSnJ/3.jpg" alt="Langkah 4" onerror="this.onerror=null; this.src='https://via.placeholder.com/70x70?text=Gambar+3';">
                     <p>Klik "Add to Chrome"</p>
                 </div>
                 <!-- LANGKAH KE 5 -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 5</div>
-                    <img src="https://i.postimg.cc/pm1tKhf8/4.jpg" alt="Langkah 5" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60?text=Gambar+4';">
+                    <img src="https://i.postimg.cc/pm1tKhf8/4.jpg" alt="Langkah 5" onerror="this.onerror=null; this.src='https://via.placeholder.com/70x70?text=Gambar+4';">
                     <p>Konfirmasi instalasi</p>
                 </div>
             </div>
@@ -1005,7 +1009,7 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP -->
+    <!-- MODAL POPUP (UKURAN DISESUAIKAN) -->
     <div id="imageModal" class="modal" onclick="closeModalOnClick(event)">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
