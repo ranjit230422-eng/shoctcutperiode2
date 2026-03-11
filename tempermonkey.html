@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detektor Linetogel • Ultimate Suite</title>
-    <!-- Font Awesome 6 (ikon keren) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Font: Inter (sans-serif modern) -->
+    <!-- Google Font: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
+        /* CSS Reset */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +18,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #030403;
+            background: #0a0c0a;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -28,131 +29,354 @@
             overflow-x: hidden;
         }
 
-        /* Partikel latar (lingkaran kabur) */
-        .particle {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.2;
-            z-index: 0;
-            animation: particleFloat 25s infinite alternate ease-in-out;
-        }
-        .particle-1 {
-            width: 600px;
-            height: 600px;
-            background: #00ff88;
-            top: -200px;
-            left: -200px;
-        }
-        .particle-2 {
-            width: 700px;
-            height: 700px;
-            background: #00cc66;
-            bottom: -300px;
-            right: -200px;
-            animation-delay: 5s;
-        }
-        .particle-3 {
-            width: 400px;
-            height: 400px;
-            background: #33ff99;
-            top: 40%;
-            left: 30%;
-            animation-delay: 10s;
-        }
-        @keyframes particleFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(80px, 120px) scale(1.4); }
-        }
-
-        /* Grid halus di latar */
-        .grid-overlay {
+        /* ---------- BACKGROUND EFFECTS (BIRU/UNGU) ---------- */
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
             z-index: 0;
-            pointer-events: none;
+            overflow: hidden;
         }
 
-        /* Container utama */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            animation: orbMove 30s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: #4d9fff;
+            top: -200px;
+            left: -200px;
+        }
+        .orb-2 {
+            width: 700px;
+            height: 700px;
+            background: #9d4dff;
+            bottom: -300px;
+            right: -200px;
+            animation-delay: 5s;
+        }
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: #6d8eff;
+            top: 40%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+        .orb-4 {
+            width: 300px;
+            height: 300px;
+            background: #b87cff;
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+        @keyframes orbMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 150px) scale(1.5); }
+        }
+
+        .grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(77, 159, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(157, 77, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        .particle-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #4d9fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 10s infinite linear;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        /* ---------- MAIN CONTAINER ---------- */
         .container {
             position: relative;
-            z-index: 10;
+            z-index: 20;
             max-width: 1300px;
             width: 100%;
         }
 
-        /* Header dengan efek glow */
+        /* ---------- STEP 1: TAMPERMONKEY ---------- */
+        .step-one {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: flex-start;
+            animation: fadeInLeft 0.8s ease;
+        }
+        .step-one-card {
+            background: linear-gradient(145deg, #121612, #1a1f1a);
+            border: 1px solid rgba(77, 159, 255, 0.4);
+            border-radius: 60px;
+            padding: 1.2rem 2.5rem 1.2rem 1.8rem;
+            box-shadow: 0 0 30px rgba(77, 159, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 100%;
+            flex-wrap: wrap;
+        }
+        .step-number-badge {
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(77, 159, 255, 0.5);
+            animation: pulse 3s infinite;
+        }
+        .step-number-badge span {
+            color: #fff;
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .step-one-content {
+            flex: 1;
+        }
+        .step-one-label {
+            color: #aac8ff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .step-one-title {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+        .step-one-desc {
+            color: #c0c0c0;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(77, 159, 255, 0.3);
+            border: none;
+        }
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(77, 159, 255, 0.6);
+        }
+        .step-one-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .step-one-icons i {
+            font-size: 2rem;
+        }
+        .fa-check-circle {
+            color: #4d9fff;
+            filter: drop-shadow(0 0 10px #4d9fff);
+        }
+        .fa-shield-alt {
+            color: #9d4dff;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(77, 159, 255, 0.3); transform: scale(1); }
+            50% { box-shadow: 0 0 40px rgba(77, 159, 255, 0.6); transform: scale(1.02); }
+            100% { box-shadow: 0 0 20px rgba(77, 159, 255, 0.3); transform: scale(1); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ---------- HEADER ---------- */
         .header {
             text-align: center;
             margin-bottom: 4rem;
-            position: relative;
+            animation: fadeInUp 1s ease;
         }
         .badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.4);
+            gap: 10px;
+            background: rgba(77, 159, 255, 0.1);
+            border: 1px solid rgba(77, 159, 255, 0.3);
             backdrop-filter: blur(10px);
-            padding: 0.6rem 2rem;
+            padding: 0.7rem 2.2rem;
             border-radius: 60px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
             letter-spacing: 1px;
-            color: #88ffaa;
-            margin-bottom: 1.8rem;
-            box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+            color: #aac8ff;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(77, 159, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
-        .badge i {
-            color: #00ff88;
-            font-size: 1rem;
+        .badge::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg);
+            animation: badgeShine 8s infinite;
         }
+        @keyframes badgeShine {
+            0% { left: -50%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
         h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1rem;
-            position: relative;
             display: inline-block;
+            position: relative;
         }
-        h1 .glow-text {
-            background: linear-gradient(135deg, #ffffff 0%, #88ffaa 50%, #00ff88 100%);
+        .glitch {
+            color: #fff;
+            text-shadow: 0 0 10px #4d9fff, 0 0 20px #9d4dff;
+            animation: glitch 4s infinite;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0c0a;
+            clip: rect(0, 0, 0, 0);
+        }
+        .glitch::before {
+            left: -2px;
+            text-shadow: -2px 0 #4d9fff;
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: 2px;
+            text-shadow: 2px 0 #9d4dff;
+            animation: glitch-anim-2 3.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(30px, 9999px, 10px, 0); }
+            20% { clip: rect(70px, 9999px, 50px, 0); }
+            40% { clip: rect(15px, 9999px, 90px, 0); }
+            60% { clip: rect(95px, 9999px, 30px, 0); }
+            80% { clip: rect(55px, 9999px, 70px, 0); }
+            100% { clip: rect(40px, 9999px, 20px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 45px, 0); }
+            20% { clip: rect(25px, 9999px, 80px, 0); }
+            40% { clip: rect(85px, 9999px, 15px, 0); }
+            60% { clip: rect(10px, 9999px, 60px, 0); }
+            80% { clip: rect(75px, 9999px, 35px, 0); }
+            100% { clip: rect(50px, 9999px, 95px, 0); }
+        }
+        .glitch span {
+            background: linear-gradient(135deg, #ffffff, #aac8ff, #9d4dff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shine 3s linear infinite;
-        }
-        h1 .glow-text span {
-            background: linear-gradient(135deg, #00ff88, #33ff99);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-        .subtitle {
-            font-size: 1.2rem;
-            color: #a0b8a0;
-            max-width: 650px;
-            margin: 0 auto;
-            border-left: 3px solid #00ff88;
-            padding-left: 1.8rem;
-            text-align: left;
-            background: rgba(0, 255, 136, 0.02);
-            padding: 1rem 1.8rem;
-            border-radius: 60px;
-            backdrop-filter: blur(5px);
         }
 
-        /* Grid kartu (3 kolom) dengan efek floating */
+        .subtitle {
+            font-size: 1.2rem;
+            color: #c0d0ff;
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(77, 159, 255, 0.05);
+            padding: 1.2rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77,159,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(77,159,255,0.1);
+        }
+
+        /* ---------- STATS ---------- */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(77,159,255,0.2);
+            min-width: 140px;
+            transition: 0.3s;
+        }
+        .stat-item:hover {
+            border-color: #4d9fff;
+            box-shadow: 0 0 30px rgba(77,159,255,0.3);
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #4d9fff;
+            text-shadow: 0 0 15px rgba(77,159,255,0.5);
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        /* ---------- CARDS ---------- */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -162,17 +386,32 @@
         }
 
         .card {
-            background: rgba(8, 18, 8, 0.5);
+            background: rgba(18, 22, 18, 0.6);
             backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(0, 255, 136, 0.25);
+            border: 1px solid rgba(77, 159, 255, 0.25);
             border-radius: 40px;
             padding: 2.5rem 2rem;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 136, 0.1) inset;
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(77,159,255,0.1) inset;
             transform-style: preserve-3d;
+            animation: cardAppear 0.8s ease backwards;
+            cursor: default;
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(50px) rotateX(-10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+
+        .card:hover {
+            transform: rotateX(2deg) rotateY(2deg) translateY(-12px) scale(1.02);
+            border-color: #4d9fff;
+            box-shadow: 0 40px 70px -15px rgba(77,159,255,0.4);
         }
 
         .card::before {
@@ -182,10 +421,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 255, 136, 0.2), transparent 70%);
+            background: radial-gradient(circle at 30% 30%, rgba(77,159,255,0.15), transparent 70%);
             opacity: 0;
             transition: opacity 0.5s;
             pointer-events: none;
+        }
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card::after {
@@ -195,54 +437,46 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, transparent 40%, rgba(0, 255, 136, 0.3), transparent 60%);
+            background: linear-gradient(45deg, transparent 30%, rgba(77,159,255,0.3), rgba(157,77,255,0.3), transparent 70%);
             opacity: 0;
             transition: opacity 0.6s;
             pointer-events: none;
             border-radius: 42px;
+            background-size: 200% 200%;
         }
-
-        .card:hover {
-            transform: translateY(-12px) rotateX(2deg);
-            border-color: #00ff88;
-            box-shadow: 0 40px 70px -15px rgba(0, 255, 136, 0.5);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
         .card:hover::after {
-            opacity: 0.3;
-            animation: borderGlow 2s linear infinite;
+            opacity: 0.4;
+            animation: borderGlow 4s linear infinite;
         }
-
         @keyframes borderGlow {
             0% { background-position: 0% 0%; }
             100% { background-position: 200% 0%; }
         }
 
         .card-icon {
-            font-size: 3.8rem;
-            margin-bottom: 1.8rem;
-            background: linear-gradient(135deg, #88ffaa, #00ff88);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
+            filter: drop-shadow(0 0 15px rgba(77,159,255,0.4));
+            transition: transform 0.3s;
+        }
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .card h3 {
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 1.2rem;
-            background: linear-gradient(135deg, #fff, #ccffdd);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #c0d0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .card p {
-            color: #b0d0b0;
+            color: #c0d0d0;
             line-height: 1.7;
             margin-bottom: 2rem;
             font-size: 1rem;
@@ -250,26 +484,51 @@
 
         .feature-list {
             list-style: none;
-            margin-bottom: 2.8rem;
+            margin-bottom: 2.5rem;
             text-align: left;
         }
-
         .feature-list li {
-            margin-bottom: 0.9rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #d0f0d0;
-            font-size: 0.98rem;
-            border-bottom: 1px dashed rgba(0, 255, 136, 0.1);
-            padding-bottom: 0.6rem;
+            color: #d0e0f0;
+            font-size: 1rem;
+            border-bottom: 1px dashed rgba(77,159,255,0.15);
+            padding-bottom: 0.8rem;
+            position: relative;
+            cursor: help;
+            transition: 0.2s;
         }
-
         .feature-list li i {
-            color: #00ff88;
+            color: #4d9fff;
             font-size: 1.3rem;
             width: 28px;
             text-shadow: 0 0 8px currentColor;
+        }
+        .feature-list li::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 130%;
+            left: 0;
+            background: #1a1f1a;
+            color: #4d9fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            border: 1px solid #4d9fff;
+            box-shadow: 0 0 20px rgba(77,159,255,0.3);
+            z-index: 30;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+        .feature-list li:hover::after {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .btn {
@@ -278,13 +537,13 @@
             justify-content: center;
             gap: 14px;
             width: 100%;
-            padding: 1.1rem 2rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1.5px solid rgba(0, 255, 136, 0.5);
+            padding: 1.2rem 2rem;
+            background: rgba(77, 159, 255, 0.1);
+            border: 1.5px solid rgba(77, 159, 255, 0.4);
             border-radius: 60px;
             font-size: 1.1rem;
             font-weight: 600;
-            color: #ccffcc;
+            color: #c0d0ff;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
@@ -293,7 +552,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .btn::before {
             content: '';
             position: absolute;
@@ -302,47 +560,38 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(0, 255, 136, 0.3);
+            background: rgba(77, 159, 255, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
+            z-index: 0;
         }
-
         .btn:hover::before {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
         }
-
-        .btn i {
-            transition: transform 0.3s;
+        .btn i, .btn span {
             position: relative;
             z-index: 2;
         }
-
         .btn:hover {
-            background: #00ff88;
-            border-color: #00ff88;
-            color: #030403;
-            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.5);
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(77,159,255,0.4);
         }
-
         .btn:hover i {
             transform: translateX(8px) scale(1.1);
         }
 
-        .btn span {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Panel konfigurasi dengan efek lebih mewah */
+        /* ---------- CONFIG PANEL ---------- */
         .config-panel {
-            background: rgba(5, 15, 5, 0.6);
-            backdrop-filter: blur(20px) saturate(200%);
-            border: 1px solid rgba(0, 255, 136, 0.25);
+            background: rgba(10, 15, 10, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(77, 159, 255, 0.2);
             border-radius: 50px;
             padding: 3rem;
             margin: 4rem 0;
-            box-shadow: 0 30px 50px -30px #00ff8833, inset 0 1px 2px rgba(255,255,255,0.1);
+            box-shadow: 0 30px 50px -30px rgba(77,159,255,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
         }
 
         .config-panel h2 {
@@ -351,14 +600,18 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            color: #ffffff;
+            color: #fff;
             font-weight: 600;
         }
-
         .config-panel h2 i {
-            color: #00ff88;
+            color: #4d9fff;
             font-size: 2.3rem;
-            filter: drop-shadow(0 0 10px #00ff88);
+            filter: drop-shadow(0 0 10px rgba(77,159,255,0.3));
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .steps {
@@ -369,98 +622,111 @@
         }
 
         .step-item {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 30px;
             padding: 2rem 1.8rem;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(77, 159, 255, 0.15);
             transition: 0.3s;
             backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
         }
-
         .step-item:hover {
-            border-color: #00ff88;
+            border-color: #4d9fff;
             transform: translateY(-5px);
-            box-shadow: 0 20px 30px -15px #00ff88;
+            box-shadow: 0 20px 30px -10px rgba(77,159,255,0.3);
+        }
+        .step-item::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(77,159,255,0.05), transparent);
+            transform: rotate(45deg);
+            animation: stepShine 8s infinite;
+        }
+        @keyframes stepShine {
+            0% { left: -50%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .step-number {
-            width: 45px;
-            height: 45px;
-            background: #00ff88;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4d9fff, #9d4dff);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.5rem;
-            color: #030403;
+            font-size: 1.6rem;
+            color: #fff;
             margin-bottom: 1.5rem;
-            box-shadow: 0 0 20px #00ff88;
+            box-shadow: 0 0 15px rgba(77,159,255,0.5);
         }
 
         .step-item p {
-            color: #c0e0c0;
+            color: #c0d0d0;
             font-size: 1rem;
             line-height: 1.6;
         }
         .step-item strong {
-            color: #ffffff;
-            font-weight: 700;
+            color: #fff;
         }
 
         .tutorial-box {
-            background: rgba(0, 255, 136, 0.1);
-            border-left: 6px solid #00ff88;
+            background: rgba(77, 159, 255, 0.08);
+            border-left: 6px solid #4d9fff;
             padding: 1.8rem;
             border-radius: 24px;
             font-size: 1rem;
-            color: #e0ffe0;
+            color: #d0e0f0;
             margin-top: 2rem;
             display: flex;
             align-items: center;
             gap: 15px;
-            box-shadow: 0 0 30px rgba(0,255,136,0.2);
+            box-shadow: 0 0 20px rgba(77,159,255,0.2);
+            backdrop-filter: blur(5px);
         }
-
         .tutorial-box i {
             font-size: 2rem;
-            color: #00ff88;
+            color: #4d9fff;
         }
 
-        /* Footer elegan */
+        /* ---------- FOOTER ---------- */
         .footer {
-            text-align: center;
-            margin-top: 4rem;
-            color: #4a6a4a;
-            font-size: 0.95rem;
-            padding: 2rem 0 1rem;
-            border-top: 1px solid rgba(0, 255, 136, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            margin-top: 4rem;
+            padding: 2rem 0 1rem;
+            border-top: 1px solid rgba(77,159,255,0.2);
+            color: #808080;
         }
-        .footer .copyright {
-            opacity: 0.8;
-        }
-        .footer .social {
-            display: flex;
-            gap: 20px;
+        .footer .copyright i {
+            color: #4d9fff;
+            margin-right: 6px;
         }
         .footer .social a {
-            color: #6a9a6a;
+            color: #808080;
+            font-size: 1.5rem;
+            margin-left: 1.5rem;
             transition: 0.3s;
-            font-size: 1.3rem;
+            display: inline-block;
         }
         .footer .social a:hover {
-            color: #00ff88;
-            transform: translateY(-3px);
+            color: #4d9fff;
+            transform: translateY(-5px);
         }
 
-        /* Peringatan protokol file */
+        /* ---------- PROTOCOL WARNING ---------- */
         .protocol-warning {
-            background: rgba(255, 70, 70, 0.2);
-            border: 1px solid #ff4d4d;
+            background: rgba(255, 200, 100, 0.1);
+            border: 1px solid #ffaa33;
             border-radius: 60px;
             padding: 1.2rem 2.5rem;
             margin-bottom: 2.5rem;
@@ -468,21 +734,19 @@
             align-items: center;
             gap: 1.5rem;
             backdrop-filter: blur(10px);
-            color: #ffb4b4;
+            color: #ffddbb;
             font-weight: 500;
-            box-shadow: 0 0 25px rgba(255, 70, 70, 0.3);
+            box-shadow: 0 0 25px rgba(255,170,50,0.2);
         }
-
         .protocol-warning i {
             font-size: 2rem;
-            color: #ff4d4d;
+            color: #ffaa33;
         }
-
         .protocol-warning.hidden {
             display: none;
         }
 
-        /* Responsif */
+        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 1100px) {
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -498,36 +762,90 @@
             .steps {
                 grid-template-columns: 1fr;
             }
-            h1 { font-size: 3rem; }
+            h1 {
+                font-size: 3rem;
+            }
+            .step-one-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <!-- Partikel latar -->
-    <div class="particle particle-1"></div>
-    <div class="particle particle-2"></div>
-    <div class="particle particle-3"></div>
-    <div class="grid-overlay"></div>
+    <div class="background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="grid"></div>
+        <div class="particles" id="particles"></div>
+    </div>
 
     <div class="container">
-        <!-- Peringatan jika dibuka via file:// -->
+        <!-- Protocol warning (only shown when opened from file://) -->
         <div class="protocol-warning" id="protocolWarning">
             <i class="fas fa-exclamation-triangle"></i>
-            <span><strong>PERHATIAN:</strong> Halaman ini dibuka langsung dari file lokal. Tombol instalasi mungkin tidak berfungsi. Gunakan <strong>Live Server</strong> atau upload ke hosting untuk pengalaman terbaik.</span>
+            <span><strong>PERHATIAN:</strong> Halaman ini dibuka langsung dari file lokal. Gunakan <strong>Live Server</strong> untuk pengalaman terbaik.</span>
+        </div>
+
+        <!-- STEP 1: INSTALL TAMPERMONKEY -->
+        <div class="step-one">
+            <div class="step-one-card">
+                <div class="step-number-badge">
+                    <span>1</span>
+                </div>
+                <div class="step-one-content">
+                    <div class="step-one-label">LANGKAH WAJIB PERTAMA</div>
+                    <div class="step-one-title">Download & Install Tampermonkey</div>
+                    <div class="step-one-desc">Ekstensi wajib untuk menjalankan semua script Detektor Linetogel</div>
+                    <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" class="btn-download">
+                        <i class="fas fa-download"></i> Download dari Chrome Web Store
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="step-one-icons">
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
         </div>
 
         <!-- Header -->
         <div class="header">
             <div class="badge">
-                <i class="fas fa-bolt"></i> DETEKTOR LINETOGEL v3.5
+                <i class="fas fa-bolt"></i> DETEKTOR LINETOGEL v4.5
+                <i class="fas fa-crown" style="color:gold;"></i>
             </div>
-            <h1>
-                <span class="glow-text">DETEKTOR <span>LINETOGEL</span></span>
-            </h1>
-            <p class="subtitle"><i class="fas fa-crown" style="color:#00ff88; margin-right:10px;"></i> Tiga alat revolusioner untuk agen LiveChat: highlight kata kunci, deteksi duplikat, dan tracker SLA dengan tampilan futuristik.</p>
+            <h1 class="glitch" data-text="DETEKTOR LINETOGEL">DETEKTOR <span>LINETOGEL</span></h1>
+            <div class="subtitle">
+                <i class="fas fa-robot" style="color:#4d9fff;"></i> Tiga alat AI untuk agen LiveChat: highlight, deteksi duplikat, tracker SLA.
+            </div>
         </div>
 
-        <!-- Kartu 3 kolom -->
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">1.2k+</div>
+                <div class="stat-label">Pengguna Aktif</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Kepuasan</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
+        </div>
+
+        <!-- Cards -->
         <div class="cards-grid">
             <!-- Highlighter Pro -->
             <div class="card">
@@ -535,10 +853,10 @@
                 <h3>Highlighter Pro</h3>
                 <p>Dashboard melayang dengan penyorotan kata kunci cerdas dan template respons cepat.</p>
                 <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> 6 grup warna neon</li>
-                    <li><i class="fas fa-check-circle"></i> Auto-response popup</li>
-                    <li><i class="fas fa-check-circle"></i> Export/import data</li>
-                    <li><i class="fas fa-check-circle"></i> Drag & drop orb</li>
+                    <li data-tooltip="6 grup warna berbeda (biru, ungu, hijau, dll)"><i class="fas fa-check-circle"></i> 6 grup warna neon</li>
+                    <li data-tooltip="Klik kata kunci untuk memunculkan template balasan"><i class="fas fa-check-circle"></i> Auto-response popup</li>
+                    <li data-tooltip="Simpan dan muat ulang konfigurasi kapan saja"><i class="fas fa-check-circle"></i> Export/import data</li>
+                    <li data-tooltip="Drag & drop orb mengambang ke posisi favorit"><i class="fas fa-check-circle"></i> Drag & drop orb</li>
                 </ul>
                 <button class="btn" id="installHighlighter">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -549,12 +867,12 @@
             <div class="card">
                 <div class="card-icon"><i class="fas fa-clone"></i></div>
                 <h3>Duplicate Checker</h3>
-                <p>Deteksi pesan duplikat secara real-time dengan peringatan merah yang mencolok.</p>
+                <p>Deteksi pesan duplikat secara real-time dengan peringatan yang jelas.</p>
                 <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> Sorot pesan duplikat</li>
-                    <li><i class="fas fa-check-circle"></i> Peringatan sebelum kirim</li>
-                    <li><i class="fas fa-check-circle"></i> HUD informasi mengambang</li>
-                    <li><i class="fas fa-check-circle"></i> Animasi pulse tegas</li>
+                    <li data-tooltip="Pesan duplikat langsung disorot dengan background biru"><i class="fas fa-check-circle"></i> Sorot pesan duplikat</li>
+                    <li data-tooltip="Peringatan sebelum mengirim pesan yang sama"><i class="fas fa-check-circle"></i> Peringatan sebelum kirim</li>
+                    <li data-tooltip="Informasi jumlah duplikat mengambang di atas input"><i class="fas fa-check-circle"></i> HUD informasi</li>
+                    <li data-tooltip="Efek pulse biru yang menarik perhatian"><i class="fas fa-check-circle"></i> Animasi pulse</li>
                 </ul>
                 <button class="btn" id="installDuplicate">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -565,12 +883,12 @@
             <div class="card">
                 <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
                 <h3>UI & SLA Tracker</h3>
-                <p>Indikator SLA sidebar, notifikasi toast, dan tracker otomatis 2/4 menit untuk memantau waktu respons.</p>
+                <p>Indikator SLA sidebar, notifikasi toast, dan tracker otomatis 2/4 menit.</p>
                 <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> Notifikasi 2 & 4 menit</li>
-                    <li><i class="fas fa-check-circle"></i> Toggle on/off langsung</li>
-                    <li><i class="fas fa-check-circle"></i> Indikator waktu mengambang</li>
-                    <li><i class="fas fa-check-circle"></i> Sinkronisasi real-time</li>
+                    <li data-tooltip="Notifikasi pop-up saat 2 dan 4 menit"><i class="fas fa-check-circle"></i> Notifikasi 2 & 4 menit</li>
+                    <li data-tooltip="Aktif/nonaktifkan notifikasi langsung dari dashboard"><i class="fas fa-check-circle"></i> Toggle on/off</li>
+                    <li data-tooltip="Indikator waktu berjalan di sisi layar"><i class="fas fa-check-circle"></i> Indikator waktu</li>
+                    <li data-tooltip="Update waktu real-time tanpa perlu refresh"><i class="fas fa-check-circle"></i> Sinkronisasi real-time</li>
                 </ul>
                 <button class="btn" id="installSLA">
                     <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
@@ -578,17 +896,17 @@
             </div>
         </div>
 
-        <!-- Panel Konfigurasi Tampermonkey -->
+        <!-- Config Panel -->
         <div class="config-panel">
-            <h2><i class="fas fa-cog fa-spin"></i> Konfigurasi Wajib Tampermonkey</h2>
+            <h2><i class="fas fa-cog fa-spin"></i> Konfigurasi Wajib</h2>
             <div class="steps">
                 <div class="step-item">
                     <div class="step-number">1</div>
-                    <p><strong>Izinkan Skrip Pengguna</strong><br> Agar skrip bisa berjalan di LiveChat.</p>
+                    <p><strong>Izinkan Skrip Pengguna</strong><br> Agar skrip dapat berjalan di LiveChat.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
-                    <p><strong>Mode Samaran</strong><br> Aktifkan jika menggunakan tab incognito.</p>
+                    <p><strong>Mode Samaran</strong><br> Aktifkan untuk tab incognito.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">3</div>
@@ -597,14 +915,14 @@
             </div>
             <div class="tutorial-box">
                 <i class="fas fa-mouse-pointer"></i>
-                <div><strong>Cara mudah:</strong> Klik kanan ikon Tampermonkey → Kelola Ekstensi → centang semua izin (biru).</div>
+                <div><strong>Cara:</strong> Klik kanan ikon Tampermonkey → Kelola Ekstensi → centang semua izin (biru).</div>
             </div>
         </div>
 
-        <!-- Footer dengan sosial media (fiktif) -->
+        <!-- Footer -->
         <div class="footer">
             <div class="copyright">
-                <i class="fas fa-shield-alt" style="color:#00ff88; margin-right:6px;"></i> © 2026 Detektor Linetogel Internal. All rights reserved.
+                <i class="fas fa-shield-alt"></i> 2026 Detektor Linetogel Internal. All rights reserved.
             </div>
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -615,28 +933,35 @@
     </div>
 
     <script>
-        // URL raw GitHub untuk masing-masing script
+        // Generate random particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'particle-dot';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.top = Math.random() * 100 + '%';
+                dot.style.animationDelay = Math.random() * 10 + 's';
+                dot.style.animationDuration = 10 + Math.random() * 20 + 's';
+                container.appendChild(dot);
+            }
+        }
+        createParticles();
+
+        // Script URLs
         const urlHighlighter = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js';
         const urlDuplicate = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane2.user.js';
         const urlSLA = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane3.user.js';
 
-        // Fungsi membuka tab baru
         function openInNewTab(url) {
             window.open(url, '_blank');
         }
 
-        // Event listener tombol
-        document.getElementById('installHighlighter').addEventListener('click', function() {
-            openInNewTab(urlHighlighter);
-        });
-        document.getElementById('installDuplicate').addEventListener('click', function() {
-            openInNewTab(urlDuplicate);
-        });
-        document.getElementById('installSLA').addEventListener('click', function() {
-            openInNewTab(urlSLA);
-        });
+        document.getElementById('installHighlighter').addEventListener('click', () => openInNewTab(urlHighlighter));
+        document.getElementById('installDuplicate').addEventListener('click', () => openInNewTab(urlDuplicate));
+        document.getElementById('installSLA').addEventListener('click', () => openInNewTab(urlSLA));
 
-        // Deteksi protokol file://
+        // Protocol warning
         if (window.location.protocol === 'file:') {
             document.getElementById('protocolWarning').classList.remove('hidden');
         } else {
