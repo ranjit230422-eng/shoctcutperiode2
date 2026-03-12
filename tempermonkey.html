@@ -29,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* ---------- BACKGROUND EFFECTS ---------- */
+        /* ---------- BACKGROUND EFFECTS (KUNING) ---------- */
         .background {
             position: fixed;
             top: 0;
@@ -50,14 +50,14 @@
         .orb-1 {
             width: 600px;
             height: 600px;
-            background: #4d9fff;
+            background: #ffcc00;
             top: -200px;
             left: -200px;
         }
         .orb-2 {
             width: 700px;
             height: 700px;
-            background: #9d4dff;
+            background: #ffaa00;
             bottom: -300px;
             right: -200px;
             animation-delay: 5s;
@@ -65,7 +65,7 @@
         .orb-3 {
             width: 400px;
             height: 400px;
-            background: #6d8eff;
+            background: #ffdd44;
             top: 40%;
             left: 30%;
             animation-delay: 10s;
@@ -73,7 +73,7 @@
         .orb-4 {
             width: 300px;
             height: 300px;
-            background: #b87cff;
+            background: #ffbb33;
             bottom: 20%;
             right: 30%;
             animation-delay: 15s;
@@ -90,8 +90,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(77, 159, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(157, 77, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255, 204, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 170, 0, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
             z-index: 1;
         }
@@ -108,7 +108,7 @@
             position: absolute;
             width: 2px;
             height: 2px;
-            background: #4d9fff;
+            background: #ffcc00;
             border-radius: 50%;
             opacity: 0.3;
             animation: particleFloat 10s infinite linear;
@@ -129,8 +129,8 @@
 
         /* ---------- PROTOCOL WARNING ---------- */
         .protocol-warning {
-            background: rgba(255, 200, 100, 0.1);
-            border: 1px solid #ffaa33;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid #ffcc00;
             border-radius: 60px;
             padding: 1rem 2.5rem;
             margin-bottom: 2rem;
@@ -138,13 +138,13 @@
             align-items: center;
             gap: 1.5rem;
             backdrop-filter: blur(10px);
-            color: #ffddbb;
+            color: #fff3d1;
             font-weight: 500;
-            box-shadow: 0 0 25px rgba(255,170,50,0.2);
+            box-shadow: 0 0 25px rgba(255,204,0,0.2);
         }
         .protocol-warning i {
             font-size: 2rem;
-            color: #ffaa33;
+            color: #ffcc00;
         }
         .protocol-warning.hidden {
             display: none;
@@ -162,10 +162,10 @@
         /* Step 1 - Tampermonkey Install */
         .step-one-card {
             background: linear-gradient(145deg, #121612, #1a1f1a);
-            border: 1px solid rgba(77, 159, 255, 0.4);
+            border: 1px solid rgba(255, 204, 0, 0.4);
             border-radius: 60px;
             padding: 1.2rem 2rem 1.2rem 1.8rem;
-            box-shadow: 0 0 30px rgba(77, 159, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.2), inset 0 1px 2px rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
@@ -176,18 +176,18 @@
             animation: fadeInLeft 0.8s ease;
         }
         .step-number-badge {
-            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            background: linear-gradient(135deg, #ffcc00, #ffaa00);
             width: 60px;
             height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(77, 159, 255, 0.5);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
             animation: pulse 3s infinite;
         }
         .step-number-badge span {
-            color: #fff;
+            color: #000;
             font-weight: 900;
             font-size: 2rem;
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
@@ -196,7 +196,7 @@
             flex: 1;
         }
         .step-one-label {
-            color: #aac8ff;
+            color: #ffdd99;
             font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 1px;
@@ -217,20 +217,20 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, #4d9fff, #9d4dff);
-            color: #fff;
+            background: linear-gradient(135deg, #ffcc00, #ffaa00);
+            color: #000;
             padding: 0.6rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: 0.3s;
-            box-shadow: 0 0 20px rgba(77, 159, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
             border: none;
             font-size: 0.9rem;
         }
         .btn-download:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(77, 159, 255, 0.6);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
         }
         .step-one-icons {
             display: flex;
@@ -241,14 +241,14 @@
             font-size: 1.8rem;
         }
         .fa-check-circle {
-            color: #4d9fff;
-            filter: drop-shadow(0 0 10px #4d9fff);
+            color: #ffcc00;
+            filter: drop-shadow(0 0 10px #ffcc00);
         }
         .fa-shield-alt {
-            color: #9d4dff;
+            color: #ffaa00;
         }
 
-        /* Step 2 - Five steps with clickable images (popup) - Ukuran lebih proporsional */
+        /* Step 2 - Five steps with clickable images (popup) */
         .step-two {
             display: flex;
             gap: 1rem;
@@ -259,7 +259,7 @@
         .step-two-item {
             background: rgba(18, 22, 18, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(77, 159, 255, 0.2);
+            border: 1px solid rgba(255, 204, 0, 0.2);
             border-radius: 20px;
             padding: 1rem 0.8rem;
             width: 140px;
@@ -269,20 +269,20 @@
             cursor: pointer;
         }
         .step-two-item:hover {
-            border-color: #4d9fff;
+            border-color: #ffcc00;
             transform: translateY(-4px);
-            box-shadow: 0 15px 25px -10px rgba(77,159,255,0.4);
+            box-shadow: 0 15px 25px -10px rgba(255,204,0,0.4);
         }
         .step-two-label {
             font-size: 0.8rem;
             font-weight: 700;
-            color: #aac8ff;
-            background: rgba(77,159,255,0.2);
+            color: #ffdd99;
+            background: rgba(255,204,0,0.2);
             padding: 0.2rem 0.5rem;
             border-radius: 30px;
             margin-bottom: 0.6rem;
             display: inline-block;
-            border: 1px solid #4d9fff;
+            border: 1px solid #ffcc00;
             letter-spacing: 0.5px;
         }
         .step-two-item img {
@@ -291,7 +291,7 @@
             object-fit: cover;
             border-radius: 14px;
             margin-bottom: 0.6rem;
-            border: 1px solid #4d9fff;
+            border: 1px solid #ffcc00;
             transition: transform 0.2s;
             pointer-events: none;
         }
@@ -299,7 +299,7 @@
             transform: scale(0.95);
         }
         .step-two-item p {
-            color: #c0d0ff;
+            color: #ffdd99;
             font-size: 0.8rem;
             font-weight: 500;
             line-height: 1.3;
@@ -307,71 +307,86 @@
             pointer-events: none;
         }
 
-        /* ---------- MODAL POPUP - Ukuran disesuaikan agar gambar tidak terlalu besar ---------- */
+        /* ---------- MODAL POPUP - ELEGAN DAN BESAR ---------- */
         .modal {
             display: none;
             position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            z-index: 10000;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.98);
             backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .modal.active {
             display: flex;
+            opacity: 1;
         }
         .modal-content {
             position: relative;
-            max-width: 80%;
-            max-height: 80%;
-            width: auto;
-            height: auto;
-            animation: zoomIn 0.3s;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
         }
         .modal-content img {
+            max-width: 100%;
+            max-height: 95vh;
             width: auto;
             height: auto;
-            max-width: 100%;
-            max-height: 70vh; /* Lebih kecil dari sebelumnya */
-            border-radius: 20px;
-            border: 3px solid #4d9fff;
-            box-shadow: 0 0 40px #4d9fff;
+            border-radius: 24px;
+            border: 3px solid #ffcc00;
+            box-shadow: 0 0 40px #ffcc00, 0 0 80px rgba(255,204,0,0.4);
+            object-fit: contain;
+            background: #111;
         }
         .close-modal {
             position: absolute;
-            top: -40px;
+            top: -50px;
             right: 0;
             color: white;
             font-size: 40px;
-            font-weight: bold;
+            font-weight: 300;
             cursor: pointer;
-            background: rgba(0,0,0,0.5);
-            width: 50px;
-            height: 50px;
+            background: rgba(0,0,0,0.6);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
+            transition: all 0.3s;
+            border: 2px solid #ffcc00;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
         }
         .close-modal:hover {
-            color: #ff0000;
-            background: rgba(255,255,255,0.2);
-            transform: rotate(90deg);
+            color: #000;
+            background: #ffcc00;
+            transform: rotate(90deg) scale(1.1);
+            border-color: #ffcc00;
         }
-        @keyframes zoomIn {
-            from { transform: scale(0.4); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        @media (max-width: 800px) {
+            .close-modal {
+                top: -40px;
+                width: 50px;
+                height: 50px;
+                font-size: 32px;
+            }
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(77, 159, 255, 0.3); transform: scale(1); }
-            50% { box-shadow: 0 0 40px rgba(77, 159, 255, 0.6); transform: scale(1.02); }
-            100% { box-shadow: 0 0 20px rgba(77, 159, 255, 0.3); transform: scale(1); }
+            0% { box-shadow: 0 0 20px rgba(255, 204, 0, 0.3); transform: scale(1); }
+            50% { box-shadow: 0 0 40px rgba(255, 204, 0, 0.6); transform: scale(1.02); }
+            100% { box-shadow: 0 0 20px rgba(255, 204, 0, 0.3); transform: scale(1); }
         }
         @keyframes fadeInLeft {
             from { opacity: 0; transform: translateX(-30px); }
@@ -386,17 +401,17 @@
         }
         .badge {
             display: inline-block;
-            background: rgba(77, 159, 255, 0.1);
-            border: 1px solid rgba(77, 159, 255, 0.3);
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
             backdrop-filter: blur(10px);
             padding: 0.8rem 2rem;
             border-radius: 60px;
             font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 1px;
-            color: #aac8ff;
+            color: #ffdd99;
             margin-bottom: 1.5rem;
-            box-shadow: 0 0 20px rgba(77, 159, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
             position: relative;
             overflow: hidden;
             max-width: 90%;
@@ -405,7 +420,7 @@
         }
         .badge i {
             margin-right: 8px;
-            color: #4d9fff;
+            color: #ffcc00;
         }
         .badge::after {
             content: '';
@@ -434,7 +449,7 @@
         }
         .glitch {
             color: #fff;
-            text-shadow: 0 0 10px #4d9fff, 0 0 20px #9d4dff;
+            text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00;
             animation: glitch 4s infinite;
         }
         .glitch::before,
@@ -450,12 +465,12 @@
         }
         .glitch::before {
             left: -2px;
-            text-shadow: -2px 0 #4d9fff;
+            text-shadow: -2px 0 #ffcc00;
             animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
         }
         .glitch::after {
             left: 2px;
-            text-shadow: 2px 0 #9d4dff;
+            text-shadow: 2px 0 #ffaa00;
             animation: glitch-anim-2 3.5s infinite linear alternate-reverse;
         }
         @keyframes glitch-anim-1 {
@@ -475,7 +490,7 @@
             100% { clip: rect(50px, 9999px, 95px, 0); }
         }
         .glitch span {
-            background: linear-gradient(135deg, #ffffff, #aac8ff, #9d4dff);
+            background: linear-gradient(135deg, #ffffff, #ffdd99, #ffaa00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -492,13 +507,13 @@
         .card {
             background: rgba(18, 22, 18, 0.6);
             backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(77, 159, 255, 0.25);
+            border: 1px solid rgba(255, 204, 0, 0.25);
             border-radius: 40px;
             padding: 2rem 1.8rem;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(77,159,255,0.1) inset;
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,204,0,0.1) inset;
             transform-style: preserve-3d;
             animation: cardAppear 0.8s ease backwards;
             cursor: default;
@@ -514,8 +529,8 @@
 
         .card:hover {
             transform: rotateX(2deg) rotateY(2deg) translateY(-10px) scale(1.02);
-            border-color: #4d9fff;
-            box-shadow: 0 40px 70px -15px rgba(77,159,255,0.4);
+            border-color: #ffcc00;
+            box-shadow: 0 40px 70px -15px rgba(255,204,0,0.4);
         }
 
         .card::before {
@@ -525,7 +540,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(77,159,255,0.15), transparent 70%);
+            background: radial-gradient(circle at 30% 30%, rgba(255,204,0,0.15), transparent 70%);
             opacity: 0;
             transition: opacity 0.5s;
             pointer-events: none;
@@ -541,7 +556,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, transparent 30%, rgba(77,159,255,0.3), rgba(157,77,255,0.3), transparent 70%);
+            background: linear-gradient(45deg, transparent 30%, rgba(255,204,0,0.3), rgba(255,170,0,0.3), transparent 70%);
             opacity: 0;
             transition: opacity 0.6s;
             pointer-events: none;
@@ -560,10 +575,10 @@
         .card-icon {
             font-size: 3.5rem;
             margin-bottom: 1.2rem;
-            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            background: linear-gradient(135deg, #ffdd99, #ffcc00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(77,159,255,0.4));
+            filter: drop-shadow(0 0 15px rgba(255,204,0,0.4));
             transition: transform 0.3s;
         }
         .card:hover .card-icon {
@@ -574,7 +589,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.8rem;
-            background: linear-gradient(135deg, #fff, #c0d0ff);
+            background: linear-gradient(135deg, #fff, #ffdd99);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -598,14 +613,14 @@
             gap: 10px;
             color: #d0e0f0;
             font-size: 0.95rem;
-            border-bottom: 1px dashed rgba(77,159,255,0.15);
+            border-bottom: 1px dashed rgba(255,204,0,0.15);
             padding-bottom: 0.6rem;
             position: relative;
             cursor: help;
             transition: 0.2s;
         }
         .feature-list li i {
-            color: #4d9fff;
+            color: #ffcc00;
             font-size: 1.2rem;
             width: 24px;
             text-shadow: 0 0 8px currentColor;
@@ -616,13 +631,13 @@
             bottom: 130%;
             left: 0;
             background: #1a1f1a;
-            color: #4d9fff;
+            color: #ffcc00;
             padding: 4px 12px;
             border-radius: 30px;
             font-size: 0.75rem;
             white-space: nowrap;
-            border: 1px solid #4d9fff;
-            box-shadow: 0 0 15px rgba(77,159,255,0.3);
+            border: 1px solid #ffcc00;
+            box-shadow: 0 0 15px rgba(255,204,0,0.3);
             z-index: 30;
             opacity: 0;
             transform: translateY(8px);
@@ -642,12 +657,12 @@
             gap: 12px;
             width: 100%;
             padding: 1rem 1.5rem;
-            background: rgba(77, 159, 255, 0.1);
-            border: 1.5px solid rgba(77, 159, 255, 0.4);
+            background: rgba(255, 204, 0, 0.1);
+            border: 1.5px solid rgba(255, 204, 0, 0.4);
             border-radius: 60px;
             font-size: 1rem;
             font-weight: 600;
-            color: #c0d0ff;
+            color: #ffdd99;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
@@ -664,7 +679,7 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(77, 159, 255, 0.3);
+            background: rgba(255, 204, 0, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
             z-index: 0;
@@ -678,10 +693,10 @@
             z-index: 2;
         }
         .btn:hover {
-            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            background: linear-gradient(135deg, #ffcc00, #ffaa00);
             border-color: transparent;
-            color: #fff;
-            box-shadow: 0 10px 25px rgba(77,159,255,0.4);
+            color: #000;
+            box-shadow: 0 10px 25px rgba(255,204,0,0.4);
         }
         .btn:hover i {
             transform: translateX(6px) scale(1.1);
@@ -691,11 +706,11 @@
         .config-panel {
             background: rgba(10, 15, 10, 0.6);
             backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(77, 159, 255, 0.2);
+            border: 1px solid rgba(255, 204, 0, 0.2);
             border-radius: 50px;
             padding: 2.5rem;
             margin: 3rem 0;
-            box-shadow: 0 30px 50px -30px rgba(77,159,255,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
+            box-shadow: 0 30px 50px -30px rgba(255,204,0,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
         }
 
         .config-panel h2 {
@@ -708,9 +723,9 @@
             font-weight: 600;
         }
         .config-panel h2 i {
-            color: #4d9fff;
+            color: #ffcc00;
             font-size: 2.2rem;
-            filter: drop-shadow(0 0 10px rgba(77,159,255,0.3));
+            filter: drop-shadow(0 0 10px rgba(255,204,0,0.3));
             animation: spin 8s linear infinite;
         }
         @keyframes spin {
@@ -729,30 +744,30 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 30px;
             padding: 1.5rem 1.5rem;
-            border: 1px solid rgba(77, 159, 255, 0.15);
+            border: 1px solid rgba(255, 204, 0, 0.15);
             transition: 0.3s;
             backdrop-filter: blur(8px);
             position: relative;
             overflow: hidden;
         }
         .step-config-item:hover {
-            border-color: #4d9fff;
+            border-color: #ffcc00;
             transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px rgba(77,159,255,0.3);
+            box-shadow: 0 20px 30px -10px rgba(255,204,0,0.3);
         }
         .step-config-number {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #4d9fff, #9d4dff);
+            background: linear-gradient(135deg, #ffcc00, #ffaa00);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
             font-size: 1.4rem;
-            color: #fff;
+            color: #000;
             margin-bottom: 1rem;
-            box-shadow: 0 0 15px rgba(77,159,255,0.5);
+            box-shadow: 0 0 15px rgba(255,204,0,0.5);
         }
         .step-config-item p {
             color: #c0d0d0;
@@ -764,22 +779,22 @@
         }
 
         .tutorial-box {
-            background: rgba(77, 159, 255, 0.08);
-            border-left: 6px solid #4d9fff;
+            background: rgba(255, 204, 0, 0.08);
+            border-left: 6px solid #ffcc00;
             padding: 1.5rem;
             border-radius: 24px;
             font-size: 0.95rem;
-            color: #d0e0f0;
+            color: #ffdd99;
             margin-top: 1.5rem;
             display: flex;
             align-items: center;
             gap: 15px;
-            box-shadow: 0 0 20px rgba(77,159,255,0.2);
+            box-shadow: 0 0 20px rgba(255,204,0,0.2);
             backdrop-filter: blur(5px);
         }
         .tutorial-box i {
             font-size: 1.8rem;
-            color: #4d9fff;
+            color: #ffcc00;
         }
 
         /* ---------- FOOTER ---------- */
@@ -790,11 +805,11 @@
             flex-wrap: wrap;
             margin-top: 3rem;
             padding: 1.5rem 0 0.5rem;
-            border-top: 1px solid rgba(77,159,255,0.2);
+            border-top: 1px solid rgba(255,204,0,0.2);
             color: #808080;
         }
         .footer .copyright i {
-            color: #4d9fff;
+            color: #ffcc00;
             margin-right: 6px;
         }
         .footer .social a {
@@ -805,7 +820,7 @@
             display: inline-block;
         }
         .footer .social a:hover {
-            color: #4d9fff;
+            color: #ffcc00;
             transform: translateY(-5px);
         }
 
@@ -863,9 +878,9 @@
             <span><strong>PERHATIAN:</strong> Halaman ini dibuka langsung dari file lokal. Gunakan <strong>Live Server</strong> untuk pengalaman terbaik.</span>
         </div>
 
-        <!-- STEPS ROW: STEP 1 + STEP 2 (GAMBAR KLIKABLE POPUP) -->
+        <!-- STEPS ROW: STEP 1 + STEP 2 -->
         <div class="steps-row">
-            <!-- STEP 1: TAMPERMONKEY INSTALL (LANGKAH PERTAMA) -->
+            <!-- STEP 1: TAMPERMONKEY INSTALL -->
             <div class="step-one-card">
                 <div class="step-number-badge">
                     <span>1</span>
@@ -885,36 +900,36 @@
                 </div>
             </div>
 
-            <!-- STEP 2: LANGKAH 2 SAMPAI 5 DENGAN GAMBAR (UKURAN LEBIH BESAR) -->
+            <!-- STEP 2: LANGKAH 2 SAMPAI 5 DENGAN GAMBAR BARU -->
             <div class="step-two">
-                <!-- LANGKAH KE 2 -->
+                <!-- LANGKAH KE 2 - Buka Chrome Web Store -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 2</div>
-                    <img src="https://i.postimg.cc/3Wy0Gm2L/1.jpg" alt="Langkah 2" onerror="this.onerror=null; this.src='https://i.postimg.cc/WzfhtR4j/4568.png';">
+                    <img src="https://i.postimg.cc/bvZs4bKg/Sleekshot-1.png" alt="Langkah 2" onerror="this.onerror=null; this.src='https://i.postimg.cc/WzfhtR4j/4568.png';">
                     <p>Buka Chrome Web Store</p>
                 </div>
-                <!-- LANGKAH KE 3 -->
+                <!-- LANGKAH KE 3 - Cari "Tampermonkey" -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 3</div>
-                    <img src="https://i.postimg.cc/QKpXb883/2.jpg" alt="Langkah 3" onerror="this.onerror=null; this.src='https://i.postimg.cc/Kv68WD3h/555555.png';">
+                    <img src="https://i.postimg.cc/prHr9Syg/Langkah-Langkah-Pasang-Tempermonkey.png" alt="Langkah 3" onerror="this.onerror=null; this.src='https://i.postimg.cc/Kv68WD3h/555555.png';">
                     <p>Cari "Tampermonkey"</p>
                 </div>
-                <!-- LANGKAH KE 4 -->
+                <!-- LANGKAH KE 4 - Klik "Add to Chrome" -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 4</div>
-                    <img src="https://i.postimg.cc/R6t9SSnJ/3.jpg" alt="Langkah 4" onerror="this.onerror=null; this.src='https://i.postimg.cc/jq9xW4hG/878788.png';">
+                    <img src="https://i.postimg.cc/SNmjkHBD/Sleekshot-3.png" alt="Langkah 4" onerror="this.onerror=null; this.src='https://i.postimg.cc/jq9xW4hG/878788.png';">
                     <p>Klik "Add to Chrome"</p>
                 </div>
-                <!-- LANGKAH KE 5 -->
+                <!-- LANGKAH KE 5 - Konfirmasi instalasi -->
                 <div class="step-two-item" onclick="openModal(this)">
                     <div class="step-two-label">LANGKAH KE 5</div>
-                    <img src="https://i.postimg.cc/pm1tKhf8/4.jpg" alt="Langkah 5" onerror="this.onerror=null; this.src='https://i.postimg.cc/Hk0dhDCX/5544777.png';">
+                    <img src="https://i.postimg.cc/RZD01hN7/Sleekshot-4.png" alt="Langkah 5" onerror="this.onerror=null; this.src='https://i.postimg.cc/Hk0dcDHX/5544777.png';">
                     <p>Konfirmasi instalasi</p>
                 </div>
             </div>
         </div>
 
-        <!-- HEADER dengan instruksi baru -->
+        <!-- HEADER -->
         <div class="header">
             <div class="badge">
                 <i class="fas fa-info-circle"></i> SETELAH ANDA MENGIKUTI LANGKAH-LANGKAH DI ATAS, ANDA DAPAT MEMASANG 3 DETEKTOR DI BAWAH
@@ -1009,7 +1024,7 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP (UKURAN DISESUAIKAN) -->
+    <!-- MODAL POPUP - GAMBAR SANGAT BESAR DAN JELAS -->
     <div id="imageModal" class="modal" onclick="closeModalOnClick(event)">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -1059,7 +1074,7 @@
             if (img) {
                 const modal = document.getElementById('imageModal');
                 const modalImg = document.getElementById('modalImage');
-                modalImg.src = img.src; // gunakan src yang sama (bisa jadi placeholder)
+                modalImg.src = img.src; // gunakan src yang sama
                 modal.classList.add('active');
             }
         }
@@ -1069,13 +1084,11 @@
         }
 
         function closeModalOnClick(event) {
-            // Jika klik di luar modal-content (yaitu di backdrop), tutup modal
             if (event.target === document.getElementById('imageModal')) {
                 closeModal();
             }
         }
 
-        // Tutup modal dengan tombol ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
@@ -1084,4 +1097,3 @@
     </script>
 </body>
 </html>
-
