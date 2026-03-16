@@ -3,112 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canggih · Screen Recorder dengan Jam Canvas</title>
+    <title>Screen Recorder · Jam Pasti Terekam</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         body {
-            background: radial-gradient(circle at 20% 30%, #f0e9e0, #e0d2c4);
+            background: linear-gradient(145deg, #f0e9e0, #e2d6ca);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
         }
-        .glass-panel {
-            max-width: 1200px;
+        .card {
+            max-width: 1100px;
             width: 100%;
-            background: rgba(255, 250, 245, 0.6);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background: rgba(255, 250, 245, 0.8);
+            backdrop-filter: blur(16px);
             border-radius: 3rem;
-            box-shadow: 0 30px 60px -20px #4f3e30, 0 0 0 1px rgba(255, 245, 235, 0.7) inset;
-            padding: 2.5rem;
-            border: 1px solid #fff3e8;
+            box-shadow: 0 30px 60px -20px #5f4b3b;
+            padding: 2rem 2.5rem;
+            border: 1px solid #fff7ef;
         }
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            background: linear-gradient(145deg, #3a2c1f, #7a6049);
+            background: linear-gradient(145deg, #4a3828, #826a54);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            margin-bottom: 0.3rem;
         }
         .sub {
             color: #8f7b68;
-            border-left: 4px solid #dabfa8;
+            border-left: 4px solid #ddc2a8;
             padding-left: 1.2rem;
-            margin: 0.5rem 0 2rem 0;
+            margin-bottom: 2rem;
             font-size: 1.1rem;
         }
-        .control-bar {
+        .url-section {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-        .url-input {
+        .url-section input {
             flex: 1;
-            min-width: 300px;
-            display: flex;
-            background: #f3ebe2;
-            border-radius: 80px;
-            padding: 0.3rem;
-            box-shadow: inset 0 2px 5px #00000010;
-        }
-        .url-input input {
-            flex: 1;
-            border: none;
-            background: transparent;
+            min-width: 250px;
             padding: 1rem 1.5rem;
+            border: none;
+            background: #f3ebe2;
+            border-radius: 60px;
             font-size: 1rem;
             outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
-        .url-input button {
-            background: #e7d9cc;
+        .url-section button {
+            background: #e8dacb;
             border: none;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.2rem;
             border-radius: 60px;
             font-weight: 600;
             color: #4f3e2e;
             cursor: pointer;
-            transition: 0.2s;
             font-size: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .url-input button:hover {
-            background: #dac8b7;
+        .url-section button:hover {
+            background: #dcccba;
         }
-        .preview-area {
+        .preview-container {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: #1e1b18;
+            background: #1f1b18;
             border-radius: 2.2rem;
             overflow: hidden;
-            box-shadow: 0 25px 40px -12px #4f3e30;
-            border: 2px solid #fffaf2;
+            border: 3px solid #fff5ea;
+            box-shadow: 0 25px 40px -12px #6e5744;
             margin-bottom: 2rem;
         }
-        #previewCanvas {
+        #content-frame {
             width: 100%;
             height: 100%;
-            display: block;
+            border: none;
+            background: white;
         }
-        .status-badge {
+        .fallback-message {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: #2f2a24;
+            color: #ffebd2;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+        }
+        /* JAM OVERLAY - SANGAT BESAR */
+        .clock-overlay {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            font-size: 2.8rem;
+            font-weight: bold;
+            padding: 1rem 2rem;
+            border-radius: 4rem;
+            border: 4px solid white;
+            box-shadow: 0 0 40px #ffbb33;
+            z-index: 10000;
+            pointer-events: none;
+            text-align: center;
+            line-height: 1.3;
+            backdrop-filter: blur(2px);
+        }
+        .date {
+            font-size: 1.5rem;
+            color: white;
+        }
+        .rec-indicator {
             position: absolute;
             top: 20px;
             right: 20px;
             background: #c03535;
             color: white;
-            padding: 0.6rem 1.4rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -116,9 +149,9 @@
             box-shadow: 0 0 20px #ff4f4f;
             opacity: 0;
             transition: opacity 0.2s;
-            z-index: 10;
+            z-index: 10001;
         }
-        .status-badge.visible { opacity: 1; }
+        .visible { opacity: 1; }
         .dot {
             width: 16px;
             height: 16px;
@@ -130,29 +163,14 @@
             0% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(1.2); }
         }
-        .timer-display {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #000000aa;
-            backdrop-filter: blur(4px);
-            color: #ffd966;
-            font-family: 'Courier New', monospace;
-            font-size: 1.8rem;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            border: 1px solid #ffffff80;
-            z-index: 10;
-        }
-        .action-buttons {
+        .controls {
             display: flex;
             justify-content: center;
             gap: 1.2rem;
-            margin: 1.8rem 0;
+            margin: 1.5rem 0;
         }
         .btn {
             border: none;
-            background: white;
             padding: 1rem 3rem;
             border-radius: 60px;
             font-size: 1.3rem;
@@ -161,37 +179,56 @@
             align-items: center;
             gap: 0.8rem;
             cursor: pointer;
-            box-shadow: 0 10px 25px -10px #5a4a3a;
+            box-shadow: 0 10px 20px -8px #5f4a38;
             transition: 0.2s;
         }
         .btn.primary {
-            background: #ffc7a2;
-            color: #6e3f22;
+            background: #ffb48a;
+            color: #6b3c1f;
         }
         .btn.primary.recording {
-            background: #ff9f6e;
+            background: #ff9966;
             animation: soft-pulse 1.2s infinite;
         }
         @keyframes soft-pulse {
-            0% { box-shadow: 0 0 0 0 #ff9f6e; }
-            70% { box-shadow: 0 0 0 15px #ff9f6e00; }
+            0% { box-shadow: 0 0 0 0 #ff9966; }
+            70% { box-shadow: 0 0 0 15px #ff996600; }
         }
         .btn.secondary {
-            background: #e4d8cc;
+            background: #e2d6c8;
             color: #4f3f30;
         }
         .btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
-            animation: none;
         }
-        .result-panel {
-            background: #fcf5ee;
+        .instruction-box {
+            background: #fff6eb;
+            border-left: 8px solid #ffaa66;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .instruction-box p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .highlight {
+            background: #ffdbb5;
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+        }
+        .warning {
+            color: #b64926;
+            font-weight: 600;
+        }
+        .result-box {
+            background: #fcf4ec;
             border-radius: 2rem;
             padding: 1.8rem;
-            margin-top: 1.8rem;
+            margin-top: 2rem;
             display: none;
-            border: 1px solid #ffe6d6;
         }
         .result-header {
             display: flex;
@@ -205,13 +242,12 @@
             font-size: 1.8rem;
             color: #3f3125;
         }
-        .rec-time {
-            background: #2f2923;
+        .timestamp {
+            background: #2f2a24;
             color: #ffd966;
             padding: 0.5rem 1.5rem;
             border-radius: 40px;
             font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
         }
         .video-wrapper {
             width: 100%;
@@ -221,12 +257,11 @@
             background: black;
             aspect-ratio: 16/9;
         }
-        #recordedVideo {
+        #recorded-video {
             width: 100%;
             height: 100%;
-            background: black;
         }
-        .link-bar {
+        .link-group {
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -236,7 +271,7 @@
             border-radius: 60px;
             padding: 0.3rem 0.3rem 0.3rem 1.5rem;
         }
-        .link-bar span {
+        .link-group span {
             color: #5f5243;
             font-size: 0.95rem;
             overflow: hidden;
@@ -244,7 +279,7 @@
             white-space: nowrap;
             flex: 1;
         }
-        .link-bar a, .link-bar button {
+        .link-group a, .link-group button {
             background: #eedbcb;
             padding: 0.6rem 1.3rem;
             border-radius: 40px;
@@ -254,9 +289,8 @@
             border: none;
             cursor: pointer;
             font-size: 0.95rem;
-            white-space: nowrap;
         }
-        .link-bar a:hover, .link-bar button:hover {
+        .link-group a:hover, .link-group button:hover {
             background: #e3cdb8;
         }
         .info-note {
@@ -264,74 +298,67 @@
             color: #9b8875;
             margin-top: 1rem;
         }
-        .instruction-box {
-            background: #fffaef;
-            border-left: 8px solid #ffaa66;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            margin: 1.5rem 0 0.5rem;
-        }
-        .instruction-box p {
-            margin: 0.5rem 0;
-            font-size: 1.05rem;
-        }
-        .highlight {
-            background: #ffdbb5;
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
-    <div class="glass-panel">
-        <h1>⚡ Canvas Recorder · Jam Terekam Otomatis</h1>
-        <div class="sub">Jam digambar langsung ke video, 100% terekam meski tab berubah</div>
+    <div class="card">
+        <h1>⏰ Recorder + Jam Terekam</h1>
+        <div class="sub">Tempel link, lihat di preview, rekam tab ini — jam pasti ikut terekam</div>
 
-        <!-- Input URL opsional -->
-        <div class="control-bar">
-            <div class="url-input">
-                <input type="url" id="urlInput" placeholder="https://my.livechatinc.com (opsional)" value="">
-                <button id="loadBtn">Tampilkan di Preview</button>
-            </div>
+        <!-- Input URL -->
+        <div class="url-section">
+            <input type="url" id="urlInput" placeholder="https://my.livechatinc.com atau video.mp4" value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
+            <button id="loadBtn">Tampilkan di Preview</button>
         </div>
 
-        <!-- Area preview dengan canvas -->
-        <div class="preview-area">
-            <canvas id="previewCanvas"></canvas>
-            <div class="status-badge" id="recordIndicator">
+        <!-- Preview dengan jam overlay -->
+        <div class="preview-container">
+            <iframe id="content-frame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation" allow="autoplay; encrypted-media; fullscreen"></iframe>
+            <div class="fallback-message" id="fallbackMsg">
+                <div style="font-size:2.5rem;">🔒</div>
+                <div style="margin-top:1rem;">Situs tidak dapat ditampilkan di iframe.</div>
+                <div style="margin-top:0.5rem;">Buka di tab terpisah, lalu atur split screen dengan tab ini.</div>
+            </div>
+            <!-- Jam HTML (bukan canvas) -->
+            <div class="clock-overlay" id="liveClock">
+                <div class="date" id="liveDate"></div>
+                <div id="liveTime"></div>
+            </div>
+            <div class="rec-indicator" id="indicator">
                 <span class="dot"></span> MEREKAM
             </div>
-            <div class="timer-display" id="timerDisplay">00:00:00</div>
         </div>
 
         <!-- Tombol -->
-        <div class="action-buttons">
-            <button class="btn primary" id="startBtn">🎬 Mulai Rekam</button>
-            <button class="btn secondary" id="stopBtn" disabled>⏹️ Stop</button>
+        <div class="controls">
+            <button class="btn primary" id="startBtn">🎬 MULAI REKAM (TAB INI)</button>
+            <button class="btn secondary" id="stopBtn" disabled>⏹️ STOP</button>
         </div>
 
-        <!-- Petunjuk -->
+        <!-- INSTRUKSI SUPER JELAS -->
         <div class="instruction-box">
-            <p><strong>📌 Cara kerja canggih:</strong> Jam digambar langsung ke video menggunakan canvas, sehingga <span class="highlight">pasti terekam</span> tidak peduli tab mana yang dipilih.</p>
-            <p>1. Klik <span class="highlight">Mulai Rekam</span>, pilih tab/jendela mana saja (bisa tab lain).</p>
-            <p>2. Jam akan muncul di pojok kiri bawah video hasil.</p>
-            <p>3. Selesai, klik Stop. Video bisa diputar dan diunduh.</p>
+            <p><strong>📌 LANGKAH WAJIB AGAR JAM TEREKAM:</strong></p>
+            <p>1️⃣ Klik <span class="highlight">MULAI REKAM</span>.</p>
+            <p>2️⃣ Di dialog browser, pilih <span class="highlight">"Tab"</span>.</p>
+            <p>3️⃣ <span class="highlight">Pilih tab ini</span> (judul: "Screen Recorder · Jam Pasti Terekam").</p>
+            <p>4️⃣ Centang <span class="highlight">"Bagikan audio"</span> jika perlu, lalu klik Izinkan.</p>
+            <p class="warning">⚠️ Jangan pilih "Entire Screen" atau tab lain — hanya tab ini!</p>
+            <p>5️⃣ Setelah selesai, klik STOP. Video akan muncul di bawah dengan jam yang terekam.</p>
         </div>
 
         <!-- Hasil rekaman -->
-        <div class="result-panel" id="resultPanel">
+        <div class="result-box" id="resultBox">
             <div class="result-header">
-                <h3>📀 Hasil Rekaman</h3>
-                <div class="rec-time" id="recordEndTime">--</div>
+                <h3>📁 Hasil Rekaman</h3>
+                <div class="timestamp" id="recordingTimestamp">--</div>
             </div>
             <div class="video-wrapper">
-                <video id="recordedVideo" controls playsinline></video>
+                <video id="recorded-video" controls playsinline></video>
             </div>
-            <div class="link-bar">
+            <div class="link-group">
                 <span id="linkText">tautan sementara...</span>
                 <a href="#" id="playLink" target="_blank">▶️ Putar</a>
-                <a href="#" id="downloadLink" download="canvas_recording.webm">⬇️ Unduh</a>
+                <a href="#" id="downloadLink" download="rekaman.webm">⬇️ Unduh</a>
                 <button id="copyBtn">📋 Salin</button>
             </div>
             <div class="info-note" id="fileInfo"></div>
@@ -340,144 +367,103 @@
 
     <script>
         (function() {
-            // --- Elemen DOM ---
+            // ===== ELEMEN DOM =====
             const urlInput = document.getElementById('urlInput');
             const loadBtn = document.getElementById('loadBtn');
-            const canvas = document.getElementById('previewCanvas');
-            const ctx = canvas.getContext('2d');
+            const contentFrame = document.getElementById('content-frame');
+            const fallbackMsg = document.getElementById('fallbackMsg');
             const startBtn = document.getElementById('startBtn');
             const stopBtn = document.getElementById('stopBtn');
-            const recordIndicator = document.getElementById('recordIndicator');
-            const timerDisplay = document.getElementById('timerDisplay');
-            const resultPanel = document.getElementById('resultPanel');
-            const recordedVideo = document.getElementById('recordedVideo');
+            const indicator = document.getElementById('indicator');
+            const liveDate = document.getElementById('liveDate');
+            const liveTime = document.getElementById('liveTime');
+            const resultBox = document.getElementById('resultBox');
+            const recordedVideo = document.getElementById('recorded-video');
             const playLink = document.getElementById('playLink');
             const downloadLink = document.getElementById('downloadLink');
             const copyBtn = document.getElementById('copyBtn');
             const linkText = document.getElementById('linkText');
             const fileInfo = document.getElementById('fileInfo');
-            const recordEndTime = document.getElementById('recordEndTime');
+            const recordingTimestamp = document.getElementById('recordingTimestamp');
 
-            // --- State ---
-            let mediaStream = null;           // stream dari getDisplayMedia
-            let canvasStream = null;           // stream dari canvas (output)
+            // ===== STATE =====
+            let mediaStream = null;
             let mediaRecorder = null;
             let recordedChunks = [];
             let startTime = null;
             let timerInterval = null;
-            let animationFrame = null;
-            let captureInterval = null;
-            let isRecording = false;
 
-            // Sumber konten: bisa dari iframe atau video? Untuk kesederhanaan, kita hanya gambar latar abu-abu.
-            // Tapi kita bisa memuat website ke iframe tersembunyi lalu digambar ke canvas? Itu kompleks dan rawan CORS.
-            // Untuk demo, kita akan biarkan canvas menampilkan jam saja + teks instruksi.
-            // Jika ingin menampilkan konten dari URL, sebaiknya gunakan <video> atau <iframe> terpisah, tapi tidak bisa digabung langsung ke canvas karena CORS.
-            // Solusi: Tampilkan konten di elemen terpisah di bawah canvas? Tidak ideal.
-            // Untuk memenuhi permintaan "rekam dengan jam", kita cukup tampilkan jam besar dan instruksi.
-
-            // Fungsi menggambar canvas (jam + latar)
-            function drawCanvas() {
-                const width = canvas.width;
-                const height = canvas.height;
-
-                // Latar belakang (abu-abu gelap)
-                ctx.fillStyle = '#1e1b18';
-                ctx.fillRect(0, 0, width, height);
-
-                // Teks instruksi
-                ctx.font = 'bold 24px Inter, sans-serif';
-                ctx.fillStyle = '#ffffff30';
-                ctx.textAlign = 'center';
-                ctx.fillText('Canvas Recorder', width/2, height/2 - 40);
-                ctx.font = '16px Inter';
-                ctx.fillStyle = '#ffffff60';
-                ctx.fillText('Jam akan digambar di pojok kiri bawah', width/2, height/2 + 20);
-
-                // Gambar jam real-time di pojok kiri bawah
+            // ===== JAM UPDATE REAL-TIME =====
+            function updateClock() {
                 const now = new Date();
-                const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                const timeStr = now.toLocaleTimeString('id-ID', { hour12: false });
-
-                ctx.font = 'bold 40px "Courier New", monospace';
-                ctx.fillStyle = '#ffd966';
-                ctx.shadowColor = 'black';
-                ctx.shadowBlur = 10;
-                ctx.shadowOffsetX = 2;
-                ctx.shadowOffsetY = 2;
-                ctx.textAlign = 'left';
-                ctx.fillText(timeStr, 30, height - 40);
-                ctx.font = 'bold 20px "Courier New", monospace';
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(dateStr, 30, height - 90);
-                ctx.shadowBlur = 0; // reset
+                const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                liveDate.textContent = now.toLocaleDateString('id-ID', optionsDate);
+                liveTime.textContent = now.toLocaleTimeString('id-ID', { hour12: false });
             }
+            updateClock();
+            setInterval(updateClock, 1000);
 
-            // Resize canvas mengikuti container
-            function resizeCanvas() {
-                const container = canvas.parentElement;
-                const rect = container.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                drawCanvas();
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            // Update canvas setiap detik (untuk jam)
-            setInterval(() => {
-                if (!isRecording) drawCanvas(); // hanya gambar jika tidak sedang rekam? sebaiknya tetap gambar untuk preview
-                drawCanvas();
-            }, 1000);
-
-            // --- Muat URL (simulasi: hanya tampilkan pesan) ---
-            loadBtn.addEventListener('click', () => {
-                const url = urlInput.value.trim();
-                if (url) {
-                    alert('Fitur pratinjau URL memerlukan iframe dengan CORS. Untuk demo, kami tampilkan jam saja.\n\nAnda bisa memasukkan link ke situs yang ingin direkam, lalu saat merekam pilih tab tersebut.');
-                } else {
-                    alert('Masukkan URL untuk petunjuk.');
+            // ===== MEMUAT KONTEN DARI URL =====
+            function loadContent() {
+                let url = urlInput.value.trim();
+                if (!url) {
+                    alert('Masukkan URL');
+                    return;
                 }
-            });
+                if (!url.startsWith('http')) url = 'https://' + url;
+                urlInput.value = url;
 
-            // --- Timer update ---
-            function updateTimer() {
-                if (!startTime) return;
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                const h = Math.floor(elapsed / 3600).toString().padStart(2, '0');
-                const m = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
-                const s = (elapsed % 60).toString().padStart(2, '0');
-                timerDisplay.textContent = `${h}:${m}:${s}`;
+                // Reset tampilan
+                contentFrame.style.display = 'block';
+                fallbackMsg.style.display = 'none';
+                contentFrame.src = url;
+
+                // Deteksi jika iframe gagal memuat
+                let timeout = setTimeout(() => {
+                    // Jika masih loading, anggap gagal
+                    fallbackMsg.style.display = 'flex';
+                    contentFrame.style.display = 'none';
+                }, 5000);
+
+                contentFrame.onload = () => {
+                    clearTimeout(timeout);
+                    // Coba cek apakah konten kosong (untuk beberapa situs yang menolak iframe)
+                    try {
+                        const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+                        if (iframeDoc.URL === 'about:blank' || iframeDoc.body.innerHTML === '') {
+                            fallbackMsg.style.display = 'flex';
+                            contentFrame.style.display = 'none';
+                        }
+                    } catch (e) {
+                        // Cross-origin: tidak bisa diakses, tapi mungkin konten tampil? Kita asumsikan tampil.
+                        // Jika ternyata tidak tampil, user akan lihat kosong, bisa pakai fallback manual.
+                    }
+                };
+                contentFrame.onerror = () => {
+                    clearTimeout(timeout);
+                    fallbackMsg.style.display = 'flex';
+                    contentFrame.style.display = 'none';
+                };
             }
+            loadBtn.addEventListener('click', loadContent);
+            urlInput.addEventListener('keypress', e => e.key === 'Enter' && loadContent());
 
-            // --- Rekam canvas ---
+            // ===== REKAM TAB INI =====
             async function startRecording() {
                 try {
-                    // Dapatkan stream dari canvas
-                    canvasStream = canvas.captureStream(30); // 30 fps
+                    // Minta akses untuk merekam tab
+                    mediaStream = await navigator.mediaDevices.getDisplayMedia({
+                        video: true,
+                        audio: true
+                    });
 
-                    // Minta stream layar (opsional: kita bisa rekam canvas saja, tapi user ingin rekam tab lain?
-                    // Sebenarnya kita ingin menggabungkan canvas dengan stream dari tab lain? Tidak, kita buat canvas sebagai sumber video.
-                    // Jadi kita rekam canvas ini, yang menampilkan jam + nanti bisa kita gambar konten dari iframe? terlalu kompleks.
-                    // Untuk demo, kita akan rekam canvas ini saja. Jika ingin merekam tab lain, user harus memilih tab tersebut.
-                    // Tapi kita janjikan jam terekam, maka kita akan rekam canvas ini + kita bisa tambahkan audio dari mikrofon jika mau.
+                    // Jika pengguna membatalkan atau memilih sumber yang salah, kita tetap lanjut
+                    // Tapi kita kasih peringatan di console
+                    const track = mediaStream.getVideoTracks()[0];
+                    track.addEventListener('ended', () => {
+                        stopRecording();
+                    });
 
-                    // Tanyakan izin audio (mikrofon) jika diinginkan
-                    let audioStream = null;
-                    try {
-                        audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    } catch (e) {
-                        console.log('Audio tidak diizinkan, rekam tanpa audio');
-                    }
-
-                    // Gabungkan stream: video dari canvas, audio dari mikrofon (jika ada)
-                    let tracks = canvasStream.getVideoTracks();
-                    if (audioStream) {
-                        tracks = tracks.concat(audioStream.getAudioTracks());
-                    }
-                    const finalStream = new MediaStream(tracks);
-
-                    // Siapkan recorder
                     recordedChunks = [];
                     const mimeTypes = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
                     let options = {};
@@ -487,7 +473,7 @@
                             break;
                         }
                     }
-                    mediaRecorder = new MediaRecorder(finalStream, options);
+                    mediaRecorder = new MediaRecorder(mediaStream, options);
 
                     mediaRecorder.ondataavailable = (e) => {
                         if (e.data.size > 0) recordedChunks.push(e.data);
@@ -500,56 +486,58 @@
                         playLink.href = url;
                         downloadLink.href = url;
                         linkText.textContent = url.slice(0, 45) + '…';
-                        const sizeMB = (blob.size / (1024*1024)).toFixed(2);
+                        const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
                         fileInfo.textContent = `📁 Ukuran: ${sizeMB} MB`;
 
+                        // Tampilkan waktu selesai rekam
                         const now = new Date();
-                        recordEndTime.textContent = now.toLocaleString('id-ID', { 
-                            weekday:'long', year:'numeric', month:'long', day:'numeric', 
-                            hour:'2-digit', minute:'2-digit', second:'2-digit' 
+                        recordingTimestamp.textContent = now.toLocaleString('id-ID', {
+                            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                            hour: '2-digit', minute: '2-digit', second: '2-digit'
                         });
 
-                        resultPanel.style.display = 'block';
+                        resultBox.style.display = 'block';
 
-                        // Hentikan stream
-                        finalStream.getTracks().forEach(t => t.stop());
-                        if (audioStream) audioStream.getTracks().forEach(t => t.stop());
-                        isRecording = false;
+                        // Hentikan semua track
+                        mediaStream.getTracks().forEach(t => t.stop());
                         resetUI();
                     };
 
                     mediaRecorder.start();
                     startTime = Date.now();
                     timerInterval = setInterval(updateTimer, 200);
-                    recordIndicator.classList.add('visible');
+                    indicator.classList.add('visible');
                     startBtn.disabled = true;
                     stopBtn.disabled = false;
                     startBtn.classList.add('recording');
-                    isRecording = true;
-
-                    // Animasi canvas update (tetap berjalan)
                 } catch (err) {
-                    alert('Gagal memulai rekaman: ' + err.message);
+                    alert('Gagal merekam: ' + err.message + '\nPastikan Anda mengizinkan akses dan memilih tab ini.');
                 }
+            }
+
+            function updateTimer() {
+                if (!startTime) return;
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const h = Math.floor(elapsed / 3600).toString().padStart(2, '0');
+                const m = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
+                const s = (elapsed % 60).toString().padStart(2, '0');
+                // Kita tidak menampilkan timer di UI, opsional
             }
 
             function stopRecording() {
                 if (mediaRecorder && mediaRecorder.state !== 'inactive') {
                     mediaRecorder.stop();
                 }
-                clearInterval(timerInterval);
-                recordIndicator.classList.remove('visible');
+                indicator.classList.remove('visible');
                 stopBtn.disabled = true;
                 startBtn.classList.remove('recording');
-                isRecording = false;
             }
 
             function resetUI() {
                 startBtn.disabled = false;
                 stopBtn.disabled = true;
-                recordIndicator.classList.remove('visible');
+                indicator.classList.remove('visible');
                 startBtn.classList.remove('recording');
-                timerDisplay.textContent = '00:00:00';
             }
 
             startBtn.addEventListener('click', startRecording);
@@ -564,14 +552,8 @@
                 }
             });
 
-            // Jaga canvas tetap terupdate selama rekaman
-            function animate() {
-                if (isRecording) {
-                    drawCanvas();
-                }
-                requestAnimationFrame(animate);
-            }
-            animate();
+            // Muat contoh default
+            loadContent();
         })();
     </script>
 </body>
