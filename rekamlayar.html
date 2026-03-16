@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screen Recorder · Jam Pasti Terekam</title>
+    <title>Screen Recorder · Jam Terekam (Solusi Iframe Diblokir)</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         body {
-            background: linear-gradient(145deg, #f0e9e0, #e2d6ca);
+            background: linear-gradient(145deg, #f3ece3, #e2d5c8);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -26,7 +26,7 @@
             backdrop-filter: blur(16px);
             border-radius: 3rem;
             box-shadow: 0 30px 60px -20px #5f4b3b;
-            padding: 2rem 2.5rem;
+            padding: 2rem;
             border: 1px solid #fff7ef;
         }
         h1 {
@@ -38,13 +38,12 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            margin-bottom: 0.3rem;
         }
         .sub {
             color: #8f7b68;
             border-left: 4px solid #ddc2a8;
             padding-left: 1.2rem;
-            margin-bottom: 2rem;
+            margin: 0.5rem 0 2rem 0;
             font-size: 1.1rem;
         }
         .url-section {
@@ -67,107 +66,44 @@
         .url-section button {
             background: #e8dacb;
             border: none;
-            padding: 1rem 2.2rem;
+            padding: 1rem 2rem;
             border-radius: 60px;
             font-weight: 600;
             color: #4f3e2e;
             cursor: pointer;
             font-size: 1rem;
             transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .url-section button:hover {
             background: #dcccba;
         }
-        .preview-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
+        /* Jam besar */
+        .clock-container {
             background: #1f1b18;
             border-radius: 2.2rem;
-            overflow: hidden;
-            border: 3px solid #fff5ea;
-            box-shadow: 0 25px 40px -12px #6e5744;
-            margin-bottom: 2rem;
-        }
-        #content-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
-        }
-        .fallback-message {
-            display: none;
-            width: 100%;
-            height: 100%;
-            background: #2f2a24;
-            color: #ffebd2;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
             padding: 2rem;
-            font-size: 1.2rem;
-        }
-        /* JAM OVERLAY - SANGAT BESAR */
-        .clock-overlay {
-            position: absolute;
-            bottom: 25px;
-            left: 25px;
-            background: rgba(0, 0, 0, 0.85);
-            color: #ffd966;
-            font-family: 'Courier New', monospace;
-            font-size: 2.8rem;
-            font-weight: bold;
-            padding: 1rem 2rem;
-            border-radius: 4rem;
-            border: 4px solid white;
-            box-shadow: 0 0 40px #ffbb33;
-            z-index: 10000;
-            pointer-events: none;
+            margin-bottom: 2rem;
             text-align: center;
-            line-height: 1.3;
-            backdrop-filter: blur(2px);
+            border: 3px solid #ffd966;
+            box-shadow: 0 0 30px #ffaa33;
+        }
+        .clock {
+            font-family: 'Courier New', monospace;
+            color: #ffd966;
+            font-size: 5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            text-shadow: 0 0 20px #ffaa33;
         }
         .date {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: white;
-        }
-        .rec-indicator {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #c03535;
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 40px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 2px solid #ffae8a;
-            box-shadow: 0 0 20px #ff4f4f;
-            opacity: 0;
-            transition: opacity 0.2s;
-            z-index: 10001;
-        }
-        .visible { opacity: 1; }
-        .dot {
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            animation: pulse 1.2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
         }
         .controls {
             display: flex;
             justify-content: center;
             gap: 1.2rem;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
         .btn {
             border: none;
@@ -204,13 +140,13 @@
         }
         .instruction-box {
             background: #fff6eb;
-            border-left: 8px solid #ffaa66;
             border-radius: 2rem;
             padding: 1.5rem;
             margin: 1.5rem 0;
+            border-left: 8px solid #ffaa66;
         }
         .instruction-box p {
-            margin: 0.5rem 0;
+            margin: 0.8rem 0;
             font-size: 1.1rem;
         }
         .highlight {
@@ -293,57 +229,40 @@
         .link-group a:hover, .link-group button:hover {
             background: #e3cdb8;
         }
-        .info-note {
-            text-align: center;
-            color: #9b8875;
-            margin-top: 1rem;
-        }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>⏰ Recorder + Jam Terekam</h1>
-        <div class="sub">Tempel link, lihat di preview, rekam tab ini — jam pasti ikut terekam</div>
+        <h1>⏰ Recorder + Jam (Anti Iframe)</h1>
+        <div class="sub">Jika link tidak bisa ditampilkan, buka di tab baru dan rekam seluruh layar</div>
 
         <!-- Input URL -->
         <div class="url-section">
-            <input type="url" id="urlInput" placeholder="https://my.livechatinc.com atau video.mp4" value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
-            <button id="loadBtn">Tampilkan di Preview</button>
+            <input type="url" id="urlInput" placeholder="https://my.livechatinc.com atau situs lain" value="https://my.livechatinc.com">
+            <button id="openBtn">Buka di Tab Baru</button>
         </div>
 
-        <!-- Preview dengan jam overlay -->
-        <div class="preview-container">
-            <iframe id="content-frame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation" allow="autoplay; encrypted-media; fullscreen"></iframe>
-            <div class="fallback-message" id="fallbackMsg">
-                <div style="font-size:2.5rem;">🔒</div>
-                <div style="margin-top:1rem;">Situs tidak dapat ditampilkan di iframe.</div>
-                <div style="margin-top:0.5rem;">Buka di tab terpisah, lalu atur split screen dengan tab ini.</div>
-            </div>
-            <!-- Jam HTML (bukan canvas) -->
-            <div class="clock-overlay" id="liveClock">
-                <div class="date" id="liveDate"></div>
-                <div id="liveTime"></div>
-            </div>
-            <div class="rec-indicator" id="indicator">
-                <span class="dot"></span> MEREKAM
-            </div>
+        <!-- Jam besar -->
+        <div class="clock-container">
+            <div class="date" id="liveDate"></div>
+            <div class="clock" id="liveTime"></div>
         </div>
 
         <!-- Tombol -->
         <div class="controls">
-            <button class="btn primary" id="startBtn">🎬 MULAI REKAM (TAB INI)</button>
+            <button class="btn primary" id="startBtn">🎬 MULAI REKAM</button>
             <button class="btn secondary" id="stopBtn" disabled>⏹️ STOP</button>
         </div>
 
-        <!-- INSTRUKSI SUPER JELAS -->
+        <!-- Instruksi -->
         <div class="instruction-box">
-            <p><strong>📌 LANGKAH WAJIB AGAR JAM TEREKAM:</strong></p>
-            <p>1️⃣ Klik <span class="highlight">MULAI REKAM</span>.</p>
-            <p>2️⃣ Di dialog browser, pilih <span class="highlight">"Tab"</span>.</p>
-            <p>3️⃣ <span class="highlight">Pilih tab ini</span> (judul: "Screen Recorder · Jam Pasti Terekam").</p>
-            <p>4️⃣ Centang <span class="highlight">"Bagikan audio"</span> jika perlu, lalu klik Izinkan.</p>
-            <p class="warning">⚠️ Jangan pilih "Entire Screen" atau tab lain — hanya tab ini!</p>
-            <p>5️⃣ Setelah selesai, klik STOP. Video akan muncul di bawah dengan jam yang terekam.</p>
+            <p><strong>📌 CARA AGAR JAM TEREKAM:</strong></p>
+            <p>1️⃣ Klik tombol <span class="highlight">"Buka di Tab Baru"</span> untuk membuka situs yang ingin direkam.</p>
+            <p>2️⃣ Atur jendela browser agar <span class="highlight">tab ini (dengan jam besar) dan tab situs terlihat bersamaan</span> (split screen).</p>
+            <p>3️⃣ Klik <span class="highlight">MULAI REKAM</span>, lalu pilih <span class="highlight">"Entire Screen"</span> (seluruh layar).</p>
+            <p>4️⃣ Jam besar dari halaman ini akan ikut terekam di video.</p>
+            <p>5️⃣ Selesai, klik STOP. Video dapat diputar di bawah.</p>
+            <p class="warning">⚠️ Pastikan kedua jendela terlihat jelas tanpa tertutup.</p>
         </div>
 
         <!-- Hasil rekaman -->
@@ -361,20 +280,16 @@
                 <a href="#" id="downloadLink" download="rekaman.webm">⬇️ Unduh</a>
                 <button id="copyBtn">📋 Salin</button>
             </div>
-            <div class="info-note" id="fileInfo"></div>
         </div>
     </div>
 
     <script>
         (function() {
-            // ===== ELEMEN DOM =====
+            // Elemen
             const urlInput = document.getElementById('urlInput');
-            const loadBtn = document.getElementById('loadBtn');
-            const contentFrame = document.getElementById('content-frame');
-            const fallbackMsg = document.getElementById('fallbackMsg');
+            const openBtn = document.getElementById('openBtn');
             const startBtn = document.getElementById('startBtn');
             const stopBtn = document.getElementById('stopBtn');
-            const indicator = document.getElementById('indicator');
             const liveDate = document.getElementById('liveDate');
             const liveTime = document.getElementById('liveTime');
             const resultBox = document.getElementById('resultBox');
@@ -383,17 +298,14 @@
             const downloadLink = document.getElementById('downloadLink');
             const copyBtn = document.getElementById('copyBtn');
             const linkText = document.getElementById('linkText');
-            const fileInfo = document.getElementById('fileInfo');
             const recordingTimestamp = document.getElementById('recordingTimestamp');
 
-            // ===== STATE =====
+            // State
             let mediaStream = null;
             let mediaRecorder = null;
             let recordedChunks = [];
-            let startTime = null;
-            let timerInterval = null;
 
-            // ===== JAM UPDATE REAL-TIME =====
+            // Update jam real-time
             function updateClock() {
                 const now = new Date();
                 const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -403,66 +315,26 @@
             updateClock();
             setInterval(updateClock, 1000);
 
-            // ===== MEMUAT KONTEN DARI URL =====
-            function loadContent() {
+            // Buka URL di tab baru
+            openBtn.addEventListener('click', () => {
                 let url = urlInput.value.trim();
                 if (!url) {
                     alert('Masukkan URL');
                     return;
                 }
                 if (!url.startsWith('http')) url = 'https://' + url;
-                urlInput.value = url;
+                window.open(url, '_blank');
+            });
 
-                // Reset tampilan
-                contentFrame.style.display = 'block';
-                fallbackMsg.style.display = 'none';
-                contentFrame.src = url;
-
-                // Deteksi jika iframe gagal memuat
-                let timeout = setTimeout(() => {
-                    // Jika masih loading, anggap gagal
-                    fallbackMsg.style.display = 'flex';
-                    contentFrame.style.display = 'none';
-                }, 5000);
-
-                contentFrame.onload = () => {
-                    clearTimeout(timeout);
-                    // Coba cek apakah konten kosong (untuk beberapa situs yang menolak iframe)
-                    try {
-                        const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
-                        if (iframeDoc.URL === 'about:blank' || iframeDoc.body.innerHTML === '') {
-                            fallbackMsg.style.display = 'flex';
-                            contentFrame.style.display = 'none';
-                        }
-                    } catch (e) {
-                        // Cross-origin: tidak bisa diakses, tapi mungkin konten tampil? Kita asumsikan tampil.
-                        // Jika ternyata tidak tampil, user akan lihat kosong, bisa pakai fallback manual.
-                    }
-                };
-                contentFrame.onerror = () => {
-                    clearTimeout(timeout);
-                    fallbackMsg.style.display = 'flex';
-                    contentFrame.style.display = 'none';
-                };
-            }
-            loadBtn.addEventListener('click', loadContent);
-            urlInput.addEventListener('keypress', e => e.key === 'Enter' && loadContent());
-
-            // ===== REKAM TAB INI =====
+            // Rekam seluruh layar
             async function startRecording() {
                 try {
-                    // Minta akses untuk merekam tab
                     mediaStream = await navigator.mediaDevices.getDisplayMedia({
                         video: true,
                         audio: true
                     });
 
-                    // Jika pengguna membatalkan atau memilih sumber yang salah, kita tetap lanjut
-                    // Tapi kita kasih peringatan di console
-                    const track = mediaStream.getVideoTracks()[0];
-                    track.addEventListener('ended', () => {
-                        stopRecording();
-                    });
+                    mediaStream.getVideoTracks()[0].addEventListener('ended', stopRecording);
 
                     recordedChunks = [];
                     const mimeTypes = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
@@ -486,49 +358,31 @@
                         playLink.href = url;
                         downloadLink.href = url;
                         linkText.textContent = url.slice(0, 45) + '…';
-                        const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
-                        fileInfo.textContent = `📁 Ukuran: ${sizeMB} MB`;
+                        resultBox.style.display = 'block';
 
-                        // Tampilkan waktu selesai rekam
                         const now = new Date();
                         recordingTimestamp.textContent = now.toLocaleString('id-ID', {
                             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
                             hour: '2-digit', minute: '2-digit', second: '2-digit'
                         });
 
-                        resultBox.style.display = 'block';
-
-                        // Hentikan semua track
                         mediaStream.getTracks().forEach(t => t.stop());
                         resetUI();
                     };
 
                     mediaRecorder.start();
-                    startTime = Date.now();
-                    timerInterval = setInterval(updateTimer, 200);
-                    indicator.classList.add('visible');
                     startBtn.disabled = true;
                     stopBtn.disabled = false;
                     startBtn.classList.add('recording');
                 } catch (err) {
-                    alert('Gagal merekam: ' + err.message + '\nPastikan Anda mengizinkan akses dan memilih tab ini.');
+                    alert('Gagal merekam: ' + err.message);
                 }
-            }
-
-            function updateTimer() {
-                if (!startTime) return;
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                const h = Math.floor(elapsed / 3600).toString().padStart(2, '0');
-                const m = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
-                const s = (elapsed % 60).toString().padStart(2, '0');
-                // Kita tidak menampilkan timer di UI, opsional
             }
 
             function stopRecording() {
                 if (mediaRecorder && mediaRecorder.state !== 'inactive') {
                     mediaRecorder.stop();
                 }
-                indicator.classList.remove('visible');
                 stopBtn.disabled = true;
                 startBtn.classList.remove('recording');
             }
@@ -536,7 +390,6 @@
             function resetUI() {
                 startBtn.disabled = false;
                 stopBtn.disabled = true;
-                indicator.classList.remove('visible');
                 startBtn.classList.remove('recording');
             }
 
@@ -551,9 +404,6 @@
                     setTimeout(() => copyBtn.textContent = '📋 Salin', 1500);
                 }
             });
-
-            // Muat contoh default
-            loadContent();
         })();
     </script>
 </body>
