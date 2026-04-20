@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Parlay Calculator Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050812; --card: rgba(15, 20, 35, 0.65);
+            --gold: #ffd700; --gold-glow: rgba(255, 215, 0, 0.25);
+            --success: #10b981; --error: #ef4444; --info: #3b82f6; --warning: #f59e0b;
+            --text: #e2e8f0; --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg); }
+        *::-webkit-scrollbar { width: 6px; }
+        *::-webkit-scrollbar-track { background: var(--bg); }
+        *::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--warning)); border-radius: 3px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; overflow-x: hidden; position: relative; }
+        
+        /* Animated Mesh Background */
+        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: var(--bg); }
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: -1; animation: float 20s infinite ease-in-out; }
+        .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, var(--gold), transparent 70%); top: -10%; left: -10%; }
+        .orb-2 { width: 350px; height: 350px; background: radial-gradient(circle, var(--info), transparent 70%); bottom: -10%; right: -10%; animation-delay: -7s; }
+        .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, var(--success), transparent 70%); top: 40%; left: 30%; animation-delay: -14s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -40px) scale(1.05); } 66% { transform: translate(-20px, 20px) scale(0.95); } }
+
+        .container { max-width: 750px; margin: 0 auto; padding: 30px 20px; position: relative; z-index: 1; }
+        
+        /* Header */
+        .header { text-align: center; margin-bottom: 35px; padding: 20px 0; }
+        .header h1 { font-size: 2.4rem; font-weight: 900; background: linear-gradient(135deg, #ffd700, #ff8c00, #4ecdc4); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s ease infinite; letter-spacing: -1px; margin-bottom: 8px; }
+        @keyframes shimmer { 0%, 100% { background-position: 0% center; } 50% { background-position: 200% center; } }
+        .header p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+
+        /* Glass Cards */
+        .glass-card { background: var(--card); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 16px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: fadeUp 0.5s ease; }
+        .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: 0.3s; }
+        .glass-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .glass-card:hover::before { opacity: 1; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card-title { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); }
+        .btn-remove { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25); color: var(--error); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: 0.25s; }
+        .btn-remove:hover { background: var(--error); color: #fff; }
+
+        .teams-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: end; margin-bottom: 14px; }
+        .input-group label { display: block; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
+        .input-group input, .input-group select { width: 100%; padding: 10px 12px; background: rgba(8, 12, 24, 0.8); border: 1.5px solid rgba(255,255,255,0.08); color: var(--text); border-radius: 10px; font-size: 0.9rem; font-weight: 600; transition: 0.25s; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
+        .vs-divider { font-weight: 900; color: var(--text-muted); font-size: 0.8rem; text-align: center; padding-bottom: 8px; }
+
+        .score-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; padding: 12px; background: rgba(0,0,0,0.25); border-radius: 12px; }
+        .score-input { width: 60px; padding: 10px; text-align: center; font-size: 1.4rem; font-weight: 900; background: rgba(8, 12, 24, 0.8); border: 2px solid rgba(255,215,0,0.2); color: var(--gold); border-radius: 10px; font-family: 'JetBrains Mono', monospace; transition: 0.25s; }
+        .score-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 20px var(--gold-glow); transform: scale(1.08); }
+        .score-sep { font-size: 1.6rem; color: var(--text-muted); font-weight: 900; }
+
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .setting-field { display: flex; flex-direction: column; gap: 5px; }
+        .setting-field label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .setting-field input, .setting-field select { padding: 10px; background: rgba(8, 12, 24, 0.8); border: 1.5px solid rgba(255,255,255,0.08); color: var(--text); border-radius: 9px; font-size: 0.9rem; font-weight: 600; transition: 0.25s; }
+        .setting-field input:focus, .setting-field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 12px var(--gold-glow); }
+        .setting-field select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffd700' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
+        .setting-field select option { background: #0a0f1e; color: var(--text); }
+
+        .btn-add { width: 100%; padding: 15px; background: rgba(78, 205, 196, 0.08); border: 2px dashed var(--info); color: var(--info); border-radius: 14px; cursor: pointer; font-weight: 800; font-size: 0.95rem; transition: 0.3s; margin-bottom: 24px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn-add:hover { background: rgba(78, 205, 196, 0.15); border-color: var(--info); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(78, 205, 196, 0.2); }
+
+        .stake-bar { background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(78,205,196,0.05)); padding: 18px 20px; border-radius: 16px; margin: 28px 0; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid rgba(255,215,0,0.15); box-shadow: 0 8px 30px rgba(0,0,0,0.25); backdrop-filter: blur(10px); flex-wrap: wrap; gap: 12px; }
+        .stake-label { color: var(--gold); font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .stake-input-wrapper { display: flex; align-items: center; gap: 8px; background: rgba(8,12,24,0.8); padding: 10px 16px; border-radius: 12px; border: 1.5px solid rgba(255,215,0,0.2); }
+        .stake-currency { color: var(--success); font-weight: 900; font-size: 1.1rem; }
+        .stake-input-wrapper input { width: 120px; background: transparent; border: none; color: var(--text); font-size: 1.2rem; font-weight: 800; text-align: right; outline: none; font-family: 'JetBrains Mono', monospace; }
+
+        .button-group { display: flex; gap: 12px; margin-bottom: 30px; }
+        .btn { padding: 16px 24px; border: none; border-radius: 14px; font-weight: 800; cursor: pointer; font-size: 0.95rem; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.2); border-radius: 50%; transition: 0.6s; transform: translate(-50%, -50%); }
+        .btn:active::before { width: 400px; height: 400px; opacity: 0; }
+        .btn-primary { background: linear-gradient(135deg, var(--gold), #ff8c00); color: #000; flex: 1; box-shadow: 0 8px 25px var(--gold-glow); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px var(--gold-glow); }
+        .btn-secondary { background: rgba(239, 68, 68, 0.1); border: 1.5px solid rgba(239, 68, 68, 0.3); color: var(--error); }
+        .btn-secondary:hover { background: rgba(239, 68, 68, 0.2); border-color: var(--error); transform: translateY(-2px); }
+
+        /* Result Container */
+        .result-container { background: linear-gradient(135deg, rgba(255,215,0,0.03), rgba(78,205,196,0.03)); border: 2px solid rgba(255,215,0,0.15); border-radius: 24px; padding: 28px; margin-top: 20px; display: none; position: relative; overflow: hidden; backdrop-filter: blur(24px); animation: slideUp 0.6s ease; }
+        .result-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--info), var(--success)); background-size: 200% auto; animation: shimmer 3s linear infinite; }
+        @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        .result-container.show { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .result-title { text-align: center; font-size: 1.5rem; font-weight: 900; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.05); background: linear-gradient(135deg, var(--gold), var(--info)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 0.5px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
+        .stat-card { background: rgba(0,0,0,0.3); padding: 18px 12px; border-radius: 14px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.15); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        .stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; font-weight: 700; }
+        .stat-value { font-size: 1.2rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+        
+        .details-section { background: rgba(0,0,0,0.25); border-radius: 16px; padding: 20px; margin-top: 20px; border-left: 4px solid var(--info); }
+        .details-title { color: var(--info); font-weight: 800; margin-bottom: 14px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .match-detail { background: rgba(0,0,0,0.2); padding: 14px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.04); transition: 0.25s; }
+        .match-detail:hover { border-color: rgba(255,255,255,0.1); transform: translateX(5px); }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 4px; flex-wrap: wrap; gap: 4px; font-size: 0.88rem; }
+        .detail-row.highlight { color: var(--gold); font-weight: 700; }
+        .detail-row.win { color: var(--success); font-weight: 700; }
+        .detail-row.lose { color: var(--error); font-weight: 700; }
+        .detail-row.half { color: var(--warning); font-weight: 700; }
+        .detail-row.push { color: var(--info); font-weight: 700; }
+        .calculation-box { margin-top: 20px; padding-top: 20px; border-top: 2px dashed rgba(255,255,255,0.08); font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; line-height: 2; }
+        
+        .copy-section { margin-top: 25px; padding-top: 25px; border-top: 2px solid rgba(255,255,255,0.05); }
+        .copy-area { background: rgba(0,0,0,0.45); color: var(--success); padding: 18px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; margin-top: 12px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; border: 1.5px solid rgba(16, 185, 129, 0.15); line-height: 1.8; }
+        .btn-copy { background: linear-gradient(135deg, var(--success), #059669); color: #fff; padding: 14px 24px; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; margin-top: 12px; font-size: 0.95rem; transition: 0.3s; box-shadow: 0 6px 22px rgba(16, 185, 129, 0.3); font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn-copy:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16, 185, 129, 0.4); }
+        
+        .footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 2px; margin-top: 20px; }
+
+        /*  CUSTOM CENTERED POPUP */
+        .custom-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 8, 18, 0.7); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.35s ease;
+        }
+        .custom-popup.show { opacity: 1; visibility: visible; }
+        .popup-content {
+            background: linear-gradient(145deg, #111827, #0b101f);
+            border: 1px solid rgba(255,215,0,0.25); border-radius: 24px;
+            padding: 35px 40px; text-align: center; box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            transform: scale(0.85) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 90%; width: 360px; position: relative;
+        }
+        .custom-popup.show .popup-content { transform: scale(1) translateY(0); }
+        .popup-icon { font-size: 3.5rem; margin-bottom: 15px; display: inline-block; animation: popBounce 0.7s ease; }
+        @keyframes popBounce { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .popup-title { font-size: 1.4rem; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+        .popup-msg { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px; line-height: 1.5; }
+        .popup-close { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 10px 28px; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.25s; }
+        .popup-close:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+
+        @media (max-width: 768px) {
+            .teams-row { grid-template-columns: 1fr; gap: 10px; } .vs-divider { display: none; }
+            .settings-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; }
+            .stake-bar { flex-direction: column; align-items: stretch; } .stake-input-wrapper { justify-content: space-between; }
+            .button-group { flex-direction: column; } .container { padding: 20px 15px; } .header h1 { font-size: 2rem; }
+            .popup-content { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✨ PARLAY CALCULATOR</h1>
+            <p>Professional Handicap & Parlay Tool</p>
+        </div>
+
+        <div id="cardsContainer"></div>
+        <button class="btn-add" onclick="addCard()">➕ Tambah Tim / Match</button>
+
+        <div class="stake-bar">
+            <div class="stake-label">💰 Modal Taruhan</div>
+            <div class="stake-input-wrapper">
+                <span class="stake-currency">Rp</span>
+                <input type="number" id="stake" value="10000" min="1000">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="hitungSekarang()">⚡ HITUNG SEKARANG</button>
+            <button class="btn btn-secondary" onclick="resetAll()">🔄 Reset Semua</button>
+        </div>
+
+        <div class="result-container" id="resultBox">
+            <div class="result-title">📊 HASIL PERHITUNGAN</div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-label">Total Odds</div><div class="stat-value" style="color:var(--gold)" id="resOdds">0.0000</div></div>
+                <div class="stat-card"><div class="stat-label">Payout</div><div class="stat-value" style="color:var(--success)" id="resPayout">Rp 0</div></div>
+                <div class="stat-card"><div class="stat-label">Profit</div><div class="stat-value" style="color:var(--info)" id="resProfit">Rp 0</div></div>
+                <div class="stat-card"><div class="stat-label">Stake</div><div class="stat-value" style="color:var(--error)" id="resStake">Rp 0</div></div>
+            </div>
+            <div class="details-section" id="steps"></div>
+            <div class="copy-section">
+                <div class="copy-area" id="copyArea"></div>
+                <button class="btn-copy" onclick="copyTxt()">📋 COPY HASIL</button>
+            </div>
+        </div>
+
+        <div class="footer">Parlay Calculator Pro • Premium Edition</div>
+    </div>
+
+    <!-- 🌟 CUSTOM CENTERED POPUP -->
+    <div class="custom-popup" id="copyPopup" onclick="hidePopup()">
+        <div class="popup-content" onclick="event.stopPropagation()">
+            <div class="popup-icon">✅</div>
+            <div class="popup-title">Berhasil!</div>
+            <div class="popup-msg" id="popupMsg">Hasil sudah tersalin ke clipboard.</div>
+            <button class="popup-close" onclick="hidePopup()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Particles
+        (function() {
+            const container = document.createElement('div');
+            container.className = 'particles';
+            container.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;';
+            for(let i=0; i<25; i++) {
+                const p = document.createElement('div');
+                p.style.cssText = `position:absolute;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px var(--gold);opacity:0.6;animation:particleFloat ${10+Math.random()*15}s linear infinite;animation-delay:${Math.random()*10}s;left:${Math.random()*100}%;`;
+                container.appendChild(p);
+            }
+            document.body.appendChild(container);
+        })();
+
+        let cardCount = 0;
+        const defaultTeams = [
+            {home: "Atletico Madrid", away: "Barcelona", hs: 2, as: 1, line: "-0.25", odds: -1.04, type: "ah"},
+            {home: "Bayern Munich", away: "Chelsea", hs: 1, as: 1, line: "0", odds: -1.18, type: "ah"},
+            {home: "Al-Hilal", away: "Al-Nassr", hs: 1, as: 0, line: "", odds: 2.28, type: "1x2"}
+        ];
+
+        function addCard(data = null) {
+            cardCount++;
+            const idx = cardCount;
+            const d = data || {home: "", away: "", hs: 0, as: 0, line: "", odds: 1.90, type: "ah"};
+            
+            const html = `
+            <div class="glass-card" data-idx="${idx}">
+                <div class="card-header">
+                    <div class="card-title">🏟️ Pertandingan ${idx}</div>
+                    <button class="btn-remove" onclick="removeCard(this)">🗑️ Hapus</button>
+                </div>
+                <div class="teams-row">
+                    <div class="input-group">
+                        <label>Tim Anda</label>
+                        <input type="text" class="card-home" value="${d.home}" placeholder="Nama Tim" oninput="updateSideOptions(this)">
+                    </div>
+                    <div class="vs-divider">VS</div>
+                    <div class="input-group">
+                        <label>Lawan</label>
+                        <input type="text" class="card-away" value="${d.away}" placeholder="Nama Lawan" oninput="updateSideOptions(this)">
+                    </div>
+                </div>
+                <div class="score-row">
+                    <div class="input-group" style="text-align:center">
+                        <label>Skor Tim</label>
+                        <input type="number" class="card-hs" value="${d.hs}" min="0" style="text-align:center">
+                    </div>
+                    <span class="score-sep">–</span>
+                    <div class="input-group" style="text-align:center">
+                        <label>Skor Lawan</label>
+                        <input type="number" class="card-as" value="${d.as}" min="0" style="text-align:center">
+                    </div>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-field">
+                        <label>Jenis Taruhan</label>
+                        <select class="card-type" onchange="toggleType(this)">
+                            <option value="ah" ${d.type==='ah'?'selected':''}>Asian Handicap</option>
+                            <option value="ou" ${d.type==='ou'?'selected':''}>Over/Under</option>
+                            <option value="1x2" ${d.type==='1x2'?'selected':''}>1X2 (Standard)</option>
+                        </select>
+                    </div>
+                    <div class="setting-field" id="line-box-${idx}" style="display:${d.type==='1x2'?'none':'block'}">
+                        <label>${d.type==='ou'?'Line O/U':'Vooran (Handicap)'}</label>
+                        <input type="text" class="card-line" value="${d.line}" placeholder="-0.25, 2.5, dll">
+                    </div>
+                    <div class="setting-field">
+                        <label>Pilihan</label>
+                        <select class="card-side">
+                            <option value="home" ${d.type!=='ou'?'selected':''}>${d.home || 'Home'}</option>
+                            <option value="away" ${d.type==='ou'?'selected':''}>${d.away || 'Away'}</option>
+                            <option value="draw" style="display:${d.type==='1x2'?'block':'none'}">Draw</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label>Odds (Decimal/Minus)</label>
+                        <input type="number" class="card-odds" value="${d.odds}" step="0.01">
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById('cardsContainer').insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeCard(btn) { btn.closest('.glass-card').remove(); reindexCards(); }
+        function reindexCards() {
+            document.querySelectorAll('.glass-card').forEach((c, i) => c.querySelector('.card-title').innerText = `🏟️ Pertandingan ${i+1}`);
+            cardCount = document.querySelectorAll('.glass-card').length;
+        }
+        function updateSideOptions(input) {
+            const card = input.closest('.glass-card');
+            const home = card.querySelector('.card-home').value || 'Home';
+            const away = card.querySelector('.card-away').value || 'Away';
+            const type = card.querySelector('.card-type').value;
+            const sel = card.querySelector('.card-side');
+            if(type==='1x2') sel.innerHTML = `<option value="home">${home}</option><option value="away">${away}</option><option value="draw">Draw</option>`;
+            else if(type==='ah') sel.innerHTML = `<option value="home">${home}</option><option value="away">${away}</option>`;
+            else sel.innerHTML = `<option value="over">Over</option><option value="under">Under</option>`;
+        }
+        function toggleType(select) {
+            const card = select.closest('.glass-card');
+            const type = select.value;
+            const lineBox = card.querySelector('.setting-field:nth-child(2)');
+            const sel = card.querySelector('.card-side');
+            const home = card.querySelector('.card-home').value || 'Home';
+            const away = card.querySelector('.card-away').value || 'Away';
+            if(type==='1x2') { lineBox.style.display='none'; sel.innerHTML=`<option value="home">${home}</option><option value="away">${away}</option><option value="draw">Draw</option>`; }
+            else if(type==='ah') { lineBox.style.display='block'; lineBox.querySelector('label').innerText='Vooran (Handicap)'; sel.innerHTML=`<option value="home">${home}</option><option value="away">${away}</option>`; }
+            else { lineBox.style.display='block'; lineBox.querySelector('label').innerText='Line O/U'; sel.innerHTML=`<option value="over">Over</option><option value="under">Under</option>`; }
+        }
+
+        function calculateAH(h, a, line) {
+            let isQ = Math.abs(line)%1!==0;
+            if(!isQ) { let d=h+line-a; return d>0?{r:'WIN',s:'menang penuh'}:d<0?{r:'LOSE',s:'Kalah'}:{r:'PUSH',s:'Push (Seri)'}; }
+            let lo=Math.floor(line*2)/2, hi=Math.ceil(line*2)/2;
+            let r1=(h+lo>a)?'W':(h+lo<a?'L':'P'), r2=(h+hi>a)?'W':(h+hi<a?'L':'P');
+            if(r1==='W'&&r2==='W') return {r:'WIN',s:'menang penuh'};
+            if(r1==='L'&&r2==='L') return {r:'LOSE',s:'Kalah'};
+            if(r1==='P'&&r2==='P') return {r:'PUSH',s:'Push (Seri)'};
+            if((r1==='W'&&r2==='P')||(r1==='P'&&r2==='W')) return {r:'HALF WIN',s:'Menang Setengah (½)'};
+            if((r1==='L'&&r2==='P')||(r1==='P'&&r2==='L')) return {r:'HALF LOSE',s:'Kalah Setengah (½)'};
+            return {r:'PUSH',s:'Push (Seri)'};
+        }
+
+        function hitungSekarang() {
+            const cards = document.querySelectorAll('.glass-card');
+            if(!cards.length) return alert('⚠️ Tambah minimal 1 tim dulu bosku!');
+            const stake = parseFloat(document.getElementById('stake').value)||0;
+            let totalOdds=1, hasLoss=false, html='<div class="details-title">📝 RINCIAN PERHITUNGAN</div>', txt=`=== HASIL PARLAY ===\nStake: Rp ${stake.toLocaleString('id-ID')}\n\n`, effList=[];
+
+            cards.forEach((c, i) => {
+                const h=c.querySelector('.card-home').value||`Tim ${i+1}`, a=c.querySelector('.card-away').value||'Lawan';
+                const hs=parseInt(c.querySelector('.card-hs').value)||0, as=parseInt(c.querySelector('.card-as').value)||0;
+                const type=c.querySelector('.card-type').value;
+                let line=c.querySelector('.card-line').value;
+                const side=c.querySelector('.card-side').value, raw=parseFloat(c.querySelector('.card-odds').value)||1.0;
+                if(type==='ou'&&!line) line='2.5'; if(type==='ah'&&!line) line='0';
+                
+                let dec=raw<0?1+(1/Math.abs(raw)):raw, res, eff=0, exp='', st='';
+                if(type==='ah') { let cl=parseFloat(line); if(side==='away') cl=-cl; res=calculateAH(hs,as,cl); }
+                else if(type==='1x2') { let d=hs-as; res=side==='home'?(d>0?{r:'WIN',s:'menang penuh'}:{r:'LOSE',s:'Kalah'}):side==='away'?(d<0?{r:'WIN',s:'menang penuh'}:{r:'LOSE',s:'Kalah'}):d===0?{r:'WIN',s:'menang penuh'}:{r:'LOSE',s:'Kalah'}; }
+                else { let t=hs+as, l=parseFloat(line)||0; if(Math.abs(l)%1!==0){ let lo=Math.floor(l*2)/2,hi=Math.ceil(l*2)/2; let r1=side==='over'?(t>lo?'W':t<lo?'L':'P'):t<lo?'W':t>lo?'L':'P'; let r2=side==='over'?(t>hi?'W':t<hi?'L':'P'):t<hi?'W':t>hi?'L':'P'; res=r1==='W'&&r2==='W'?{r:'WIN',s:'menang penuh'}:r1==='L'&&r2==='L'?{r:'LOSE',s:'Kalah'}:r1==='P'&&r2==='P'?{r:'PUSH',s:'Push (Seri)'}:(r1==='W'&&r2==='P')||(r1==='P'&&r2==='W')?{r:'HALF WIN',s:'Menang Setengah (½)'}:{r:'HALF LOSE',s:'Kalah Setengah (½)'}; } else res=side==='over'?(t>l?{r:'WIN',s:'menang penuh'}:t<l?{r:'LOSE',s:'Kalah'}:{r:'PUSH',s:'Push (Seri)'}):(t<l?{r:'WIN',s:'menang penuh'}:t>l?{r:'LOSE',s:'Kalah'}:{r:'PUSH',s:'Push (Seri)'}); }
+
+                if(res.r==='WIN'){eff=dec; exp=`penjelasan nya adalah dikarenakan anda menang penuh maka odds nya di kali 1 maka perkalian nya adalah 1 x ${dec.toFixed(3)} = ${dec.toFixed(3)} ya bosku`;}
+                else if(res.r==='LOSE'){eff=0; hasLoss=true; exp=`penjelasan nya adalah dikarenakan anda kalah maka odds nya berubah menjadi 0 ya bosku`;}
+                else if(res.r==='PUSH'){eff=1.0; exp=`penjelasan nya adalah dikarenakan hasil seri (push) maka odds nya menjadi 1.000 (stake kembali) ya bosku`;}
+                else if(res.r==='HALF WIN'){eff=1+(dec-1)*0.5; exp=`maka untuk perhitungan nya adalah (${dec.toFixed(3)} + 1) /2 = ${eff.toFixed(3)} ya bosku`;}
+                else if(res.r==='HALF LOSE'){eff=0.5; exp=`penjelasan nya adalah dikarenakan anda kalah setengah maka odds nya berubah menjadi 0.5 ya bosku`;}
+
+                effList.push(eff); st=res.s;
+                let bn=type==='1x2'?(side==='draw'?'X (Draw)':`${side.toUpperCase()} (${side==='home'?h:a})`):type==='ah'?`HDP ${side==='home'?h:a} (${line||'0'})`:`${side.toUpperCase()} ${line||'2.5'}`;
+                
+                txt+=`Team ${i+1} : ${h} vs ${a} ( ${bn} )\n`;
+                if(raw<0) txt+=`konversi odds minus: 1 + (1 / ${Math.abs(raw).toFixed(2)}) = ${dec.toFixed(4)}\n`;
+                txt+=`odds : ${dec.toFixed(3)} dengan status ${st}\n${exp}\n\n`;
+
+                let cls=res.r==='WIN'?'win':res.r==='LOSE'?'lose':res.r.includes('HALF')?'half':'push';
+                let ic=res.r==='WIN'?'✅':res.r==='LOSE'?'❌':res.r.includes('HALF')?'⚡':'';
+                html+=`<div class="match-detail"><div class="detail-row highlight">${h} ${hs} – ${as} ${a}</div><div class="detail-row">Taruhan: <b>${bn}</b></div><div class="detail-row">Odds Asli: ${raw.toFixed(3)} ${raw<0?'(minus)':'(positif)'}</div><div class="detail-row ${cls}">HASIL: ${res.r} ${ic}</div><div class="detail-row">Odds Efektif: <b>${eff.toFixed(4)}</b></div></div>`;
+            });
+
+            if(hasLoss) totalOdds=0; else totalOdds=effList.reduce((a,b)=>a*b,1);
+            const pay=stake*totalOdds, prof=pay-stake;
+            let steps=effList.map(o=>o.toFixed(3)).join(' x ');
+            let pl=prof>=0?`untuk kemenangan bersih anda adalah  Rp.${Math.round(prof).toLocaleString('id-ID')}`:`untuk kemenangan bersih anda adalah anda rugi ${Math.abs(Math.round(prof)).toLocaleString('id-ID')} ya bosku`;
+            txt+=`maka untuk perhitungan semua nya adalah\n${steps} = ${totalOdds.toFixed(4)}\n${totalOdds.toFixed(4)} x ${stake.toLocaleString('id-ID')} = Rp.${Math.round(pay).toLocaleString('id-ID')} untuk kemenangan anda berserta modal\n${pl}`;
+            html+=`<div class="calculation-box"><div>📊 Total Odds = ${steps} = <b style="color:var(--gold)">${totalOdds.toFixed(4)}</b></div><div>💰 Payout = Rp ${stake.toLocaleString()} × ${totalOdds.toFixed(4)} = <b style="color:var(--success)">Rp ${Math.round(pay).toLocaleString()}</b></div><div>📈 Profit = <b style="color:${prof>=0?'var(--success)':'var(--error)'}">Rp ${Math.round(prof).toLocaleString()}</b></div></div>`;
+
+            document.getElementById('resOdds').innerText=totalOdds.toFixed(4);
+            document.getElementById('resPayout').innerText=`Rp ${Math.round(pay).toLocaleString()}`;
+            document.getElementById('resProfit').innerText=`Rp ${Math.round(prof).toLocaleString()}`;
+            document.getElementById('resStake').innerText=`Rp ${stake.toLocaleString()}`;
+            document.getElementById('steps').innerHTML=html;
+            document.getElementById('copyArea').innerText=txt;
+            document.getElementById('resultBox').classList.add('show');
+            document.getElementById('resultBox').scrollIntoView({behavior:'smooth'});
+        }
+
+        function resetAll() { document.getElementById('cardsContainer').innerHTML=''; cardCount=0; defaultTeams.forEach(t=>addCard(t)); document.getElementById('resultBox').classList.remove('show'); }
+        
+        // 🌟 POPUP FUNCTIONS
+        function showPopup(msg='✅ Berhasil di-copy bosku!') {
+            document.getElementById('popupMsg').innerText = msg;
+            document.getElementById('copyPopup').classList.add('show');
+            setTimeout(hidePopup, 2500);
+        }
+        function hidePopup() { document.getElementById('copyPopup').classList.remove('show'); }
+        
+        function copyTxt() {
+            const txt=document.getElementById('copyArea').innerText;
+            navigator.clipboard.writeText(txt).then(()=>showPopup('✅ Berhasil di-copy bosku! Silakan paste ke WhatsApp/Telegram.')).catch(()=>{
+                const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+                showPopup('✅ Berhasil di-copy bosku!');
+            });
+        }
+
+        window.onload = () => defaultTeams.forEach(t => addCard(t));
+    </script>
+</body>
+</html>
