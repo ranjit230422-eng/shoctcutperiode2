@@ -336,6 +336,11 @@
                         recordedVideo.src = url;
                         playLink.href = url;
                         downloadLink.href = url;
+                        
+                        // Set nama file dengan timestamp
+                        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                        downloadLink.download = `rekaman-${timestamp}.webm`;
+                        
                         linkText.textContent = url.slice(0, 45) + '…';
                         const sizeMB = (blob.size / (1024*1024)).toFixed(2);
                         fileInfo.textContent = `📁 Ukuran: ${sizeMB} MB`;
