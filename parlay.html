@@ -340,7 +340,7 @@
             let payout = stake * totalOdds;
             let profit = payout - stake;
             
-            // ========== OUTPUT TEKS SESUAI CONTOH (TANPA EMOJI) ==========
+            // ========== OUTPUT TEKS ==========
             let isSingle = cards.length===1;
             let output = '';
             if(isSingle){
@@ -395,16 +395,26 @@
                     }
                 }
                 else if(d.res.status === 'PUSH'){
-                    output += `Hasil PUSH (SERI)\n\n`;
-                    output += `Modal dikembalikan = ${stake.toLocaleString('id-ID')}`;
-                    profit = 0;
-                    payout = stake;
+                    if(d.rawOdds < 0){
+                        const totalBayar = stake * Math.abs(d.rawOdds);
+                        output += `Hasil PUSH (SERI)\n\n`;
+                        output += `Odds MINUS ${d.rawOdds.toFixed(2)} → anda membayar lebih: ${stake.toLocaleString('id-ID')} x ${Math.abs(d.rawOdds).toFixed(2)} = ${totalBayar.toLocaleString('id-ID')}\n`;
+                        output += `Karena seri, seluruh modal yang anda bayarkan dikembalikan = ${totalBayar.toLocaleString('id-ID')}`;
+                        profit = 0;
+                        payout = totalBayar;
+                    } else {
+                        output += `Hasil PUSH (SERI)\n\n`;
+                        output += `Odds PLUS ${d.rawOdds.toFixed(2)} → anda bertaruh Rp ${stake.toLocaleString('id-ID')}\n`;
+                        output += `Karena seri, modal dikembalikan = ${stake.toLocaleString('id-ID')}`;
+                        profit = 0;
+                        payout = stake;
+                    }
                 }
                 else if(d.res.status === 'HALF_WIN'){
                     if(d.rawOdds < 0){
                         const absOdds = Math.abs(d.rawOdds);
                         const totalBayar = stake * absOdds;
-                        const keuntunganFull = stake; // keuntungan jika menang penuh
+                        const keuntunganFull = stake;
                         const keuntunganSetengah = keuntunganFull / 2;
                         const totalKembali = totalBayar + keuntunganSetengah;
                         const vooranNilai = Math.abs(d.line);
@@ -460,7 +470,7 @@
                 }
             } 
             else {
-                // PARLAY (tetap dengan format sebelumnya tanpa emoji)
+                // PARLAY
                 output = `=== HASIL PARLAY (${cards.length} TIM) ===\nStake: Rp ${stake.toLocaleString('id-ID')}\n\n`;
                 for(let i=0;i<details.length;i++){
                     const d=details[i];
