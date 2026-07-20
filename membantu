@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Informasi Details — BetSlip Insight</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-soft: #eef3fa;
+      --surface: rgba(255,255,255,.90);
+      --surface-solid: #ffffff;
+      --surface-muted: #f7f9fd;
+      --text: #15213a;
+      --muted: #68758d;
+      --line: #e2e8f2;
+      --line-strong: #d6deeb;
+      --primary: #5b5cf0;
+      --primary-2: #8d5cf6;
+      --primary-3: #3f8cff;
+      --primary-soft: #efefff;
+      --success: #0f9d68;
+      --success-soft: #e9f9f2;
+      --warning: #c47a04;
+      --warning-soft: #fff5df;
+      --danger: #db4355;
+      --danger-soft: #fff0f2;
+      --info: #3478db;
+      --info-soft: #eaf2ff;
+      --shadow-sm: 0 8px 24px rgba(30,45,74,.07);
+      --shadow-md: 0 18px 52px rgba(30,45,74,.11);
+      --shadow-lg: 0 34px 90px rgba(20,31,55,.22);
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0d1320;
+      --bg-soft: #111a2b;
+      --surface: rgba(20,29,47,.90);
+      --surface-solid: #151f33;
+      --surface-muted: #1a263d;
+      --text: #edf3ff;
+      --muted: #9daac0;
+      --line: #273650;
+      --line-strong: #33435e;
+      --primary: #8284ff;
+      --primary-2: #a678ff;
+      --primary-3: #5aa1ff;
+      --primary-soft: #292b55;
+      --success: #46d39a;
+      --success-soft: #153a31;
+      --warning: #f5bc59;
+      --warning-soft: #41331d;
+      --danger: #ff7181;
+      --danger-soft: #45232b;
+      --info: #7cb2ff;
+      --info-soft: #203654;
+      --shadow-sm: 0 8px 24px rgba(0,0,0,.20);
+      --shadow-md: 0 18px 52px rgba(0,0,0,.28);
+      --shadow-lg: 0 34px 90px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(91,92,240,.18), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(63,140,255,.13), transparent 26%),
+        linear-gradient(180deg, var(--bg-soft), var(--bg));
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid rgba(91,92,240,.24);
+      outline-offset: 2px;
+    }
+
+    .app {
+      width: min(1580px, calc(100% - 28px));
+      margin: 18px auto 44px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding: 13px 16px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 10px 24px rgba(91,92,240,.28);
+    }
+    .brand-mark svg { width: 23px; height: 23px; }
+    .brand-copy { min-width: 0; }
+    .brand-copy strong { display: block; font-size: 15px; letter-spacing: -.01em; }
+    .brand-copy span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--text);
+      background: var(--surface-solid);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .icon-btn:hover { transform: translateY(-1px); border-color: var(--primary); }
+    .icon-btn svg { width: 19px; height: 19px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, .65fr);
+      gap: 24px;
+      align-items: center;
+      padding: 30px;
+      border-radius: var(--radius-lg);
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(13,22,48,.12), rgba(13,22,48,.02)),
+        linear-gradient(125deg, #5154ed 0%, #745be9 46%, #3b8af4 100%);
+      box-shadow: 0 24px 60px rgba(57,65,180,.24);
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,.11);
+      filter: blur(.2px);
+    }
+    .hero::before { width: 320px; height: 320px; right: -90px; top: -160px; }
+    .hero::after { width: 180px; height: 180px; left: 46%; bottom: -130px; }
+    .hero-copy, .hero-side { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .hero h1 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.06; letter-spacing: -.045em; }
+    .hero p { max-width: 850px; margin: 13px 0 0; color: rgba(255,255,255,.86); line-height: 1.75; }
+    .hero-side {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .hero-chip {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 16px;
+      background: rgba(255,255,255,.11);
+      backdrop-filter: blur(12px);
+    }
+    .hero-chip small { display: block; color: rgba(255,255,255,.70); font-size: 11px; }
+    .hero-chip strong { display: block; margin-top: 5px; font-size: 14px; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(340px, .72fr) minmax(0, 1.55fr);
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .input-panel { position: sticky; top: 14px; overflow: hidden; }
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel-title { margin: 0; font-size: 18px; letter-spacing: -.02em; }
+    .panel-subtitle { margin: 5px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.55; }
+    .panel-body { padding: 20px 22px 22px; }
+
+    .drop-zone {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 13px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface-muted);
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    .drop-zone.dragging { border-color: var(--primary); background: var(--primary-soft); transform: scale(1.005); }
+    .drop-icon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .drop-icon svg { width: 20px; height: 20px; }
+    .drop-copy { min-width: 0; }
+    .drop-copy strong { display: block; font-size: 13px; }
+    .drop-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 11.5px; }
+    #fileInput { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+
+    .field-label { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 8px; font-size: 12.5px; font-weight: 800; }
+    .field-label span:last-child { color: var(--muted); font-weight: 600; }
+    textarea {
+      width: 100%;
+      min-height: 360px;
+      resize: vertical;
+      padding: 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 15px;
+      outline: none;
+      color: var(--text);
+      background: var(--surface-solid);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 12.2px;
+      line-height: 1.6;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+    textarea:focus, input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(91,92,240,.12); }
+
+    .helper-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 11px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--muted);
+      background: var(--surface-muted);
+      font-size: 11.5px;
+      line-height: 1.55;
+    }
+    .helper-box svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--info); }
+
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn svg { width: 17px; height: 17px; }
+    .btn-primary { grid-column: 1 / -1; color: #fff; background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 10px 22px rgba(91,92,240,.24); }
+    .btn-primary:hover { filter: brightness(1.04); box-shadow: 0 13px 28px rgba(91,92,240,.31); }
+    .btn-secondary { color: var(--primary); background: var(--primary-soft); }
+    .btn-muted { color: var(--text); background: var(--surface-muted); border: 1px solid var(--line); }
+    .btn-danger-soft { color: var(--danger); background: var(--danger-soft); }
+
+    .status-message {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .status-message.show { display: block; }
+    .status-message.success { color: var(--success); background: var(--success-soft); border: 1px solid color-mix(in srgb, var(--success) 24%, transparent); }
+    .status-message.error { color: var(--danger); background: var(--danger-soft); border: 1px solid color-mix(in srgb, var(--danger) 24%, transparent); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 11px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 104px;
+      padding: 15px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, var(--surface-solid), var(--surface-muted));
+    }
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      width: 74px;
+      height: 74px;
+      right: -28px;
+      bottom: -32px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+    }
+    .stat-icon {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .stat-icon svg { width: 16px; height: 16px; }
+    .stat-card span { display: block; color: var(--muted); font-size: 11px; }
+    .stat-card strong { position: relative; z-index: 1; display: block; margin-top: 4px; font-size: 21px; letter-spacing: -.03em; }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: auto minmax(240px, 1fr) auto auto;
+      gap: 9px;
+      align-items: center;
+      margin-bottom: 13px;
+    }
+    .control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: var(--surface-solid);
+    }
+    .control svg { width: 17px; height: 17px; color: var(--muted); flex: 0 0 auto; }
+    .control input, .control select {
+      width: 100%;
+      height: 40px;
+      border: 0;
+      outline: 0;
+      color: var(--text);
+      background: transparent;
+    }
+    .control select { min-width: 100px; }
+    .compact-btn {
+      min-height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--text);
+      background: var(--surface-solid);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .compact-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    .narrative-banner {
+      display: none;
+      gap: 12px;
+      margin-bottom: 13px;
+      padding: 13px 14px;
+      border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--line));
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary-soft), var(--surface-muted));
+    }
+    .narrative-banner.show { display: flex; }
+    .narrative-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      color: var(--primary);
+      background: var(--surface-solid);
+      box-shadow: var(--shadow-sm);
+    }
+    .narrative-banner strong { display: block; margin-bottom: 4px; font-size: 12px; }
+    .narrative-banner p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .table-wrap {
+      width: 100%;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-solid);
+      scrollbar-color: var(--line-strong) transparent;
+    }
+    table { width: 100%; min-width: 1160px; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+    th, td { padding: 14px 13px; vertical-align: top; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    th:last-child, td:last-child { border-right: 0; }
+    tbody tr:last-child td { border-bottom: 0; }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      color: var(--text);
+      background: var(--surface-muted);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+    }
+    tbody tr { transition: background .18s ease; }
+    tbody tr:hover td { background: color-mix(in srgb, var(--primary-soft) 34%, var(--surface-solid)); }
+
+    .info-cell { min-width: 170px; text-align: center; line-height: 1.65; }
+    .ticket-id { font-size: 13px; font-weight: 900; color: var(--text); word-break: break-word; }
+    .member-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin: 6px 0;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: var(--success);
+      background: var(--success-soft);
+      font-size: 10.5px;
+      font-weight: 850;
+    }
+    .info-muted { color: var(--muted); font-size: 11.5px; }
+
+    .selection-cell { min-width: 470px; }
+    .selection-item {
+      position: relative;
+      margin-bottom: 10px;
+      padding: 12px 12px 12px 42px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface-muted);
+    }
+    .selection-item:last-of-type { margin-bottom: 9px; }
+    .selection-number {
+      position: absolute;
+      left: 11px;
+      top: 11px;
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .selection-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 7px; font-weight: 900; color: var(--text); }
+    .odd-pill { flex: 0 0 auto; padding: 4px 7px; border-radius: 999px; color: var(--primary); background: var(--primary-soft); font-size: 10px; font-weight: 900; }
+    .selection-meta { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 6px; margin-top: 4px; color: var(--muted); line-height: 1.45; }
+    .selection-meta b { color: var(--text); font-weight: 800; }
+    .selection-explain { margin-top: 8px; padding: 8px 9px; border-left: 3px solid var(--primary); border-radius: 8px; color: var(--muted); background: var(--surface-solid); line-height: 1.52; }
+    .selection-explain b { color: var(--primary); }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 0;
+      border-radius: 9px;
+      padding: 7px 10px;
+      color: var(--primary);
+      background: var(--primary-soft);
+      font-size: 11px;
+      font-weight: 850;
+    }
+    .link-btn:hover { filter: brightness(.98); }
+
+    .center-cell { text-align: center; vertical-align: middle; line-height: 1.7; white-space: nowrap; }
+    .value-strong { font-size: 14px; font-weight: 900; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .badge.pending { color: var(--warning); background: var(--warning-soft); }
+    .badge.live { color: var(--info); background: var(--info-soft); }
+    .badge.won { color: var(--success); background: var(--success-soft); }
+    .badge.lost { color: var(--danger); background: var(--danger-soft); }
+    .badge.neutral { color: var(--muted); background: var(--surface-muted); }
+
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+    .pagination { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text);
+      background: var(--surface-solid);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .page-btn.active { color: #fff; border-color: var(--primary); background: linear-gradient(135deg, var(--primary), var(--primary-2)); }
+    .page-btn:disabled { cursor: not-allowed; opacity: .45; }
+    .empty-state { padding: 58px 20px !important; color: var(--muted); text-align: center; line-height: 1.75; }
+    .empty-icon { display: grid; place-items: center; width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 17px; color: var(--primary); background: var(--primary-soft); }
+    .empty-icon svg { width: 26px; height: 26px; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(8,14,26,.66);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(980px, 100%);
+      max-height: 92vh;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface-solid);
+      box-shadow: var(--shadow-lg);
+      animation: modalIn .22s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 19px; border-bottom: 1px solid var(--line); }
+    .modal-header h3 { margin: 0; font-size: 18px; letter-spacing: -.02em; }
+    .modal-header p { margin: 4px 0 0; color: var(--muted); font-size: 11.5px; }
+    .modal-close { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 11px; color: var(--text); background: var(--surface-muted); font-size: 21px; }
+    .modal-body { max-height: calc(92vh - 135px); overflow: auto; padding: 19px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin-bottom: 14px; }
+    .detail-box { padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-muted); }
+    .detail-box small { display: block; margin-bottom: 5px; color: var(--muted); font-size: 10.5px; }
+    .detail-box strong { display: block; font-size: 12.5px; word-break: break-word; }
+    .full-sentence { margin-bottom: 14px; padding: 14px; border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--line)); border-radius: 14px; background: linear-gradient(135deg, var(--primary-soft), var(--surface-muted)); }
+    .full-sentence strong { display: block; margin-bottom: 6px; color: var(--primary); font-size: 12px; }
+    .full-sentence p { margin: 0; color: var(--text); font-size: 12.5px; line-height: 1.7; }
+    .detail-selection { position: relative; margin-bottom: 9px; padding: 13px 13px 13px 43px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-muted); line-height: 1.6; }
+    .detail-selection .selection-number { top: 13px; }
+    .raw-title { margin: 18px 0 8px; font-size: 13px; }
+    pre { margin: 0; padding: 14px; overflow: auto; border-radius: 13px; color: #eaf0ff; background: #111827; font-family: "SFMono-Regular", Consolas, monospace; font-size: 11.5px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+    .modal-footer { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; padding: 13px 18px; border-top: 1px solid var(--line); background: var(--surface-muted); }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      max-width: min(360px, calc(100% - 36px));
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--text);
+      background: var(--surface-solid);
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      font-size: 12px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast svg { width: 18px; height: 18px; color: var(--success); flex: 0 0 auto; }
+
+    @media (max-width: 1180px) {
+      .workspace { grid-template-columns: minmax(310px, .8fr) minmax(0, 1.35fr); }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toolbar { grid-template-columns: minmax(220px, 1fr) auto auto; }
+      .toolbar .page-size-control { display: none; }
+    }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-side { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .workspace { grid-template-columns: 1fr; }
+      .input-panel { position: static; }
+      textarea { min-height: 250px; }
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .toolbar .search-control { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 640px) {
+      .app { width: min(100% - 14px, 1580px); margin-top: 7px; }
+      .topbar { border-radius: 16px; }
+      .brand-copy span { display: none; }
+      .hero { padding: 22px 18px; border-radius: 20px; }
+      .hero-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .panel-head, .panel-body { padding-left: 15px; padding-right: 15px; }
+      .stats, .detail-grid { grid-template-columns: 1fr 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+      .toolbar .search-control { grid-column: auto; }
+      .actions { grid-template-columns: 1fr; }
+      .btn-primary { grid-column: auto; }
+      .pagination-bar { align-items: flex-start; flex-direction: column; }
+      .modal-backdrop { padding: 8px; }
+      .modal { border-radius: 17px; }
+    }
+
+    @media (max-width: 420px) {
+      .stats, .detail-grid { grid-template-columns: 1fr; }
+      .hero-side { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19V9m6 10V5m6 14v-7m4 7H2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>BetSlip Insight</strong>
+          <span>Pengubah data taruhan menjadi informasi yang lengkap dan mudah dipahami</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" type="button" title="Ubah tema" aria-label="Ubah tema">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Informasi Details</div>
+        <h1>Data mentah menjadi hasil pencarian yang rapi.</h1>
+        <p>
+          Tempel JSON taruhan, lalu sistem akan membaca setiap pilihan, menjelaskan artinya,
+          menghitung total odds, menyusun kalimat lengkap, dan menampilkannya dalam tabel profesional.
+        </p>
+      </div>
+      <div class="hero-side">
+        <div class="hero-chip"><small>Format</small><strong>JSON / TXT</strong></div>
+        <div class="hero-chip"><small>Pasaran</small><strong>1X2, Handicap, O/U</strong></div>
+        <div class="hero-chip"><small>Mode</small><strong>Single & Parlay</strong></div>
+        <div class="hero-chip"><small>Proses</small><strong>100% Offline</strong></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel input-panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Masukkan Data</h2>
+            <p class="panel-subtitle">Tempel langsung atau unggah file .json dan .txt.</p>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="drop-copy">
+              <strong>Tarik file ke sini atau klik untuk memilih</strong>
+              <span>Maksimal 5 MB — format JSON atau TXT</span>
+            </div>
+            <input id="fileInput" type="file" accept=".json,.txt,application/json,text/plain" />
+          </div>
+
+          <label class="field-label" for="jsonInput">
+            <span>Data JSON taruhan</span>
+            <span id="charCount">0 karakter</span>
+          </label>
+          <textarea id="jsonInput" spellcheck="false" placeholder="Tempel data JSON di sini..."></textarea>
+
+          <div class="helper-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-9h.01" stroke-linecap="round"/>
+            </svg>
+            <div>
+              Data yang tidak memiliki currency, stake, member, winlose, atau IP akan ditampilkan sebagai “-”.
+              Sistem tidak menebak hasil menang atau kalah hanya dari nilai <b>isLive</b>.
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="processBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Proses dan Tampilkan
+            </button>
+            <button class="btn btn-secondary" id="sampleBtn" type="button">Muat Contoh</button>
+            <button class="btn btn-muted" id="pasteBtn" type="button">Tempel Clipboard</button>
+            <button class="btn btn-danger-soft" id="clearBtn" type="button">Bersihkan</button>
+            <button class="btn btn-muted" id="downloadInputBtn" type="button">Unduh Input</button>
+          </div>
+
+          <div id="statusMessage" class="status-message" role="status"></div>
+        </div>
+      </aside>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Hasil Pencarian</h2>
+            <p class="panel-subtitle">Cari tiket, member, tim, liga, pilihan, status, atau alamat IP.</p>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v12H4zM7 4h10v3H7z" stroke-linejoin="round"/></svg></div>
+              <span>Total tiket</span><strong id="statTickets">0</strong>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" stroke-linecap="round"/></svg></div>
+              <span>Total pilihan</span><strong id="statSelections">0</strong>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18V9m5 9V5m5 13v-7m5 7V7" stroke-linecap="round"/></svg></div>
+              <span>Total odds</span><strong id="statOdds">0.000</strong>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v10H4zM8 12h8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span>Total stake</span><strong id="statStake">0</strong>
+            </div>
+          </div>
+
+          <div id="narrativeBanner" class="narrative-banner">
+            <div class="narrative-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div><strong>Ringkasan otomatis</strong><p id="narrativeText"></p></div>
+          </div>
+
+          <div class="toolbar">
+            <div class="control page-size-control">
+              <select id="pageSize" aria-label="Jumlah data per halaman">
+                <option value="5">5 data</option>
+                <option value="10" selected>10 data</option>
+                <option value="25">25 data</option>
+                <option value="50">50 data</option>
+              </select>
+            </div>
+
+            <div class="control search-control">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+              <input id="searchInput" type="search" placeholder="Cari nomor tiket, tim, liga, status..." autocomplete="off" />
+            </div>
+
+            <div class="control">
+              <select id="statusFilter" aria-label="Filter status">
+                <option value="">Semua status</option>
+                <option value="pending">Menunggu</option>
+                <option value="live">Berlangsung</option>
+                <option value="won">Menang</option>
+                <option value="lost">Kalah</option>
+                <option value="neutral">Lainnya</option>
+              </select>
+            </div>
+
+            <button class="compact-btn" id="exportBtn" type="button">Ekspor CSV</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Information</th>
+                  <th>Selection</th>
+                  <th>Currency</th>
+                  <th>Stake<br />Actual Stake</th>
+                  <th>Odds</th>
+                  <th>Status</th>
+                  <th>Member Winlose</th>
+                  <th>IP</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="pagination-bar">
+            <div id="entryInfo">Showing 0 to 0 of 0 entries</div>
+            <div id="pagination" class="pagination"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Detail Tiket</h3>
+          <p>Ringkasan lengkap, penjelasan pilihan, dan data JSON asli.</p>
+        </div>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Tutup">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="copySentenceBtn" type="button">Salin Kalimat Lengkap</button>
+        <button class="btn btn-secondary" id="copyBtn" type="button">Salin Ringkasan</button>
+        <button class="btn btn-muted" id="modalCloseBottom" type="button">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="toastText">Berhasil</span>
+  </div>
+
+  <script>
+    const SAMPLE_DATA = {
+      ticketId: "DEMO-20260719-001",
+      username: "linetest1",
+      betDate: "2026-07-19T01:29:48+04:00",
+      currency: "IDR",
+      stake: 10,
+      actualStake: 10,
+      status: "Menunggu Hasil",
+      memberWinlose: "-",
+      ip: "78.138.14.26",
+      selections: [
+        {"odds":2.48,"point":"","awayId":674747,"homeId":726808,"isLive":false,"oddsId":1026539174,"point2":"","betTeam":"2","betType":5,"matchId":129709611,"awayName":"Manchester United (V)","baStatus":false,"homeName":"Leeds United (V)","leagueId":176140,"oddsType":3,"awayScore":0,"betChoice":"Manchester United (V)","betRemark":"","excluding":"","homeScore":0,"sportType":1,"leagueName":"SABA ENGLISH PREMIER LEAGUE Virtual PES 26 15 Mins Play","awayName_en":"Manchester United (V)","betTypeName":"FT.1X2","homeName_en":"Leeds United (V)","kickOffTime":"2026 07 19T08:29:00.000 04:00","betChoice_en":"Manchester United (V)","leagueName_en":"SABA ENGLISH PREMIER LEAGUE Virtual PES 26 15 Mins Play","matchDateTime":"2026 07 19T08:30:00.000 04:00","sportTypeName":"Sepak Bola","betTypeName_en":"FT.1X2","sportTypeName_en":"Soccer"},
+        {"odds":3.5,"point":"","awayId":2573,"homeId":14622,"isLive":false,"oddsId":1030588685,"point2":"","betTeam":"x","betType":5,"matchId":130311600,"awayName":"Ljungskile","baStatus":false,"homeName":"IFK Varnamo","leagueId":125,"oddsType":3,"awayScore":0,"betChoice":"Seri","betRemark":"","excluding":"","homeScore":0,"sportType":1,"leagueName":"SWEDEN SUPERETTAN","awayName_en":"Ljungskile","betTypeName":"FT.1X2","homeName_en":"IFK Varnamo","kickOffTime":"2026 07 19T08:59:59.000 04:00","betChoice_en":"Draw","leagueName_en":"SWEDEN SUPERETTAN","matchDateTime":"2026 07 19T09:00:00.000 04:00","sportTypeName":"Sepak Bola","betTypeName_en":"FT.1X2","sportTypeName_en":"Soccer"},
+        {"odds":3,"point":"","awayId":57817,"homeId":6784,"isLive":false,"oddsId":1034122169,"point2":"","betTeam":"1","betType":5,"matchId":130837286,"awayName":"Nizhny Novgorod","baStatus":false,"homeName":"KAMAZ Naberezhnye Chelny","leagueId":119629,"oddsType":3,"awayScore":0,"betChoice":"KAMAZ Naberezhnye Chelny","betRemark":"","excluding":"","homeScore":0,"sportType":1,"leagueName":"RUSSIA FIRST LEAGUE","awayName_en":"Nizhny Novgorod","betTypeName":"FT.1X2","homeName_en":"KAMAZ Naberezhnye Chelny","kickOffTime":"2026 07 19T08:59:00.000 04:00","betChoice_en":"KAMAZ Naberezhnye Chelny","leagueName_en":"RUSSIA FIRST LEAGUE","matchDateTime":"2026 07 19T09:00:00.000 04:00","sportTypeName":"Sepak Bola","betTypeName_en":"FT.1X2","sportTypeName_en":"Soccer"}
+      ]
+    };
+
+    const state = {
+      tickets: [],
+      filtered: [],
+      page: 1,
+      pageSize: 10,
+      activeTicket: null
+    };
+
+    const el = {
+      jsonInput: document.getElementById("jsonInput"),
+      processBtn: document.getElementById("processBtn"),
+      sampleBtn: document.getElementById("sampleBtn"),
+      pasteBtn: document.getElementById("pasteBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      downloadInputBtn: document.getElementById("downloadInputBtn"),
+      fileInput: document.getElementById("fileInput"),
+      dropZone: document.getElementById("dropZone"),
+      charCount: document.getElementById("charCount"),
+      statusMessage: document.getElementById("statusMessage"),
+      searchInput: document.getElementById("searchInput"),
+      statusFilter: document.getElementById("statusFilter"),
+      pageSize: document.getElementById("pageSize"),
+      exportBtn: document.getElementById("exportBtn"),
+      tableBody: document.getElementById("tableBody"),
+      pagination: document.getElementById("pagination"),
+      entryInfo: document.getElementById("entryInfo"),
+      statTickets: document.getElementById("statTickets"),
+      statSelections: document.getElementById("statSelections"),
+      statOdds: document.getElementById("statOdds"),
+      statStake: document.getElementById("statStake"),
+      narrativeBanner: document.getElementById("narrativeBanner"),
+      narrativeText: document.getElementById("narrativeText"),
+      modalBackdrop: document.getElementById("modalBackdrop"),
+      modalBody: document.getElementById("modalBody"),
+      modalTitle: document.getElementById("modalTitle"),
+      modalClose: document.getElementById("modalClose"),
+      modalCloseBottom: document.getElementById("modalCloseBottom"),
+      copyBtn: document.getElementById("copyBtn"),
+      copySentenceBtn: document.getElementById("copySentenceBtn"),
+      themeBtn: document.getElementById("themeBtn"),
+      themeIcon: document.getElementById("themeIcon"),
+      toast: document.getElementById("toast"),
+      toastText: document.getElementById("toastText")
+    };
+
+    const ICONS = {
+      moon: '<path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" stroke-linecap="round" stroke-linejoin="round"/>',
+      sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke-linecap="round"/>'
+    };
+
+    function firstValue(object, keys, fallback = "-") {
+      for (const key of keys) {
+        const value = object?.[key];
+        if (value !== undefined && value !== null && value !== "") return value;
+      }
+      return fallback;
+    }
+
+    function toNumber(value, fallback = 0) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number : fallback;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatNumber(value, decimals = 3) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "-";
+      return number.toLocaleString("id-ID", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function formatMoney(value) {
+      if (value === "-" || value === "" || value === null || value === undefined) return "-";
+      const number = Number(value);
+      return Number.isFinite(number)
+        ? number.toLocaleString("id-ID", { maximumFractionDigits: 6 })
+        : String(value);
+    }
+
+    function formatMatchDate(value) {
+      if (!value || value === "-") return "-";
+      const text = String(value).trim();
+      const unusual = text.match(/^(\d{4})\s+(\d{2})\s+(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?\s*([+-]?\d{2}:\d{2})?$/);
+      if (unusual) {
+        const [, year, month, day, hour, minute, , rawZone] = unusual;
+        const zone = rawZone ? (rawZone.startsWith("+") || rawZone.startsWith("-") ? rawZone : `+${rawZone}`) : "";
+        return `${day}/${month}/${year} ${hour}:${minute}${zone ? ` (UTC${zone})` : ""}`;
+      }
+      const date = new Date(text);
+      if (!Number.isNaN(date.getTime())) {
+        return new Intl.DateTimeFormat("id-ID", {
+          day: "2-digit", month: "2-digit", year: "numeric",
+          hour: "2-digit", minute: "2-digit"
+        }).format(date);
+      }
+      return text;
+    }
+
+    function extractJsonObjects(text) {
+      const results = [];
+      let depth = 0, start = -1, inString = false, escaped = false;
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (inString) {
+          if (escaped) escaped = false;
+          else if (char === "\\") escaped = true;
+          else if (char === '"') inString = false;
+          continue;
+        }
+        if (char === '"') { inString = true; continue; }
+        if (char === "{") { if (depth === 0) start = i; depth++; }
+        else if (char === "}") {
+          depth--;
+          if (depth === 0 && start >= 0) {
+            try { results.push(JSON.parse(text.slice(start, i + 1))); } catch (_) {}
+            start = -1;
+          }
+        }
+      }
+      return results;
+    }
+
+    function isSelectionObject(item) {
+      if (!item || typeof item !== "object" || Array.isArray(item)) return false;
+      return ["homeName", "awayName", "betChoice", "matchId", "leagueName", "odds"].some(key => key in item);
+    }
+
+    function findSelections(source) {
+      const keys = ["selections", "selection", "items", "details", "bets", "betDetails", "legs", "matches"];
+      for (const key of keys) if (Array.isArray(source?.[key])) return source[key];
+      return isSelectionObject(source) ? [source] : [];
+    }
+
+    function parseInput(text) {
+      const trimmed = text.trim();
+      if (!trimmed) throw new Error("Data masih kosong. Silakan tempel JSON terlebih dahulu.");
+      let parsed;
+      try { parsed = JSON.parse(trimmed); }
+      catch (_) {
+        parsed = extractJsonObjects(trimmed);
+        if (!parsed.length) throw new Error("JSON tidak dapat dibaca. Periksa tanda kurung, koma, dan tanda kutip.");
+      }
+      if (!Array.isArray(parsed)) parsed = [parsed];
+
+      const ticketLike = parsed.filter(item => findSelections(item).length && !isSelectionObject(item));
+      if (ticketLike.length) return ticketLike;
+
+      const directSelections = parsed.filter(isSelectionObject);
+      if (directSelections.length) {
+        return [{
+          ticketId: "-", username: "-", currency: "IDR",
+          selections: directSelections, rawImportedData: parsed
+        }];
+      }
+
+      const nested = parsed.flatMap(item => Array.isArray(item) ? item : []);
+      if (nested.length) return nested;
+      throw new Error("Data ditemukan, tetapi pilihan pertandingan tidak dikenali.");
+    }
+
+    function selectionStatus(raw) {
+      const explicit = firstValue(raw, ["status", "resultStatus", "betStatus", "settlementStatus"], "");
+      if (explicit) return String(explicit);
+      if (raw.isLive === true) return "Sedang Berlangsung";
+      return "Belum Dimulai";
+    }
+
+    function explainSelection(selection) {
+      const team = String(selection.betTeam ?? "").toLowerCase();
+      const market = String(selection.market ?? "").toLowerCase();
+      if (market.includes("1x2")) {
+        if (team === "1") return `Tim kandang ${selection.home} dipilih untuk menang setelah waktu normal.`;
+        if (team === "x") return "Pertandingan dipilih berakhir seri setelah waktu normal.";
+        if (team === "2") return `Tim tandang ${selection.away} dipilih untuk menang setelah waktu normal.`;
+      }
+      if (market.includes("handicap")) {
+        const point = selection.point && selection.point !== "-" ? ` dengan handicap ${selection.point}` : "";
+        return `${selection.choice} dipilih pada pasaran handicap${point}.`;
+      }
+      if (market.includes("over/under") || market.includes("over under") || market.includes("total")) {
+        const point = selection.point && selection.point !== "-" ? ` pada batas ${selection.point}` : "";
+        return `${selection.choice} dipilih pada pasaran total gol${point}.`;
+      }
+      return `${selection.choice} dipilih pada pasaran ${selection.market}.`;
+    }
+
+    function normalizeSelection(raw, index) {
+      const selection = {
+        number: index + 1,
+        matchId: firstValue(raw, ["matchId", "eventId", "fixtureId"], "-"),
+        oddsId: firstValue(raw, ["oddsId", "selectionId"], "-"),
+        home: firstValue(raw, ["homeName", "homeName_en", "home", "homeTeam"], "Tim Kandang"),
+        away: firstValue(raw, ["awayName", "awayName_en", "away", "awayTeam"], "Tim Tandang"),
+        league: firstValue(raw, ["leagueName", "leagueName_en", "competition", "league"], "-"),
+        market: firstValue(raw, ["betTypeName", "betTypeName_en", "marketName", "market"], "-"),
+        choice: firstValue(raw, ["betChoice", "betChoice_en", "selectionName", "choice"], "-"),
+        odds: toNumber(firstValue(raw, ["odds", "price"], 0), 0),
+        point: firstValue(raw, ["point", "line", "handicap"], "-"),
+        betTeam: firstValue(raw, ["betTeam", "side"], "-"),
+        date: formatMatchDate(firstValue(raw, ["matchDateTime", "kickOffTime", "eventTime", "startTime"], "-")),
+        status: selectionStatus(raw),
+        homeScore: firstValue(raw, ["homeScore", "scoreHome"], 0),
+        awayScore: firstValue(raw, ["awayScore", "scoreAway"], 0),
+        halfTimeScore: firstValue(raw, ["halfTimeScore", "htScore"], "-"),
+        raw
+      };
+      selection.explanation = explainSelection(selection);
+      return selection;
+    }
+
+    function normalizeStatus(value, selections) {
+      const explicit = String(value ?? "").trim();
+      if (explicit && explicit !== "-") return explicit;
+      if (selections.some(item => item.status.toLowerCase().includes("berlangsung"))) return "Sedang Berlangsung";
+      return "Menunggu Hasil";
+    }
+
+    function buildSearchText(ticket) {
+      return [
+        ticket.ticketId, ticket.username, ticket.date, ticket.currency, ticket.stake,
+        ticket.actualStake, ticket.totalOdds, ticket.status, ticket.memberWinlose, ticket.ip,
+        ...ticket.selections.flatMap(item => [
+          item.matchId, item.oddsId, item.home, item.away, item.league, item.market,
+          item.choice, item.odds, item.date, item.status, item.explanation
+        ])
+      ].join(" ").toLowerCase();
+    }
+
+    function normalizeTicket(raw, index) {
+      const selections = findSelections(raw).map(normalizeSelection);
+      const calculatedOdds = selections.reduce((total, item) => total * (item.odds || 1), selections.length ? 1 : 0);
+      const suppliedOdds = toNumber(firstValue(raw, ["totalOdds", "parlayOdds", "oddsTotal"], 0), 0);
+      const ticket = {
+        _idx: index,
+        ticketId: firstValue(raw, ["ticketId", "betId", "orderId", "referenceId", "transactionId", "id"], "-"),
+        username: firstValue(raw, ["username", "member", "memberName", "user", "account"], "-"),
+        date: formatMatchDate(firstValue(raw, ["betDate", "createdAt", "transactionDate", "date", "placedAt"], "-")),
+        currency: firstValue(raw, ["currency", "currencyCode"], "IDR"),
+        stake: firstValue(raw, ["stake", "betAmount", "amount"], "-"),
+        actualStake: firstValue(raw, ["actualStake", "validStake", "turnover"], "-"),
+        totalOdds: suppliedOdds || calculatedOdds,
+        status: "",
+        memberWinlose: firstValue(raw, ["memberWinlose", "winlose", "netWin", "profitLoss"], "-"),
+        ip: firstValue(raw, ["ip", "ipAddress", "loginIp"], "-"),
+        selections,
+        raw
+      };
+      ticket.status = normalizeStatus(firstValue(raw, ["status", "betStatus", "settlementStatus"], ""), selections);
+      ticket.searchText = buildSearchText(ticket);
+      return ticket;
+    }
+
+    function statusClass(status) {
+      const value = String(status).toLowerCase();
+      if (value.includes("won") || value.includes("menang")) return "won";
+      if (value.includes("lose") || value.includes("lost") || value.includes("kalah")) return "lost";
+      if (value.includes("live") || value.includes("berlangsung")) return "live";
+      if (value.includes("pending") || value.includes("menunggu") || value.includes("belum")) return "pending";
+      return "neutral";
+    }
+
+    function combinedSentence(ticket) {
+      const parts = ticket.selections.map(selection => {
+        const market = String(selection.market).toLowerCase();
+        const team = String(selection.betTeam).toLowerCase();
+        if (market.includes("1x2")) {
+          if (team === "1") return `${selection.home} dipilih menang melawan ${selection.away} dengan odds ${formatNumber(selection.odds, 2)}`;
+          if (team === "x") return `${selection.home} melawan ${selection.away} dipilih berakhir seri dengan odds ${formatNumber(selection.odds, 2)}`;
+          if (team === "2") return `${selection.away} dipilih menang melawan ${selection.home} dengan odds ${formatNumber(selection.odds, 2)}`;
+        }
+        return `${selection.choice} dipilih pada pertandingan ${selection.home} melawan ${selection.away} dengan odds ${formatNumber(selection.odds, 2)}`;
+      });
+      const type = ticket.selections.length > 1 ? "parlay" : "single";
+      return `Tiket ${type} ini memiliki ${ticket.selections.length} pilihan: ${parts.join("; ")}. Total odds ${formatNumber(ticket.totalOdds, 3)}${ticket.stake !== "-" ? ` dengan stake ${formatMoney(ticket.stake)} ${ticket.currency}` : ""}.`;
+    }
+
+    function showMessage(message, type) {
+      el.statusMessage.textContent = message;
+      el.statusMessage.className = `status-message show ${type}`;
+    }
+    function clearMessage() {
+      el.statusMessage.textContent = "";
+      el.statusMessage.className = "status-message";
+    }
+    function showToast(message) {
+      el.toastText.textContent = message;
+      el.toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => el.toast.classList.remove("show"), 1800);
+    }
+
+    function processData() {
+      try {
+        const rawTickets = parseInput(el.jsonInput.value);
+        state.tickets = rawTickets.map(normalizeTicket).filter(ticket => ticket.selections.length);
+        if (!state.tickets.length) throw new Error("Tidak ada pilihan pertandingan yang dapat ditampilkan.");
+        state.page = 1;
+        el.searchInput.value = "";
+        el.statusFilter.value = "";
+        applyFilter();
+        const choices = state.tickets.reduce((sum, ticket) => sum + ticket.selections.length, 0);
+        showMessage(`${state.tickets.length} tiket dan ${choices} pilihan berhasil diproses.`, "success");
+      } catch (error) {
+        state.tickets = [];
+        state.filtered = [];
+        renderAll();
+        showMessage(error.message || "Terjadi kesalahan saat memproses data.", "error");
+      }
+    }
+
+    function applyFilter() {
+      const keyword = el.searchInput.value.trim().toLowerCase();
+      const statusValue = el.statusFilter.value;
+      state.filtered = state.tickets.filter(ticket => {
+        const matchesKeyword = !keyword || ticket.searchText.includes(keyword);
+        const matchesStatus = !statusValue || statusClass(ticket.status) === statusValue;
+        return matchesKeyword && matchesStatus;
+      });
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.pageSize));
+      if (state.page > totalPages) state.page = totalPages;
+      renderAll();
+    }
+
+    function renderAll() {
+      renderStats();
+      renderNarrative();
+      renderTable();
+      renderPagination();
+    }
+
+    function renderStats() {
+      const selectionCount = state.filtered.reduce((sum, ticket) => sum + ticket.selections.length, 0);
+      const totalOdds = state.filtered.reduce((sum, ticket) => sum + ticket.totalOdds, 0);
+      const totalStake = state.filtered.reduce((sum, ticket) => sum + (Number(ticket.stake) || 0), 0);
+      el.statTickets.textContent = state.filtered.length.toLocaleString("id-ID");
+      el.statSelections.textContent = selectionCount.toLocaleString("id-ID");
+      el.statOdds.textContent = formatNumber(totalOdds, 3);
+      el.statStake.textContent = totalStake.toLocaleString("id-ID", { maximumFractionDigits: 6 });
+    }
+
+    function renderNarrative() {
+      if (state.filtered.length === 1) {
+        el.narrativeBanner.classList.add("show");
+        el.narrativeText.textContent = combinedSentence(state.filtered[0]);
+      } else if (state.filtered.length > 1) {
+        el.narrativeBanner.classList.add("show");
+        el.narrativeText.textContent = `Terdapat ${state.filtered.length} tiket yang sesuai filter dengan total ${state.filtered.reduce((sum, t) => sum + t.selections.length, 0)} pilihan.`;
+      } else {
+        el.narrativeBanner.classList.remove("show");
+        el.narrativeText.textContent = "";
+      }
+    }
+
+    function renderSelectionHtml(selection) {
+      return `
+        <div class="selection-item">
+          <div class="selection-number">${selection.number}</div>
+          <div class="selection-title">
+            <span>${escapeHtml(selection.choice)}</span>
+            <span class="odd-pill">@${formatNumber(selection.odds, 2)}</span>
+          </div>
+          <div class="selection-meta"><b>Pasaran</b><span>${escapeHtml(selection.market)}</span></div>
+          <div class="selection-meta"><b>Laga</b><span>${escapeHtml(selection.home)} vs ${escapeHtml(selection.away)}</span></div>
+          <div class="selection-meta"><b>Liga</b><span>${escapeHtml(selection.league)}</span></div>
+          <div class="selection-meta"><b>Jadwal</b><span>${escapeHtml(selection.date)}</span></div>
+          <div class="selection-meta"><b>Status</b><span>${escapeHtml(selection.status)} · Skor ${escapeHtml(selection.homeScore)} : ${escapeHtml(selection.awayScore)}</span></div>
+          <div class="selection-explain"><b>Artinya:</b> ${escapeHtml(selection.explanation)}</div>
+        </div>`;
+    }
+
+    function renderTable() {
+      if (!state.filtered.length) {
+        el.tableBody.innerHTML = `
+          <tr><td colspan="8" class="empty-state">
+            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Belum ada data yang ditampilkan.<br>Muat contoh atau tempel JSON, lalu klik <b>Proses dan Tampilkan</b>.
+          </td></tr>`;
+        el.entryInfo.textContent = "Showing 0 to 0 of 0 entries";
+        return;
+      }
+
+      const start = (state.page - 1) * state.pageSize;
+      const end = Math.min(start + state.pageSize, state.filtered.length);
+      const pageItems = state.filtered.slice(start, end);
+
+      el.tableBody.innerHTML = pageItems.map(ticket => {
+        const information = `
+          <div class="info-cell">
+            <div class="ticket-id">${escapeHtml(ticket.ticketId)}</div>
+            ${ticket.username !== "-" ? `<div class="member-badge">● ${escapeHtml(ticket.username)}</div>` : ""}
+            <div class="info-muted">${escapeHtml(ticket.date)}</div>
+            <div class="info-muted">${ticket.selections.length} pilihan · ${ticket.selections.length > 1 ? "Parlay" : "Single"}</div>
+          </div>`;
+        const selections = ticket.selections.map(renderSelectionHtml).join("");
+        return `
+          <tr>
+            <td>${information}</td>
+            <td class="selection-cell">
+              ${selections}
+              <div class="row-actions">
+                <button class="link-btn" onclick="openDetails(${ticket._idx})">Lihat Details →</button>
+                <button class="link-btn" onclick="copyTicketSentence(${ticket._idx})">Salin Kalimat</button>
+              </div>
+            </td>
+            <td class="center-cell">${escapeHtml(ticket.currency)}</td>
+            <td class="center-cell">${escapeHtml(formatMoney(ticket.stake))}<br><span class="info-muted">${escapeHtml(formatMoney(ticket.actualStake))}</span></td>
+            <td class="center-cell"><span class="value-strong">${formatNumber(ticket.totalOdds, 3)}</span></td>
+            <td class="center-cell"><span class="badge ${statusClass(ticket.status)}">${escapeHtml(ticket.status)}</span></td>
+            <td class="center-cell">${escapeHtml(formatMoney(ticket.memberWinlose))}</td>
+            <td class="center-cell">${escapeHtml(ticket.ip)}</td>
+          </tr>`;
+      }).join("");
+      el.entryInfo.textContent = `Showing ${start + 1} to ${end} of ${state.filtered.length} entries`;
+    }
+
+    function renderPagination() {
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.pageSize));
+      if (!state.filtered.length) { el.pagination.innerHTML = ""; return; }
+      const buttons = [];
+      buttons.push(`<button class="page-btn" ${state.page === 1 ? "disabled" : ""} onclick="changePage(${state.page - 1})">Previous</button>`);
+      const startPage = Math.max(1, state.page - 2);
+      const endPage = Math.min(totalPages, state.page + 2);
+      if (startPage > 1) {
+        buttons.push(`<button class="page-btn" onclick="changePage(1)">1</button>`);
+        if (startPage > 2) buttons.push(`<span>…</span>`);
+      }
+      for (let page = startPage; page <= endPage; page++) {
+        buttons.push(`<button class="page-btn ${page === state.page ? "active" : ""}" onclick="changePage(${page})">${page}</button>`);
+      }
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) buttons.push(`<span>…</span>`);
+        buttons.push(`<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`);
+      }
+      buttons.push(`<button class="page-btn" ${state.page === totalPages ? "disabled" : ""} onclick="changePage(${state.page + 1})">Next</button>`);
+      el.pagination.innerHTML = buttons.join("");
+    }
+
+    function changePage(page) {
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.pageSize));
+      state.page = Math.min(Math.max(1, page), totalPages);
+      renderTable();
+      renderPagination();
+    }
+
+    function summaryText(ticket) {
+      const lines = [
+        "INFORMATION",
+        `Ticket ID: ${ticket.ticketId}`,
+        `Member: ${ticket.username}`,
+        `Tanggal: ${ticket.date}`,
+        `Jenis taruhan: ${ticket.selections.length > 1 ? "Parlay" : "Single"}`,
+        `Jumlah pilihan: ${ticket.selections.length}`,
+        "",
+        "KALIMAT LENGKAP",
+        combinedSentence(ticket),
+        "",
+        "SELECTION"
+      ];
+      ticket.selections.forEach(selection => {
+        lines.push(
+          "",
+          `${selection.number}. ${selection.choice} @${formatNumber(selection.odds, 2)}`,
+          `   Pertandingan: ${selection.home} vs ${selection.away}`,
+          `   Pasaran: ${selection.market}`,
+          `   Liga: ${selection.league}`,
+          `   Jadwal: ${selection.date}`,
+          `   Status: ${selection.status}`,
+          `   Artinya: ${selection.explanation}`
+        );
+      });
+      lines.push(
+        "",
+        `Currency: ${ticket.currency}`,
+        `Stake: ${formatMoney(ticket.stake)}`,
+        `Actual Stake: ${formatMoney(ticket.actualStake)}`,
+        `Total Odds: ${formatNumber(ticket.totalOdds, 3)}`,
+        `Status: ${ticket.status}`,
+        `Member Winlose: ${formatMoney(ticket.memberWinlose)}`,
+        `IP: ${ticket.ip}`
+      );
+      return lines.join("\n");
+    }
+
+    function openDetails(index) {
+      const ticket = state.tickets.find(item => item._idx === index);
+      if (!ticket) return;
+      state.activeTicket = ticket;
+      el.modalTitle.textContent = `Detail Tiket ${ticket.ticketId}`;
+      const selectionDetails = ticket.selections.map(selection => `
+        <div class="detail-selection">
+          <div class="selection-number">${selection.number}</div>
+          <b>${escapeHtml(selection.choice)} @${formatNumber(selection.odds, 2)}</b><br>
+          ${escapeHtml(selection.home)} vs ${escapeHtml(selection.away)}<br>
+          <span class="info-muted">Pasaran:</span> ${escapeHtml(selection.market)}<br>
+          <span class="info-muted">Liga:</span> ${escapeHtml(selection.league)}<br>
+          <span class="info-muted">Jadwal:</span> ${escapeHtml(selection.date)}<br>
+          <span class="info-muted">Status:</span> ${escapeHtml(selection.status)}<br>
+          <span class="info-muted">Penjelasan:</span> ${escapeHtml(selection.explanation)}
+        </div>`).join("");
+
+      el.modalBody.innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-box"><small>Ticket ID</small><strong>${escapeHtml(ticket.ticketId)}</strong></div>
+          <div class="detail-box"><small>Member</small><strong>${escapeHtml(ticket.username)}</strong></div>
+          <div class="detail-box"><small>Total Odds</small><strong>${formatNumber(ticket.totalOdds, 3)}</strong></div>
+          <div class="detail-box"><small>Status</small><strong>${escapeHtml(ticket.status)}</strong></div>
+          <div class="detail-box"><small>Currency</small><strong>${escapeHtml(ticket.currency)}</strong></div>
+          <div class="detail-box"><small>Stake</small><strong>${escapeHtml(formatMoney(ticket.stake))}</strong></div>
+          <div class="detail-box"><small>Actual Stake</small><strong>${escapeHtml(formatMoney(ticket.actualStake))}</strong></div>
+          <div class="detail-box"><small>IP</small><strong>${escapeHtml(ticket.ip)}</strong></div>
+        </div>
+        <div class="full-sentence"><strong>Kalimat Lengkap</strong><p>${escapeHtml(combinedSentence(ticket))}</p></div>
+        ${selectionDetails}
+        <h4 class="raw-title">Data JSON asli</h4>
+        <pre>${escapeHtml(JSON.stringify(ticket.raw, null, 2))}</pre>`;
+      el.modalBackdrop.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      el.modalBackdrop.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    async function copyText(text, message) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+      }
+      showToast(message);
+    }
+
+    function copyTicketSentence(index) {
+      const ticket = state.tickets.find(item => item._idx === index);
+      if (ticket) copyText(combinedSentence(ticket), "Kalimat lengkap berhasil disalin.");
+    }
+
+    function downloadFile(filename, content, type = "text/plain;charset=utf-8") {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return `"${text.replaceAll('"', '""')}"`;
+    }
+
+    function exportCsv() {
+      if (!state.filtered.length) { showToast("Belum ada data untuk diekspor."); return; }
+      const rows = [["Ticket ID","Member","Tanggal","Jenis","Jumlah Pilihan","Selection","Currency","Stake","Actual Stake","Total Odds","Status","Member Winlose","IP","Kalimat Lengkap"]];
+      state.filtered.forEach(ticket => {
+        const selections = ticket.selections.map(s => `${s.number}. ${s.choice} @${formatNumber(s.odds, 2)} | ${s.home} vs ${s.away} | ${s.market} | ${s.league}`).join(" || ");
+        rows.push([
+          ticket.ticketId, ticket.username, ticket.date,
+          ticket.selections.length > 1 ? "Parlay" : "Single",
+          ticket.selections.length, selections, ticket.currency, ticket.stake,
+          ticket.actualStake, ticket.totalOdds, ticket.status, ticket.memberWinlose,
+          ticket.ip, combinedSentence(ticket)
+        ]);
+      });
+      downloadFile("hasil_informasi_details.csv", "\uFEFF" + rows.map(row => row.map(csvEscape).join(",")).join("\n"), "text/csv;charset=utf-8");
+      showToast("CSV berhasil dibuat.");
+    }
+
+    function updateCharCount() {
+      el.charCount.textContent = `${el.jsonInput.value.length.toLocaleString("id-ID")} karakter`;
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem("betslip-theme");
+      const preferDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+      const theme = saved || (preferDark ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+      el.themeIcon.innerHTML = theme === "dark" ? ICONS.sun : ICONS.moon;
+    }
+
+    function toggleTheme() {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("betslip-theme", next);
+      el.themeIcon.innerHTML = next === "dark" ? ICONS.sun : ICONS.moon;
+    }
+
+    async function handleFile(file) {
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showMessage("Ukuran file melebihi 5 MB.", "error"); return; }
+      try {
+        el.jsonInput.value = await file.text();
+        updateCharCount();
+        clearMessage();
+        processData();
+      } catch (_) {
+        showMessage("File tidak dapat dibaca.", "error");
+      }
+    }
+
+    el.processBtn.addEventListener("click", processData);
+    el.sampleBtn.addEventListener("click", () => {
+      el.jsonInput.value = JSON.stringify(SAMPLE_DATA, null, 2);
+      updateCharCount();
+      clearMessage();
+      processData();
+    });
+    el.pasteBtn.addEventListener("click", async () => {
+      try {
+        el.jsonInput.value = await navigator.clipboard.readText();
+        updateCharCount();
+        clearMessage();
+        showToast("Data clipboard berhasil ditempel.");
+      } catch (_) {
+        showMessage("Browser tidak mengizinkan membaca clipboard. Gunakan Ctrl+V pada kotak input.", "error");
+      }
+    });
+    el.clearBtn.addEventListener("click", () => {
+      el.jsonInput.value = "";
+      el.searchInput.value = "";
+      el.statusFilter.value = "";
+      state.tickets = [];
+      state.filtered = [];
+      state.page = 1;
+      updateCharCount();
+      clearMessage();
+      renderAll();
+      el.jsonInput.focus();
+    });
+    el.downloadInputBtn.addEventListener("click", () => {
+      if (!el.jsonInput.value.trim()) { showToast("Input masih kosong."); return; }
+      downloadFile("data_taruhan.json", el.jsonInput.value, "application/json;charset=utf-8");
+    });
+    el.jsonInput.addEventListener("input", updateCharCount);
+    el.fileInput.addEventListener("change", event => handleFile(event.target.files?.[0]));
+    ["dragenter", "dragover"].forEach(type => el.dropZone.addEventListener(type, event => {
+      event.preventDefault(); el.dropZone.classList.add("dragging");
+    }));
+    ["dragleave", "drop"].forEach(type => el.dropZone.addEventListener(type, event => {
+      event.preventDefault(); el.dropZone.classList.remove("dragging");
+    }));
+    el.dropZone.addEventListener("drop", event => handleFile(event.dataTransfer.files?.[0]));
+    el.searchInput.addEventListener("input", () => { state.page = 1; applyFilter(); });
+    el.statusFilter.addEventListener("change", () => { state.page = 1; applyFilter(); });
+    el.pageSize.addEventListener("change", () => {
+      state.pageSize = Number(el.pageSize.value);
+      state.page = 1;
+      renderTable();
+      renderPagination();
+    });
+    el.exportBtn.addEventListener("click", exportCsv);
+    el.modalClose.addEventListener("click", closeModal);
+    el.modalCloseBottom.addEventListener("click", closeModal);
+    el.copyBtn.addEventListener("click", () => {
+      if (state.activeTicket) copyText(summaryText(state.activeTicket), "Ringkasan berhasil disalin.");
+    });
+    el.copySentenceBtn.addEventListener("click", () => {
+      if (state.activeTicket) copyText(combinedSentence(state.activeTicket), "Kalimat lengkap berhasil disalin.");
+    });
+    el.modalBackdrop.addEventListener("click", event => { if (event.target === el.modalBackdrop) closeModal(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
+    el.themeBtn.addEventListener("click", toggleTheme);
+
+    window.openDetails = openDetails;
+    window.changePage = changePage;
+    window.copyTicketSentence = copyTicketSentence;
+
+    loadTheme();
+    el.jsonInput.value = JSON.stringify(SAMPLE_DATA, null, 2);
+    updateCharCount();
+    processData();
+  </script>
+</body>
+</html>
