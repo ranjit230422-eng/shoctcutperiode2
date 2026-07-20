@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <title>Informasi Details — Perhitungan Parlay</title>
+  <title>Informasi Details — Skor & Perhitungan Parlay Lengkap</title>
   <style>
     :root {
       --red: #ff243f;
@@ -774,6 +774,144 @@
       line-height: 1.65;
     }
 
+
+
+    /* Papan skor mengikuti keadaan pertandingan pada data */
+    .scoreboard {
+      width: 100%;
+      margin-top: 10px;
+      overflow: hidden;
+      border: 1px solid #303030;
+      border-radius: 11px;
+      background: linear-gradient(180deg, #0c0c0c, #070707);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 10px 24px rgba(0,0,0,.22);
+      text-align: center;
+    }
+
+    .scoreboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 30px;
+      padding: 5px 9px;
+      border-bottom: 1px solid #292929;
+      color: #9d9d9d;
+      background: #111;
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .scoreboard-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 7px;
+      border: 1px solid rgba(255,36,63,.34);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255,36,63,.11);
+    }
+
+    .scoreboard-badge::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      content: "";
+      background: var(--red);
+      box-shadow: 0 0 10px var(--red);
+    }
+
+    .scoreboard.finished .scoreboard-badge::before { background: #55d98a; box-shadow: 0 0 10px rgba(85,217,138,.65); }
+    .scoreboard.not-started .scoreboard-badge::before { background: #9a9a9a; box-shadow: none; }
+    .scoreboard.pending-board .scoreboard-badge::before { background: #ffd166; box-shadow: 0 0 10px rgba(255,209,102,.42); }
+
+    .scoreboard-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      min-height: 68px;
+      padding: 10px 11px;
+    }
+
+    .scoreboard-team {
+      min-width: 0;
+      color: #ededed;
+      font-size: 11px;
+      font-weight: 750;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .scoreboard-team.home { text-align: right; }
+    .scoreboard-team.away { text-align: left; }
+
+    .scoreboard-score {
+      min-width: 74px;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.035em;
+      line-height: 1;
+      text-shadow: 0 0 18px rgba(255,36,63,.18);
+    }
+
+    .scoreboard-score span {
+      margin: 0 5px;
+      color: var(--red);
+      font-size: 18px;
+    }
+
+    .scoreboard.not-started .scoreboard-score,
+    .scoreboard.pending-board .scoreboard-score {
+      min-width: 54px;
+      color: #bdbdbd;
+      font-size: 14px;
+      letter-spacing: .05em;
+    }
+
+    .scoreboard-foot {
+      min-height: 29px;
+      padding: 6px 9px;
+      border-top: 1px solid #272727;
+      color: #969696;
+      background: #0d0d0d;
+      font-size: 9.5px;
+      line-height: 1.45;
+    }
+
+    .scoreboard-foot b { color: #dedede; }
+    .scoreboard-note { color: #ff6b7d; }
+
+    .data-source-pill {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 2px 7px;
+      border: 1px solid #343434;
+      border-radius: 999px;
+      color: #a9a9a9;
+      background: #131313;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .detail-scoreboard { margin: 12px 0; }
+    .detail-scoreboard .scoreboard-main { min-height: 88px; }
+    .detail-scoreboard .scoreboard-team { font-size: 13px; }
+    .detail-scoreboard .scoreboard-score { min-width: 100px; font-size: 36px; }
+    .detail-scoreboard .scoreboard-score span { font-size: 25px; }
+
+    .status-source {
+      margin-top: 4px;
+      color: #8f8f8f;
+      font-size: 9px;
+      line-height: 1.35;
+    }
+
     @media (max-width: 760px) {
       .page { width: calc(100% - 16px); padding-top: 16px; }
       .input-panel { padding: 14px; }
@@ -798,7 +936,7 @@
 
     <section class="input-panel">
       <h2>Masukkan Data Taruhan</h2>
-      <p>Tempel data JSON tiket atau pilihan taruhan. Sistem akan menyusun informasi secara detail, membaca skor HT/FT, menghitung total odds, pengembalian, dan member winlose sesuai aturan parlay umum. Satu pilihan kalah membuat seluruh parlay kalah.</p>
+      <p>Tempel data JSON tiket atau pilihan taruhan. Sistem mengikuti status, jadwal, dan skor yang benar-benar tercatat pada data. Pertandingan selesai ditampilkan pada papan skor dan dihitung dari skor FT/HT. Pertandingan yang belum berlangsung tetap berstatus menunggu dan tidak akan dipaksakan menjadi menang atau kalah. Pada parlay, satu pilihan kalah membuat seluruh tiket kalah.</p>
       <textarea id="jsonInput" spellcheck="false" placeholder="Tempel data taruhan di sini..."></textarea>
       <div class="actions">
         <button class="btn btn-primary" id="processButton" type="button">Proses Data</button>
@@ -884,6 +1022,8 @@
           "leagueName": "WORLD CUP 2026 (in Canada, Mexico & USA)",
           "matchDateTime": "2026-07-19 20:00:00",
           "status": "half won",
+          "isLive": false,
+          "matchStatus": "finished",
           "htHomeScore": 0,
           "htAwayScore": 0,
           "homeScore": 0,
@@ -899,6 +1039,8 @@
           "leagueName": "WORLD CUP 2026 (in Canada, Mexico & USA)",
           "matchDateTime": "2026-07-19 20:00:00",
           "status": "won",
+          "isLive": false,
+          "matchStatus": "finished",
           "htHomeScore": 0,
           "htAwayScore": 0,
           "homeScore": 0,
@@ -1094,27 +1236,34 @@
       const isHt = period === "ht";
       const pairKeys = isHt
         ? ["htScore", "halfTimeScore", "scoreHT", "halfScore"]
-        : ["ftScore", "fullTimeScore", "scoreFT", "finalScore"];
+        : ["ftScore", "fullTimeScore", "scoreFT", "finalScore", "currentScore"];
+
       for (const key of pairKeys) {
         const pair = scorePairFromString(raw?.[key]);
-        if (pair) return { ...pair, source: key, known: true };
+        if (pair) return { ...pair, source: key, known: true, generic: key === "currentScore" };
       }
 
       const homeKeys = isHt
         ? ["htHomeScore", "halfTimeHomeScore", "homeScoreHT", "homeHtScore"]
-        : ["ftHomeScore", "fullTimeHomeScore", "homeScoreFT", "homeScore", "scoreHome"];
+        : ["ftHomeScore", "fullTimeHomeScore", "homeScoreFT", "homeScore", "scoreHome", "currentHomeScore"];
       const awayKeys = isHt
         ? ["htAwayScore", "halfTimeAwayScore", "awayScoreHT", "awayHtScore"]
-        : ["ftAwayScore", "fullTimeAwayScore", "awayScoreFT", "awayScore", "scoreAway"];
+        : ["ftAwayScore", "fullTimeAwayScore", "awayScoreFT", "awayScore", "scoreAway", "currentAwayScore"];
 
       const homeRaw = firstValue(raw, homeKeys, "-");
       const awayRaw = firstValue(raw, awayKeys, "-");
       const known = homeRaw !== "-" || awayRaw !== "-";
+      const source = known ? "separate" : "none";
+      const generic = known && !hasOwnValue(raw, isHt
+        ? ["htHomeScore", "halfTimeHomeScore", "homeScoreHT", "homeHtScore", "htAwayScore", "halfTimeAwayScore", "awayScoreHT", "awayHtScore"]
+        : ["ftHomeScore", "fullTimeHomeScore", "homeScoreFT", "ftAwayScore", "fullTimeAwayScore", "awayScoreFT"]);
+
       return {
         home: known ? toNumber(homeRaw, 0) : null,
         away: known ? toNumber(awayRaw, 0) : null,
-        source: known ? "separate" : "none",
-        known
+        source,
+        known,
+        generic
       };
     }
 
@@ -1135,12 +1284,44 @@
       return ["won", "lost", "void", "half won", "half lost"].includes(status);
     }
 
+    function booleanFlag(value) {
+      if (value === true || value === 1) return true;
+      if (value === false || value === 0) return false;
+      const lower = String(value ?? "").trim().toLowerCase();
+      if (["1", "true", "yes", "y", "finished", "final"].includes(lower)) return true;
+      if (["0", "false", "no", "n"].includes(lower)) return false;
+      return null;
+    }
+
+    function detectMatchState(raw, explicitStatus) {
+      const statusText = String(firstValue(raw, [
+        "matchStatus", "eventStatus", "gameStatus", "state", "periodStatus", "fixtureStatus", "matchState"
+      ], "")).trim().toLowerCase().replaceAll("_", " ");
+
+      const finishedFlag = booleanFlag(firstValue(raw, ["isFinished", "finished", "isSettled", "settled", "isFinal"], ""));
+      const liveFlag = booleanFlag(firstValue(raw, ["isLive", "live", "inPlay", "isInPlay"], ""));
+
+      const hasExplicitFinalScore = hasOwnValue(raw, [
+        "ftScore", "fullTimeScore", "scoreFT", "finalScore",
+        "ftHomeScore", "ftAwayScore", "fullTimeHomeScore", "fullTimeAwayScore",
+        "homeScoreFT", "awayScoreFT"
+      ]);
+
+      if (isSettledStatus(explicitStatus) || finishedFlag === true || hasExplicitFinalScore || /finished|ended|full\s*time|\bft\b|final|settled|completed|tamat|selesai/.test(statusText)) {
+        return "finished";
+      }
+      if (explicitStatus === "live" || liveFlag === true || /live|running|in\s*play|inplay|berlangsung|babak/.test(statusText)) {
+        return "live";
+      }
+      if (/not\s*started|scheduled|upcoming|pre\s*match|prematch|belum\s*(mulai|berlangsung)|menunggu\s*mulai/.test(statusText)) {
+        return "not started";
+      }
+      if (liveFlag === false) return "not started";
+      return "pending";
+    }
+
     function isFinalResult(raw, explicitStatus) {
-      if (isSettledStatus(explicitStatus)) return true;
-      if (hasOwnValue(raw, ["ftScore", "fullTimeScore", "scoreFT", "finalScore", "ftHomeScore", "ftAwayScore", "fullTimeHomeScore", "fullTimeAwayScore"])) return true;
-      if ([true, 1, "1", "true"].includes(firstValue(raw, ["isFinished", "finished", "isSettled", "settled", "isFinal"], false))) return true;
-      const statusText = String(firstValue(raw, ["matchStatus", "eventStatus", "gameStatus", "state", "periodStatus"], "")).toLowerCase();
-      return /finished|ended|full\s*time|ft|final|settled|completed|tamat|selesai/.test(statusText);
+      return detectMatchState(raw, explicitStatus) === "finished";
     }
 
     function splitAsianLine(line) {
@@ -1317,8 +1498,11 @@
       const choice = String(firstValue(raw, ["betChoice", "betChoice_en", "selectionName", "choice"], "-")).trim();
       const market = String(firstValue(raw, ["betTypeName", "betTypeName_en", "marketName", "market"], "-")).toLowerCase();
       const hasPoint = /[+-]?\d+(?:[.,]\d+)?/.test(choice);
-      if ((market.includes("handicap") || market.includes("over/under") || market.includes("over under") || market.includes("total")) && !hasPoint) {
+      if (!hasPoint && market.includes("handicap")) {
         return `${choice} ${formatSigned(pointNumber)}`.trim();
+      }
+      if (!hasPoint && (market.includes("over/under") || market.includes("over under") || market.includes("total"))) {
+        return `${choice} ${formatNumber(Math.abs(pointNumber), 2)}`.trim();
       }
       return choice;
     }
@@ -1326,6 +1510,66 @@
     function scoreText(score) {
       if (!score || score.home === null || score.away === null) return "-:-";
       return `${score.home}:${score.away}`;
+    }
+
+    function matchStateLabel(selection) {
+      if (selection.matchState === "finished") return "Selesai";
+      if (selection.matchState === "live") return "Live";
+      if (selection.matchState === "not started") return "Belum Berlangsung";
+      return "Mengikuti Data";
+    }
+
+    function resultSourceLabel(selection) {
+      if (selection.statusSource === "score") return "Hasil dihitung dari skor final";
+      if (selection.statusSource === "data") return "Hasil mengikuti status resmi pada data";
+      if (selection.statusSource === "live") return "Skor berjalan — belum final";
+      if (selection.statusSource === "schedule") return "Belum dihitung — menunggu kick-off";
+      return "Menunggu data hasil";
+    }
+
+    function scoreboardHtml(selection, detail = false) {
+      const stateClass = selection.matchState === "finished"
+        ? "finished"
+        : selection.matchState === "live"
+          ? "live-board"
+          : selection.matchState === "not started"
+            ? "not-started"
+            : "pending-board";
+
+      let scoreMarkup = "VS";
+      let foot = `Jadwal: <b>${escapeHtml(formatDate(selection.matchDateRaw))}</b>`;
+
+      if (selection.matchState === "finished") {
+        scoreMarkup = selection.ftScore.known
+          ? `${escapeHtml(selection.ftScore.home)}<span>:</span>${escapeHtml(selection.ftScore.away)}`
+          : "FT";
+        foot = `HT <b>${escapeHtml(scoreText(selection.htScore))}</b> &nbsp; • &nbsp; FT <b>${escapeHtml(scoreText(selection.ftScore))}</b> &nbsp; • &nbsp; <span class="scoreboard-note">${escapeHtml(statusLabel(selection.status))}</span>`;
+      } else if (selection.matchState === "live") {
+        scoreMarkup = selection.ftScore.known
+          ? `${escapeHtml(selection.ftScore.home)}<span>:</span>${escapeHtml(selection.ftScore.away)}`
+          : "LIVE";
+        foot = `${selection.htScore.known ? `HT <b>${escapeHtml(scoreText(selection.htScore))}</b> &nbsp; • &nbsp; ` : ""}Skor berjalan, belum menjadi hasil akhir`;
+      } else if (selection.matchState === "not started") {
+        scoreMarkup = "VS";
+        foot = `Belum berlangsung &nbsp; • &nbsp; Kick-off <b>${escapeHtml(formatDate(selection.matchDateRaw))}</b>`;
+      } else if (selection.ftScore.known) {
+        scoreMarkup = `${escapeHtml(selection.ftScore.home)}<span>:</span>${escapeHtml(selection.ftScore.away)}`;
+        foot = `Skor tercatat pada data, status akhir belum dipastikan`;
+      }
+
+      return `
+        <div class="scoreboard ${stateClass} ${detail ? "detail-scoreboard" : ""}">
+          <div class="scoreboard-top">
+            <span class="scoreboard-badge">${escapeHtml(matchStateLabel(selection))}</span>
+            <span>${escapeHtml(selection.market)}</span>
+          </div>
+          <div class="scoreboard-main">
+            <div class="scoreboard-team home">${escapeHtml(selection.home)}</div>
+            <div class="scoreboard-score">${scoreMarkup}</div>
+            <div class="scoreboard-team away">${escapeHtml(selection.away)}</div>
+          </div>
+          <div class="scoreboard-foot">${foot}</div>
+        </div>`;
     }
 
     function statusLabel(status) {
@@ -1337,6 +1581,8 @@
         "void": "Void / Dikembalikan",
         "live": "Sedang Berlangsung",
         "pending": "Menunggu Hasil",
+        "not started": "Belum Berlangsung",
+        "finished": "Selesai",
         "partial lost": "Rugi Sebagian"
       };
       return map[status] || status;
@@ -1369,6 +1615,8 @@
       const pointNumber = inferPoint(raw, rawChoice);
       const rawMarket = firstValue(raw, ["betTypeName", "betTypeName_en", "marketName", "market"], "-");
       const explicitStatus = translateStatus(firstValue(raw, ["status", "resultStatus", "betStatus", "settlementStatus", "result"], ""));
+      const matchState = detectMatchState(raw, explicitStatus);
+
       const selection = {
         number: index + 1,
         matchId: firstValue(raw, ["matchId", "eventId", "fixtureId"], "-"),
@@ -1384,18 +1632,31 @@
         betTeam: firstValue(raw, ["betTeam", "side"], "-"),
         matchDateRaw: firstValue(raw, ["matchDateTime", "kickOffTime", "eventTime", "startTime"], "-"),
         explicitStatus,
+        recordedStatus: explicitStatus,
+        matchState,
         htScore: readScore(raw, "ht"),
         ftScore: readScore(raw, "ft"),
-        isFinal: isFinalResult(raw, explicitStatus),
+        isFinal: matchState === "finished",
         raw
       };
+
       selection.choice = choiceDisplay(raw, pointNumber);
       selection.calculated = evaluateByScore(selection);
 
-      if (isSettledStatus(selection.explicitStatus)) selection.status = selection.explicitStatus;
-      else if (isSettledStatus(selection.calculated.status)) selection.status = selection.calculated.status;
-      else if (selection.explicitStatus === "live") selection.status = "live";
-      else selection.status = "pending";
+      /* Skor final diprioritaskan. Status pada data menjadi cadangan jika pasar belum dapat dihitung. */
+      if (selection.isFinal && isSettledStatus(selection.calculated.status)) {
+        selection.status = selection.calculated.status;
+        selection.statusSource = "score";
+      } else if (isSettledStatus(selection.explicitStatus)) {
+        selection.status = selection.explicitStatus;
+        selection.statusSource = "data";
+      } else if (selection.matchState === "live") {
+        selection.status = "live";
+        selection.statusSource = "live";
+      } else {
+        selection.status = "pending";
+        selection.statusSource = selection.matchState === "not started" ? "schedule" : "pending";
+      }
 
       selection.settlementFactor = settlementFactor(selection.status, selection.odds);
       selection.settlementFormula = settlementFormula(selection);
@@ -1406,22 +1667,33 @@
     function buildStatusExplanation(selection) {
       const ht = scoreText(selection.htScore);
       const ft = scoreText(selection.ftScore);
-      const explicit = selection.explicitStatus;
-      const calculated = selection.calculated.status;
-      let sourceText = "";
-      if (isSettledStatus(explicit)) {
-        sourceText = `Status resmi pada data adalah ${statusLabel(explicit)} dan digunakan sebagai hasil utama.`;
-      } else if (isSettledStatus(calculated)) {
-        sourceText = `Status tidak tersedia pada data, sehingga hasil dihitung otomatis dari skor menjadi ${statusLabel(calculated)}.`;
-      } else {
-        sourceText = "Hasil belum dapat diselesaikan dan tetap berstatus menunggu.";
+      const kickoff = formatDate(selection.matchDateRaw);
+
+      if (selection.matchState === "not started") {
+        const recorded = selection.ftScore.known ? ` Data skor awal yang tercatat adalah ${ft}, tetapi tidak dipakai sebagai skor akhir karena pertandingan belum berlangsung.` : "";
+        return `Pertandingan belum berlangsung sesuai data yang dimasukkan. Jadwal kick-off ${kickoff}. Status pilihan tetap Menunggu Hasil dan belum masuk penyelesaian parlay.${recorded}`;
       }
 
-      let comparison = "";
-      if (isSettledStatus(explicit) && isSettledStatus(calculated) && explicit !== calculated) {
-        comparison = ` Catatan: perhitungan skor otomatis menghasilkan ${statusLabel(calculated)}, tetapi status resmi data adalah ${statusLabel(explicit)}. Status resmi tetap diprioritaskan karena dapat mencakup koreksi atau aturan operator.`;
+      if (selection.matchState === "live") {
+        const current = selection.ftScore.known ? ft : "belum tersedia";
+        return `Pertandingan sedang berlangsung. Skor berjalan yang tercatat adalah ${current}${selection.htScore.known ? ` dan skor HT ${ht}` : ""}. Skor berjalan tidak dianggap sebagai hasil final, sehingga pilihan tetap Live sampai pertandingan selesai.`;
       }
-      return `Skor HT ${ht} dan skor FT ${ft}. ${sourceText} ${selection.calculated.detail}${comparison}`;
+
+      if (selection.matchState === "finished") {
+        if (isSettledStatus(selection.calculated.status)) {
+          let text = `Pertandingan selesai. Papan skor mencatat HT ${ht} dan FT ${ft}. Hasil pilihan dihitung dari skor final menjadi ${statusLabel(selection.calculated.status)}. ${selection.calculated.detail}`;
+          if (isSettledStatus(selection.explicitStatus) && selection.explicitStatus !== selection.calculated.status) {
+            text += ` Status pada data tertulis ${statusLabel(selection.explicitStatus)}, tetapi perhitungan parlay menggunakan hasil skor ${statusLabel(selection.calculated.status)} agar sesuai skor yang tercatat.`;
+          }
+          return text;
+        }
+        if (isSettledStatus(selection.explicitStatus)) {
+          return `Pertandingan tercatat selesai dengan HT ${ht} dan FT ${ft}. Pasaran ini belum dapat dihitung otomatis dari skor, sehingga status resmi pada data digunakan, yaitu ${statusLabel(selection.explicitStatus)}. ${selection.calculated.detail}`;
+        }
+        return `Pertandingan tercatat selesai dengan HT ${ht} dan FT ${ft}, tetapi jenis pasar atau pilihan belum dapat dikenali untuk penyelesaian otomatis. Status tetap Menunggu Hasil sampai data hasil yang valid tersedia.`;
+      }
+
+      return `Status pertandingan mengikuti data yang dimasukkan. Skor HT ${ht}, skor tercatat ${ft}, dan hasil belum dapat diselesaikan.`;
     }
 
     function calculateTicketSettlement(selections, stakeValue, suppliedStatus) {
@@ -1552,7 +1824,7 @@
         ticket.ticketId, ticket.username, ticket.transactionId, ticket.date, ticket.time,
         ticket.currency, ticket.stake, ticket.actualStake, ticket.totalOdds, ticket.status,
         ticket.memberWinlose, ticket.ip, ticket.summary, ticket.calculationExplanation,
-        ...selections.flatMap(s => [s.choice, s.market, s.home, s.away, s.league, s.status, s.statusExplanation])
+        ...selections.flatMap(s => [s.choice, s.market, s.home, s.away, s.league, s.status, s.matchState, s.statusSource, s.statusExplanation])
       ].join(" ").toLowerCase();
       return ticket;
     }
@@ -1560,19 +1832,26 @@
     function buildTicketSummary(ticket) {
       const type = ticket.selections.length > 1 ? "parlay" : "single";
       const parts = ticket.selections.map(selection => {
-        return `${selection.choice} @${formatNumber(selection.odds, 3)} pada ${selection.home} vs ${selection.away}, status ${statusLabel(selection.status)}, HT ${scoreText(selection.htScore)}, FT ${scoreText(selection.ftScore)}`;
+        const scorePart = selection.matchState === "finished"
+          ? `skor akhir ${scoreText(selection.ftScore)}`
+          : selection.matchState === "live"
+            ? `skor berjalan ${scoreText(selection.ftScore)}`
+            : selection.matchState === "not started"
+              ? `belum berlangsung, jadwal ${formatDate(selection.matchDateRaw)}`
+              : `status mengikuti data`;
+        return `${selection.choice} @${formatNumber(selection.odds, 3)} pada ${selection.home} vs ${selection.away}, ${scorePart}, hasil pilihan ${statusLabel(selection.status)}`;
       });
       const moneyText = ticket.calculation.settled && ticket.calculation.stakeKnown
         ? `Pengembalian ${formatMoney(ticket.payout, ticket.currency)} dan member winlose ${formatMoney(ticket.calculatedWinlose, ticket.currency)}.`
         : ticket.calculation.stakeKnown
-          ? `Potensi pengembalian ${formatMoney(ticket.potentialPayout, ticket.currency)} apabila pilihan yang belum selesai menang.`
+          ? `Potensi pengembalian ${formatMoney(ticket.potentialPayout, ticket.currency)} apabila seluruh pilihan yang belum selesai menang.`
           : "Stake tidak tersedia sehingga nilai uang belum dapat dihitung.";
       return `Tiket ${type} berisi ${ticket.selections.length} pilihan. ${parts.join("; ")}. Total odds awal ${formatNumber(ticket.totalOdds, 6)}. Status tiket ${statusLabel(ticket.status)}. ${moneyText}`;
     }
 
     function statusClass(status) {
       const lower = String(status).toLowerCase();
-      if (lower === "won" || lower === "half won") return "won";
+      if (lower === "won" || lower === "half won" || lower === "finished") return "won";
       if (lower === "lost" || lower === "half lost" || lower === "partial lost") return "lost";
       if (lower === "void") return "void";
       return "pending";
@@ -1585,15 +1864,26 @@
           <div class="market-line">${escapeHtml(selection.market)}</div>
           <div class="match-line">${escapeHtml(selection.home)} vs ${escapeHtml(selection.away)}</div>
           <div class="league-line">${escapeHtml(selection.league)}@${escapeHtml(formatDate(selection.matchDateRaw, "date"))}</div>
+          ${scoreboardHtml(selection)}
+          <span class="data-source-pill">${escapeHtml(resultSourceLabel(selection))}</span>
         </div>`;
     }
 
     function selectionStatusHtml(selection) {
+      const visibleState = selection.matchState === "not started"
+        ? "Belum Berlangsung"
+        : selection.matchState === "live"
+          ? "Sedang Berlangsung"
+          : statusLabel(selection.status);
+      const htLine = selection.matchState === "not started" ? "-:-" : scoreText(selection.htScore);
+      const ftLabel = selection.matchState === "live" ? "Now" : "FT";
+      const ftLine = selection.matchState === "not started" ? "-:-" : scoreText(selection.ftScore);
       return `
         <div class="status-block">
-          <div class="status-word ${statusClass(selection.status)}">${escapeHtml(selection.status)}</div>
-          <div>HT : ${escapeHtml(scoreText(selection.htScore))}</div>
-          <div>FT : ${escapeHtml(scoreText(selection.ftScore))}</div>
+          <div class="status-word ${statusClass(selection.status)}">${escapeHtml(visibleState)}</div>
+          <div>HT : ${escapeHtml(htLine)}</div>
+          <div>${ftLabel} : ${escapeHtml(ftLine)}</div>
+          <div class="status-source">${escapeHtml(resultSourceLabel(selection))}</div>
         </div>`;
     }
 
@@ -1670,7 +1960,7 @@
         searchInput.value = "";
         applyFilter();
         const selectionCount = state.tickets.reduce((sum, ticket) => sum + ticket.selections.length, 0);
-        showMessage(`${state.tickets.length} tiket dan ${selectionCount} pilihan berhasil diproses beserta perhitungan parlay.`, "success");
+        showMessage(`${state.tickets.length} tiket dan ${selectionCount} pilihan berhasil diproses. Skor pertandingan selesai dihitung otomatis; pertandingan live atau belum berlangsung tetap mengikuti status pada data.`, "success");
       } catch (error) {
         state.tickets = [];
         state.filtered = [];
@@ -1713,9 +2003,11 @@
         <tr>
           <td>${selection.number}</td>
           <td>${escapeHtml(selection.choice)}</td>
+          <td>${escapeHtml(scoreText(selection.ftScore))}</td>
           <td>${escapeHtml(formatNumber(selection.odds, 4))}</td>
           <td class="${statusClass(selection.status)}">${escapeHtml(statusLabel(selection.status))}</td>
           <td>${selection.settlementFactor === null ? "-" : escapeHtml(formatNumber(selection.settlementFactor, 6))}</td>
+          <td>${escapeHtml(resultSourceLabel(selection))}</td>
           <td>${escapeHtml(selection.settlementFormula)}</td>
         </tr>`).join("");
     }
@@ -1730,7 +2022,7 @@
 
       modalTitle.textContent = `Detail Tiket ${ticket.ticketId}`;
       modalBody.innerHTML = `
-        <div class="rule-box"><b>Aturan parlay utama:</b> seluruh pilihan digabung menjadi satu tiket. Apabila satu pilihan berstatus <b>Kalah</b>, seluruh parlay langsung kalah, pengembalian menjadi 0, dan member winlose menjadi minus sebesar stake. Pilihan Void bernilai faktor 1, Setengah Menang bernilai (odds + 1) ÷ 2, dan Setengah Kalah bernilai 0.5.</div>
+        <div class="rule-box"><b>Aturan parlay utama:</b> seluruh pilihan digabung menjadi satu tiket. Apabila satu pilihan berstatus <b>Kalah</b>, seluruh parlay langsung kalah, pengembalian menjadi 0, dan member winlose menjadi minus sebesar stake. Pertandingan yang selesai dihitung dari skor final jika pasar dapat dikenali. Pertandingan live atau belum berlangsung tidak diselesaikan lebih awal. Pilihan Void bernilai faktor 1, Setengah Menang bernilai (odds + 1) ÷ 2, dan Setengah Kalah bernilai 0.5.</div>
 
         <div class="ticket-summary"><b>Ringkasan lengkap:</b><br>${escapeHtml(ticket.summary)}</div>
 
@@ -1761,7 +2053,7 @@
           </div>
           <div class="calc-table-wrap">
             <table class="calc-table">
-              <thead><tr><th>No.</th><th>Pilihan</th><th>Odds</th><th>Hasil</th><th>Faktor</th><th>Rumus</th></tr></thead>
+              <thead><tr><th>No.</th><th>Pilihan</th><th>Skor FT</th><th>Odds</th><th>Hasil</th><th>Faktor</th><th>Sumber</th><th>Rumus</th></tr></thead>
               <tbody>${calculationRows(ticket)}</tbody>
             </table>
           </div>
@@ -1772,13 +2064,17 @@
         ${ticket.selections.map(selection => `
           <article class="detail-card">
             <h4>${selection.number}. ${escapeHtml(selection.choice)} @${escapeHtml(formatNumber(selection.odds, 3))}</h4>
+            ${scoreboardHtml(selection, true)}
             <div><b>Pasaran:</b> ${escapeHtml(selection.market)}</div>
             <div><b>Pertandingan:</b> ${escapeHtml(selection.home)} vs ${escapeHtml(selection.away)}</div>
             <div><b>Liga:</b> ${escapeHtml(selection.league)}</div>
             <div><b>Jadwal:</b> ${escapeHtml(formatDate(selection.matchDateRaw))}</div>
+            <div><b>Status pertandingan:</b> ${escapeHtml(matchStateLabel(selection))}</div>
             <div><b>Match ID:</b> ${escapeHtml(selection.matchId)} &nbsp; <b>Odds ID:</b> ${escapeHtml(selection.oddsId)}</div>
-            <div><b>Status pilihan:</b> <span class="${statusClass(selection.status)}">${escapeHtml(statusLabel(selection.status))}</span></div>
-            <div><b>Skor HT:</b> ${escapeHtml(scoreText(selection.htScore))} &nbsp; <b>Skor FT:</b> ${escapeHtml(scoreText(selection.ftScore))}</div>
+            <div><b>Status pilihan hasil hitung:</b> <span class="${statusClass(selection.status)}">${escapeHtml(statusLabel(selection.status))}</span></div>
+            <div><b>Status yang tercatat pada data:</b> ${escapeHtml(statusLabel(selection.explicitStatus))}</div>
+            <div><b>Sumber penyelesaian:</b> ${escapeHtml(resultSourceLabel(selection))}</div>
+            <div><b>Skor HT:</b> ${escapeHtml(scoreText(selection.htScore))} &nbsp; <b>Skor FT/berjalan:</b> ${escapeHtml(scoreText(selection.ftScore))}</div>
             <div><b>Faktor parlay:</b> ${selection.settlementFactor === null ? "Belum tersedia" : escapeHtml(formatNumber(selection.settlementFactor, 6))}</div>
             <div class="result-box"><b>Penjelasan berdasarkan data dan skor:</b><br>${escapeHtml(selection.statusExplanation)}<br><br><b>Perhitungan pilihan:</b> ${escapeHtml(selection.settlementFormula)}</div>
           </article>
