@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <title>Informasi Details — Hitam Merah</title>
+  <title>Informasi Details — Perhitungan Parlay</title>
   <style>
     :root {
       --red: #ff243f;
@@ -636,6 +636,144 @@
       line-height: 1.5;
     }
 
+
+    .ticket-inline-summary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 8px 0 2px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,36,63,.2);
+      border-radius: 8px;
+      color: #cfcfcf;
+      background: rgba(255,36,63,.055);
+      font-size: 11px;
+    }
+
+    .ticket-status-bottom {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #2b2b2b;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .effective-odds {
+      display: block;
+      margin-top: 4px;
+      color: #ff7183;
+      font-size: 10px;
+      line-height: 1.2;
+    }
+
+    .won, .money-positive { color: #55d98a !important; }
+    .lost, .money-negative { color: #ff5368 !important; }
+    .void { color: #ffd166 !important; }
+    .pending { color: #b9b9b9 !important; }
+
+    .rule-box {
+      margin-bottom: 12px;
+      padding: 13px 15px;
+      border: 1px solid rgba(255,36,63,.32);
+      border-left: 5px solid var(--red);
+      border-radius: 10px;
+      color: #f2f2f2;
+      background: linear-gradient(135deg, rgba(255,36,63,.13), rgba(255,36,63,.035));
+      line-height: 1.65;
+    }
+
+    .calc-panel {
+      margin: 12px 0;
+      padding: 15px;
+      border: 1px solid #333;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #151515, #101010);
+    }
+
+    .calc-panel > h4 {
+      margin: 0 0 8px;
+      color: #ff6578;
+      font-size: 16px;
+    }
+
+    .calc-panel > p {
+      margin: 0 0 12px;
+      color: #d4d4d4;
+      line-height: 1.68;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .formula-grid > div {
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid #303030;
+      border-radius: 9px;
+      background: #0c0c0c;
+    }
+
+    .formula-grid small {
+      display: block;
+      margin-bottom: 5px;
+      color: #919191;
+      font-size: 10.5px;
+    }
+
+    .formula-grid strong {
+      display: block;
+      overflow-wrap: anywhere;
+      color: #f4f4f4;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .calc-table-wrap {
+      overflow-x: auto;
+      border: 1px solid #2e2e2e;
+      border-radius: 9px;
+    }
+
+    .calc-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+
+    .calc-table th,
+    .calc-table td {
+      padding: 9px 10px;
+      border: 1px solid #292929;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .calc-table th {
+      color: #fff;
+      background: #1a1a1a;
+    }
+
+    .calc-table td { color: #d5d5d5; background: #0e0e0e; }
+
+    .comparison-note {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,209,102,.25);
+      border-left: 4px solid #ffd166;
+      border-radius: 9px;
+      color: #ddd;
+      background: rgba(255,209,102,.055);
+      line-height: 1.65;
+    }
+
     @media (max-width: 760px) {
       .page { width: calc(100% - 16px); padding-top: 16px; }
       .input-panel { padding: 14px; }
@@ -649,7 +787,7 @@
         flex-direction: column;
       }
       input[type="search"] { width: 100%; }
-      .meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .meta-grid, .formula-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 
@@ -660,7 +798,7 @@
 
     <section class="input-panel">
       <h2>Masukkan Data Taruhan</h2>
-      <p>Tempel data JSON tiket atau pilihan taruhan. Informasi, pilihan, status, skor HT/FT, odds, stake, winlose, dan IP akan disusun otomatis sesuai data yang tersedia.</p>
+      <p>Tempel data JSON tiket atau pilihan taruhan. Sistem akan menyusun informasi secara detail, membaca skor HT/FT, menghitung total odds, pengembalian, dan member winlose sesuai aturan parlay umum. Satu pilihan kalah membuat seluruh parlay kalah.</p>
       <textarea id="jsonInput" spellcheck="false" placeholder="Tempel data taruhan di sini..."></textarea>
       <div class="actions">
         <button class="btn btn-primary" id="processButton" type="button">Proses Data</button>
@@ -733,22 +871,19 @@
       "currency": "IDR",
       "stake": 10,
       "actualStake": 10,
-      "totalOdds": 2.243,
-      "status": "won",
-      "memberWinlose": 12.438577,
       "ip": "78.138.14.26",
       "selections": [
         {
           "odds": 1.93,
-          "point": "0.25",
+          "point": "+0.25",
           "betTeam": "2",
           "betTypeName": "Football Handicap",
-          "betChoice": "Argentina",
+          "betChoice": "Argentina +0.25",
           "homeName": "Spain",
           "awayName": "Argentina",
           "leagueName": "WORLD CUP 2026 (in Canada, Mexico & USA)",
           "matchDateTime": "2026-07-19 20:00:00",
-          "status": "won",
+          "status": "half won",
           "htHomeScore": 0,
           "htAwayScore": 0,
           "homeScore": 0,
@@ -796,6 +931,10 @@
       return fallback;
     }
 
+    function hasOwnValue(object, keys) {
+      return keys.some(key => object && Object.prototype.hasOwnProperty.call(object, key) && object[key] !== "" && object[key] !== null && object[key] !== undefined);
+    }
+
     function escapeHtml(value) {
       return String(value ?? "")
         .replaceAll("&", "&amp;")
@@ -806,8 +945,18 @@
     }
 
     function toNumber(value, fallback = 0) {
-      const number = Number(String(value ?? "").replace(",", "."));
+      if (value === "-" || value === "" || value === null || value === undefined) return fallback;
+      const number = Number(String(value).replace(/\s/g, "").replace(",", "."));
       return Number.isFinite(number) ? number : fallback;
+    }
+
+    function isNumericValue(value) {
+      return value !== "-" && value !== "" && value !== null && value !== undefined && Number.isFinite(toNumber(value, NaN));
+    }
+
+    function roundNumber(value, decimals = 8) {
+      const factor = 10 ** decimals;
+      return Math.round((Number(value) + Number.EPSILON) * factor) / factor;
     }
 
     function formatNumber(value, decimals = 3) {
@@ -819,12 +968,17 @@
       });
     }
 
-    function formatValue(value) {
+    function formatValue(value, decimals = 8) {
       if (value === undefined || value === null || value === "") return "-";
       const number = Number(value);
       return Number.isFinite(number)
-        ? number.toLocaleString("en-US", { maximumFractionDigits: 8 })
+        ? number.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: decimals })
         : String(value);
+    }
+
+    function formatMoney(value, currency = "") {
+      if (!Number.isFinite(Number(value))) return "-";
+      return `${formatValue(roundNumber(value, 8), 8)}${currency && currency !== "-" ? ` ${currency}` : ""}`;
     }
 
     function pad2(value) { return String(value).padStart(2, "0"); }
@@ -940,10 +1094,10 @@
       const isHt = period === "ht";
       const pairKeys = isHt
         ? ["htScore", "halfTimeScore", "scoreHT", "halfScore"]
-        : ["ftScore", "fullTimeScore", "scoreFT", "finalScore", "score"];
+        : ["ftScore", "fullTimeScore", "scoreFT", "finalScore"];
       for (const key of pairKeys) {
         const pair = scorePairFromString(raw?.[key]);
-        if (pair) return pair;
+        if (pair) return { ...pair, source: key, known: true };
       }
 
       const homeKeys = isHt
@@ -958,21 +1112,35 @@
       const known = homeRaw !== "-" || awayRaw !== "-";
       return {
         home: known ? toNumber(homeRaw, 0) : null,
-        away: known ? toNumber(awayRaw, 0) : null
+        away: known ? toNumber(awayRaw, 0) : null,
+        source: known ? "separate" : "none",
+        known
       };
     }
 
     function translateStatus(value) {
-      const lower = String(value ?? "").trim().toLowerCase();
+      const lower = String(value ?? "").trim().toLowerCase().replaceAll("_", " ");
       if (!lower) return "pending";
       if (lower.includes("half won") || lower.includes("half-won") || lower.includes("setengah menang")) return "half won";
       if (lower.includes("half lost") || lower.includes("half-lost") || lower.includes("setengah kalah")) return "half lost";
       if (["won", "win", "menang"].includes(lower) || lower.includes("won") || lower.includes("menang")) return "won";
       if (["lost", "lose", "kalah"].includes(lower) || lower.includes("lost") || lower.includes("lose") || lower.includes("kalah")) return "lost";
-      if (lower.includes("void") || lower.includes("push") || lower.includes("cancel") || lower.includes("draw no bet")) return "void";
+      if (lower.includes("void") || lower.includes("push") || lower.includes("cancel") || lower.includes("refund")) return "void";
       if (lower.includes("live") || lower.includes("running") || lower.includes("berlangsung")) return "live";
       if (lower.includes("pending") || lower.includes("waiting") || lower.includes("belum")) return "pending";
       return lower;
+    }
+
+    function isSettledStatus(status) {
+      return ["won", "lost", "void", "half won", "half lost"].includes(status);
+    }
+
+    function isFinalResult(raw, explicitStatus) {
+      if (isSettledStatus(explicitStatus)) return true;
+      if (hasOwnValue(raw, ["ftScore", "fullTimeScore", "scoreFT", "finalScore", "ftHomeScore", "ftAwayScore", "fullTimeHomeScore", "fullTimeAwayScore"])) return true;
+      if ([true, 1, "1", "true"].includes(firstValue(raw, ["isFinished", "finished", "isSettled", "settled", "isFinal"], false))) return true;
+      const statusText = String(firstValue(raw, ["matchStatus", "eventStatus", "gameStatus", "state", "periodStatus"], "")).toLowerCase();
+      return /finished|ended|full\s*time|ft|final|settled|completed|tamat|selesai/.test(statusText);
     }
 
     function splitAsianLine(line) {
@@ -1010,29 +1178,68 @@
     function chosenSide(selection) {
       const team = String(selection.betTeam).toLowerCase();
       const choice = String(selection.choice).toLowerCase();
-      if (team === "1" || choice === String(selection.home).toLowerCase() || choice.includes(String(selection.home).toLowerCase())) return "home";
-      if (team === "2" || choice === String(selection.away).toLowerCase() || choice.includes(String(selection.away).toLowerCase())) return "away";
+      const home = String(selection.home).toLowerCase();
+      const away = String(selection.away).toLowerCase();
+      if (team === "1" || choice === home || choice.includes(home)) return "home";
+      if (team === "2" || choice === away || choice.includes(away)) return "away";
       return null;
+    }
+
+    function selected1X2(selection) {
+      const team = String(selection.betTeam).trim().toLowerCase();
+      const choice = String(selection.choice).toLowerCase();
+      if (["1", "x", "2"].includes(team)) return team;
+      if (choice.includes("seri") || choice.includes("draw")) return "x";
+      const side = chosenSide(selection);
+      return side === "home" ? "1" : side === "away" ? "2" : "";
     }
 
     function evaluateByScore(selection) {
       const ft = selection.ftScore;
-      if (ft.home === null || ft.away === null) {
-        return { status: "pending", detail: "Skor FT belum tersedia, sehingga hasil pilihan belum dapat dihitung dari skor." };
+      if (!selection.isFinal || ft.home === null || ft.away === null) {
+        return { status: "pending", detail: "Skor FT belum dipastikan sebagai hasil akhir, sehingga pilihan belum dihitung otomatis dari skor." };
       }
 
       const market = selection.market.toLowerCase();
       const choice = selection.choice.toLowerCase();
       const totalGoals = ft.home + ft.away;
 
+      if (market.includes("double chance") || market.includes("kesempatan ganda")) {
+        const result = ft.home > ft.away ? "1" : ft.away > ft.home ? "2" : "x";
+        let accepted = [];
+        if (/1x|1\s*or\s*x|home.*draw|kandang.*seri/.test(choice)) accepted = ["1", "x"];
+        else if (/x2|x\s*or\s*2|draw.*away|seri.*tandang/.test(choice)) accepted = ["x", "2"];
+        else if (/12|1\s*or\s*2|home.*away|kandang.*tandang/.test(choice)) accepted = ["1", "2"];
+        if (!accepted.length) return { status: "pending", detail: "Pilihan Double Chance tidak dapat dikenali dari data." };
+        const status = accepted.includes(result) ? "won" : "lost";
+        return { status, detail: `Skor FT ${ft.home}:${ft.away}. Hasil 1X2 adalah ${result.toUpperCase()}, sehingga pilihan Double Chance ${selection.choice} dinilai ${status}.` };
+      }
+
+      if (market.includes("draw no bet") || market.includes("dnb")) {
+        const side = chosenSide(selection);
+        if (!side) return { status: "pending", detail: "Tim pilihan Draw No Bet tidak dapat dikenali." };
+        let status = "void";
+        if (ft.home !== ft.away) {
+          const chosenWon = side === "home" ? ft.home > ft.away : ft.away > ft.home;
+          status = chosenWon ? "won" : "lost";
+        }
+        return { status, detail: `Skor FT ${ft.home}:${ft.away}. Pada Draw No Bet, hasil seri menjadi void; selain itu tim pilihan harus menang. Hasil pilihan dinilai ${status}.` };
+      }
+
       if (market.includes("1x2") || market.includes("moneyline")) {
-        let result = "x";
-        if (ft.home > ft.away) result = "1";
-        else if (ft.away > ft.home) result = "2";
-        const selected = String(selection.betTeam).toLowerCase() || (choice.includes("seri") || choice.includes("draw") ? "x" : "");
+        const result = ft.home > ft.away ? "1" : ft.away > ft.home ? "2" : "x";
+        const selected = selected1X2(selection);
+        if (!selected) return { status: "pending", detail: "Pilihan 1X2 tidak dapat dikenali dari data." };
         const status = selected === result ? "won" : "lost";
         const resultText = result === "1" ? `${selection.home} menang` : result === "2" ? `${selection.away} menang` : "pertandingan berakhir seri";
         return { status, detail: `Skor FT ${ft.home}:${ft.away}, sehingga ${resultText}. Pilihan ${selection.choice} dinilai ${status}.` };
+      }
+
+      if (market.includes("correct score") || market.includes("skor tepat")) {
+        const expected = scorePairFromString(selection.choice);
+        if (!expected) return { status: "pending", detail: "Skor pilihan pada pasaran Correct Score tidak dapat dibaca." };
+        const status = expected.home === ft.home && expected.away === ft.away ? "won" : "lost";
+        return { status, detail: `Pilihan skor tepat adalah ${expected.home}:${expected.away}, sedangkan skor FT ${ft.home}:${ft.away}; pilihan dinilai ${status}.` };
       }
 
       if (market.includes("over/under") || market.includes("over under") || market.includes("total")) {
@@ -1058,7 +1265,7 @@
         const chosenName = side === "home" ? selection.home : selection.away;
         return {
           status,
-          detail: `Skor FT ${ft.home}:${ft.away}. Setelah handicap ${formatSigned(selection.pointNumber)}, nilai akhir untuk ${chosenName} adalah ${formatNumber(goalDifference + selection.pointNumber, 2)}; hasil pilihan dinilai ${status}.`
+          detail: `Skor FT ${ft.home}:${ft.away}. Selisih gol ${chosenName} adalah ${goalDifference}; setelah handicap ${formatSigned(selection.pointNumber)}, pilihan dinilai ${status}.`
         };
       }
 
@@ -1072,11 +1279,13 @@
       if (market.includes("both teams") || market.includes("btts") || market.includes("kedua tim")) {
         const bothScore = ft.home > 0 && ft.away > 0;
         const wantsYes = choice.includes("yes") || choice.includes("ya");
-        const status = wantsYes === bothScore ? "won" : "lost";
+        const wantsNo = choice.includes("no") || choice.includes("tidak");
+        if (!wantsYes && !wantsNo) return { status: "pending", detail: "Pilihan BTTS Yes/No tidak dapat dikenali." };
+        const status = (wantsYes ? bothScore : !bothScore) ? "won" : "lost";
         return { status, detail: `Skor FT ${ft.home}:${ft.away}. ${bothScore ? "Kedua tim mencetak gol" : "Tidak kedua tim mencetak gol"}; pilihan dinilai ${status}.` };
       }
 
-      return { status: "pending", detail: `Skor FT tercatat ${ft.home}:${ft.away}. Penilaian otomatis untuk pasaran ${selection.market} belum tersedia, sehingga status asli dari data tetap digunakan.` };
+      return { status: "pending", detail: `Skor FT tercatat ${ft.home}:${ft.away}. Perhitungan otomatis untuk pasaran ${selection.market} belum tersedia, sehingga status resmi dari data digunakan apabila ada.` };
     }
 
     function formatSigned(value) {
@@ -1098,6 +1307,9 @@
       if (lower === "ft.1x2" || lower.includes("1x2")) return "Football 1X2";
       if (lower.includes("handicap")) return "Football Handicap";
       if (lower.includes("over/under") || lower.includes("over under") || lower.includes("total")) return "Football Over/Under";
+      if (lower.includes("double chance")) return "Football Double Chance";
+      if (lower.includes("correct score")) return "Football Correct Score";
+      if (lower.includes("draw no bet") || lower === "dnb") return "Football Draw No Bet";
       return market;
     }
 
@@ -1106,15 +1318,57 @@
       const market = String(firstValue(raw, ["betTypeName", "betTypeName_en", "marketName", "market"], "-")).toLowerCase();
       const hasPoint = /[+-]?\d+(?:[.,]\d+)?/.test(choice);
       if ((market.includes("handicap") || market.includes("over/under") || market.includes("over under") || market.includes("total")) && !hasPoint) {
-        return `${choice} ${formatSigned(pointNumber).replace("+", "")}`.trim();
+        return `${choice} ${formatSigned(pointNumber)}`.trim();
       }
       return choice;
+    }
+
+    function scoreText(score) {
+      if (!score || score.home === null || score.away === null) return "-:-";
+      return `${score.home}:${score.away}`;
+    }
+
+    function statusLabel(status) {
+      const map = {
+        "won": "Menang",
+        "lost": "Kalah",
+        "half won": "Setengah Menang",
+        "half lost": "Setengah Kalah",
+        "void": "Void / Dikembalikan",
+        "live": "Sedang Berlangsung",
+        "pending": "Menunggu Hasil",
+        "partial lost": "Rugi Sebagian"
+      };
+      return map[status] || status;
+    }
+
+    function settlementFactor(status, odds) {
+      const price = Number(odds);
+      if (!Number.isFinite(price) || price <= 0) return null;
+      if (status === "won") return price;
+      if (status === "lost") return 0;
+      if (status === "void") return 1;
+      if (status === "half won") return (price + 1) / 2;
+      if (status === "half lost") return 0.5;
+      return null;
+    }
+
+    function settlementFormula(selection) {
+      const odds = formatNumber(selection.odds, 4);
+      const factor = selection.settlementFactor;
+      if (selection.status === "won") return `Menang: faktor pengembalian = odds ${odds}`;
+      if (selection.status === "lost") return "Kalah: faktor pengembalian = 0; satu pilihan kalah membuat seluruh parlay kalah";
+      if (selection.status === "void") return "Void: faktor = 1; pilihan dihapus dari perkalian dan modal bagian ini dikembalikan";
+      if (selection.status === "half won") return `Setengah menang: faktor = (odds + 1) ÷ 2 = (${odds} + 1) ÷ 2 = ${formatNumber(factor, 6)}`;
+      if (selection.status === "half lost") return "Setengah kalah: faktor = 0.5; separuh bagian kalah dan separuh bagian dikembalikan";
+      return `Belum selesai: untuk potensi maksimal sementara digunakan odds ${odds}`;
     }
 
     function normalizeSelection(raw, index) {
       const rawChoice = firstValue(raw, ["betChoice", "betChoice_en", "selectionName", "choice"], "-");
       const pointNumber = inferPoint(raw, rawChoice);
       const rawMarket = firstValue(raw, ["betTypeName", "betTypeName_en", "marketName", "market"], "-");
+      const explicitStatus = translateStatus(firstValue(raw, ["status", "resultStatus", "betStatus", "settlementStatus", "result"], ""));
       const selection = {
         number: index + 1,
         matchId: firstValue(raw, ["matchId", "eventId", "fixtureId"], "-"),
@@ -1129,14 +1383,22 @@
         pointNumber,
         betTeam: firstValue(raw, ["betTeam", "side"], "-"),
         matchDateRaw: firstValue(raw, ["matchDateTime", "kickOffTime", "eventTime", "startTime"], "-"),
-        explicitStatus: translateStatus(firstValue(raw, ["status", "resultStatus", "betStatus", "settlementStatus", "result"], "")),
+        explicitStatus,
         htScore: readScore(raw, "ht"),
         ftScore: readScore(raw, "ft"),
+        isFinal: isFinalResult(raw, explicitStatus),
         raw
       };
       selection.choice = choiceDisplay(raw, pointNumber);
       selection.calculated = evaluateByScore(selection);
-      selection.status = selection.explicitStatus !== "pending" ? selection.explicitStatus : selection.calculated.status;
+
+      if (isSettledStatus(selection.explicitStatus)) selection.status = selection.explicitStatus;
+      else if (isSettledStatus(selection.calculated.status)) selection.status = selection.calculated.status;
+      else if (selection.explicitStatus === "live") selection.status = "live";
+      else selection.status = "pending";
+
+      selection.settlementFactor = settlementFactor(selection.status, selection.odds);
+      selection.settlementFormula = settlementFormula(selection);
       selection.statusExplanation = buildStatusExplanation(selection);
       return selection;
     }
@@ -1146,34 +1408,117 @@
       const ft = scoreText(selection.ftScore);
       const explicit = selection.explicitStatus;
       const calculated = selection.calculated.status;
-      let comparison = "";
-      if (explicit !== "pending" && calculated !== "pending" && explicit !== calculated) {
-        comparison = ` Status dari data adalah ${explicit}, sedangkan perhitungan otomatis dari skor menghasilkan ${calculated}. Sistem menampilkan status dari data sebagai status utama.`;
+      let sourceText = "";
+      if (isSettledStatus(explicit)) {
+        sourceText = `Status resmi pada data adalah ${statusLabel(explicit)} dan digunakan sebagai hasil utama.`;
+      } else if (isSettledStatus(calculated)) {
+        sourceText = `Status tidak tersedia pada data, sehingga hasil dihitung otomatis dari skor menjadi ${statusLabel(calculated)}.`;
+      } else {
+        sourceText = "Hasil belum dapat diselesaikan dan tetap berstatus menunggu.";
       }
-      return `Skor HT tercatat ${ht} dan skor FT tercatat ${ft}. ${selection.calculated.detail}${comparison}`;
+
+      let comparison = "";
+      if (isSettledStatus(explicit) && isSettledStatus(calculated) && explicit !== calculated) {
+        comparison = ` Catatan: perhitungan skor otomatis menghasilkan ${statusLabel(calculated)}, tetapi status resmi data adalah ${statusLabel(explicit)}. Status resmi tetap diprioritaskan karena dapat mencakup koreksi atau aturan operator.`;
+      }
+      return `Skor HT ${ht} dan skor FT ${ft}. ${sourceText} ${selection.calculated.detail}${comparison}`;
     }
 
-    function scoreText(score) {
-      if (!score || score.home === null || score.away === null) return "-:-";
-      return `${score.home}:${score.away}`;
+    function calculateTicketSettlement(selections, stakeValue, suppliedStatus) {
+      const stakeKnown = isNumericValue(stakeValue);
+      const stake = stakeKnown ? toNumber(stakeValue, 0) : null;
+      const anyLost = selections.some(item => item.status === "lost");
+      const anyLive = selections.some(item => item.status === "live");
+      const anyPending = selections.some(item => item.status === "pending");
+      const allComplete = selections.length > 0 && selections.every(item => isSettledStatus(item.status));
+
+      const initialOdds = selections.reduce((product, item) => product * (item.odds > 0 ? item.odds : 1), selections.length ? 1 : 0);
+      let effectiveFactor = 1;
+      let potentialFactor = 1;
+
+      for (const selection of selections) {
+        const factor = selection.settlementFactor;
+        if (factor !== null) effectiveFactor *= factor;
+        potentialFactor *= factor !== null ? factor : (selection.odds > 0 ? selection.odds : 1);
+      }
+
+      effectiveFactor = roundNumber(effectiveFactor, 10);
+      potentialFactor = roundNumber(potentialFactor, 10);
+
+      let status = "pending";
+      if (anyLost) status = "lost";
+      else if (anyPending || anyLive) status = anyLive ? "live" : "pending";
+      else if (allComplete) {
+        if (!stakeKnown) {
+          if (Math.abs(effectiveFactor - 1) < 1e-9) status = "void";
+          else if (effectiveFactor > 1) status = "won";
+          else status = "partial lost";
+        } else {
+          const net = stake * effectiveFactor - stake;
+          if (net > 1e-9) status = "won";
+          else if (net < -1e-9) status = effectiveFactor === 0 ? "lost" : "partial lost";
+          else status = "void";
+        }
+      } else {
+        const translatedSupplied = translateStatus(suppliedStatus);
+        if (isSettledStatus(translatedSupplied)) status = translatedSupplied;
+      }
+
+      const settled = status === "lost" || (allComplete && !anyPending && !anyLive);
+      const payout = stakeKnown && settled ? roundNumber(stake * (status === "lost" ? 0 : effectiveFactor), 8) : null;
+      const winlose = payout !== null ? roundNumber(payout - stake, 8) : null;
+      const potentialPayout = stakeKnown && !settled ? roundNumber(stake * potentialFactor, 8) : payout;
+      const potentialWinlose = potentialPayout !== null ? roundNumber(potentialPayout - stake, 8) : null;
+
+      return {
+        initialOdds: roundNumber(initialOdds, 10),
+        effectiveFactor: status === "lost" ? 0 : effectiveFactor,
+        potentialFactor: status === "lost" ? 0 : potentialFactor,
+        status,
+        allComplete,
+        anyLost,
+        stakeKnown,
+        stake,
+        payout,
+        winlose,
+        potentialPayout,
+        potentialWinlose,
+        settled
+      };
     }
 
-    function ticketStatusFromSelections(selections, supplied) {
-      const translated = translateStatus(supplied);
-      if (translated !== "pending") return translated;
-      if (!selections.length) return "pending";
-      if (selections.some(s => s.status === "lost")) return "lost";
-      if (selections.every(s => ["won", "void"].includes(s.status))) return "won";
-      if (selections.some(s => s.status === "live")) return "live";
-      return "pending";
+    function buildCalculationExplanation(ticket) {
+      const oddsFormula = ticket.selections.map(item => formatNumber(item.odds, 4)).join(" × ") || "-";
+      const factorFormula = ticket.selections.map(item => {
+        if (item.status === "pending" || item.status === "live") return formatNumber(item.odds, 4);
+        return formatNumber(item.settlementFactor, 6);
+      }).join(" × ") || "-";
+
+      if (ticket.calculation.anyLost) {
+        const lostNames = ticket.selections.filter(item => item.status === "lost").map(item => item.choice).join(", ");
+        return `Tiket ini adalah parlay. Pilihan yang kalah: ${lostNames}. Sesuai aturan parlay umum, satu pilihan kalah membuat seluruh tiket kalah. Faktor akhir menjadi 0, pengembalian 0, dan kerugian sama dengan stake.`;
+      }
+
+      if (!ticket.calculation.settled) {
+        return `Tiket belum selesai. Odds awal dihitung ${oddsFormula} = ${formatNumber(ticket.totalOdds, 6)}. Potensi faktor pengembalian sementara adalah ${factorFormula} = ${formatNumber(ticket.calculation.potentialFactor, 6)} apabila seluruh pilihan yang belum selesai menang.`;
+      }
+
+      return `Odds awal parlay: ${oddsFormula} = ${formatNumber(ticket.totalOdds, 6)}. Setelah hasil setiap pilihan diperhitungkan, faktor efektif menjadi ${factorFormula} = ${formatNumber(ticket.calculation.effectiveFactor, 6)}. Pengembalian = stake × faktor efektif; winlose = pengembalian − stake.`;
     }
 
     function normalizeTicket(raw, index) {
       const selections = findSelections(raw).map(normalizeSelection);
       const calculatedOdds = selections.reduce((value, item) => value * (item.odds || 1), selections.length ? 1 : 0);
-      const suppliedOdds = toNumber(firstValue(raw, ["totalOdds", "parlayOdds", "oddsTotal", "odds"], 0), 0);
+      const recordedOddsRaw = firstValue(raw, ["totalOdds", "parlayOdds", "oddsTotal"], "-");
+      const recordedOdds = isNumericValue(recordedOddsRaw) ? toNumber(recordedOddsRaw, 0) : null;
       const dateRaw = firstValue(raw, ["betDate", "createdAt", "transactionDate", "date", "placedAt"], "-");
       const infoDate = formatDate(dateRaw, "information").split("|");
+      const rawStake = firstValue(raw, ["stake", "betAmount", "amount"], "-");
+      const rawActualStake = firstValue(raw, ["actualStake", "validStake", "turnover"], "-");
+      const actualStake = isNumericValue(rawActualStake) ? rawActualStake : rawStake;
+      const suppliedStatus = firstValue(raw, ["status", "betStatus", "settlementStatus"], "pending");
+      const calculation = calculateTicketSettlement(selections, actualStake, suppliedStatus);
+      const recordedWinlose = firstValue(raw, ["memberWinlose", "winlose", "netWin", "profitLoss"], "-");
 
       const ticket = {
         index,
@@ -1184,21 +1529,29 @@
         time: infoDate[1] || "-",
         dateFull: formatDate(dateRaw),
         currency: firstValue(raw, ["currency", "currencyCode"], "IDR"),
-        stake: firstValue(raw, ["stake", "betAmount", "amount"], "-"),
-        actualStake: firstValue(raw, ["actualStake", "validStake", "turnover"], "-"),
-        totalOdds: suppliedOdds || calculatedOdds,
-        status: ticketStatusFromSelections(selections, firstValue(raw, ["status", "betStatus", "settlementStatus"], "pending")),
-        memberWinlose: firstValue(raw, ["memberWinlose", "winlose", "netWin", "profitLoss"], "-"),
+        stake: rawStake,
+        actualStake,
+        totalOdds: roundNumber(calculatedOdds, 10),
+        recordedOdds,
+        status: calculation.status,
+        recordedStatus: translateStatus(suppliedStatus),
+        memberWinlose: calculation.winlose !== null ? calculation.winlose : recordedWinlose,
+        calculatedWinlose: calculation.winlose,
+        recordedWinlose,
+        payout: calculation.payout,
+        potentialPayout: calculation.potentialPayout,
+        calculation,
         ip: firstValue(raw, ["ip", "ipAddress", "loginIp"], "-"),
         selections,
         raw
       };
 
+      ticket.calculationExplanation = buildCalculationExplanation(ticket);
       ticket.summary = buildTicketSummary(ticket);
       ticket.searchText = [
         ticket.ticketId, ticket.username, ticket.transactionId, ticket.date, ticket.time,
         ticket.currency, ticket.stake, ticket.actualStake, ticket.totalOdds, ticket.status,
-        ticket.memberWinlose, ticket.ip, ticket.summary,
+        ticket.memberWinlose, ticket.ip, ticket.summary, ticket.calculationExplanation,
         ...selections.flatMap(s => [s.choice, s.market, s.home, s.away, s.league, s.status, s.statusExplanation])
       ].join(" ").toLowerCase();
       return ticket;
@@ -1207,16 +1560,21 @@
     function buildTicketSummary(ticket) {
       const type = ticket.selections.length > 1 ? "parlay" : "single";
       const parts = ticket.selections.map(selection => {
-        return `${selection.choice} @${formatNumber(selection.odds, 3)} pada ${selection.home} vs ${selection.away}, status ${selection.status}, HT ${scoreText(selection.htScore)}, FT ${scoreText(selection.ftScore)}`;
+        return `${selection.choice} @${formatNumber(selection.odds, 3)} pada ${selection.home} vs ${selection.away}, status ${statusLabel(selection.status)}, HT ${scoreText(selection.htScore)}, FT ${scoreText(selection.ftScore)}`;
       });
-      return `Tiket ${type} berisi ${ticket.selections.length} pilihan. ${parts.join("; ")}. Total odds ${formatNumber(ticket.totalOdds, 3)} dan status tiket ${ticket.status}.`;
+      const moneyText = ticket.calculation.settled && ticket.calculation.stakeKnown
+        ? `Pengembalian ${formatMoney(ticket.payout, ticket.currency)} dan member winlose ${formatMoney(ticket.calculatedWinlose, ticket.currency)}.`
+        : ticket.calculation.stakeKnown
+          ? `Potensi pengembalian ${formatMoney(ticket.potentialPayout, ticket.currency)} apabila pilihan yang belum selesai menang.`
+          : "Stake tidak tersedia sehingga nilai uang belum dapat dihitung.";
+      return `Tiket ${type} berisi ${ticket.selections.length} pilihan. ${parts.join("; ")}. Total odds awal ${formatNumber(ticket.totalOdds, 6)}. Status tiket ${statusLabel(ticket.status)}. ${moneyText}`;
     }
 
     function statusClass(status) {
       const lower = String(status).toLowerCase();
-      if (lower.includes("won")) return "won";
-      if (lower.includes("lost")) return "lost";
-      if (lower.includes("void")) return "void";
+      if (lower === "won" || lower === "half won") return "won";
+      if (lower === "lost" || lower === "half lost" || lower === "partial lost") return "lost";
+      if (lower === "void") return "void";
       return "pending";
     }
 
@@ -1236,6 +1594,15 @@
           <div class="status-word ${statusClass(selection.status)}">${escapeHtml(selection.status)}</div>
           <div>HT : ${escapeHtml(scoreText(selection.htScore))}</div>
           <div>FT : ${escapeHtml(scoreText(selection.ftScore))}</div>
+        </div>`;
+    }
+
+    function ticketFooterHtml(ticket) {
+      const type = ticket.selections.length > 1 ? `Parlay ${ticket.selections.length} Pilihan` : "Single";
+      return `
+        <div class="ticket-inline-summary">
+          <span>${escapeHtml(type)}</span>
+          <span>Status Tiket: <b class="${statusClass(ticket.status)}">${escapeHtml(statusLabel(ticket.status))}</b></span>
         </div>`;
     }
 
@@ -1260,13 +1627,14 @@
           </td>
           <td class="selection-cell">
             ${ticket.selections.map(selectionHtml).join("")}
+            ${ticketFooterHtml(ticket)}
             <button class="details-link" type="button" onclick="openDetails(${ticket.index})">Details</button>
           </td>
           <td class="center">${escapeHtml(ticket.currency)}</td>
           <td class="center stacked-value"><div>${escapeHtml(formatValue(ticket.stake))}</div><div>${escapeHtml(formatValue(ticket.actualStake))}</div></td>
-          <td class="center">${escapeHtml(formatNumber(ticket.totalOdds, 3))}</td>
-          <td class="status-cell">${ticket.selections.map(selectionStatusHtml).join("")}</td>
-          <td class="center">${escapeHtml(formatValue(ticket.memberWinlose))}</td>
+          <td class="center"><div>${escapeHtml(formatNumber(ticket.totalOdds, 3))}</div>${ticket.calculation.settled && ticket.calculation.effectiveFactor !== ticket.totalOdds ? `<small class="effective-odds">Efektif ${escapeHtml(formatNumber(ticket.calculation.effectiveFactor, 3))}</small>` : ""}</td>
+          <td class="status-cell">${ticket.selections.map(selectionStatusHtml).join("")}<div class="ticket-status-bottom ${statusClass(ticket.status)}">Tiket: ${escapeHtml(ticket.status)}</div></td>
+          <td class="center ${Number(ticket.memberWinlose) > 0 ? "money-positive" : Number(ticket.memberWinlose) < 0 ? "money-negative" : ""}">${escapeHtml(formatValue(ticket.memberWinlose))}</td>
           <td class="center">${escapeHtml(ticket.ip)}</td>
         </tr>`).join("");
 
@@ -1302,7 +1670,7 @@
         searchInput.value = "";
         applyFilter();
         const selectionCount = state.tickets.reduce((sum, ticket) => sum + ticket.selections.length, 0);
-        showMessage(`${state.tickets.length} tiket dan ${selectionCount} pilihan berhasil diproses secara detail.`, "success");
+        showMessage(`${state.tickets.length} tiket dan ${selectionCount} pilihan berhasil diproses beserta perhitungan parlay.`, "success");
       } catch (error) {
         state.tickets = [];
         state.filtered = [];
@@ -1329,20 +1697,43 @@
       renderPagination();
     }
 
-    function statusLabel(status) {
-      const map = {
-        "won": "Menang", "lost": "Kalah", "half won": "Setengah Menang",
-        "half lost": "Setengah Kalah", "void": "Void", "live": "Sedang Berlangsung", "pending": "Menunggu Hasil"
-      };
-      return map[status] || status;
+    function comparisonNote(ticket) {
+      const notes = [];
+      if (ticket.recordedOdds !== null && Math.abs(ticket.recordedOdds - ticket.totalOdds) > 1e-8) {
+        notes.push(`Odds total pada data adalah ${formatNumber(ticket.recordedOdds, 6)}, sedangkan perkalian odds pilihan menghasilkan ${formatNumber(ticket.totalOdds, 6)}. Sistem memakai hasil perkalian pilihan untuk perhitungan parlay umum.`);
+      }
+      if (isNumericValue(ticket.recordedWinlose) && ticket.calculatedWinlose !== null && Math.abs(toNumber(ticket.recordedWinlose) - ticket.calculatedWinlose) > 1e-8) {
+        notes.push(`Member winlose pada data adalah ${formatValue(ticket.recordedWinlose)}, sedangkan perhitungan standar menghasilkan ${formatValue(ticket.calculatedWinlose)}. Perbedaan dapat terjadi karena komisi, pembulatan, bonus, atau aturan operator.`);
+      }
+      return notes.length ? `<div class="comparison-note"><b>Catatan perbandingan data:</b><br>${notes.map(escapeHtml).join("<br>")}</div>` : "";
+    }
+
+    function calculationRows(ticket) {
+      return ticket.selections.map(selection => `
+        <tr>
+          <td>${selection.number}</td>
+          <td>${escapeHtml(selection.choice)}</td>
+          <td>${escapeHtml(formatNumber(selection.odds, 4))}</td>
+          <td class="${statusClass(selection.status)}">${escapeHtml(statusLabel(selection.status))}</td>
+          <td>${selection.settlementFactor === null ? "-" : escapeHtml(formatNumber(selection.settlementFactor, 6))}</td>
+          <td>${escapeHtml(selection.settlementFormula)}</td>
+        </tr>`).join("");
     }
 
     function openDetails(index) {
       const ticket = state.tickets.find(item => item.index === index);
       if (!ticket) return;
+      const calc = ticket.calculation;
+      const payoutLabel = calc.settled ? "Total Pengembalian" : "Potensi Pengembalian";
+      const payoutValue = calc.settled ? ticket.payout : ticket.potentialPayout;
+      const winloseValue = calc.settled ? ticket.calculatedWinlose : calc.potentialWinlose;
+
       modalTitle.textContent = `Detail Tiket ${ticket.ticketId}`;
       modalBody.innerHTML = `
+        <div class="rule-box"><b>Aturan parlay utama:</b> seluruh pilihan digabung menjadi satu tiket. Apabila satu pilihan berstatus <b>Kalah</b>, seluruh parlay langsung kalah, pengembalian menjadi 0, dan member winlose menjadi minus sebesar stake. Pilihan Void bernilai faktor 1, Setengah Menang bernilai (odds + 1) ÷ 2, dan Setengah Kalah bernilai 0.5.</div>
+
         <div class="ticket-summary"><b>Ringkasan lengkap:</b><br>${escapeHtml(ticket.summary)}</div>
+
         <div class="meta-grid">
           <div class="meta-box"><small>Ticket ID</small><strong>${escapeHtml(ticket.ticketId)}</strong></div>
           <div class="meta-box"><small>Member</small><strong>${escapeHtml(ticket.username)}</strong></div>
@@ -1350,13 +1741,33 @@
           <div class="meta-box"><small>Waktu Taruhan</small><strong>${escapeHtml(ticket.dateFull)}</strong></div>
           <div class="meta-box"><small>Currency</small><strong>${escapeHtml(ticket.currency)}</strong></div>
           <div class="meta-box"><small>Stake / Actual</small><strong>${escapeHtml(formatValue(ticket.stake))} / ${escapeHtml(formatValue(ticket.actualStake))}</strong></div>
-          <div class="meta-box"><small>Total Odds</small><strong>${escapeHtml(formatNumber(ticket.totalOdds, 3))}</strong></div>
-          <div class="meta-box"><small>Status Tiket</small><strong>${escapeHtml(statusLabel(ticket.status))}</strong></div>
-          <div class="meta-box"><small>Member Winlose</small><strong>${escapeHtml(formatValue(ticket.memberWinlose))}</strong></div>
+          <div class="meta-box"><small>Total Odds Awal</small><strong>${escapeHtml(formatNumber(ticket.totalOdds, 6))}</strong></div>
+          <div class="meta-box"><small>Odds/Faktor Efektif</small><strong>${escapeHtml(formatNumber(calc.settled ? calc.effectiveFactor : calc.potentialFactor, 6))}</strong></div>
+          <div class="meta-box"><small>Status Tiket</small><strong class="${statusClass(ticket.status)}">${escapeHtml(statusLabel(ticket.status))}</strong></div>
+          <div class="meta-box"><small>${payoutLabel}</small><strong>${escapeHtml(formatMoney(payoutValue, ticket.currency))}</strong></div>
+          <div class="meta-box"><small>${calc.settled ? "Member Winlose" : "Potensi Winlose"}</small><strong class="${Number(winloseValue) > 0 ? "money-positive" : Number(winloseValue) < 0 ? "money-negative" : ""}">${escapeHtml(formatMoney(winloseValue, ticket.currency))}</strong></div>
           <div class="meta-box"><small>IP</small><strong>${escapeHtml(ticket.ip)}</strong></div>
           <div class="meta-box"><small>Jenis Tiket</small><strong>${ticket.selections.length > 1 ? "Parlay" : "Single"}</strong></div>
           <div class="meta-box"><small>Jumlah Pilihan</small><strong>${ticket.selections.length}</strong></div>
         </div>
+
+        <section class="calc-panel">
+          <h4>Perhitungan Parlay</h4>
+          <p>${escapeHtml(ticket.calculationExplanation)}</p>
+          <div class="formula-grid">
+            <div><small>Rumus Total Odds Awal</small><strong>${escapeHtml(ticket.selections.map(item => formatNumber(item.odds, 4)).join(" × "))} = ${escapeHtml(formatNumber(ticket.totalOdds, 6))}</strong></div>
+            <div><small>Rumus Pengembalian</small><strong>${calc.stakeKnown ? `${escapeHtml(formatValue(calc.stake))} × ${escapeHtml(formatNumber(calc.settled ? calc.effectiveFactor : calc.potentialFactor, 6))} = ${escapeHtml(formatValue(payoutValue))}` : "Stake tidak tersedia"}</strong></div>
+            <div><small>Rumus Member Winlose</small><strong>${calc.stakeKnown && payoutValue !== null ? `${escapeHtml(formatValue(payoutValue))} − ${escapeHtml(formatValue(calc.stake))} = ${escapeHtml(formatValue(winloseValue))}` : "Belum dapat dihitung"}</strong></div>
+          </div>
+          <div class="calc-table-wrap">
+            <table class="calc-table">
+              <thead><tr><th>No.</th><th>Pilihan</th><th>Odds</th><th>Hasil</th><th>Faktor</th><th>Rumus</th></tr></thead>
+              <tbody>${calculationRows(ticket)}</tbody>
+            </table>
+          </div>
+        </section>
+
+        ${comparisonNote(ticket)}
 
         ${ticket.selections.map(selection => `
           <article class="detail-card">
@@ -1366,9 +1777,10 @@
             <div><b>Liga:</b> ${escapeHtml(selection.league)}</div>
             <div><b>Jadwal:</b> ${escapeHtml(formatDate(selection.matchDateRaw))}</div>
             <div><b>Match ID:</b> ${escapeHtml(selection.matchId)} &nbsp; <b>Odds ID:</b> ${escapeHtml(selection.oddsId)}</div>
-            <div><b>Status tercatat:</b> ${escapeHtml(statusLabel(selection.status))}</div>
+            <div><b>Status pilihan:</b> <span class="${statusClass(selection.status)}">${escapeHtml(statusLabel(selection.status))}</span></div>
             <div><b>Skor HT:</b> ${escapeHtml(scoreText(selection.htScore))} &nbsp; <b>Skor FT:</b> ${escapeHtml(scoreText(selection.ftScore))}</div>
-            <div class="result-box"><b>Penjelasan berdasarkan data dan skor:</b><br>${escapeHtml(selection.statusExplanation)}</div>
+            <div><b>Faktor parlay:</b> ${selection.settlementFactor === null ? "Belum tersedia" : escapeHtml(formatNumber(selection.settlementFactor, 6))}</div>
+            <div class="result-box"><b>Penjelasan berdasarkan data dan skor:</b><br>${escapeHtml(selection.statusExplanation)}<br><br><b>Perhitungan pilihan:</b> ${escapeHtml(selection.settlementFormula)}</div>
           </article>
         `).join("")}
 
@@ -1414,6 +1826,7 @@
 
     jsonInput.value = JSON.stringify(SAMPLE_DATA, null, 2);
     processData();
+
   </script>
 </body>
 </html>
