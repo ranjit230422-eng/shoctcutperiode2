@@ -19,6 +19,8 @@
     .site-panel{margin-bottom:16px}.site-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px}.site-item{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:14px;padding:14px;text-align:left;cursor:pointer;transition:.2s}.site-item:hover,.site-item.active{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 10px 30px rgba(124,92,255,.16)}.site-item strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.site-item span{display:block;color:var(--muted);font-size:12px;margin-top:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}.panel{border-radius:20px;padding:18px;min-width:0}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:15px}.panel h2{font-size:15px;margin:0}.panel small{color:var(--muted)}.chart-wrap{height:310px}.table-panel{padding:0;overflow:hidden}.table-head{padding:18px}.table-wrap{overflow:auto;max-height:530px}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:13px 16px;border-top:1px solid var(--line);font-size:13px}th{position:sticky;top:0;background:var(--panel2);z-index:2;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}tbody tr:hover{background:rgba(124,92,255,.07)}.empty{padding:60px 20px;text-align:center;color:var(--muted)}.badge{display:inline-flex;padding:5px 9px;border-radius:99px;background:rgba(124,92,255,.15);color:#bdaeff}.footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}
     .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.4fr .6fr;gap:24px;align-items:center;padding:30px;margin-bottom:18px;border-radius:26px;background:linear-gradient(125deg,rgba(124,92,255,.96),rgba(78,91,225,.88) 48%,rgba(27,190,207,.82));box-shadow:0 28px 70px rgba(71,67,190,.28)}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.11)}.hero:before{width:260px;height:260px;right:-70px;top:-150px}.hero:after{width:150px;height:150px;right:20%;bottom:-110px}.hero-copy,.hero-stat{position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid rgba(255,255,255,.25);border-radius:99px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}.hero h2{font-size:clamp(24px,4vw,40px);letter-spacing:-1.5px;margin:14px 0 9px;color:#fff}.hero p{max-width:680px;line-height:1.7;margin:0;color:rgba(255,255,255,.78);font-size:14px}.hero-stat{justify-self:end;width:190px;padding:20px;border-radius:20px;background:rgba(9,13,27,.22);border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(15px);color:#fff}.hero-stat span{display:block;font-size:12px;opacity:.72}.hero-stat strong{display:block;font-size:40px;margin:6px 0 2px}.hero-stat small{opacity:.72}.card{transition:transform .22s,border-color .22s}.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.45)}.card-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;margin-bottom:15px;background:linear-gradient(135deg,rgba(124,92,255,.20),rgba(34,211,238,.12));border:1px solid var(--line);font-size:18px}.site-number{display:inline-grid!important;place-items:center;width:28px;height:28px;border-radius:9px;margin-bottom:10px!important;background:linear-gradient(135deg,rgba(124,92,255,.22),rgba(34,211,238,.12));color:#bfaeff!important;font-weight:800!important}.site-item{position:relative;min-height:105px}.site-item:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--green);right:13px;top:13px;box-shadow:0 0 12px var(--green)}.toolbar{position:sticky;top:12px;z-index:20;box-shadow:0 16px 50px rgba(0,0,0,.18)}.table-wrap{scrollbar-color:var(--primary) transparent;scrollbar-width:thin}td:first-child{font-weight:800;color:#bbaeff}tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
     @media(max-width:900px){.hero{grid-template-columns:1fr}.hero-stat{justify-self:start}.kpis{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.topbar{align-items:flex-start;flex-direction:column}}@media(max-width:520px){.app{padding:14px}.hero{padding:23px}.hero-stat{width:100%}.kpis{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.chart-wrap{height:260px}.actions{width:100%}.btn{flex:1}.brand h1{font-size:18px}.site-list{grid-template-columns:1fr 1fr}.site-item{min-height:98px;padding:12px}}
+    .hero{grid-template-columns:1fr}.hero-stat{justify-self:start!important;width:auto!important;min-width:220px;padding:14px 18px!important;display:grid;grid-template-columns:auto auto;column-gap:14px;align-items:center}.hero-stat span,.hero-stat small{grid-column:2}.hero-stat strong{grid-row:1/3;font-size:34px!important;margin:0!important}.ranking-panel{margin-bottom:16px;padding:22px}.ranking-list{display:grid;gap:9px;max-height:620px;overflow:auto;padding-right:7px}.rank-row{display:grid;grid-template-columns:44px minmax(120px,190px) 1fr 90px;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);cursor:pointer;transition:.2s}.rank-row:hover{transform:translateX(4px);border-color:var(--primary)}.rank-no{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:rgba(124,92,255,.15);color:#bdaeff;font-weight:800;font-size:12px}.rank-name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rank-track{height:10px;border-radius:99px;background:rgba(124,92,255,.10);overflow:hidden}.rank-bar{height:100%;min-width:5px;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--cyan),var(--primary))}.rank-value{text-align:right;font-weight:800}.rank-value small{display:block;font-weight:500;color:var(--muted)}@media(max-width:620px){.rank-row{grid-template-columns:36px 1fr 70px}.rank-track{grid-column:2/4}.rank-value{grid-column:3;grid-row:1}.rank-name{grid-column:2}.rank-no{grid-row:1/3}}@media(max-width:520px){.hero-stat{width:100%!important}}
+    .site-item:after{display:none}.site-item{padding-top:44px}.error-chip{position:absolute;right:10px;top:10px;display:inline-flex!important;align-items:center;gap:5px;margin:0!important;padding:6px 8px;border-radius:9px;background:rgba(255,101,119,.13);border:1px solid rgba(255,101,119,.25);color:#ff8997!important;font-size:10px!important;font-weight:800}.form-total{color:var(--cyan)!important;font-weight:700}.below-limit{opacity:.62}.rank-form{color:var(--cyan);font-size:11px;font-weight:700;margin-top:3px}.ranking-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.summary-pill{padding:8px 11px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);font-size:12px}.summary-pill strong{color:var(--text)}
   </style>
 </head>
 <body>
@@ -42,6 +44,11 @@
     <div class="panel-head"><div><h2>Pilih Nama Situs</h2><small>Setiap situs mempunyai halaman data sendiri dan tidak digabung</small></div><button class="btn" id="allSitesBtn">Bersihkan Filter</button></div>
     <div class="site-list" id="siteList"><div class="empty">Nama situs sedang dibaca...</div></div>
   </section>
+  <section class="panel ranking-panel">
+    <div class="panel-head"><div><h2>Peringkat Kesalahan Situs dengan Form 20.000+</h2><small>Hanya situs dengan jumlah form minimal 20.000, diurutkan dari kesalahan paling sedikit</small></div><span class="badge">Sedikit → Banyak</span></div>
+    <div class="ranking-summary"><span class="summary-pill">Batas minimal: <strong>20.000 form</strong></span><span class="summary-pill">Situs memenuhi syarat: <strong id="eligibleCount">0</strong></span></div>
+    <div class="ranking-list" id="errorRanking"><div class="empty">Menghitung jumlah kesalahan setiap situs...</div></div>
+  </section>
   <section class="panel toolbar">
     <input class="field" id="searchInput" type="search" placeholder="Cari pada semua kolom...">
     <select class="field" id="columnSelect"><option value="">Semua kategori</option></select>
@@ -58,13 +65,25 @@
   const CONFIG = {
     spreadsheetId: '1dFM-gmjB5ZZjqpui4TDLuqfkzWQx6K6rgWRHPgvOwAg',
     siteSheets: [
-      'LINETOGEL','GENGTOTO','TOGELUP','GOLTOGEL','DDT','HOMETOGEL','JONITOGEL','UDINTOGEL','INDRABET','INDRATOGEL',
-      'FIATOGEL','PATIH TOTO','OPPA TOTO','TOGEL ON','YOKTOGEL','YOWESTOGEL','LUNATOGEL','PRO TOGEL','PWVIP4D','MARIATOGEL',
-      'ZIATOGEL','DANATOTO','PARTAITOGEL','SITUSTOTO','NANASTOTO','WDBOS','BOSJOKO','JUTAWANBET','LATOTO','MANCING DUIT',
-      'DEPOBOS','TVTOTO','PULITOTO','WATITOTO','ANGKABET167','FATCAI99','NAKBON99','UDOY88','TOPANBOS88','MONGGOWIN88',
+      'LINETOGEL','GENGTOTO','TOGELUP','GOLTOGEL','DINGDONGTOGEL','HOMETOGEL','JONITOGEL','UDINTOGEL','INDRABET','INDRATOGEL',
+      'FIATOGEL','PATIH TOTO','OPPATOTO','TOGELON','YOKTOGEL','YOWESTOGEL','LUNATOGEL','PROTOGEL','PWVIP4D','MARIATOGEL',
+      'ZIATOGEL','DANATOTO','PARTAITOGEL','SITUSTOTO','NANASTOTO','WDBOS','BOSJOKO','JUTAWANBET','LATOTO','MANCINGDUIT',
+      'DEPOBOS','TVTOTO','PULITOTO','WATITOTO','ANGKABET','FATCAI99','NAKBON99','UDOY88','TOPANBOS88','MONGGOWIN88',
       'RUANGWD','TOPWD','HOKI JITU','BANDAR80','LAPAK99','JUARA88','LIGABANDOT','ARENA303','WDMAHJONG','CITAWIN',
       'ABADIWIN','HOKBENTOTO','MARKASWD','PESONA805'
     ],
+    minimumForms: 20000,
+    formCounts: {
+      'LINETOGEL':46635,'GENGTOTO':31900,'TOGELUP':57156,'GOLTOGEL':36193,'DINGDONGTOGEL':61261,'HOMETOGEL':49746,
+      'JONITOGEL':54063,'UDINTOGEL':29557,'INDRABET':1152,'INDRATOGEL':15454,'FIATOGEL':10605,'PATIH TOTO':6588,
+      'OPPATOTO':37997,'TOGELON':41595,'YOKTOGEL':33405,'YOWESTOGEL':33579,'LUNATOGEL':81809,'PROTOGEL':39276,
+      'PWVIP4D':1959,'MARIATOGEL':35926,'ZIATOGEL':57173,'DANATOTO':68628,'PARTAITOGEL':44874,'SITUSTOTO':18045,
+      'NANASTOTO':55911,'WDBOS':101597,'BOSJOKO':28782,'JUTAWANBET':31623,'LATOTO':78224,'MANCINGDUIT':39008,
+      'DEPOBOS':55872,'TVTOTO':42393,'PULITOTO':39683,'WATITOTO':53763,'ANGKABET':37884,'FATCAI99':7140,
+      'TOPANBOS88':862,'RUANGWD':1460,'TOPWD':15211,'HOKI JITU':18598,'BANDAR80':15464,'LAPAK99':15030,
+      'JUARA88':24916,'LIGABANDOT':24629,'ARENA303':3304,'WDMAHJONG':846,'CITAWIN':322,'HOKBENTOTO':987,
+      'MARKASWD':590,'PESONA805':440
+    },
     locale: 'id-ID',
     refreshMinutes: 5
   };
@@ -72,7 +91,7 @@
   const state={headers:[],rows:[],filtered:[],siteTables:{},loadedSites:[],categoryIndex:0,numericIndex:-1,siteIndex:-1,selectedSite:'',bar:null,donut:null};
   const $=id=>document.getElementById(id);
   const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-  const number=v=>{if(typeof v==='number')return v;const s=String(v??'').replace(/[^0-9,.-]/g,'').replace(/\.(?=.*\.)/g,'').replace(',','.');return Number(s)};
+  const number=v=>{if(typeof v==='number')return v;const raw=String(v??'');if(!/\d/.test(raw))return NaN;const s=raw.replace(/[^0-9,.-]/g,'').replace(/\.(?=.*\.)/g,'').replace(',','.');return Number(s)};
   const fmt=v=>new Intl.NumberFormat(CONFIG.locale,{maximumFractionDigits:2}).format(v||0);
 
   function setStatus(text,type='loading'){ $('statusText').textContent=text; $('statusDot').className='dot '+(type==='ok'?'ok':type==='bad'?'bad':''); }
@@ -105,7 +124,7 @@
     const data=state.siteTables[site];if(!data)return;
     state.selectedSite=site;state.headers=[...data.headers];state.rows=data.rows.map(r=>[...r]);state.filtered=[...state.rows];
     $('searchInput').value='';detectColumns();buildFilters();applyFilters();
-    $('activeSiteTitle').textContent=site;$('activeSiteDesc').textContent=`Menampilkan data khusus tab ${site}. Data situs lain tetap terpisah dan tidak dicampurkan.`;$('heroSite').textContent=site;$('heroRows').textContent=fmt(state.rows.length);
+    const forms=CONFIG.formCounts[site]||0;$('activeSiteTitle').textContent=site;$('activeSiteDesc').textContent=`Menampilkan data khusus ${site}${forms?` dengan ${fmt(forms)} form`:''}. Data situs lain tetap terpisah dan tidak dicampurkan.`;$('heroSite').textContent=forms?`${site} • ${fmt(forms)} form`:site;$('heroRows').textContent=fmt(state.rows.length);
     if(scroll)document.querySelector('.hero').scrollIntoView({behavior:'smooth',block:'start'});
   }
   function detectColumns(){
@@ -125,7 +144,22 @@
   function applyFilters(){const q=$('searchInput').value.trim().toLowerCase(),ci=$('columnSelect').value,cv=$('valueSelect').value;state.filtered=state.rows.filter(r=>(!q||r.some(v=>String(v).toLowerCase().includes(q)))&&(ci===''||!cv||String(r[+ci])===cv));render()}
   function renderSites(){
     const sites=CONFIG.siteSheets.filter(name=>state.siteTables[name]).map(name=>[name,state.siteTables[name].rows.length]);$('kpiCols').textContent=fmt(sites.length);$('siteColumnInfo').textContent=`${sites.length} dari ${CONFIG.siteSheets.length} tab terbaca`;
-    $('siteList').innerHTML=sites.map(([name,count],i)=>`<button class="site-item ${state.selectedSite===name?'active':''}" data-site="${esc(name)}"><span class="site-number">${String(i+1).padStart(2,'0')}</span><strong>${esc(name)}</strong><span>${fmt(count)} baris data</span></button>`).join('');
+    $('siteList').innerHTML=sites.map(([name,count],i)=>{const forms=CONFIG.formCounts[name]||0,errors=getSiteErrorCount(name),eligible=forms>=CONFIG.minimumForms;return `<button class="site-item ${state.selectedSite===name?'active':''} ${eligible?'':'below-limit'}" data-site="${esc(name)}"><span class="error-chip">⚠ ${fmt(errors)} salah</span><span class="site-number">${String(i+1).padStart(2,'0')}</span><strong>${esc(name)}</strong><span class="form-total">${forms?fmt(forms):'—'} form</span><span>${fmt(count)} baris data</span></button>`}).join('');
+    renderErrorRanking();
+  }
+  function getSiteErrorCount(site){
+    const data=state.siteTables[site];if(!data)return 0;
+    const clean=v=>String(v??'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const keys=['jumlahkesalahan','totalkesalahan','kesalahan','error','errors','salah','kendala','masalah'];
+    let i=data.headers.findIndex(h=>keys.includes(clean(h)));if(i<0)i=data.headers.findIndex(h=>keys.some(k=>clean(h).includes(k)));
+    if(i<0)return data.rows.length;
+    const values=data.rows.map(r=>r[i]).filter(v=>String(v??'').trim()!=='');
+    const nums=values.map(number).filter(Number.isFinite);if(nums.length&&nums.length>=values.length*.6)return nums.reduce((a,b)=>a+b,0);
+    return values.filter(v=>!['0','tidak','no','aman','normal','benar','sukses','ok','-'].includes(clean(v))).length;
+  }
+  function renderErrorRanking(){
+    const ranking=state.loadedSites.map((site,order)=>({site,order,forms:CONFIG.formCounts[site]||0,total:getSiteErrorCount(site)})).filter(x=>x.forms>=CONFIG.minimumForms).sort((a,b)=>a.total-b.total||a.order-b.order);$('eligibleCount').textContent=fmt(ranking.length);if(!ranking.length){$('errorRanking').innerHTML='<div class="empty">Belum ada situs dengan minimal 20.000 form yang berhasil dibaca.</div>';return}
+    const max=Math.max(1,...ranking.map(x=>x.total));$('errorRanking').innerHTML=ranking.map((x,i)=>`<div class="rank-row" data-rank-site="${esc(x.site)}" title="Buka data ${esc(x.site)}"><span class="rank-no">${i+1}</span><span class="rank-name">${esc(x.site)}<span class="rank-form">${fmt(x.forms)} form</span></span><span class="rank-track"><span class="rank-bar" style="width:${Math.max(2,x.total/max*100)}%"></span></span><span class="rank-value">${fmt(x.total)}<small>kesalahan</small></span></div>`).join('');
   }
   function render(){
     $('kpiRows').textContent=fmt(state.rows.length);$('kpiShown').textContent=fmt(state.filtered.length);$('heroRows').textContent=fmt(state.rows.length);renderSites();
@@ -144,6 +178,7 @@
   function downloadCSV(){const rows=[state.headers,...state.filtered];const csv='\ufeff'+rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download=`${state.selectedSite||'data'}-dashboard.csv`;a.click();URL.revokeObjectURL(a.href)}
   $('searchInput').addEventListener('input',applyFilters);$('columnSelect').addEventListener('change',()=>{updateValueOptions();applyFilters()});$('valueSelect').addEventListener('change',applyFilters);$('refreshBtn').addEventListener('click',loadData);$('csvBtn').addEventListener('click',downloadCSV);$('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'🌙 Mode Gelap':'☀ Mode Terang';renderCharts()});
   $('siteList').addEventListener('click',e=>{const b=e.target.closest('[data-site]');if(!b)return;activateSite(b.dataset.site)});$('allSitesBtn').addEventListener('click',()=>{$('searchInput').value='';$('valueSelect').value='';applyFilters()});
+  $('errorRanking').addEventListener('click',e=>{const row=e.target.closest('[data-rank-site]');if(row)activateSite(row.dataset.rankSite)});
   loadData();setInterval(loadData,CONFIG.refreshMinutes*60*1000);
 </script>
 </body>
