@@ -204,6 +204,17 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
 
 
 .staff-passport{display:block;margin-top:4px;color:#c8bec0;font-size:9px;font-weight:700;line-height:1.25;letter-spacing:.15px}
+
+/* PERBAIKAN KHUSUS KOLOM SCREENSHOT KESALAHAN */
+.screenshot-list{display:flex;flex-wrap:wrap;gap:8px;min-width:132px;max-width:310px}
+.screenshot-preview{position:relative;width:132px;height:78px;display:grid;place-items:center;overflow:hidden;border:1px solid rgba(255,91,104,.52);border-radius:9px;background:linear-gradient(145deg,rgba(82,8,20,.55),rgba(7,7,9,.92));box-shadow:0 6px 16px rgba(0,0,0,.28);text-decoration:none}
+.screenshot-preview img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center;background:#09090b;transition:transform .2s ease,opacity .2s ease}
+.screenshot-preview:hover img{transform:scale(1.06)}
+.screenshot-fallback{display:none;position:relative;z-index:2;padding:7px;color:#ffabb1;font-size:10px;font-weight:800;line-height:1.35;text-align:center}
+.screenshot-preview.image-failed img{display:none}.screenshot-preview.image-failed .screenshot-fallback{display:block}
+.screenshot-count{position:absolute;right:5px;bottom:5px;z-index:3;padding:3px 6px;border-radius:99px;color:#fff;background:rgba(0,0,0,.72);font-size:9px;font-weight:800}
+@media(max-width:650px){.screenshot-list{min-width:105px;max-width:230px}.screenshot-preview{width:105px;height:66px}}
+
 </style>
 </head>
 <body>
@@ -443,7 +454,30 @@ function checkYesterdayAtBottom(){
   modal.classList.add('show');
 }
 
-function renderOriginalCell(value,index){const text=String(value??'');if(linksFrom(text).length)return linkCell(text);if(index===state.columns.name&&text.trim())return `<span class="name-cell">${esc(text)}</span>`;return esc(text)}
+function screenshotCandidates(url){
+  const original=String(url??'').trim().replace(/&amp;/g,'&').replace(/[),.;]+$/,'');
+  if(!original)return[];
+  const list=[];const add=u=>{if(u&&!list.includes(u))list.push(u)};
+  let m=original.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#]*&)?id=)([-\w]{10,})/i)||original.match(/[?&]id=([-\w]{10,})/i);
+  if(m){add(`https://drive.google.com/thumbnail?id=${m[1]}&sz=w1200`);add(`https://lh3.googleusercontent.com/d/${m[1]}=w1200`)}
+  if(/dropbox\.com/i.test(original))add(original.replace(/\?dl=0(?:&|$)/i,'?raw=1&').replace(/\?dl=1(?:&|$)/i,'?raw=1&'));
+  m=original.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/([^?#]+)$/i);if(m)add(`https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}`);
+  m=original.match(/^https?:\/\/(?:www\.)?imgur\.com\/([A-Za-z0-9]+)(?:[?#].*)?$/i);if(m)add(`https://i.imgur.com/${m[1]}.jpg`);
+  add(original);
+  return list;
+}
+function screenshotImageError(img){
+  const sources=decodeURIComponent(img.dataset.sources||'').split('\n').filter(Boolean);
+  const next=(Number(img.dataset.sourceIndex)||0)+1;
+  if(next<sources.length){img.dataset.sourceIndex=String(next);img.src=sources[next];return}
+  img.closest('.screenshot-preview')?.classList.add('image-failed');
+}
+function screenshotCell(value){
+  const links=linksFrom(value).map(u=>u.replace(/[),.;]+$/,'')).filter(Boolean);
+  if(!links.length)return esc(value);
+  return `<div class="screenshot-list">${links.map((url,i)=>{const sources=screenshotCandidates(url),src=sources[0]||url,encoded=encodeURIComponent(sources.join('\n'));return `<a class="screenshot-preview" href="${esc(url)}" target="_blank" rel="noopener noreferrer" title="Buka screenshot ukuran penuh"><img src="${esc(src)}" data-sources="${esc(encoded)}" data-source-index="0" alt="Screenshot Kesalahan" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="screenshotImageError(this)"><span class="screenshot-fallback">🖼️ Gambar tidak dapat dimuat<br>Buka Screenshot ↗</span>${links.length>1?`<span class="screenshot-count">${i+1}/${links.length}</span>`:''}</a>`}).join('')}</div>`;
+}
+function renderOriginalCell(value,index){const text=String(value??'');if(index===1&&linksFrom(text).length)return screenshotCell(text);if(linksFrom(text).length)return linkCell(text);if(index===state.columns.name&&text.trim())return `<span class="name-cell">${esc(text)}</span>`;return esc(text)}
 function renderTable(){const rows=state.filtered,dateIndex=state.columns.date;let html='',lastDate='';const detailHeaderNames=['Nama Staff','Screenshot Kesalahan','Keterangan','Chat ID'];$('tableHead').innerHTML='<tr>'+state.headers.map((h,i)=>`<th>${esc(detailHeaderNames[i]??h)}</th>`).join('')+'</tr>';const groups={};if(dateIndex>=0)rows.forEach(r=>{const p=dateParts(r[dateIndex]);groups[p.date]=(groups[p.date]||0)+1});rows.forEach(r=>{if(dateIndex>=0){const p=dateParts(r[dateIndex]);if(p.date!==lastDate){const tone=` tone-${Object.keys(groups).indexOf(p.date)%8}`;html+=`<tr class="date-group${tone}"><td colspan="${Math.max(1,state.headers.length)}"><div class="date-line"><span class="date-title"><span class="date-icon">▣</span>${esc(p.date)}</span><span>${groups[p.date]} data</span></div></td></tr>`;lastDate=p.date}}const isTotal=r.some(v=>/^\s*(grand\s+)?total\b/i.test(String(v??'')));html+=`<tr${isTotal?' class="total-row"':''}>`+r.map((v,i)=>{const value=String(v??''),cell=isTotal&&/^\s*(grand\s+)?total\b/i.test(value)?`<span class="total-label">${esc(value)}</span>`:renderOriginalCell(v,i);return`<td>${cell}</td>`}).join('')+'</tr>'});$('tableBody').innerHTML=html;$('emptyState').style.display=rows.length?'none':'block';$('emptyState').textContent=state.rows.length?'Tidak ada data yang cocok.':'Sheet masih kosong.';$('scrollInfo').textContent=`Menampilkan seluruh ${fmt(rows.length)} data • tahan Shift + scroll untuk geser kanan/kiri`}
 function renderSummary(){const ranked=ranking(),rankIndex=ranked.findIndex(x=>x.site===state.site),forms=CONFIG.formCounts[state.site]||0,staffs=staffRanking(),topStaffs=staffs.slice(0,3);$('activeErrors').textContent=fmt(getErrorCount(state.site));$('rankList').innerHTML=ranked.map((x,i)=>`<div class="rank-item" data-site="${esc(x.site)}" title="Buka data ${esc(x.site)}"><span class="rank-no">${i+1}</span><span class="rank-site">${siteLogo(x.site)}<span>${esc(x.site)}</span></span><span class="rank-value">${fmt(x.total)}</span></div>`).join('');$('rankInfo').textContent=`${ranked.length} situs ditampilkan • klik nama situs untuk membuka data`;$('activeRank').textContent=rankIndex>=0?`#${rankIndex+1}`:'—';$('activeRankNote').textContent=rankIndex>=0?`dari ${ranked.length} situs Form 20.000+`:'Tidak masuk peringkat Form 20.000+';$('activeForms').textContent=`${fmt(forms)} form`;$('staffSummarySite').textContent=state.site||'Belum dipilih';$('staffSummaryCount').textContent=topStaffs.length?`${topStaffs.length} staff teratas`:'0 staff';$('staffTopList').innerHTML=topStaffs.length?topStaffs.map((x,i)=>`<div class="staff-top-item" title="Peringkat ${i+1}: ${esc(x.name)}"><span class="staff-top-no">${i+1}</span><span class="staff-top-name">${esc(x.name)}${x.passport?`<small class="staff-passport">Nomor Paspor: ${esc(x.passport)}</small>`:''}</span><span class="staff-top-value">${fmt(x.total)}<small>kesalahan pada ${esc(state.site)}</small></span></div>`).join(''):'<div class="staff-empty">Data Nama Staff belum tersedia pada situs ini.</div>'}
 function render(){renderTable();$('foundText').textContent=`${fmt(state.filtered.length)} data ditemukan`;renderSummary()}
