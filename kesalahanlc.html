@@ -192,7 +192,7 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
 @media(max-width:900px){.header-clock{grid-column:1/-1;width:100%;height:62px;align-items:center}.header-clock-time{font-size:21px}}
 
 
-/* POPUP PERINGATAN TANGGAL KEMARIN DI PALING BAWAH */
+/* POPUP PERINGATAN TANGGAL SEMALAM DI PALING BAWAH — TAMBAHAN SAJA */
 .date-order-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.76)}
 .date-order-modal.show{display:flex}
 .date-order-card{width:min(560px,100%);overflow:hidden;border:1px solid rgba(255,91,104,.72);border-radius:20px;background:linear-gradient(145deg,#2b0a11,#0b090b 62%,#050506);box-shadow:0 28px 90px rgba(0,0,0,.75),0 0 0 5px rgba(220,28,51,.09);animation:dateOrderPop .22s ease-out}
@@ -259,7 +259,7 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
       <div><h2 id="dateOrderTitle">Peringatan Urutan Tanggal</h2><small>Rumus atau baris kemungkinan turun</small></div>
     </div>
     <div class="date-order-body">
-      <p id="dateOrderMessage">Tanggal kemarin ditemukan di paling bawah setelah tanggal hari ini.</p>
+      <p id="dateOrderMessage">Tanggal semalam ditemukan di bagian paling bawah.</p>
       <div class="date-order-dates">
         <div class="date-order-date"><label>Tanggal hari ini</label><strong id="dateOrderToday">-</strong></div>
         <div class="date-order-arrow">→</div>
@@ -364,6 +364,7 @@ function staffRanking(){let nameIndex=findColumn(state.headers,['namastaff','sta
 function dateParts(value){const s=String(value??'').trim();if(!s)return{date:'Tanpa Tanggal',time:''};const time=(s.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/)||[])[0]||'';let date=s.replace(time,'').trim().replace(/[|,-]+$/,'').trim();const parsed=new Date(s);if(!Number.isNaN(parsed.getTime())){date=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'long',year:'numeric'}).format(parsed);return{date,time:time||new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}).format(parsed)}}return{date:date||'Tanpa Tanggal',time}}
 
 
+/* PEMERIKSAAN POPUP TANGGAL — TIDAK MENGUBAH TOTAL/RANKING */
 let lastDateOrderAlertKey='';
 let lastGMT7DayKey='';
 function civilDateKeyGMT7(offsetDays=0){
@@ -407,11 +408,6 @@ function rowDateKey(row,preferredColumns,today,yesterday){
   const targets=new Set([today,yesterday]);
   for(const index of preferredColumns){for(const key of dateCandidateKeys(row[index],true))if(targets.has(key))return key}
   for(const cell of row){for(const key of dateCandidateKeys(cell,false))if(targets.has(key))return key}
-
-  // Cadangan untuk baris pemisah tanggal yang hanya berisi angka hari,
-  // misalnya: "5", "05", "Tanggal 5", atau "Tgl 5".
-  // Hanya dipakai pada baris yang isinya sedikit agar angka kesalahan biasa
-  // tidak keliru dianggap sebagai tanggal.
   const nonEmpty=row.map(v=>String(v??'').trim()).filter(Boolean);
   if(nonEmpty.length<=3){
     const targetByDay=new Map([[Number(today.slice(-2)),today],[Number(yesterday.slice(-2)),yesterday]]);
@@ -419,10 +415,7 @@ function rowDateKey(row,preferredColumns,today,yesterday){
       const normalized=value.toLowerCase().trim();
       let match=normalized.match(/^0?(\d{1,2})$/);
       if(!match)match=normalized.match(/^(?:tanggal|tgl|hari)\s*[:.\-]?\s*0?(\d{1,2})(?:\s|$)/i);
-      if(match){
-        const key=targetByDay.get(Number(match[1]));
-        if(key)return key;
-      }
+      if(match){const key=targetByDay.get(Number(match[1]));if(key)return key}
     }
   }
   return'';
@@ -433,30 +426,13 @@ function findDateOrderIssues(){
     const table=state.siteTables[site];if(!table)return;
     const preferredColumns=likelyDateColumns(table,today,yesterday),sequence=[];
     table.rows.forEach((row,rowIndex)=>{
-      // Baris TOTAL dan baris kosong tidak ikut menentukan tanggal paling bawah.
       if(row.some(isTotalLabel)||!row.some(v=>String(v??'').trim()))return;
       const key=rowDateKey(row,preferredColumns,today,yesterday);
       if(key)sequence.push({key,rowIndex});
     });
-
-    const yesterdayRows=sequence.filter(x=>x.key===yesterday);
-    if(!yesterdayRows.length)return;
-
-    const todayRows=sequence.filter(x=>x.key===today);
-    const lastDated=sequence.at(-1);
-    const lastYesterday=yesterdayRows.at(-1).rowIndex;
-    const lastToday=todayRows.length?todayRows.at(-1).rowIndex:-1;
-
-    // Inti aturan pengguna:
-    // Begitu tanggal semalam menjadi kelompok tanggal PALING BAWAH,
-    // popup harus muncul. Tanggal hari ini tidak wajib sudah memiliki data.
-    if(lastDated?.key===yesterday){
-      issues.push({
-        site,today,yesterday,
-        hasToday:todayRows.length>0,
-        afterToday:todayRows.length>0&&lastYesterday>lastToday
-      });
-    }
+    const yesterdayRows=sequence.filter(x=>x.key===yesterday);if(!yesterdayRows.length)return;
+    const todayRows=sequence.filter(x=>x.key===today),lastDated=sequence.at(-1);
+    if(lastDated?.key===yesterday)issues.push({site,today,yesterday,hasToday:todayRows.length>0});
   });
   return issues;
 }
@@ -469,22 +445,14 @@ function checkYesterdayAtBottom(){
   lastDateOrderAlertKey=signature;
   $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
   $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
-  const hasTodayIssue=issues.some(x=>x.hasToday);
-  $('dateOrderMessage').textContent=hasTodayIssue
-    ?`Tanggal semalam terdeteksi berada di bagian paling bawah. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`
-    :`Tanggal semalam sudah berada di bagian paling bawah walaupun data tanggal hari ini belum ditemukan. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`;
+  $('dateOrderMessage').textContent=`Tanggal semalam berada di bagian paling bawah. Periksa urutan baris atau rumus pada ${issues.length} situs berikut:`;
   $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
   $('dateOrderModal').classList.add('show');
 }
 function continuousDateOrderWatch(){
   const currentGMT7Day=civilDateKeyGMT7(0);
-  if(!lastGMT7DayKey){lastGMT7DayKey=currentGMT7Day}
-  if(currentGMT7Day!==lastGMT7DayKey){
-    lastGMT7DayKey=currentGMT7Day;
-    lastDateOrderAlertKey='';
-    loadData();
-    return;
-  }
+  if(!lastGMT7DayKey)lastGMT7DayKey=currentGMT7Day;
+  if(currentGMT7Day!==lastGMT7DayKey){lastGMT7DayKey=currentGMT7Day;lastDateOrderAlertKey='';loadData();return}
   checkYesterdayAtBottom();
 }
 
@@ -501,10 +469,12 @@ function openSiteFromSearch(){const query=$('siteSearch').value.trim(),key=clean
 $('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾   Mode Gelap':'☀   Mode Terang'});$('refreshBtn').addEventListener('click',loadData);$('csvBtn').addEventListener('click',downloadCSV);$('siteSelect').addEventListener('change',e=>activateSite(e.target.value));$('searchInput').addEventListener('input',applyFilters);$('filterBtn').addEventListener('click',()=>$('filterPanel').classList.toggle('show'));$('resetBtn').addEventListener('click',()=>{$('searchInput').value='';$('columnSelect').value='';updateValues();applyFilters()});$('columnSelect').addEventListener('change',()=>{updateValues();applyFilters()});$('valueSelect').addEventListener('change',applyFilters);$('rankList').addEventListener('click',e=>{const r=e.target.closest('[data-site]');if(r)activateSite(r.dataset.site)});
 $('siteSearch').addEventListener('input',e=>renderSiteNavigator(e.target.value));$('siteSearch').addEventListener('change',openSiteFromSearch);$('siteSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();openSiteFromSearch()}});$('siteSearch').addEventListener('focus',e=>e.target.select());$('siteQuickList').addEventListener('click',e=>{const b=e.target.closest('[data-quick-site]');if(b)activateSite(b.dataset.quickSite)});
 
+
 $('dateOrderClose').addEventListener('click',closeDateOrderPopup);
 $('dateOrderModal').addEventListener('click',e=>{if(e.target===$('dateOrderModal'))closeDateOrderPopup()});
 $('dateOrderSites').addEventListener('click',e=>{const button=e.target.closest('[data-alert-site]');if(!button)return;activateSite(button.dataset.alertSite);closeDateOrderPopup()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDateOrderPopup()});
+
 $('detailCard').addEventListener('wheel',e=>{const box=$('tableWrap');if(!box)return;const useHorizontal=e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY);if(useHorizontal){const amount=e.deltaX||e.deltaY;box.scrollLeft+=amount}else{box.scrollTop+=e.deltaY}e.preventDefault()},{passive:false});
 
 function updateGMT7Clock(){
@@ -518,9 +488,7 @@ function updateGMT7Clock(){
 updateGMT7Clock();setInterval(updateGMT7Clock,1000);
 
 lastGMT7DayKey=civilDateKeyGMT7(0);
-loadData();
-setInterval(loadData,CONFIG.refreshMinutes*60*1000);
-setInterval(continuousDateOrderWatch,60*1000);
+loadData();setInterval(loadData,CONFIG.refreshMinutes*60*1000);setInterval(continuousDateOrderWatch,60*1000);
 </script>
 </body>
 </html>
