@@ -365,6 +365,7 @@ function dateParts(value){const s=String(value??'').trim();if(!s)return{date:'Ta
 
 
 let lastDateOrderAlertKey='';
+let lastGMT7DayKey='';
 function civilDateKeyGMT7(offsetDays=0){
   const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   const d=new Date(Date.UTC(+parts.year,+parts.month-1,+parts.day));
@@ -406,9 +407,20 @@ function checkYesterdayAtBottom(){
   lastDateOrderAlertKey=signature;
   $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
   $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
-  $('dateOrderMessage').textContent=`Tanggal kemarin ditemukan sebagai tanggal paling bawah setelah data tanggal hari ini. Periksa urutan baris atau rumus yang mungkin turun pada ${issues.length} situs berikut:`;
+  $('dateOrderMessage').textContent=`Pemeriksaan harian GMT+7 aktif. Tanggal kemarin ditemukan sebagai tanggal paling bawah setelah data tanggal hari ini. Periksa urutan baris atau rumus yang mungkin turun pada ${issues.length} situs berikut:`;
   $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
   $('dateOrderModal').classList.add('show');
+}
+function continuousDateOrderWatch(){
+  const currentGMT7Day=civilDateKeyGMT7(0);
+  if(!lastGMT7DayKey){lastGMT7DayKey=currentGMT7Day}
+  if(currentGMT7Day!==lastGMT7DayKey){
+    lastGMT7DayKey=currentGMT7Day;
+    lastDateOrderAlertKey='';
+    loadData();
+    return;
+  }
+  checkYesterdayAtBottom();
 }
 
 function linksFrom(value){return String(value??'').match(/https?:\/\/[^\s<>"']+/ig)||[]}
@@ -440,7 +452,10 @@ function updateGMT7Clock(){
 }
 updateGMT7Clock();setInterval(updateGMT7Clock,1000);
 
-loadData();setInterval(loadData,CONFIG.refreshMinutes*60*1000);
+lastGMT7DayKey=civilDateKeyGMT7(0);
+loadData();
+setInterval(loadData,CONFIG.refreshMinutes*60*1000);
+setInterval(continuousDateOrderWatch,60*1000);
 </script>
 </body>
 </html>
