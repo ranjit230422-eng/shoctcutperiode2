@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="id">
 <head>
@@ -192,7 +191,7 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
 @media(max-width:900px){.header-clock{grid-column:1/-1;width:100%;height:62px;align-items:center}.header-clock-time{font-size:21px}}
 
 
-/* POPUP PERINGATAN TANGGAL SEMALAM DI PALING BAWAH — TAMBAHAN SAJA */
+/* POPUP PERINGATAN TANGGAL KEMARIN DI PALING BAWAH */
 .date-order-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.76)}
 .date-order-modal.show{display:flex}
 .date-order-card{width:min(560px,100%);overflow:hidden;border:1px solid rgba(255,91,104,.72);border-radius:20px;background:linear-gradient(145deg,#2b0a11,#0b090b 62%,#050506);box-shadow:0 28px 90px rgba(0,0,0,.75),0 0 0 5px rgba(220,28,51,.09);animation:dateOrderPop .22s ease-out}
@@ -259,7 +258,7 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
       <div><h2 id="dateOrderTitle">Peringatan Urutan Tanggal</h2><small>Rumus atau baris kemungkinan turun</small></div>
     </div>
     <div class="date-order-body">
-      <p id="dateOrderMessage">Tanggal semalam ditemukan di bagian paling bawah.</p>
+      <p id="dateOrderMessage">Tanggal kemarin ditemukan di paling bawah setelah tanggal hari ini.</p>
       <div class="date-order-dates">
         <div class="date-order-date"><label>Tanggal hari ini</label><strong id="dateOrderToday">-</strong></div>
         <div class="date-order-arrow">→</div>
@@ -346,45 +345,24 @@ function activateSite(site,scroll=true){const d=state.siteTables[site];if(!d)ret
 function buildFilters(){$('columnSelect').innerHTML='<option value="">Semua kolom</option>'+state.headers.map((h,i)=>`<option value="${i}">${esc(h)}</option>`).join('');$('valueSelect').innerHTML='<option value="">Semua nilai</option>'}
 function updateValues(){const i=$('columnSelect').value;if(i===''){$('valueSelect').innerHTML='<option value="">Semua nilai</option>';return}const vals=[...new Set(state.rows.map(r=>String(r[+i]??'')).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'id')).slice(0,500);$('valueSelect').innerHTML='<option value="">Semua nilai</option>'+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('')}
 function applyFilters(){const q=$('searchInput').value.trim().toLowerCase(),ci=$('columnSelect').value,cv=$('valueSelect').value;state.filtered=state.rows.filter(r=>(!q||r.some(v=>String(v).toLowerCase().includes(q)))&&(ci===''||!cv||String(r[+ci])===cv));render()}
-/* TOTAL SITUS: hanya membaca angka terakhir pada BARIS TOTAL, tidak menjumlahkan kolom lain. */
-function countNumber(value){
-  if(typeof value==='number')return Number.isFinite(value)?value:NaN;
-  let raw=String(value??'').trim();
-  if(!raw||!/\d/.test(raw))return NaN;
-  raw=raw.replace(/\s+/g,'').replace(/[^0-9,.-]/g,'');
-  /* 1.234 / 1,234 dibaca sebagai 1234; akhiran ,00 / .00 diabaikan. */
-  if(/^-?\d+[,.]00$/.test(raw))raw=raw.slice(0,-3);
-  const negative=raw.startsWith('-');
-  const digits=raw.replace(/[^0-9]/g,'');
-  if(!digits)return NaN;
-  const result=Number(digits);
-  return negative?-result:result;
-}
 function getErrorCount(site){
   const d=state.siteTables[site];
   if(!d)return 0;
   const totalRow=[...d.rows].reverse().find(row=>row.some(isTotalLabel));
   if(!totalRow)return 0;
+  const totalColumn=findColumn(d.headers,['totalkesalahanseluruh','totalkesalahan','jumlahkesalahan','totalerror','totalerrors','grandtotal','total']);
+  if(totalColumn>=0){const value=num(totalRow[totalColumn]);if(Number.isFinite(value))return value}
   const labelIndex=totalRow.findIndex(isTotalLabel);
-  /* Mulai dari sel paling kanan setelah tulisan TOTAL. */
-  for(let i=totalRow.length-1;i>labelIndex;i--){
-    const value=countNumber(totalRow[i]);
-    if(Number.isFinite(value))return value;
-  }
-  /* Cadangan jika angka TOTAL berada sebelum label. */
-  for(let i=totalRow.length-1;i>=0;i--){
-    if(i===labelIndex)continue;
-    const value=countNumber(totalRow[i]);
-    if(Number.isFinite(value))return value;
-  }
-  return 0;
+  const numericCells=totalRow.map((cell,index)=>({index,value:num(cell)})).filter(item=>Number.isFinite(item.value));
+  const afterLabel=numericCells.filter(item=>item.index>labelIndex);
+  const selected=(afterLabel.length?afterLabel:numericCells).at(-1);
+  return selected?selected.value:0;
 }
 function ranking(){return state.loadedSites.map((site,order)=>({site,order,forms:CONFIG.formCounts[site]||0,total:getErrorCount(site)})).filter(x=>x.forms>=CONFIG.minimumForms).sort((a,b)=>a.total-b.total||a.order-b.order)}
 function staffRanking(){let nameIndex=findColumn(state.headers,['namastaff','staff','namaagent','namacs','namaoperator']);if(nameIndex<0&&state.headers.length>4)nameIndex=4;let totalIndex=findColumn(state.headers,['totalkesalahan','jumlahkesalahan','totalerror','totalerrors','total']);if(nameIndex<0||totalIndex<0||nameIndex===totalIndex)return[];const map=new Map;state.rows.forEach(r=>{const name=String(r[nameIndex]??'').trim(),total=num(r[totalIndex]);if(!name||/^(#value!|tanpa data|nama staff|total)$/i.test(name)||!Number.isFinite(total))return;const key=name.toUpperCase(),old=map.get(key);if(old)old.total+=total;else map.set(key,{name,total})});return[...map.values()].sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name,'id'))}
 function dateParts(value){const s=String(value??'').trim();if(!s)return{date:'Tanpa Tanggal',time:''};const time=(s.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/)||[])[0]||'';let date=s.replace(time,'').trim().replace(/[|,-]+$/,'').trim();const parsed=new Date(s);if(!Number.isNaN(parsed.getTime())){date=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'long',year:'numeric'}).format(parsed);return{date,time:time||new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}).format(parsed)}}return{date:date||'Tanpa Tanggal',time}}
 
 
-/* PEMERIKSAAN POPUP TANGGAL — TIDAK MENGUBAH TOTAL/RANKING */
 let lastDateOrderAlertKey='';
 let lastGMT7DayKey='';
 function civilDateKeyGMT7(offsetDays=0){
@@ -428,6 +406,11 @@ function rowDateKey(row,preferredColumns,today,yesterday){
   const targets=new Set([today,yesterday]);
   for(const index of preferredColumns){for(const key of dateCandidateKeys(row[index],true))if(targets.has(key))return key}
   for(const cell of row){for(const key of dateCandidateKeys(cell,false))if(targets.has(key))return key}
+
+  // Cadangan untuk baris pemisah tanggal yang hanya berisi angka hari,
+  // misalnya: "5", "05", "Tanggal 5", atau "Tgl 5".
+  // Hanya dipakai pada baris yang isinya sedikit agar angka kesalahan biasa
+  // tidak keliru dianggap sebagai tanggal.
   const nonEmpty=row.map(v=>String(v??'').trim()).filter(Boolean);
   if(nonEmpty.length<=3){
     const targetByDay=new Map([[Number(today.slice(-2)),today],[Number(yesterday.slice(-2)),yesterday]]);
@@ -435,7 +418,10 @@ function rowDateKey(row,preferredColumns,today,yesterday){
       const normalized=value.toLowerCase().trim();
       let match=normalized.match(/^0?(\d{1,2})$/);
       if(!match)match=normalized.match(/^(?:tanggal|tgl|hari)\s*[:.\-]?\s*0?(\d{1,2})(?:\s|$)/i);
-      if(match){const key=targetByDay.get(Number(match[1]));if(key)return key}
+      if(match){
+        const key=targetByDay.get(Number(match[1]));
+        if(key)return key;
+      }
     }
   }
   return'';
@@ -446,13 +432,30 @@ function findDateOrderIssues(){
     const table=state.siteTables[site];if(!table)return;
     const preferredColumns=likelyDateColumns(table,today,yesterday),sequence=[];
     table.rows.forEach((row,rowIndex)=>{
+      // Baris TOTAL dan baris kosong tidak ikut menentukan tanggal paling bawah.
       if(row.some(isTotalLabel)||!row.some(v=>String(v??'').trim()))return;
       const key=rowDateKey(row,preferredColumns,today,yesterday);
       if(key)sequence.push({key,rowIndex});
     });
-    const yesterdayRows=sequence.filter(x=>x.key===yesterday);if(!yesterdayRows.length)return;
-    const todayRows=sequence.filter(x=>x.key===today),lastDated=sequence.at(-1);
-    if(lastDated?.key===yesterday)issues.push({site,today,yesterday,hasToday:todayRows.length>0});
+
+    const yesterdayRows=sequence.filter(x=>x.key===yesterday);
+    if(!yesterdayRows.length)return;
+
+    const todayRows=sequence.filter(x=>x.key===today);
+    const lastDated=sequence.at(-1);
+    const lastYesterday=yesterdayRows.at(-1).rowIndex;
+    const lastToday=todayRows.length?todayRows.at(-1).rowIndex:-1;
+
+    // Inti aturan pengguna:
+    // Begitu tanggal semalam menjadi kelompok tanggal PALING BAWAH,
+    // popup harus muncul. Tanggal hari ini tidak wajib sudah memiliki data.
+    if(lastDated?.key===yesterday){
+      issues.push({
+        site,today,yesterday,
+        hasToday:todayRows.length>0,
+        afterToday:todayRows.length>0&&lastYesterday>lastToday
+      });
+    }
   });
   return issues;
 }
@@ -465,21 +468,29 @@ function checkYesterdayAtBottom(){
   lastDateOrderAlertKey=signature;
   $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
   $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
-  $('dateOrderMessage').textContent=`Tanggal semalam berada di bagian paling bawah. Periksa urutan baris atau rumus pada ${issues.length} situs berikut:`;
+  const hasTodayIssue=issues.some(x=>x.hasToday);
+  $('dateOrderMessage').textContent=hasTodayIssue
+    ?`Tanggal semalam terdeteksi berada di bagian paling bawah. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`
+    :`Tanggal semalam sudah berada di bagian paling bawah walaupun data tanggal hari ini belum ditemukan. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`;
   $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
   $('dateOrderModal').classList.add('show');
 }
 function continuousDateOrderWatch(){
   const currentGMT7Day=civilDateKeyGMT7(0);
-  if(!lastGMT7DayKey)lastGMT7DayKey=currentGMT7Day;
-  if(currentGMT7Day!==lastGMT7DayKey){lastGMT7DayKey=currentGMT7Day;lastDateOrderAlertKey='';loadData();return}
+  if(!lastGMT7DayKey){lastGMT7DayKey=currentGMT7Day}
+  if(currentGMT7Day!==lastGMT7DayKey){
+    lastGMT7DayKey=currentGMT7Day;
+    lastDateOrderAlertKey='';
+    loadData();
+    return;
+  }
   checkYesterdayAtBottom();
 }
 
 function linksFrom(value){return String(value??'').match(/https?:\/\/[^\s<>"']+/ig)||[]}
 function linkCell(value){const links=linksFrom(value);if(!links.length)return esc(value);if(links.length===1)return `<a class="link-one" href="${esc(links[0])}" target="_blank" rel="noopener noreferrer">${esc(links[0])} &nbsp; ↗</a>`;return `<details class="links"><summary>${links.length} link</summary><div class="links-menu">${links.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${i+1}. ${esc(u)} ↗</a>`).join('')}</div></details>`}
 function renderOriginalCell(value,index){const text=String(value??'');if(linksFrom(text).length)return linkCell(text);if(index===state.columns.name&&text.trim())return `<span class="name-cell">${esc(text)}</span>`;return esc(text)}
-function renderTable(){const rows=state.filtered,dateIndex=state.columns.date;let html='',lastDate='';/* Hanya nama kolom A-D yang diganti; posisi dan isi data tetap. */const detailHeaderNames=['Nama Staff','Screenshot Kesalahan','Keterangan','Chat ID'];$('tableHead').innerHTML='<tr>'+state.headers.map((h,i)=>`<th>${esc(i<4?detailHeaderNames[i]:h)}</th>`).join('')+'</tr>';const groups={};if(dateIndex>=0)rows.forEach(r=>{const p=dateParts(r[dateIndex]);groups[p.date]=(groups[p.date]||0)+1});rows.forEach(r=>{if(dateIndex>=0){const p=dateParts(r[dateIndex]);if(p.date!==lastDate){const tone=` tone-${Object.keys(groups).indexOf(p.date)%8}`;html+=`<tr class="date-group${tone}"><td colspan="${Math.max(1,state.headers.length)}"><div class="date-line"><span class="date-title"><span class="date-icon">▣</span>${esc(p.date)}</span><span>${groups[p.date]} data</span></div></td></tr>`;lastDate=p.date}}const isTotal=r.some(v=>/^\s*(grand\s+)?total\b/i.test(String(v??'')));html+=`<tr${isTotal?' class="total-row"':''}>`+r.map((v,i)=>{const value=String(v??''),cell=isTotal&&/^\s*(grand\s+)?total\b/i.test(value)?`<span class="total-label">${esc(value)}</span>`:renderOriginalCell(v,i);return`<td>${cell}</td>`}).join('')+'</tr>'});$('tableBody').innerHTML=html;$('emptyState').style.display=rows.length?'none':'block';$('emptyState').textContent=state.rows.length?'Tidak ada data yang cocok.':'Sheet masih kosong.';$('scrollInfo').textContent=`Menampilkan seluruh ${fmt(rows.length)} data • tahan Shift + scroll untuk geser kanan/kiri`}
+function renderTable(){const rows=state.filtered,dateIndex=state.columns.date;let html='',lastDate='';const detailHeaderNames=['Nama Staff','Screenshot Kesalahan','Keterangan','Chat ID'];$('tableHead').innerHTML='<tr>'+state.headers.map((h,i)=>`<th>${esc(detailHeaderNames[i]??h)}</th>`).join('')+'</tr>';const groups={};if(dateIndex>=0)rows.forEach(r=>{const p=dateParts(r[dateIndex]);groups[p.date]=(groups[p.date]||0)+1});rows.forEach(r=>{if(dateIndex>=0){const p=dateParts(r[dateIndex]);if(p.date!==lastDate){const tone=` tone-${Object.keys(groups).indexOf(p.date)%8}`;html+=`<tr class="date-group${tone}"><td colspan="${Math.max(1,state.headers.length)}"><div class="date-line"><span class="date-title"><span class="date-icon">▣</span>${esc(p.date)}</span><span>${groups[p.date]} data</span></div></td></tr>`;lastDate=p.date}}const isTotal=r.some(v=>/^\s*(grand\s+)?total\b/i.test(String(v??'')));html+=`<tr${isTotal?' class="total-row"':''}>`+r.map((v,i)=>{const value=String(v??''),cell=isTotal&&/^\s*(grand\s+)?total\b/i.test(value)?`<span class="total-label">${esc(value)}</span>`:renderOriginalCell(v,i);return`<td>${cell}</td>`}).join('')+'</tr>'});$('tableBody').innerHTML=html;$('emptyState').style.display=rows.length?'none':'block';$('emptyState').textContent=state.rows.length?'Tidak ada data yang cocok.':'Sheet masih kosong.';$('scrollInfo').textContent=`Menampilkan seluruh ${fmt(rows.length)} data • tahan Shift + scroll untuk geser kanan/kiri`}
 function renderSummary(){const ranked=ranking(),rankIndex=ranked.findIndex(x=>x.site===state.site),forms=CONFIG.formCounts[state.site]||0,staffs=staffRanking(),topStaffs=staffs.slice(0,3);$('activeErrors').textContent=fmt(getErrorCount(state.site));$('rankList').innerHTML=ranked.map((x,i)=>`<div class="rank-item" data-site="${esc(x.site)}" title="Buka data ${esc(x.site)}"><span class="rank-no">${i+1}</span><span class="rank-site">${siteLogo(x.site)}<span>${esc(x.site)}</span></span><span class="rank-value">${fmt(x.total)}</span></div>`).join('');$('rankInfo').textContent=`${ranked.length} situs ditampilkan • klik nama situs untuk membuka data`;$('activeRank').textContent=rankIndex>=0?`#${rankIndex+1}`:'—';$('activeRankNote').textContent=rankIndex>=0?`dari ${ranked.length} situs Form 20.000+`:'Tidak masuk peringkat Form 20.000+';$('activeForms').textContent=`${fmt(forms)} form`;$('staffSummarySite').textContent=state.site||'Belum dipilih';$('staffSummaryCount').textContent=topStaffs.length?`${topStaffs.length} staff teratas`:'0 staff';$('staffTopList').innerHTML=topStaffs.length?topStaffs.map((x,i)=>`<div class="staff-top-item" title="Peringkat ${i+1}: ${esc(x.name)}"><span class="staff-top-no">${i+1}</span><span class="staff-top-name">${esc(x.name)}</span><span class="staff-top-value">${fmt(x.total)}<small>kesalahan pada ${esc(state.site)}</small></span></div>`).join(''):'<div class="staff-empty">Data Nama Staff belum tersedia pada situs ini.</div>'}
 function render(){renderTable();$('foundText').textContent=`${fmt(state.filtered.length)} data ditemukan`;renderSummary()}
 function downloadCSV(){const rows=[state.headers,...state.filtered],csv='\ufeff'+rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download=`${state.site||'data'}-dashboard.csv`;a.click();URL.revokeObjectURL(a.href)}
@@ -489,12 +500,10 @@ function openSiteFromSearch(){const query=$('siteSearch').value.trim(),key=clean
 $('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾   Mode Gelap':'☀   Mode Terang'});$('refreshBtn').addEventListener('click',loadData);$('csvBtn').addEventListener('click',downloadCSV);$('siteSelect').addEventListener('change',e=>activateSite(e.target.value));$('searchInput').addEventListener('input',applyFilters);$('filterBtn').addEventListener('click',()=>$('filterPanel').classList.toggle('show'));$('resetBtn').addEventListener('click',()=>{$('searchInput').value='';$('columnSelect').value='';updateValues();applyFilters()});$('columnSelect').addEventListener('change',()=>{updateValues();applyFilters()});$('valueSelect').addEventListener('change',applyFilters);$('rankList').addEventListener('click',e=>{const r=e.target.closest('[data-site]');if(r)activateSite(r.dataset.site)});
 $('siteSearch').addEventListener('input',e=>renderSiteNavigator(e.target.value));$('siteSearch').addEventListener('change',openSiteFromSearch);$('siteSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();openSiteFromSearch()}});$('siteSearch').addEventListener('focus',e=>e.target.select());$('siteQuickList').addEventListener('click',e=>{const b=e.target.closest('[data-quick-site]');if(b)activateSite(b.dataset.quickSite)});
 
-
 $('dateOrderClose').addEventListener('click',closeDateOrderPopup);
 $('dateOrderModal').addEventListener('click',e=>{if(e.target===$('dateOrderModal'))closeDateOrderPopup()});
 $('dateOrderSites').addEventListener('click',e=>{const button=e.target.closest('[data-alert-site]');if(!button)return;activateSite(button.dataset.alertSite);closeDateOrderPopup()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDateOrderPopup()});
-
 $('detailCard').addEventListener('wheel',e=>{const box=$('tableWrap');if(!box)return;const useHorizontal=e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY);if(useHorizontal){const amount=e.deltaX||e.deltaY;box.scrollLeft+=amount}else{box.scrollTop+=e.deltaY}e.preventDefault()},{passive:false});
 
 function updateGMT7Clock(){
@@ -508,7 +517,9 @@ function updateGMT7Clock(){
 updateGMT7Clock();setInterval(updateGMT7Clock,1000);
 
 lastGMT7DayKey=civilDateKeyGMT7(0);
-loadData();setInterval(loadData,CONFIG.refreshMinutes*60*1000);setInterval(continuousDateOrderWatch,60*1000);
+loadData();
+setInterval(loadData,CONFIG.refreshMinutes*60*1000);
+setInterval(continuousDateOrderWatch,60*1000);
 </script>
 </body>
 </html>
