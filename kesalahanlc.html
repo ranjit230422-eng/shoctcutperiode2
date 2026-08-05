@@ -215,6 +215,10 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
 .screenshot-count{position:absolute;right:5px;bottom:5px;z-index:3;padding:3px 6px;border-radius:99px;color:#fff;background:rgba(0,0,0,.72);font-size:9px;font-weight:800}
 @media(max-width:650px){.screenshot-list{min-width:105px;max-width:230px}.screenshot-preview{width:105px;height:66px}}
 
+
+/* LINK KESALAHAN LIVECHAT — tampil langsung sebagai link biasa */
+.livechat-link-list{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:120px}
+.livechat-link{max-width:none!important;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -394,7 +398,11 @@ function ranking(){return state.loadedSites.map((site,order)=>({site,order,forms
 function staffRanking(){let nameIndex=findColumn(state.headers,['namastaff','staff','namaagent','namacs','namaoperator']);if(nameIndex<0&&state.headers.length>4)nameIndex=4;const passportIndex=findColumn(state.headers,['nomorpaspor','nopaspor','paspor','nomorpassport','nopassport','passportnumber','passport']);let totalIndex=findColumn(state.headers,['totalkesalahan','jumlahkesalahan','totalerror','totalerrors','total']);if(nameIndex<0||totalIndex<0||nameIndex===totalIndex)return[];const map=new Map;state.rows.forEach(r=>{const name=String(r[nameIndex]??'').trim(),passport=passportIndex>=0?String(r[passportIndex]??'').trim():'',total=num(r[totalIndex]);if(!name||/^(#value!|tanpa data|nama staff|total)$/i.test(name)||!Number.isFinite(total))return;const key=`${clean(name)}||${clean(passport)}`,old=map.get(key);if(old)old.total+=total;else map.set(key,{name,passport,total})});return[...map.values()].sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name,'id')||a.passport.localeCompare(b.passport,'id'))}
 function dateParts(value){const s=String(value??'').trim();if(!s)return{date:'Tanpa Tanggal',time:''};const time=(s.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/)||[])[0]||'';let date=s.replace(time,'').trim().replace(/[|,-]+$/,'').trim();const parsed=new Date(s);if(!Number.isNaN(parsed.getTime())){date=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'long',year:'numeric'}).format(parsed);return{date,time:time||new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}).format(parsed)}}return{date:date||'Tanpa Tanggal',time}}
 function linksFrom(value){return String(value??'').match(/https?:\/\/[^\s<>"']+/ig)||[]}
-function linkCell(value){const links=linksFrom(value);if(!links.length)return esc(value);if(links.length===1)return `<a class="link-one" href="${esc(links[0])}" target="_blank" rel="noopener noreferrer">${esc(links[0])} &nbsp; ↗</a>`;return `<details class="links"><summary>${links.length} link</summary><div class="links-menu">${links.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${i+1}. ${esc(u)} ↗</a>`).join('')}</div></details>`}
+function linkCell(value){
+  const links=[...new Set(linksFrom(value).map(u=>u.replace(/[),.;]+$/,'')))].filter(Boolean);
+  if(!links.length)return esc(value);
+  return `<div class="livechat-link-list">${links.map((u,i)=>`<a class="link-one livechat-link" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="Buka Link Kesalahan LiveChat">${links.length>1?`Link ${i+1}`:'Buka Link'} ↗</a>`).join('')}</div>`;
+}
 
 /* PEMERIKSAAN TANGGAL SEMALAM — ringan dan berkelanjutan berdasarkan GMT+7 */
 let lastDateWarningKey='';
