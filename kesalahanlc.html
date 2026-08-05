@@ -407,6 +407,24 @@ function rowDateKey(row,preferredColumns,today,yesterday){
   const targets=new Set([today,yesterday]);
   for(const index of preferredColumns){for(const key of dateCandidateKeys(row[index],true))if(targets.has(key))return key}
   for(const cell of row){for(const key of dateCandidateKeys(cell,false))if(targets.has(key))return key}
+
+  // Cadangan untuk baris pemisah tanggal yang hanya berisi angka hari,
+  // misalnya: "5", "05", "Tanggal 5", atau "Tgl 5".
+  // Hanya dipakai pada baris yang isinya sedikit agar angka kesalahan biasa
+  // tidak keliru dianggap sebagai tanggal.
+  const nonEmpty=row.map(v=>String(v??'').trim()).filter(Boolean);
+  if(nonEmpty.length<=3){
+    const targetByDay=new Map([[Number(today.slice(-2)),today],[Number(yesterday.slice(-2)),yesterday]]);
+    for(const value of nonEmpty){
+      const normalized=value.toLowerCase().trim();
+      let match=normalized.match(/^0?(\d{1,2})$/);
+      if(!match)match=normalized.match(/^(?:tanggal|tgl|hari)\s*[:.\-]?\s*0?(\d{1,2})(?:\s|$)/i);
+      if(match){
+        const key=targetByDay.get(Number(match[1]));
+        if(key)return key;
+      }
+    }
+  }
   return'';
 }
 function findDateOrderIssues(){
@@ -415,14 +433,30 @@ function findDateOrderIssues(){
     const table=state.siteTables[site];if(!table)return;
     const preferredColumns=likelyDateColumns(table,today,yesterday),sequence=[];
     table.rows.forEach((row,rowIndex)=>{
-      if(row.some(isTotalLabel))return;
+      // Baris TOTAL dan baris kosong tidak ikut menentukan tanggal paling bawah.
+      if(row.some(isTotalLabel)||!row.some(v=>String(v??'').trim()))return;
       const key=rowDateKey(row,preferredColumns,today,yesterday);
       if(key)sequence.push({key,rowIndex});
     });
-    const todayRows=sequence.filter(x=>x.key===today),yesterdayRows=sequence.filter(x=>x.key===yesterday);
-    if(!todayRows.length||!yesterdayRows.length)return;
-    const lastToday=todayRows.at(-1).rowIndex,lastYesterday=yesterdayRows.at(-1).rowIndex,lastDated=sequence.at(-1);
-    if(lastDated?.key===yesterday&&lastYesterday>lastToday)issues.push({site,today,yesterday});
+
+    const yesterdayRows=sequence.filter(x=>x.key===yesterday);
+    if(!yesterdayRows.length)return;
+
+    const todayRows=sequence.filter(x=>x.key===today);
+    const lastDated=sequence.at(-1);
+    const lastYesterday=yesterdayRows.at(-1).rowIndex;
+    const lastToday=todayRows.length?todayRows.at(-1).rowIndex:-1;
+
+    // Inti aturan pengguna:
+    // Begitu tanggal semalam menjadi kelompok tanggal PALING BAWAH,
+    // popup harus muncul. Tanggal hari ini tidak wajib sudah memiliki data.
+    if(lastDated?.key===yesterday){
+      issues.push({
+        site,today,yesterday,
+        hasToday:todayRows.length>0,
+        afterToday:todayRows.length>0&&lastYesterday>lastToday
+      });
+    }
   });
   return issues;
 }
@@ -435,7 +469,10 @@ function checkYesterdayAtBottom(){
   lastDateOrderAlertKey=signature;
   $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
   $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
-  $('dateOrderMessage').textContent=`Tanggal semalam terdeteksi turun ke bagian paling bawah setelah tanggal hari ini. Ini menandakan urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`;
+  const hasTodayIssue=issues.some(x=>x.hasToday);
+  $('dateOrderMessage').textContent=hasTodayIssue
+    ?`Tanggal semalam terdeteksi berada di bagian paling bawah. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`
+    :`Tanggal semalam sudah berada di bagian paling bawah walaupun data tanggal hari ini belum ditemukan. Urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`;
   $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
   $('dateOrderModal').classList.add('show');
 }
