@@ -372,29 +372,57 @@ function civilDateKeyGMT7(offsetDays=0){
   d.setUTCDate(d.getUTCDate()+offsetDays);
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
 }
-function normalizeDateKey(value){
-  if(value instanceof Date&&!Number.isNaN(value.getTime()))return `${value.getFullYear()}-${String(value.getMonth()+1).padStart(2,'0')}-${String(value.getDate()).padStart(2,'0')}`;
-  if(typeof value==='number'&&value>20000&&value<90000){const d=new Date(Date.UTC(1899,11,30)+value*86400000);return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`}
-  const raw=String(value??'').trim();if(!raw)return'';
-  let m=raw.match(/Date\s*\(\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})/i);if(m)return `${m[1]}-${String(+m[2]+1).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
-  m=raw.match(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b/);if(m)return `${m[1]}-${String(+m[2]).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
-  m=raw.match(/\b(\d{1,2})[\s\-/.](\d{1,2})[\s\-/.](\d{4})\b/);if(m)return `${m[3]}-${String(+m[2]).padStart(2,'0')}-${String(+m[1]).padStart(2,'0')}`;
+function validDateKey(y,m,d){
+  y=Number(y);m=Number(m);d=Number(d);
+  if(!Number.isInteger(y)||!Number.isInteger(m)||!Number.isInteger(d)||y<2000||y>2100||m<1||m>12||d<1||d>31)return'';
+  const test=new Date(Date.UTC(y,m-1,d));
+  if(test.getUTCFullYear()!==y||test.getUTCMonth()!==m-1||test.getUTCDate()!==d)return'';
+  return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function dateCandidateKeys(value,allowDayOnly=false){
+  const found=new Set(),todayKey=civilDateKeyGMT7(0),[todayY,todayM]=todayKey.split('-').map(Number);
+  const add=(y,m,d)=>{const key=validDateKey(y,m,d);if(key)found.add(key)};
+  if(value instanceof Date&&!Number.isNaN(value.getTime()))add(value.getFullYear(),value.getMonth()+1,value.getDate());
+  if(typeof value==='number'&&value>20000&&value<90000){const d=new Date(Date.UTC(1899,11,30)+value*86400000);add(d.getUTCFullYear(),d.getUTCMonth()+1,d.getUTCDate())}
+  const raw=String(value??'').trim();if(!raw)return[];
+  let m=raw.match(/Date\s*\(\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})/i);if(m)add(+m[1],+m[2]+1,+m[3]);
+  m=raw.match(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b/);if(m)add(+m[1],+m[2],+m[3]);
+  m=raw.match(/\b(\d{1,2})[\s\-/.](\d{1,2})[\s\-/.](\d{4})\b/);if(m){add(+m[3],+m[2],+m[1]);add(+m[3],+m[1],+m[2])}
   const months={jan:1,januari:1,january:1,feb:2,februari:2,february:2,mar:3,maret:3,march:3,apr:4,april:4,mei:5,may:5,jun:6,juni:6,june:6,jul:7,juli:7,july:7,agu:8,agt:8,aug:8,agustus:8,august:8,sep:9,september:9,okt:10,oct:10,oktober:10,october:10,nov:11,november:11,des:12,dec:12,desember:12,december:12};
   const lower=raw.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  m=lower.match(/\b(\d{1,2})\s+([a-z]+)\s+(\d{4})\b/);if(m&&months[m[2]])return `${m[3]}-${String(months[m[2]]).padStart(2,'0')}-${String(+m[1]).padStart(2,'0')}`;
-  const parsed=new Date(raw);if(!Number.isNaN(parsed.getTime()))return `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`;
-  return'';
+  m=lower.match(/\b(\d{1,2})\s+([a-z]+)\s+(\d{4})\b/);if(m&&months[m[2]])add(+m[3],months[m[2]],+m[1]);
+  m=lower.match(/\b(\d{1,2})\s+([a-z]+)\b/);if(m&&months[m[2]]){let y=todayY;const month=months[m[2]];if(todayM===1&&month===12)y--;else if(todayM===12&&month===1)y++;add(y,month,+m[1])}
+  if(allowDayOnly&&/^\d{1,2}$/.test(raw))add(todayY,todayM,+raw);
+  return[...found];
 }
 function formatDateKeyID(key){const [y,m,d]=key.split('-').map(Number);return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'long',year:'numeric',timeZone:'Asia/Jakarta'}).format(new Date(Date.UTC(y,m-1,d,12)))}
+function likelyDateColumns(table,today,yesterday){
+  const named=[];
+  table.headers.forEach((header,index)=>{const key=clean(header);if(['tanggal','date','tgl','hari'].some(word=>key.includes(word)))named.push(index)});
+  const scores=table.headers.map((_,index)=>{let todayHits=0,yesterdayHits=0,dateHits=0;table.rows.forEach(row=>{const keys=dateCandidateKeys(row[index],named.includes(index));if(keys.length)dateHits++;if(keys.includes(today))todayHits++;if(keys.includes(yesterday))yesterdayHits++});return{index,todayHits,yesterdayHits,dateHits}});
+  const matched=scores.filter(x=>x.todayHits&&x.yesterdayHits).sort((a,b)=>(b.todayHits+b.yesterdayHits)-(a.todayHits+a.yesterdayHits)||b.dateHits-a.dateHits).map(x=>x.index);
+  return[...new Set([...named,...matched])];
+}
+function rowDateKey(row,preferredColumns,today,yesterday){
+  const targets=new Set([today,yesterday]);
+  for(const index of preferredColumns){for(const key of dateCandidateKeys(row[index],true))if(targets.has(key))return key}
+  for(const cell of row){for(const key of dateCandidateKeys(cell,false))if(targets.has(key))return key}
+  return'';
+}
 function findDateOrderIssues(){
   const today=civilDateKeyGMT7(0),yesterday=civilDateKeyGMT7(-1),issues=[];
   state.loadedSites.forEach(site=>{
     const table=state.siteTables[site];if(!table)return;
-    const dateIndex=findColumn(table.headers,['tanggal','date','tgl','hari']);if(dateIndex<0)return;
-    const keys=table.rows.filter(row=>!row.some(isTotalLabel)).map(row=>normalizeDateKey(row[dateIndex])).filter(Boolean);
-    if(!keys.includes(today)||!keys.includes(yesterday))return;
-    const lastToday=keys.lastIndexOf(today),lastYesterday=keys.lastIndexOf(yesterday),lastDate=keys.at(-1);
-    if(lastDate===yesterday&&lastYesterday>lastToday)issues.push({site,today,yesterday});
+    const preferredColumns=likelyDateColumns(table,today,yesterday),sequence=[];
+    table.rows.forEach((row,rowIndex)=>{
+      if(row.some(isTotalLabel))return;
+      const key=rowDateKey(row,preferredColumns,today,yesterday);
+      if(key)sequence.push({key,rowIndex});
+    });
+    const todayRows=sequence.filter(x=>x.key===today),yesterdayRows=sequence.filter(x=>x.key===yesterday);
+    if(!todayRows.length||!yesterdayRows.length)return;
+    const lastToday=todayRows.at(-1).rowIndex,lastYesterday=yesterdayRows.at(-1).rowIndex,lastDated=sequence.at(-1);
+    if(lastDated?.key===yesterday&&lastYesterday>lastToday)issues.push({site,today,yesterday});
   });
   return issues;
 }
@@ -403,11 +431,11 @@ function checkYesterdayAtBottom(){
   const issues=findDateOrderIssues();
   if(!issues.length){lastDateOrderAlertKey='';closeDateOrderPopup();return}
   const signature=`${issues[0].today}|${issues[0].yesterday}|${issues.map(x=>x.site).join('|')}`;
-  if(signature===lastDateOrderAlertKey)return;
+  if(signature===lastDateOrderAlertKey&&$('dateOrderModal')?.classList.contains('show'))return;
   lastDateOrderAlertKey=signature;
   $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
   $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
-  $('dateOrderMessage').textContent=`Pemeriksaan harian GMT+7 aktif. Tanggal kemarin ditemukan sebagai tanggal paling bawah setelah data tanggal hari ini. Periksa urutan baris atau rumus yang mungkin turun pada ${issues.length} situs berikut:`;
+  $('dateOrderMessage').textContent=`Tanggal semalam terdeteksi turun ke bagian paling bawah setelah tanggal hari ini. Ini menandakan urutan baris atau rumus kemungkinan turun pada ${issues.length} situs berikut:`;
   $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
   $('dateOrderModal').classList.add('show');
 }
