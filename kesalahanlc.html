@@ -181,6 +181,31 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
 @media(max-width:1050px){.workspace{grid-template-columns:minmax(0,1fr) 275px!important}.sidebar .side-title{font-size:13px!important}}
 @media(max-width:820px){.workspace{display:flex!important;flex-direction:column!important}.content,.sidebar{width:100%!important}.detail-card{position:relative!important;top:auto!important;height:calc(100vh - 12px)!important;min-height:560px!important}.sidebar{display:grid!important;grid-template-columns:1fr 1fr!important}.sidebar>.staff-summary{grid-column:1/-1!important}}
 @media(max-width:560px){.site-finder-wrap{width:100%!important;min-width:0!important}.site-navigator{padding:9px}.site-nav-head small{display:none}.site-quick-btn{min-width:118px}.sidebar{display:flex!important}.detail-card{height:calc(100vh - 10px)!important;min-height:500px!important}.detail-head h2{font-size:22px!important}}
+
+
+/* PANEL JAM & TANGGAL GMT+7 — POJOK KANAN ATAS */
+.header-clock{min-width:178px;height:68px;padding:8px 13px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;border:1px solid rgba(255,82,94,.42);border-radius:13px;background:linear-gradient(145deg,rgba(65,8,17,.94),rgba(8,8,10,.97));box-shadow:0 10px 27px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.05);white-space:nowrap}
+.header-clock-zone{color:#ff9ba2;font-size:9px;font-weight:900;letter-spacing:.75px;text-transform:uppercase}
+.header-clock-time{margin:2px 0 1px;color:#fff;font-size:22px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.45)}
+.header-clock-date{color:#d8cfd1;font-size:9px;font-weight:700;letter-spacing:.15px;text-transform:capitalize}
+@media(max-width:1180px){.header{height:auto!important;min-height:92px;padding-top:11px!important;padding-bottom:11px!important}.header-actions{flex-wrap:wrap!important;justify-content:flex-end!important}.header-clock{order:-1;min-width:170px}}
+@media(max-width:900px){.header-clock{grid-column:1/-1;width:100%;height:62px;align-items:center}.header-clock-time{font-size:21px}}
+
+
+/* POPUP PERINGATAN TANGGAL KEMARIN DI PALING BAWAH */
+.date-order-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.76)}
+.date-order-modal.show{display:flex}
+.date-order-card{width:min(560px,100%);overflow:hidden;border:1px solid rgba(255,91,104,.72);border-radius:20px;background:linear-gradient(145deg,#2b0a11,#0b090b 62%,#050506);box-shadow:0 28px 90px rgba(0,0,0,.75),0 0 0 5px rgba(220,28,51,.09);animation:dateOrderPop .22s ease-out}
+@keyframes dateOrderPop{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.date-order-head{display:flex;align-items:center;gap:13px;padding:18px 20px;border-bottom:1px solid rgba(255,84,97,.24);background:linear-gradient(90deg,rgba(187,15,37,.42),rgba(50,5,13,.22))}
+.date-order-icon{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border:1px solid rgba(255,134,143,.55);border-radius:15px;color:#fff;background:linear-gradient(145deg,#ef3044,#7d0817);font-size:24px;box-shadow:0 10px 25px rgba(189,13,34,.3)}
+.date-order-head h2{margin:0;color:#fff;font-size:19px}.date-order-head small{display:block;margin-top:4px;color:#ffadb4;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.date-order-body{padding:19px 20px 20px}.date-order-body p{margin:0 0 14px;color:#e8dfe1;font-size:12px;line-height:1.65}
+.date-order-dates{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:9px;margin-bottom:15px}.date-order-date{padding:11px 12px;border:1px solid rgba(255,82,95,.27);border-radius:11px;background:rgba(4,4,6,.52);text-align:center}.date-order-date label{display:block;color:#9f9597;font-size:8px;font-weight:800;text-transform:uppercase}.date-order-date strong{display:block;margin-top:4px;color:#fff;font-size:12px}.date-order-arrow{color:#ff6f79;font-size:20px;font-weight:900}
+.date-order-sites{display:grid;gap:7px;max-height:190px;overflow:auto;margin-bottom:16px;padding-right:3px}.date-order-site{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid rgba(255,84,97,.28);border-radius:10px;color:#fff;background:rgba(116,9,24,.23);cursor:pointer;font-size:11px;font-weight:800;text-align:left}.date-order-site:hover{border-color:#ff6671;background:rgba(170,14,34,.35)}.date-order-site span{color:#ff9ca4;font-size:9px;font-weight:700}
+.date-order-actions{display:flex;justify-content:flex-end}.date-order-close{height:42px;padding:0 18px;border:1px solid #ff5965;border-radius:11px;color:#fff;background:linear-gradient(135deg,#8a0918,#db2639);cursor:pointer;font-weight:800}.date-order-close:hover{filter:brightness(1.1)}
+@media(max-width:560px){.date-order-modal{padding:12px}.date-order-head{padding:15px}.date-order-body{padding:15px}.date-order-dates{grid-template-columns:1fr}.date-order-arrow{transform:rotate(90deg);text-align:center}.date-order-card{border-radius:16px}}
+
 </style>
 </head>
 <body>
@@ -192,6 +217,11 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
       <div class="site-select-wrap site-finder-wrap"><span id="siteSelectLogo" class="site-select-logo"></span><label>Cari Nama Situs</label><input id="siteSearch" class="site-search-input" type="search" list="siteOptions" placeholder="Ketik nama situs..." autocomplete="off" spellcheck="false"><datalist id="siteOptions"></datalist><select id="siteSelect" class="site-select-hidden" aria-hidden="true" tabindex="-1"><option>Memuat...</option></select><span class="site-search-hint">Enter ↵</span></div>
       <button class="btn gold" id="refreshBtn">↻ &nbsp; Perbarui Data</button>
       <button class="btn" id="csvBtn">⇩ &nbsp; Unduh CSV</button>
+      <div class="header-clock" id="headerClock" aria-label="Jam dan tanggal GMT+7 WIB">
+        <span class="header-clock-zone">GMT+7 WIB</span>
+        <strong class="header-clock-time" id="clockTime">00:00:00</strong>
+        <span class="header-clock-date" id="clockDate">Memuat tanggal...</span>
+      </div>
     </div>
   </header>
   <div class="status"><span class="status-dot" id="statusDot"></span><span id="statusText">Menyiapkan dashboard...</span></div>
@@ -221,6 +251,26 @@ thead tr:not(.site-title-row) th:nth-child(6),thead tr:not(.site-title-row) th:n
     </aside>
   </div>
 </main>
+
+<div class="date-order-modal" id="dateOrderModal" role="dialog" aria-modal="true" aria-labelledby="dateOrderTitle">
+  <div class="date-order-card">
+    <div class="date-order-head">
+      <div class="date-order-icon">!</div>
+      <div><h2 id="dateOrderTitle">Peringatan Urutan Tanggal</h2><small>Rumus atau baris kemungkinan turun</small></div>
+    </div>
+    <div class="date-order-body">
+      <p id="dateOrderMessage">Tanggal kemarin ditemukan di paling bawah setelah tanggal hari ini.</p>
+      <div class="date-order-dates">
+        <div class="date-order-date"><label>Tanggal hari ini</label><strong id="dateOrderToday">-</strong></div>
+        <div class="date-order-arrow">→</div>
+        <div class="date-order-date"><label>Ditemukan paling bawah</label><strong id="dateOrderYesterday">-</strong></div>
+      </div>
+      <div class="date-order-sites" id="dateOrderSites"></div>
+      <div class="date-order-actions"><button class="date-order-close" id="dateOrderClose" type="button">Saya Mengerti</button></div>
+    </div>
+  </div>
+</div>
+
 <script>
 const CONFIG={
   spreadsheetId:'1dFM-gmjB5ZZjqpui4TDLuqfkzWQx6K6rgWRHPgvOwAg',refreshMinutes:5,minimumForms:20000,
@@ -289,7 +339,7 @@ function updateSiteLogos(site){const name=site||'SITUS';$('siteSelectLogo').inne
 function isSiteTitleRow(row,site){const values=row.map(v=>String(v??'').trim()).filter(Boolean),target=clean(site);if(!values.length||values.length>4)return false;return values.some(v=>clean(v)===target)}
 function setStatus(text,type=''){ $('statusText').textContent=text;$('statusDot').className='status-dot '+type }
 function fetchSheet(site,index){return new Promise((resolve,reject)=>{const cb=`sheet_${Date.now()}_${index}`,script=document.createElement('script');script.className='loader';const finish=()=>{delete window[cb];script.remove()};const timer=setTimeout(()=>{finish();reject(Error(site))},20000);window[cb]=res=>{clearTimeout(timer);finish();if(!res||res.status==='error'||!res.table)return reject(Error(site));resolve({site,table:res.table})};script.onerror=()=>{clearTimeout(timer);finish();reject(Error(site))};script.src=`https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=responseHandler:${cb}&sheet=${encodeURIComponent(site)}&t=${Date.now()}`;document.body.appendChild(script)})}
-async function loadData(){setStatus(`Membaca 0 dari ${CONFIG.siteSheets.length} situs...`);document.querySelectorAll('.loader').forEach(x=>x.remove());let next=0,done=0;const results=new Array(CONFIG.siteSheets.length);async function worker(){while(next<CONFIG.siteSheets.length){const i=next++,site=CONFIG.siteSheets[i];try{results[i]={ok:true,value:await fetchSheet(site,i)}}catch(e){results[i]={ok:false}}finally{done++;setStatus(`Membaca ${done} dari ${CONFIG.siteSheets.length} situs...`)}}}await Promise.all(Array.from({length:6},worker));const sheets=results.filter(x=>x?.ok).map(x=>x.value);if(!sheets.length){setStatus('Semua tab gagal dibaca. Periksa akses Google Sheets dan nama tab.','bad');return}state.siteTables={};state.loadedSites=[];sheets.forEach(({site,table})=>{const headers=table.cols.map((c,i)=>c.label||c.id||String.fromCharCode(65+i));const rows=table.rows.map(r=>headers.map((_,i)=>r.c?.[i]?.f??r.c?.[i]?.v??'')).filter(r=>r.some(v=>String(v).trim())).filter(r=>!isSiteTitleRow(r,site));state.siteTables[site]={headers,rows};state.loadedSites.push(site)});$('siteSelect').innerHTML=state.loadedSites.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');$('siteOptions').innerHTML=state.loadedSites.map(s=>`<option value="${esc(s)}"></option>`).join('');activateSite(state.siteTables[state.site]?state.site:state.loadedSites[0],false);setStatus(`${sheets.length} situs berhasil dibaca • ${new Date().toLocaleTimeString('id-ID')}`,'ok')}
+async function loadData(){setStatus(`Membaca 0 dari ${CONFIG.siteSheets.length} situs...`);document.querySelectorAll('.loader').forEach(x=>x.remove());let next=0,done=0;const results=new Array(CONFIG.siteSheets.length);async function worker(){while(next<CONFIG.siteSheets.length){const i=next++,site=CONFIG.siteSheets[i];try{results[i]={ok:true,value:await fetchSheet(site,i)}}catch(e){results[i]={ok:false}}finally{done++;setStatus(`Membaca ${done} dari ${CONFIG.siteSheets.length} situs...`)}}}await Promise.all(Array.from({length:6},worker));const sheets=results.filter(x=>x?.ok).map(x=>x.value);if(!sheets.length){setStatus('Semua tab gagal dibaca. Periksa akses Google Sheets dan nama tab.','bad');return}state.siteTables={};state.loadedSites=[];sheets.forEach(({site,table})=>{const headers=table.cols.map((c,i)=>c.label||c.id||String.fromCharCode(65+i));const rows=table.rows.map(r=>headers.map((_,i)=>r.c?.[i]?.f??r.c?.[i]?.v??'')).filter(r=>r.some(v=>String(v).trim())).filter(r=>!isSiteTitleRow(r,site));state.siteTables[site]={headers,rows};state.loadedSites.push(site)});$('siteSelect').innerHTML=state.loadedSites.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');$('siteOptions').innerHTML=state.loadedSites.map(s=>`<option value="${esc(s)}"></option>`).join('');activateSite(state.siteTables[state.site]?state.site:state.loadedSites[0],false);checkYesterdayAtBottom();setStatus(`${sheets.length} situs berhasil dibaca • ${new Date().toLocaleTimeString('id-ID')}`,'ok')}
 function findColumn(headers,keys){let i=headers.findIndex(h=>keys.includes(clean(h)));if(i<0)i=headers.findIndex(h=>keys.some(k=>clean(h).includes(k)));return i}
 function inferColumns(){const h=state.headers,c={};c.date=findColumn(h,['tanggal','date','tgl','hari']);c.time=findColumn(h,['jam','time','waktu']);c.name=findColumn(h,['nama','name','namastaff','namauser','user','username','member','agent','petugas','operator','cs']);c.link=findColumn(h,['link','url','bukti','screenshot','ss']);c.error=findColumn(h,['kesalahan','error','salah','masalah','kendala','keterangan','note','catatan']);c.code=findColumn(h,['kodesitus','kode','code','sitecode']);if(c.link<0)c.link=h.findIndex((_,i)=>state.rows.filter(r=>/https?:\/\//i.test(String(r[i]))).length>Math.max(1,state.rows.length*.1));if(c.name<0)c.name=h.findIndex((_,i)=>state.rows.filter(r=>/[a-z]/i.test(String(r[i]))&&!/https?:\/\//i.test(String(r[i]))).length>state.rows.length*.4);const used=new Set(Object.values(c).filter(i=>i>=0));const free=h.map((_,i)=>i).filter(i=>!used.has(i));if(c.error<0)c.error=free[0]??-1;if(c.code<0)c.code=free.at(-1)??-1;state.columns=c;let best={i:-1,r:0};h.forEach((_,i)=>{const vals=state.rows.map(r=>r[i]).filter(v=>String(v).trim()),rate=vals.length?vals.filter(v=>Number.isFinite(num(v))).length/vals.length:0;if(rate>best.r)best={i,r:rate}});state.numericIndex=best.r>.6?best.i:-1}
 function activateSite(site,scroll=true){const d=state.siteTables[site];if(!d)return;state.site=site;state.headers=[...d.headers];state.rows=d.rows.map(r=>[...r]);$('searchInput').value='';$('siteSelect').value=site;$('siteSearch').value=site;updateSiteLogos(site);inferColumns();buildFilters();applyFilters();renderSiteNavigator();updateQuickActive();$('activeDesc').textContent=`Menampilkan data khusus ${site}. Data akan lebih terjaga terpisah dan tidak dicampurkan.`;$('activeErrorSite').textContent=`diambil dari baris TOTAL ${site}`;if(scroll)document.querySelector('.detail-card').scrollIntoView({behavior:'smooth',block:'start'})}
@@ -312,6 +362,55 @@ function getErrorCount(site){
 function ranking(){return state.loadedSites.map((site,order)=>({site,order,forms:CONFIG.formCounts[site]||0,total:getErrorCount(site)})).filter(x=>x.forms>=CONFIG.minimumForms).sort((a,b)=>a.total-b.total||a.order-b.order)}
 function staffRanking(){let nameIndex=findColumn(state.headers,['namastaff','staff','namaagent','namacs','namaoperator']);if(nameIndex<0&&state.headers.length>4)nameIndex=4;let totalIndex=findColumn(state.headers,['totalkesalahan','jumlahkesalahan','totalerror','totalerrors','total']);if(nameIndex<0||totalIndex<0||nameIndex===totalIndex)return[];const map=new Map;state.rows.forEach(r=>{const name=String(r[nameIndex]??'').trim(),total=num(r[totalIndex]);if(!name||/^(#value!|tanpa data|nama staff|total)$/i.test(name)||!Number.isFinite(total))return;const key=name.toUpperCase(),old=map.get(key);if(old)old.total+=total;else map.set(key,{name,total})});return[...map.values()].sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name,'id'))}
 function dateParts(value){const s=String(value??'').trim();if(!s)return{date:'Tanpa Tanggal',time:''};const time=(s.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/)||[])[0]||'';let date=s.replace(time,'').trim().replace(/[|,-]+$/,'').trim();const parsed=new Date(s);if(!Number.isNaN(parsed.getTime())){date=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'long',year:'numeric'}).format(parsed);return{date,time:time||new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}).format(parsed)}}return{date:date||'Tanpa Tanggal',time}}
+
+
+let lastDateOrderAlertKey='';
+function civilDateKeyGMT7(offsetDays=0){
+  const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
+  const d=new Date(Date.UTC(+parts.year,+parts.month-1,+parts.day));
+  d.setUTCDate(d.getUTCDate()+offsetDays);
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+}
+function normalizeDateKey(value){
+  if(value instanceof Date&&!Number.isNaN(value.getTime()))return `${value.getFullYear()}-${String(value.getMonth()+1).padStart(2,'0')}-${String(value.getDate()).padStart(2,'0')}`;
+  if(typeof value==='number'&&value>20000&&value<90000){const d=new Date(Date.UTC(1899,11,30)+value*86400000);return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`}
+  const raw=String(value??'').trim();if(!raw)return'';
+  let m=raw.match(/Date\s*\(\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})/i);if(m)return `${m[1]}-${String(+m[2]+1).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
+  m=raw.match(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b/);if(m)return `${m[1]}-${String(+m[2]).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
+  m=raw.match(/\b(\d{1,2})[\s\-/.](\d{1,2})[\s\-/.](\d{4})\b/);if(m)return `${m[3]}-${String(+m[2]).padStart(2,'0')}-${String(+m[1]).padStart(2,'0')}`;
+  const months={jan:1,januari:1,january:1,feb:2,februari:2,february:2,mar:3,maret:3,march:3,apr:4,april:4,mei:5,may:5,jun:6,juni:6,june:6,jul:7,juli:7,july:7,agu:8,agt:8,aug:8,agustus:8,august:8,sep:9,september:9,okt:10,oct:10,oktober:10,october:10,nov:11,november:11,des:12,dec:12,desember:12,december:12};
+  const lower=raw.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  m=lower.match(/\b(\d{1,2})\s+([a-z]+)\s+(\d{4})\b/);if(m&&months[m[2]])return `${m[3]}-${String(months[m[2]]).padStart(2,'0')}-${String(+m[1]).padStart(2,'0')}`;
+  const parsed=new Date(raw);if(!Number.isNaN(parsed.getTime()))return `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}-${String(parsed.getDate()).padStart(2,'0')}`;
+  return'';
+}
+function formatDateKeyID(key){const [y,m,d]=key.split('-').map(Number);return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'long',year:'numeric',timeZone:'Asia/Jakarta'}).format(new Date(Date.UTC(y,m-1,d,12)))}
+function findDateOrderIssues(){
+  const today=civilDateKeyGMT7(0),yesterday=civilDateKeyGMT7(-1),issues=[];
+  state.loadedSites.forEach(site=>{
+    const table=state.siteTables[site];if(!table)return;
+    const dateIndex=findColumn(table.headers,['tanggal','date','tgl','hari']);if(dateIndex<0)return;
+    const keys=table.rows.filter(row=>!row.some(isTotalLabel)).map(row=>normalizeDateKey(row[dateIndex])).filter(Boolean);
+    if(!keys.includes(today)||!keys.includes(yesterday))return;
+    const lastToday=keys.lastIndexOf(today),lastYesterday=keys.lastIndexOf(yesterday),lastDate=keys.at(-1);
+    if(lastDate===yesterday&&lastYesterday>lastToday)issues.push({site,today,yesterday});
+  });
+  return issues;
+}
+function closeDateOrderPopup(){$('dateOrderModal')?.classList.remove('show')}
+function checkYesterdayAtBottom(){
+  const issues=findDateOrderIssues();
+  if(!issues.length){lastDateOrderAlertKey='';closeDateOrderPopup();return}
+  const signature=`${issues[0].today}|${issues[0].yesterday}|${issues.map(x=>x.site).join('|')}`;
+  if(signature===lastDateOrderAlertKey)return;
+  lastDateOrderAlertKey=signature;
+  $('dateOrderToday').textContent=formatDateKeyID(issues[0].today);
+  $('dateOrderYesterday').textContent=formatDateKeyID(issues[0].yesterday);
+  $('dateOrderMessage').textContent=`Tanggal kemarin ditemukan sebagai tanggal paling bawah setelah data tanggal hari ini. Periksa urutan baris atau rumus yang mungkin turun pada ${issues.length} situs berikut:`;
+  $('dateOrderSites').innerHTML=issues.map(x=>`<button class="date-order-site" type="button" data-alert-site="${esc(x.site)}"><strong>${esc(x.site)}</strong><span>Klik untuk buka Detail Data →</span></button>`).join('');
+  $('dateOrderModal').classList.add('show');
+}
+
 function linksFrom(value){return String(value??'').match(/https?:\/\/[^\s<>"']+/ig)||[]}
 function linkCell(value){const links=linksFrom(value);if(!links.length)return esc(value);if(links.length===1)return `<a class="link-one" href="${esc(links[0])}" target="_blank" rel="noopener noreferrer">${esc(links[0])} &nbsp; ↗</a>`;return `<details class="links"><summary>${links.length} link</summary><div class="links-menu">${links.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${i+1}. ${esc(u)} ↗</a>`).join('')}</div></details>`}
 function renderOriginalCell(value,index){const text=String(value??'');if(linksFrom(text).length)return linkCell(text);if(index===state.columns.name&&text.trim())return `<span class="name-cell">${esc(text)}</span>`;return esc(text)}
@@ -324,7 +423,23 @@ function updateQuickActive(){document.querySelectorAll('[data-quick-site]').forE
 function openSiteFromSearch(){const query=$('siteSearch').value.trim(),key=clean(query);if(!key)return;const exact=state.loadedSites.find(s=>clean(s)===key),starts=state.loadedSites.find(s=>clean(s).startsWith(key)),contains=state.loadedSites.find(s=>clean(s).includes(key)),site=exact||starts||contains;if(site){activateSite(site);$('siteSearch').blur()}else{setStatus(`Situs “${query}” tidak ditemukan. Coba ketik nama lainnya.`,'bad')}}
 $('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾   Mode Gelap':'☀   Mode Terang'});$('refreshBtn').addEventListener('click',loadData);$('csvBtn').addEventListener('click',downloadCSV);$('siteSelect').addEventListener('change',e=>activateSite(e.target.value));$('searchInput').addEventListener('input',applyFilters);$('filterBtn').addEventListener('click',()=>$('filterPanel').classList.toggle('show'));$('resetBtn').addEventListener('click',()=>{$('searchInput').value='';$('columnSelect').value='';updateValues();applyFilters()});$('columnSelect').addEventListener('change',()=>{updateValues();applyFilters()});$('valueSelect').addEventListener('change',applyFilters);$('rankList').addEventListener('click',e=>{const r=e.target.closest('[data-site]');if(r)activateSite(r.dataset.site)});
 $('siteSearch').addEventListener('input',e=>renderSiteNavigator(e.target.value));$('siteSearch').addEventListener('change',openSiteFromSearch);$('siteSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();openSiteFromSearch()}});$('siteSearch').addEventListener('focus',e=>e.target.select());$('siteQuickList').addEventListener('click',e=>{const b=e.target.closest('[data-quick-site]');if(b)activateSite(b.dataset.quickSite)});
+
+$('dateOrderClose').addEventListener('click',closeDateOrderPopup);
+$('dateOrderModal').addEventListener('click',e=>{if(e.target===$('dateOrderModal'))closeDateOrderPopup()});
+$('dateOrderSites').addEventListener('click',e=>{const button=e.target.closest('[data-alert-site]');if(!button)return;activateSite(button.dataset.alertSite);closeDateOrderPopup()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDateOrderPopup()});
 $('detailCard').addEventListener('wheel',e=>{const box=$('tableWrap');if(!box)return;const useHorizontal=e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY);if(useHorizontal){const amount=e.deltaX||e.deltaY;box.scrollLeft+=amount}else{box.scrollTop+=e.deltaY}e.preventDefault()},{passive:false});
+
+function updateGMT7Clock(){
+  const now=new Date();
+  const time=new Intl.DateTimeFormat('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now).replace(/\./g,':');
+  const date=new Intl.DateTimeFormat('id-ID',{timeZone:'Asia/Jakarta',weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(now);
+  const timeEl=$('clockTime'),dateEl=$('clockDate');
+  if(timeEl)timeEl.textContent=time;
+  if(dateEl)dateEl.textContent=date;
+}
+updateGMT7Clock();setInterval(updateGMT7Clock,1000);
+
 loadData();setInterval(loadData,CONFIG.refreshMinutes*60*1000);
 </script>
 </body>
