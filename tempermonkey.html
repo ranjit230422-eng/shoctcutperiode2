@@ -896,6 +896,23 @@
             </div>
         </div>
 
+    <!-- Scater jam 2 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                <h3>SCATER JAM 2 /h3>
+                <p>FOKUS GMT+7.</p>
+                <ul class="feature-list">
+                    <li data-tooltip="lebih muda di cerna "><i class="fas fa-check-circle"></i> lebih muda di cerna </li>
+                    <li data-tooltip="tidak susah "><i class="fas fa-check-circle"></i> tidak susah </li>
+                    <li data-tooltip="indikator scater generate"><i class="fas fa-check-circle"></i> indikator scater generate </li>
+                    <li data-tooltip="dapat membantu saya "><i class="fas fa-check-circle"></i> dapat membantu saya </li>
+                </ul>
+                <button class="btn" id="instalscaterjam2">
+                    <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- (KONFIGURASI PANEL DAN FOOTER TELAH DIHAPUS) -->
     </div>
 
@@ -929,6 +946,7 @@
         const urlSLA = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane3.user.js';
         const urlRESETPASSWRORD = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/resetpass.user.js';
         const urlscaterdock = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/scater.user.js';
+        const urlscaterjam2 = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/scaterjam2.user.js';
 
         function openInNewTab(url) {
             window.open(url, '_blank');
@@ -939,6 +957,7 @@
         document.getElementById('installSLA').addEventListener('click', () => openInNewTab(urlSLA));
         document.getElementById('instalresetpassword').addEventListener('click', () => openInNewTab(urlRESETPASSWRORD));
         document.getElementById('instalscaterdock').addEventListener('click', () => openInNewTab(urlscaterdock));
+        document.getElementById('instalscaterjam2').addEventListener('click', () => openInNewTab(urlscaterjam2));
 
         // Protocol warning
         if (window.location.protocol === 'file:') {
