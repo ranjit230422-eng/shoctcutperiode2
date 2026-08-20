@@ -811,7 +811,7 @@
             <h1 class="glitch" data-text="DETEKTOR LINETOGEL">DETEKTOR <span>LINETOGEL</span></h1>
         </div>
 
-        <!-- CARDS GRID (3 DETEKTOR) -->
+        <!-- CARDS GRID (4 DETEKTOR) -->
         <div class="cards-grid">
             <!-- Highlighter Pro -->
             <div class="card">
@@ -862,6 +862,23 @@
             </div>
         </div>
 
+        <!-- Reset password -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                <h3>RESET & PASSWORD</h3>
+                <p>dapat melakukan reset password pada admin dengan sendiri nya.</p>
+                <ul class="feature-list">
+                    <li data-tooltip="Notifikasi 2 & 4 menit"><i class="fas fa-check-circle"></i> bergerak cepat</li>
+                    <li data-tooltip="Toggle on/off"><i class="fas fa-check-circle"></i> saat makan dapat reset password </li>
+                    <li data-tooltip="Indikator waktu"><i class="fas fa-check-circle"></i> Indikator reset password </li>
+                    <li data-tooltip="Sinkronisasi real-time"><i class="fas fa-check-circle"></i> pokoknya bergunalah </li>
+                </ul>
+                <button class="btn" id="instalreserpassword">
+                    <span>Pasang Sekarang</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- (KONFIGURASI PANEL DAN FOOTER TELAH DIHAPUS) -->
     </div>
 
@@ -893,7 +910,7 @@
         const urlHighlighter = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane1.user.js';
         const urlDuplicate = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane2.user.js';
         const urlSLA = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/ane3.user.js';
-        const RESETPASSWRORD = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/resetpass.js';
+        const urlRESETPASSWRORD = 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/resetpass.js';
 
         function openInNewTab(url) {
             window.open(url, '_blank');
@@ -902,6 +919,7 @@
         document.getElementById('installHighlighter').addEventListener('click', () => openInNewTab(urlHighlighter));
         document.getElementById('installDuplicate').addEventListener('click', () => openInNewTab(urlDuplicate));
         document.getElementById('installSLA').addEventListener('click', () => openInNewTab(urlSLA));
+        document.getElementById('instalreserpassword').addEventListener('click', () => openInNewTab(urlresetpassword));
 
         // Protocol warning
         if (window.location.protocol === 'file:') {
