@@ -1,98 +1,211 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shoctcut Periode 2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Shoctcut Periode 2 Ultimate</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
 
 <style>
 
 *{
-    box-sizing:border-box;
-    font-family:'Segoe UI',Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
 }
 
+
 body{
-    margin:0;
-    min-height:100vh;
-    background:
-    radial-gradient(circle at top,#263238,#080808 70%);
-    color:white;
+
+min-height:100vh;
+background:#080808;
+color:white;
+padding:40px;
+
+overflow-x:hidden;
+
 }
+
+
+
+/* BACKGROUND */
+
+.bg{
+
+position:fixed;
+inset:0;
+z-index:-1;
+overflow:hidden;
+
+}
+
+
+.orb{
+
+position:absolute;
+border-radius:50%;
+filter:blur(120px);
+opacity:.25;
+
+}
+
+
+.o1{
+
+width:600px;
+height:600px;
+background:#ffcc00;
+top:-200px;
+left:-200px;
+
+}
+
+
+.o2{
+
+width:700px;
+height:700px;
+background:#ffaa00;
+right:-300px;
+bottom:-200px;
+
+}
+
+
+.grid{
+
+position:absolute;
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(255,204,0,.04) 1px,
+transparent 1px),
+
+linear-gradient(
+90deg,
+rgba(255,204,0,.04) 1px,
+transparent 1px);
+
+background-size:40px 40px;
+
+}
+
+
 
 
 /* HEADER */
 
+
 .header{
-    padding:30px;
-    text-align:center;
+
+text-align:center;
+margin-bottom:50px;
+
 }
 
-.header h1{
-    margin:0;
-    font-size:32px;
-    letter-spacing:1px;
+
+.badge{
+
+display:inline-block;
+
+padding:10px 25px;
+
+border-radius:50px;
+
+border:1px solid #ffcc00;
+
+color:#ffdd99;
+
+background:#ffcc0015;
+
 }
+
+
+h1{
+
+font-size:55px;
+
+margin-top:20px;
+
+text-shadow:
+0 0 20px #ffcc00;
+
+}
+
 
 .header p{
-    color:#aaa;
-    margin-top:8px;
-}
 
+color:#aaa;
 
-/* CONTAINER */
-
-.container{
-
-    width:90%;
-    max-width:1200px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(280px,1fr));
-
-    gap:25px;
+margin-top:10px;
 
 }
+
+
 
 
 /* CARD */
 
-.card{
+.container{
 
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.12),
-        rgba(255,255,255,.03)
-    );
+max-width:1200px;
 
-    border:1px solid rgba(255,255,255,.15);
+margin:auto;
 
-    border-radius:20px;
+display:grid;
 
-    padding:25px;
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
 
-    backdrop-filter:blur(15px);
-
-    box-shadow:
-    0 15px 40px rgba(0,0,0,.5);
-
-    transition:.3s;
+gap:25px;
 
 }
 
 
+
+.card{
+
+background:
+linear-gradient(
+145deg,
+#151515,
+#090909
+);
+
+
+border:1px solid
+rgba(255,204,0,.35);
+
+
+border-radius:25px;
+
+padding:30px;
+
+
+box-shadow:
+0 0 30px rgba(255,204,0,.15);
+
+
+transition:.3s;
+
+
+}
+
+
+
 .card:hover{
 
-    transform:translateY(-8px);
+transform:translateY(-8px);
 
-    border-color:#00e5ff;
+border-color:#ffcc00;
 
-    box-shadow:
-    0 20px 50px rgba(0,229,255,.25);
 
 }
 
@@ -100,109 +213,91 @@ body{
 
 .icon{
 
-    width:60px;
-    height:60px;
+font-size:40px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:15px;
-
-    font-size:30px;
-
-    background:
-    linear-gradient(
-    135deg,
-    #00e5ff,
-    #2979ff
-    );
+margin-bottom:20px;
 
 }
-
 
 
 .card h2{
 
-    margin-top:20px;
-    margin-bottom:10px;
+color:#fff;
+
+margin-bottom:10px;
 
 }
+
 
 
 .card p{
 
-    color:#bbb;
-    font-size:14px;
+color:#aaa;
 
-    min-height:45px;
+height:50px;
 
 }
+
 
 
 
 .btn{
 
-    display:block;
 
-    text-decoration:none;
+display:block;
 
-    text-align:center;
+margin-top:25px;
 
-    margin-top:20px;
+padding:14px;
 
-    padding:12px;
+text-align:center;
 
-    border-radius:12px;
+text-decoration:none;
 
-    background:
-    linear-gradient(
-    135deg,
-    #00c853,
-    #00e676
-    );
+border-radius:50px;
 
 
-    color:white;
+background:
+linear-gradient(
+135deg,
+#ffcc00,
+#ffaa00
+);
 
-    font-weight:bold;
+
+color:#000;
+
+font-weight:800;
+
 
 }
 
 
-.btn:hover{
-
-    opacity:.8;
-
-}
-
-
-
-/* STATUS */
 
 .status{
 
-    margin-top:15px;
+margin-top:15px;
 
-    font-size:12px;
+color:#76ff03;
 
-    color:#76ff03;
+font-size:12px;
 
 }
 
 
 .footer{
 
-    text-align:center;
+text-align:center;
 
-    padding:40px;
+margin-top:50px;
 
-    color:#777;
+color:#777;
 
 }
 
 
 </style>
+
 
 </head>
 
@@ -210,17 +305,41 @@ body{
 <body>
 
 
-<div class="header">
 
-<h1>
-🚀 Shoctcut Periode 2
-</h1>
+<div class="bg">
 
-<p>
-Panel Shortcut Automation & Tools
-</p>
+<div class="orb o1"></div>
+
+<div class="orb o2"></div>
+
+<div class="grid"></div>
 
 </div>
+
+
+
+
+<div class="header">
+
+
+<div class="badge">
+⚡ Ultimate Automation Suite
+</div>
+
+
+<h1>
+SHOCTCUT PERIODE 2
+</h1>
+
+
+<p>
+Automation Control Center
+</p>
+
+
+</div>
+
+
 
 
 
@@ -228,14 +347,13 @@ Panel Shortcut Automation & Tools
 
 
 
-<!-- RESET PASSWORD -->
+
 
 <div class="card">
 
 <div class="icon">
 🔐
 </div>
-
 
 <h2>
 Reset Password Member
@@ -245,33 +363,30 @@ Reset Password Member
 <p>
 Auto generate password,
 isi form reset,
-copy pesan otomatis.
+submit dan copy pesan.
 </p>
 
 
-<a class="btn"
-href="resetpass.js"
-target="_blank">
+<a href="resetpass.js"
+class="btn">
 
-Buka Script
+OPEN SCRIPT
 
 </a>
 
 
 <div class="status">
-● Active Script
+● ACTIVE
+</div>
+
 </div>
 
 
-</div>
 
 
 
-
-<!-- LIVECHAT -->
 
 <div class="card">
-
 
 <div class="icon">
 💬
@@ -285,22 +400,20 @@ LiveChat Custom
 
 <p>
 Custom background LiveChat
-tanpa mengubah tampilan asli.
+tanpa merubah UI utama.
 </p>
 
 
+<a href="temalc.js"
+class="btn">
 
-<a class="btn"
-href="temalc.js"
-target="_blank">
-
-Buka Script
+OPEN SCRIPT
 
 </a>
 
 
 <div class="status">
-● Active Script
+● ACTIVE
 </div>
 
 
@@ -310,7 +423,6 @@ Buka Script
 
 
 
-<!-- REGC -->
 
 <div class="card">
 
@@ -321,31 +433,27 @@ Buka Script
 
 
 <h2>
-LiveChat REGC AUTO
+REGC AUTO SYSTEM
 </h2>
 
 
 <p>
 Automation scan,
 sheet,
-debit,
-dan proses otomatis.
+debit dan proses otomatis.
 </p>
 
 
+<a href="#"
+class="btn">
 
-<a class="btn"
-href="#"
-target="_blank">
-
-Buka Script
+OPEN SYSTEM
 
 </a>
 
 
 <div class="status">
-● Ready
-
+● READY
 </div>
 
 
@@ -355,40 +463,37 @@ Buka Script
 
 
 
-<!-- TAMBAHAN -->
+
 
 <div class="card">
 
 
 <div class="icon">
-⚙️
+🛠
 </div>
 
 
 <h2>
-Setting Panel
-
+TOOLS MANAGER
 </h2>
 
 
 <p>
-Management shortcut,
-update dan konfigurasi.
+Management semua shortcut
+dan konfigurasi.
 </p>
 
 
+<a href="#"
+class="btn">
 
-<a class="btn"
-href="#">
-
-Pengaturan
+SETTING
 
 </a>
 
 
 <div class="status">
-● System
-
+● ONLINE
 </div>
 
 
@@ -396,8 +501,9 @@ Pengaturan
 
 
 
-
 </div>
+
+
 
 
 
