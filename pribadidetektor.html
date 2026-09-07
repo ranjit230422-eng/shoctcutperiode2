@@ -1007,6 +1007,7 @@
             reset: 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/resetpass.user.js',
             scaterdock: 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/scater.user.js',
             scaterjam2: 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/scaterjam2.user.js',
+            PREDIKSILINE: 'https://raw.githubusercontent.com/ranjit230422-eng/detektor/main/prediksi.js',
         };
 
         function openScript(url) {
@@ -1019,6 +1020,7 @@
         document.getElementById('installReset').addEventListener('click', () => openScript(URLS.reset));
         document.getElementById('installScaterDock').addEventListener('click', () => openScript(URLS.scaterdock));
         document.getElementById('installScaterJam2').addEventListener('click', () => openScript(URLS.scaterjam2));
+        document.getElementById('installPREDIKSILINE').addEventListener('click', () => openScript(URLS.PREDIKSILINE));
 
         // ---- Protocol warning ----
         const warning = document.getElementById('protocolWarning');
