@@ -17,26 +17,50 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
 body {
-  margin: 0;
-  background: #090909;
-  color: #fff;
-  font: 14px/1.6 Arial, sans-serif;
-  isolation: isolate;
+    margin: 0;
+    min-height: 100%;
+    background-color: #080808;
 }
 
+body {
+    position: relative;
+    color: #f4f4f4;
+}
+
+/* BACKGROUND UTAMA */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-                linear-gradient(180deg, rgba(1, 8, 4, .08), rgba(1, 8, 4, .28)),
-                url('https://i.ibb.co/hF0wc9xC/gambar-1789277467035.png');
-            background-position: center, center;
-            background-size: cover, cover;
-            background-repeat: no-repeat, no-repeat;
-            background-attachment: fixed, fixed;
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+
+    background-image: url("https://i.ibb.co/hF0wc9xC/gambar-1789277467035.png");
+    background-repeat: no-repeat;
+
+    /* INI YANG MEMBUAT TIDAK TERLALU ZOOM */
+    background-size: 100% auto;
+
+    background-position: center top;
+    background-color: #080808;
+}
+
+/* Lapisan gelap agar card dan tulisan tetap jelas */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -9;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.10) 0%,
+            rgba(0,0,0,.20) 40%,
+            rgba(0,0,0,.55) 100%
+        );
 }
 
 button,
