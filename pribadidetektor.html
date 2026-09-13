@@ -16,25 +16,26 @@ html {
   color-scheme: dark;
   scroll-behavior: smooth;
 }
-
-html,
-position: relative;
-            isolation: isolate;
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: grid;
-            place-items: center;
-            overflow: hidden;
-            padding: clamp(26px, 4vw, 52px) 18px 92px;
-            background-color: var(--auth-bg);
-            background-image:
-                linear-gradient(180deg, rgba(1, 8, 4, .08), rgba(1, 8, 4, .28)),
-                url('https://i.ibb.co/hF0wc9xC/gambar-1789277467035.png');
-            background-position: center, center;
-            background-size: cover, cover;
-            background-repeat: no-repeat, no-repeat;
-            background-attachment: fixed, fixed;
+  
+body {
+  margin: 0;
+  background: #090909;
+  color: #fff;
+  font: 14px/1.6 Arial, sans-serif;
+  isolation: isolate;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(#0002, #0008),
+    url("https://i.ibb.co/hF0wc9xC/gambar-1789277467035.png") no-repeat;
+  pointer-events: none;
+}
+
 button,
 input {
   font: inherit;
