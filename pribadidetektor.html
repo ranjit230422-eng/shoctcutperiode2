@@ -45,24 +45,6 @@ body::before {
     background-position: center top;
     background-color: #080808;
 }
-
-/* Lapisan gelap agar card dan tulisan tetap jelas */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -9;
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,.10) 0%,
-            rgba(0,0,0,.20) 40%,
-            rgba(0,0,0,.55) 100%
-        );
-}
-
 button,
 input {
   font: inherit;
