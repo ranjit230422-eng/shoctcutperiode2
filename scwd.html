@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortcut Format Rekening</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .box {
+        max-width: 900px;
+        margin: auto;
+        background: #1b1b1b;
+        border: 1px solid #333;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+
+    h2 {
+        margin-top: 0;
+        text-align: center;
+        color: #ffd500;
+    }
+
+    .info {
+        background: #252525;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 180px;
+        background: #0d0d0d;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+        resize: vertical;
+        outline: none;
+    }
+
+    textarea:focus {
+        border-color: #ffd500;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 10px;
+        margin: 15px 0;
+        flex-wrap: wrap;
+    }
+
+    button {
+        flex: 1;
+        min-width: 140px;
+        border: none;
+        border-radius: 10px;
+        padding: 13px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .process {
+        background: #ffd500;
+        color: #111;
+    }
+
+    .copy {
+        background: #00c853;
+        color: white;
+    }
+
+    .clear {
+        background: #e53935;
+        color: white;
+    }
+
+    .status {
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+        min-height: 20px;
+    }
+
+    .result-title {
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #ffd500;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+
+        .box {
+            padding: 15px;
+        }
+
+        button {
+            width: 100%;
+            flex: none;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>FORMAT REKENING</h2>
+
+    <div class="info">
+        Tempel data seperti ini:<br><br>
+
+        <b>QRIS - BRI	7090010908325	rahayaan21	yohanis rahayaan	3,000,000</b>
+        <br><br>
+
+        Otomatis menjadi:
+        <br><br>
+
+        <b>BRI , 7090010908325 , yohanis rahayaan , 3000000</b>
+    </div>
+
+    <div class="result-title">DATA ASLI</div>
+
+    <textarea
+        id="input"
+        placeholder="Tempel satu atau banyak data di sini...
+
+Contoh:
+QRIS - BRI	7090010908325	rahayaan21	yohanis rahayaan	3,000,000
+QRIS - BCA	12345678	jhondoe	JHON DOE	150,000"
+    ></textarea>
+
+    <div class="buttons">
+
+        <button class="process" onclick="prosesData()">
+            PROSES
+        </button>
+
+        <button class="copy" onclick="copyHasil()">
+            COPY SEMUA HASIL
+        </button>
+
+        <button class="clear" onclick="bersihkan()">
+            BERSIHKAN
+        </button>
+
+    </div>
+
+    <div class="result-title">HASIL</div>
+
+    <textarea
+        id="output"
+        readonly
+        placeholder="Hasil akan muncul di sini..."
+    ></textarea>
+
+    <div id="status" class="status"></div>
+
+</div>
+
+<script>
+
+function prosesData() {
+
+    const input = document.getElementById("input").value.trim();
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+
+    if (!input) {
+        output.value = "";
+        status.style.color = "#ff5252";
+        status.textContent = "Silakan tempel data terlebih dahulu.";
+        return;
+    }
+
+    const lines = input
+        .split(/\r?\n/)
+        .map(x => x.trim())
+        .filter(Boolean);
+
+    const hasil = [];
+
+    lines.forEach(line => {
+
+        /*
+        Prioritas memisahkan berdasarkan TAB.
+        Karena hasil copy dari Sheet biasanya menggunakan TAB.
+        */
+
+        let kolom = line.split("\t");
+
+        /*
+        Jika bukan TAB, coba baca jarak/spasi panjang.
+        */
+        if (kolom.length < 4) {
+            kolom = line.split(/\s{2,}/);
+        }
+
+        kolom = kolom.map(x => x.trim());
+
+        if (kolom.length < 4) {
+            return;
+        }
+
+        let bank = kolom[0] || "";
+        let rekening = kolom[1] || "";
+
+        /*
+        Nama rekening biasanya kolom ke-4.
+        Contoh:
+        0 = QRIS - BRI
+        1 = rekening
+        2 = username
+        3 = nama rekening
+        4 = nominal
+        */
+
+        let nama = kolom[3] || "";
+
+        /*
+        Nominal kita ambil dari kolom terakhir,
+        sehingga tetap bisa membaca jika ada kolom kosong.
+        */
+
+        let nominal = kolom[kolom.length - 1] || "";
+
+        /*
+        QRIS - BRI -> BRI
+        QRIS-BCA -> BCA
+        */
+
+        bank = bank
+            .replace(/^QRIS\s*-\s*/i, "")
+            .trim();
+
+        /*
+        Nominal hanya mengambil angka.
+
+        3,000,000 -> 3000000
+        -150,000 -> 150000
+        Rp 550.000 -> 550000
+        */
+
+        nominal = nominal.replace(/[^\d]/g, "");
+
+        rekening = rekening.trim();
+        nama = nama.trim();
+
+        if (bank && rekening && nama && nominal) {
+
+            hasil.push(
+                `${bank} , ${rekening} , ${nama} , ${nominal}`
+            );
+
+        }
+
+    });
+
+    output.value = hasil.join("\n");
+
+    if (hasil.length > 0) {
+
+        status.style.color = "#00e676";
+
+        status.textContent =
+            `Berhasil memproses ${hasil.length} data.`;
+
+    } else {
+
+        status.style.color = "#ff5252";
+
+        status.textContent =
+            "Data tidak terbaca. Pastikan format sesuai.";
+
+    }
+
+}
+
+
+async function copyHasil() {
+
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+
+    if (!output.value.trim()) {
+
+        status.style.color = "#ff5252";
+        status.textContent = "Belum ada hasil untuk disalin.";
+
+        return;
+    }
+
+    try {
+
+        await navigator.clipboard.writeText(output.value);
+
+        status.style.color = "#00e676";
+
+        status.textContent =
+            "✓ Semua hasil berhasil disalin.";
+
+    } catch (error) {
+
+        output.select();
+
+        document.execCommand("copy");
+
+        status.style.color = "#00e676";
+
+        status.textContent =
+            "✓ Semua hasil berhasil disalin.";
+
+    }
+
+}
+
+
+function bersihkan() {
+
+    document.getElementById("input").value = "";
+    document.getElementById("output").value = "";
+
+    const status = document.getElementById("status");
+
+    status.textContent = "";
+
+    document.getElementById("input").focus();
+
+}
+
+
+/*
+Bisa tekan CTRL + ENTER untuk langsung proses.
+*/
+
+document.getElementById("input")
+.addEventListener("keydown", function(e) {
+
+    if (e.ctrlKey && e.key === "Enter") {
+
+        prosesData();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
