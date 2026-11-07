@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -597,15 +596,16 @@ dialog::backdrop {
     transform: none;
   }
 }
+.install:disabled { width: 100%; opacity: .65; cursor: not-allowed; }
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="#" aria-label="Linetogel">
+  <a href="[#](https://shoctcutperiode2-vrye.onrender.com/pribadidetektor.html#)" aria-label="Linetogel">
     <img
-      src="https://line32556.com/assets/img/ei/logo.png"
+      src="[https://line32556.com/assets/img/ei/logo.png](https://line32556.com/assets/img/ei/logo.png)"
       alt="Linetogel"
       fetchpriority="high"
     >
@@ -629,7 +629,7 @@ dialog::backdrop {
         </p>
         <a
           class="store"
-          href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
+          href="[https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -639,7 +639,7 @@ dialog::backdrop {
 
       <button class="step" type="button">
         <img
-          src="https://i.postimg.cc/bvZs4bKg/Sleekshot-1.png"
+          src="[https://i.postimg.cc/bvZs4bKg/Sleekshot-1.png](https://i.postimg.cc/bvZs4bKg/Sleekshot-1.png)"
           alt="Buka Chrome Web Store"
           loading="lazy"
         >
@@ -649,7 +649,7 @@ dialog::backdrop {
 
       <button class="step" type="button">
         <img
-          src="https://i.postimg.cc/prHr9Syg/Langkah-Langkah-Pasang-Tempermonkey.png"
+          src="[https://i.postimg.cc/prHr9Syg/Langkah-Langkah-Pasang-Tempermonkey.png](https://i.postimg.cc/prHr9Syg/Langkah-Langkah-Pasang-Tempermonkey.png)"
           alt="Cari Tampermonkey"
           loading="lazy"
         >
@@ -659,7 +659,7 @@ dialog::backdrop {
 
       <button class="step" type="button">
         <img
-          src="https://i.postimg.cc/SNmjkHBD/Sleekshot-3.png"
+          src="[https://i.postimg.cc/SNmjkHBD/Sleekshot-3.png](https://i.postimg.cc/SNmjkHBD/Sleekshot-3.png)"
           alt="Klik Add to Chrome"
           loading="lazy"
         >
@@ -669,7 +669,7 @@ dialog::backdrop {
 
       <button class="step" type="button">
         <img
-          src="https://i.postimg.cc/RZD01hN7/Sleekshot-4.png"
+          src="[https://i.postimg.cc/RZD01hN7/Sleekshot-4.png](https://i.postimg.cc/RZD01hN7/Sleekshot-4.png)"
           alt="Konfirmasi instalasi"
           loading="lazy"
         >
@@ -744,7 +744,7 @@ dialog::backdrop {
 
   <footer>
     <img
-      src="https://line32762.com/assets/img/ei/logo.png"
+      src="[https://line32762.com/assets/img/ei/logo.png](https://line32762.com/assets/img/ei/logo.png)"
       alt="Linetogel"
     >
     <span>7 alat bantu · Pilih sesuai kebutuhan Anda</span>
@@ -895,17 +895,18 @@ const products = [
   },
   {
     name: "Sound Livechat Gacor",
-    category: "soundhorek",
-    group: "work",
-    icon: "▤",
-    image:
-      "https://i.postimg.cc/RFYw7RSN/523fb011-6fc3-4d24-a338-d555ac88c2b1.png",
+    category: "Sound Livechat",
+    group: "chat",
+    icon: "♫",
+    image: "https://i.postimg.cc/RFYw7RSN/523fb011-6fc3-4d24-a338-d555ac88c2b1.png",
+    // Isi nama file .user.js di repositori yang sama saat script sudah tersedia.
     file: "chatgacor.user.js",
-    description:
-      "cari dari handphone.",
+    description: "Tempat pemasangan sound untuk Livechat Gacor.",
     features: [
-      "sound horek ",
-      "sama gunanya seperti ctrl find"
+      "Sound Livechat Gacor",
+      "Script akan ditambahkan segera"
+    ]
+  }
 ];
 
 /* Mengamankan teks sebelum dimasukkan ke HTML */
@@ -919,7 +920,7 @@ function escapeHTML(value) {
     "'": "&#39;"
   };
 
-  return String(value).replace(
+  return String(value ?? "").replace(
     /[&<>"']/g,
     character => entities[character]
   );
@@ -967,16 +968,19 @@ document.getElementById("cards").innerHTML =
           `).join("")}
         </ul>
 
-        <a
+        ${product.file ? `<a
           class="install"
           href="${base + product.file}"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Pasang ${escapeHTML(product.name)}"
         >
-          <span>↓ &nbsp; Pasang script</span>
+          <span>↓   Pasang script</span>
           <span aria-hidden="true">→</span>
-        </a>
+        </a>` : `<button class="install" type="button" disabled
+          aria-label="Script Sound Livechat Gacor belum tersedia">
+          <span>♫   Script segera tersedia</span>
+        </button>`}
       </div>
     </article>
   `).join("");
