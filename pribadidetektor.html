@@ -1955,6 +1955,40 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
 @media(max-width:900px){#artCatalog .catalogSection{max-width:100%!important}}
 @media(max-width:620px){#artAdmin.masterArea{padding-top:16px}}
 
+
+
+/* ART WECAA • Tampilan IP publik akun aktif, kanan atas untuk seluruh agen. */
+#artBar #artIPDisplay[hidden]{display:none!important}
+#artBar #artIPDisplay{
+  position:absolute;right:20px;top:calc(100% + 11px);
+  z-index:70;display:flex;align-items:center;justify-content:center;
+  min-height:64px;max-width:min(540px,calc(100vw - 30px));
+  padding:12px 27px;border:2px solid transparent;
+  border-radius:22px;
+  background:linear-gradient(115deg,#051b4bee,#1e165bed 55%,#2b124ded) padding-box,
+    linear-gradient(105deg,#20dbff,#89a5ff 50%,#f449ff) border-box;
+  backdrop-filter:blur(19px);-webkit-backdrop-filter:blur(19px);
+  box-shadow:0 0 16px #108aff9c,0 0 21px #d042ff63,
+    0 11px 28px #010424c0,inset 0 1px 13px #5eaaff45;
+  pointer-events:none;text-align:center;
+}
+#artBar #artIPValue{
+  color:#f8f9ff;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-weight:850;font-size:clamp(19px,1.55vw,27px);line-height:1.25;
+  letter-spacing:.6px;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 8px #58aeffb8,0 0 15px #e18aff7d;
+  overflow-wrap:anywhere;
+}
+@media(max-width:900px){
+  #artBar #artIPDisplay{min-height:55px;padding:9px 18px;border-radius:18px;right:12px;top:calc(100% + 7px)}
+  #artBar #artIPValue{font-size:clamp(17px,2.8vw,23px)}
+}
+@media(max-width:620px){
+  #artBar #artIPDisplay{position:absolute;right:8px;top:calc(100% + 7px);min-height:46px;
+    max-width:calc(100vw - 20px);padding:7px 14px;border-radius:15px}
+  #artBar #artIPValue{font-size:clamp(16px,4vw,19px);letter-spacing:.2px}
+}
+
 </style>
 </head>
 
@@ -2012,6 +2046,9 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
   <button id="artLogout" class="artBtn">⏻ &nbsp; Keluar</button>
  </div>
  <small id="artSync" role="status"></small>
+ <aside id="artIPDisplay" hidden aria-label="Alamat IP publik pengguna yang sedang login" title="IP publik koneksi akun ini">
+  <strong id="artIPValue" aria-live="polite">IP tidak tersedia</strong>
+ </aside>
 </div>
 <section id="artAdmin" class="masterArea" hidden>
  <div class="masterHero">
@@ -2456,7 +2493,7 @@ async function publicIP(){
 function loginView(note=''){
  clearInterval(timer);current=null;try{sessionStorage.removeItem(SESSION)}catch(_){}
  $('artGate').hidden=false;$('artBar').hidden=true;$('artCatalog').hidden=true;$('artAdmin').hidden=true;
- $('artPassword').value='';$('artLoginMsg').textContent=note;
+ $('artPassword').value='';$('artLoginMsg').textContent=note;updateIPDisplay();
 }
 function persist(){try{sessionStorage.setItem(SESSION,JSON.stringify(current))}catch(_){}}
 async function api(action,payload={}){
@@ -2480,13 +2517,28 @@ function highlightNav(which){document.querySelectorAll('[data-nav]').forEach(b=>
 function showAdmin(){if(!current?.admin)return;$('artAdmin').hidden=false;$('artCatalog').hidden=true;$('artOpenCatalog').hidden=false;highlightNav('dashboard');sync()}
 function showCatalog(){$('artAdmin').hidden=true;$('artCatalog').hidden=false;if(current?.admin)$('artOpenCatalog').hidden=false;highlightNav('catalog')}
 function setSideInfo(){if(!current)return;$('amInfoUser').textContent=current.name;$('amInfoRole').textContent=current.admin?'♛ Master Admin':'Admin';$('amInfoTime').textContent=clock(current.loginAt||0);$('amInfoIP').textContent=current.ip||'Belum tersedia'}
+function updateIPDisplay(){
+ const badge=$('artIPDisplay');
+ if(!current){badge.hidden=true;$('artIPValue').textContent='IP tidak tersedia';return;}
+ badge.hidden=false;
+ $('artIPValue').textContent=current.ip||'IP tidak tersedia';
+}
 function enter(){
  persist();$('artWho').textContent=current.name;$('artRoleBadge').hidden=!current.admin;
  $('masterNav').hidden=!current.admin;$('amMemberPassword').hidden=current.admin;$('amNotify').hidden=!current.admin;
  $('artOpenAdmin').hidden=!current.admin;$('artGate').hidden=true;$('artBar').hidden=false;$('artPassword').value='';
- $('artLoginMsg').textContent='';setSideInfo();
+ $('artLoginMsg').textContent='';setSideInfo();updateIPDisplay();
  if(current.admin)showAdmin();else showCatalog();
  clearInterval(timer);timer=setInterval(sync,20000);sync();
+ if(!current.ip){
+   const accountName=current.name;
+   void publicIP().then(ip=>{
+     if(!ip||!current||current.name!==accountName||current.ip)return;
+     current.ip=ip;persist();setSideInfo();updateIPDisplay();
+     if(remote)void api('ping',{ip}).catch(()=>{});
+     else put(PREFIX+'presence:'+pageID,{name:current.name,at:Date.now(),ip});
+   }).catch(()=>{});
+ }
 }
 $('artLogin').addEventListener('submit',async e=>{
  e.preventDefault();$('artSubmit').disabled=true;$('artLoginMsg').textContent='Memeriksa akun…';
@@ -2495,7 +2547,7 @@ $('artLogin').addEventListener('submit',async e=>{
   // IP publik diminta di browser masing-masing, bukan IP admin dan bukan angka contoh.
   // Tidak menghalangi login jika layanan IP sedang gagal.
   const ip=await publicIP();
-  if(remote){const d=await api('login',{name,password,device:dev(),ip});current={name:d.name,admin:d.admin,token:d.token,expires:d.expires,loginAt:d.now,ip:d.ip||''}}
+  if(remote){const d=await api('login',{name,password,device:dev(),ip});current={name:d.name,admin:d.admin,token:d.token,expires:d.expires,loginAt:d.now,ip:d.ip||ip||''}}
   else{
    if(!registered(name)||!await passwordOK(name,password))throw Error('Username atau password salah.');
    const now=Date.now();current={name,admin:name===MASTER,revision:account(name).revision||'0',loginAt:now,ip};
@@ -2638,9 +2690,9 @@ async function sync(){
  try{
   if(remote){
    const onAdmin=current.admin&&!$('artAdmin').hidden;
-   const result=await api(onAdmin?'stats':'ping');if(!current)return;
+   const result=await api(onAdmin?'stats':'ping',{ip:current.ip||''});if(!current)return;
    if(onAdmin){rows=result.rows||[];events=result.events||[];render()}
-   if(result.ip&&(!current.ip||current.ip==='')){current.ip=result.ip;persist();setSideInfo()}
+   if(result.ip&&(!current.ip||current.ip==='')){current.ip=result.ip;persist();setSideInfo();updateIPDisplay()}
   }else{
    put(PREFIX+'presence:'+pageID,{name:current.name,at:Date.now(),ip:current.ip||''});
    if(current.admin&&!$('artAdmin').hidden){localData();render()}
