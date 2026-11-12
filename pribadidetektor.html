@@ -1989,6 +1989,187 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
   #artBar #artIPValue{font-size:clamp(16px,4vw,19px);letter-spacing:.2px}
 }
 
+
+/* ================================================================
+   ART WECAA 9 • MOTION NEON PREMIUM
+   Animasi aman untuk link pemasangan, tombol perbesar, dan filter.
+   Tidak memakai GIF video sehingga teks pada kartu tetap tajam.
+   ================================================================ */
+
+#artCatalog .filters {
+  align-items:center;
+}
+#artCatalog #artMotionToggle {
+  position:relative;
+  isolation:isolate;
+  margin-left:auto;
+  min-height:43px;
+  padding:9px 17px;
+  white-space:nowrap;
+  border:1px solid rgba(104,218,255,.85);
+  border-radius:999px;
+  color:#f2f8ff;
+  font-weight:700;
+  font-size:12px;
+  background:linear-gradient(118deg,rgba(4,28,88,.95),rgba(40,17,106,.95));
+  box-shadow:inset 0 0 11px rgba(71,185,255,.25),0 0 10px rgba(46,129,255,.34),0 4px 14px #020822a8;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s,background .2s;
+}
+#artCatalog #artMotionToggle:hover {
+  transform:translateY(-2px);
+  box-shadow:inset 0 0 18px rgba(91,197,255,.33),0 0 15px rgba(177,61,255,.66);
+}
+#artCatalog #artMotionToggle[aria-pressed="false"] {
+  border-color:#7b8ab5;
+  color:#c6d4ed;
+  box-shadow:inset 0 0 9px #263760,0 2px 8px #020822;
+}
+#artCatalog #artMotionToggle:focus-visible {outline:2px solid #fff;outline-offset:3px;}
+
+@keyframes artFloatCard {
+  0%,100% {transform:translate3d(0,1px,0) rotate(-.15deg);}
+  50% {transform:translate3d(0,-10px,0) rotate(.35deg);}
+}
+@keyframes artImageBreathing {
+  0%,100% {filter:brightness(1.00) saturate(1.04) drop-shadow(0 0 4px rgba(49,186,255,.24));}
+  50% {filter:brightness(1.07) saturate(1.09) drop-shadow(0 0 12px rgba(162,94,255,.47));}
+}
+@keyframes artHolographicSweep {
+  0%,15% {background-position:175% 50%;opacity:0;}
+  32% {opacity:.50;}
+  51%,100% {background-position:-180% 50%;opacity:0;}
+}
+@keyframes artLogoFloat {
+  0%,100% {transform:translateY(0) scale(1);filter:drop-shadow(0 0 7px #8697ff);}
+  50% {transform:translateY(-4px) scale(1.045);filter:drop-shadow(0 0 14px #f28cff);}
+}
+@keyframes artGuideIcon {
+  0%,100% {transform:translateY(0) scale(1);filter:drop-shadow(0 0 5px #3caeff);}
+  50% {transform:translateY(-5px) scale(1.055);filter:drop-shadow(0 0 12px #ba6dff);}
+}
+@keyframes artStarsSpark {
+  0%,100% {opacity:.55;transform:scale(.88);filter:drop-shadow(0 0 3px #ffdb56);}
+  50% {opacity:1;transform:scale(1.17);filter:drop-shadow(0 0 11px #fff2a3);}
+}
+@keyframes artNeonBreathe {
+  0%,100% {filter:brightness(1) drop-shadow(0 0 1px #207ce633);}
+  50% {filter:brightness(1.065) drop-shadow(0 0 5px #ca55ff5c);}
+}
+@keyframes artSkyBreathing {
+  0%,100% {transform:translate3d(-1.1%,0,0) scale(1.065);filter:saturate(1.22) contrast(1.04);}
+  50% {transform:translate3d(1.1%,-.8%,0) scale(1.07);filter:saturate(1.32) contrast(1.06) hue-rotate(-2deg);}
+}
+
+/* Animasi setiap gambar utama; wrapper bergerak bersama semua tombol klik. */
+body.art-motion-ready #artCatalog .premiumGallery .premiumVisual,
+body.art-motion-ready #artCatalog .artSixGallery .premiumVisual {
+  animation:artFloatCard 5.9s ease-in-out infinite;
+  transform-origin:center 53%;
+  will-change:transform;
+}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n+1){animation-delay:-1.9s;}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n+2){animation-delay:-3.85s;}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n){animation-delay:-5s;}
+body.art-motion-ready #artCatalog .premiumVisual .premiumImage {
+  animation:artImageBreathing 6.8s ease-in-out infinite;
+}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(even) .premiumImage {
+  animation-delay:-3.2s;
+}
+/* Kilau transparan bergerak melintasi kartu; hanya dekorasi, tidak menghalangi klik. */
+body.art-motion-ready #artCatalog .premiumVisual::after {
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  left:9%;right:9%;top:4%;bottom:5%;
+  z-index:2;
+  border-radius:clamp(14px,5vw,45px);
+  background:linear-gradient(105deg,transparent 37%,rgba(96,220,255,.04) 44%,rgba(255,255,255,.13) 50%,rgba(251,95,255,.05) 56%,transparent 63%);
+  background-size:310% 100%;
+  filter:blur(5px);
+  animation:artHolographicSweep 9.8s ease-in-out infinite;
+}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n+1)::after{animation-delay:-3.1s;}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n+2)::after{animation-delay:-6.3s;}
+body.art-motion-ready #artCatalog .premiumVisual:nth-child(3n)::after{animation-delay:-1.6s;}
+
+/* Saat pointer di atas kartu: efek 3D responsif, gambar tetap satu bidang. */
+@media (hover:hover) and (pointer:fine) {
+  body.art-motion-ready #artCatalog .premiumGallery .premiumVisual:hover,
+  body.art-motion-ready #artCatalog .artSixGallery .premiumVisual:hover {
+    animation:none!important;
+    transform:perspective(1350px)
+      rotateX(var(--art-rx,0deg)) rotateY(var(--art-ry,0deg))
+      translateY(-9px) scale(1.014)!important;
+    transition:transform .15s ease-out,filter .2s ease!important;
+    filter:drop-shadow(0 19px 18px #020b37b0) drop-shadow(0 0 14px #ca5bff8c)!important;
+  }
+}
+
+body.art-motion-ready #artCatalog .sceneHero .heroGem,
+body.art-motion-ready #artBar .navGem,
+body.art-motion-ready #artGate .artMark,
+body.art-motion-ready #artAdmin .amStatIcon,
+body.art-motion-ready #artAdmin .amCrown {
+  animation:artLogoFloat 4.8s ease-in-out infinite;
+  transform-origin:center;
+}
+body.art-motion-ready #artCatalog .heroStar {animation:artStarsSpark 2.6s ease-in-out infinite;}
+body.art-motion-ready #artCatalog .heroStar:last-child {animation-delay:-1.3s;}
+body.art-motion-ready #artCatalog .stepVisual {animation:artGuideIcon 4.1s ease-in-out infinite;}
+body.art-motion-ready #artCatalog .step:nth-child(3n+1) .stepVisual{animation-delay:-1.2s;}
+body.art-motion-ready #artCatalog .step:nth-child(3n+2) .stepVisual{animation-delay:-2.8s;}
+body.art-motion-ready #artCatalog .guide,
+body.art-motion-ready #artCatalog .toolbar {
+  animation:artNeonBreathe 8s ease-in-out infinite;
+}
+body.art-motion-ready #artCatalog .toolbar {animation-delay:-3.2s;}
+body.art-motion-ready::before {
+  animation:artSkyBreathing 32s ease-in-out infinite;
+  will-change:transform;
+}
+
+/* Tidak memaksa animasi pada kartu di luar layar, halaman tersembunyi atau saat dijeda. */
+body:not(.art-motion-ready) #artCatalog .premiumVisual,
+body:not(.art-motion-ready) #artCatalog .premiumImage {animation:none!important;}
+body.art-motion-hidden #artCatalog .premiumVisual,
+body.art-motion-hidden #artCatalog .premiumImage,
+body.art-motion-hidden #artCatalog .premiumVisual::after,
+body.art-motion-hidden::before,
+body.art-motion-hidden #artCatalog .sceneHero .heroGem,
+body.art-motion-hidden #artCatalog .stepVisual,
+body.art-motion-ready #artCatalog .premiumVisual.art-motion-offscreen,
+body.art-motion-ready #artCatalog .premiumVisual.art-motion-offscreen .premiumImage,
+body.art-motion-ready #artCatalog .premiumVisual.art-motion-offscreen::after {
+  animation-play-state:paused!important;
+}
+@media(max-width:650px){
+  #artCatalog #artMotionToggle{margin-left:auto;min-height:36px;padding:7px 11px;font-size:11px;}
+  body.art-motion-ready #artCatalog .premiumVisual {animation-duration:7.3s;}
+}
+@media(prefers-reduced-motion:reduce){
+  body.art-motion-ready #artCatalog .premiumVisual,
+  body.art-motion-ready #artCatalog .premiumImage,
+  body.art-motion-ready #artCatalog .premiumVisual::after,
+  body.art-motion-ready #artCatalog .sceneHero .heroGem,
+  body.art-motion-ready #artBar .navGem,
+  body.art-motion-ready #artGate .artMark,
+  body.art-motion-ready #artCatalog .heroStar,
+  body.art-motion-ready #artCatalog .stepVisual,
+  body.art-motion-ready #artAdmin .amStatIcon,
+  body.art-motion-ready #artAdmin .amCrown,
+  body.art-motion-ready #artCatalog .guide,
+  body.art-motion-ready #artCatalog .toolbar,
+  body.art-motion-ready::before {animation:none!important;}
+  body.art-motion-ready #artCatalog .premiumVisual:hover {transform:none!important;}
+}
+
+
+#artCatalog .artMotionControls{display:flex;justify-content:flex-end;max-width:1390px;margin:-55px auto 16px;padding:0 8px;pointer-events:none;position:relative;z-index:5}
+#artCatalog .artMotionControls button{pointer-events:auto}
+@media (max-width:1020px){#artCatalog .artMotionControls{margin:0 auto 12px;padding:0;}}
+@media (max-width:650px){#artCatalog .artMotionControls{justify-content:center;margin:0 auto 12px;}}
 </style>
 </head>
 
@@ -2287,6 +2468,7 @@ function doPost(e){
         <button data-filter="work" aria-pressed="false">▣ &nbsp; Gambar &amp; Produktivitas</button>
         <button data-filter="other" aria-pressed="false">◇ &nbsp; Alat Lainnya</button>
       </div>
+<div class="artMotionControls"><button type="button" id="artMotionToggle" aria-pressed="true" aria-label="Jeda semua animasi visual">Ⅱ  Jeda Animasi</button></div>
       
 <!-- Tiga kartu utama menggunakan visual asli pengguna: tidak dibuat ulang/diubah.
      Klik area tombol “Pasang Script” pada masing-masing kartu untuk memasang userscript. -->
@@ -2763,5 +2945,63 @@ if(saved&&typeof saved.name==='string'){
   });
 })();
 </script>
+
+<script id="artMotionEngine">
+(() => {
+  'use strict';
+  const cards = Array.from(document.querySelectorAll('#artCatalog .premiumGallery .premiumVisual, #artCatalog .artSixGallery .premiumVisual'));
+  const toggle = document.getElementById('artMotionToggle');
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let active = !media.matches;
+  let pending = 0;
+  const syncMotion = () => {
+    document.body.classList.toggle('art-motion-ready', active);
+    toggle.setAttribute('aria-pressed', String(active));
+    toggle.textContent = active ? 'Ⅱ  Jeda Animasi' : '✧  Hidupkan Animasi';
+    toggle.setAttribute('aria-label', active ? 'Jeda semua animasi visual' : 'Hidupkan semua animasi visual');
+    toggle.title = active ? 'Jeda animasi kartu, ikon dan background' : 'Putar animasi kartu, ikon dan background';
+  };
+  toggle?.addEventListener('click', () => {active = !active;syncMotion();});
+  if (!toggle) return;
+  syncMotion();
+
+  // Animasi hanya berjalan pada area yang terlihat untuk menghemat CPU/GPU.
+  if ('IntersectionObserver' in window) {
+    const watch = new IntersectionObserver((entries) => {
+      for (const entry of entries) entry.target.classList.toggle('art-motion-offscreen', !entry.isIntersecting);
+    }, {rootMargin: '120px 0px', threshold: 0});
+    cards.forEach(card => watch.observe(card));
+  }
+  document.addEventListener('visibilitychange', () => {
+    document.body.classList.toggle('art-motion-hidden', document.hidden);
+  });
+  // Hover tilt tidak mengubah susunan link/tombol yang sudah tersedia.
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    cards.forEach(card => {
+      card.addEventListener('pointermove', event => {
+        if (!active || media.matches) return;
+        if (pending) cancelAnimationFrame(pending);
+        pending = requestAnimationFrame(() => {
+          const r = card.getBoundingClientRect();
+          if (r.width < 2 || r.height < 2) return;
+          const nx = Math.min(1,Math.max(-1,(event.clientX-r.left)/r.width*2-1));
+          const ny = Math.min(1,Math.max(-1,(event.clientY-r.top)/r.height*2-1));
+          card.style.setProperty('--art-ry', (nx*3.1).toFixed(2)+'deg');
+          card.style.setProperty('--art-rx',(-ny*2.3).toFixed(2)+'deg');
+        });
+      }, {passive:true});
+      card.addEventListener('pointerleave', () => {
+        card.style.removeProperty('--art-rx');
+        card.style.removeProperty('--art-ry');
+      },{passive:true});
+    });
+  }
+  media.addEventListener?.('change', (e) => {
+    if(e.matches) active=false;
+    syncMotion();
+  });
+})();
+</script>
+
 </body>
 </html>
