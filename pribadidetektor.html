@@ -1797,6 +1797,164 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
  #artBar .navActions{grid-column:1/-1!important;grid-row:3!important;justify-content:flex-end}
  #artBar #artSync{bottom:-15px}
 }
+
+
+/* ART WECAA • 2026 — PENYEMPURNAAN HEADER DAN JARAK LOGIN */
+:root{--art-cyan:#42eaff;--art-pink:#f24cfb;--art-blue:#3e83ff}
+#artBar.artBar{position:relative;z-index:20;width:calc(100% - 36px);max-width:2048px;min-height:65px;margin:8px auto 0;padding:7px 22px;border:1px solid rgba(111,194,255,.85);border-radius:24px;background:linear-gradient(94deg,rgba(3,13,54,.94),rgba(11,16,67,.93) 63%,rgba(23,9,65,.94));box-shadow:0 0 3px #a1e5ff,0 0 17px rgba(25,150,255,.55),0 9px 26px rgba(2,9,47,.55),inset 0 1px 7px rgba(113,189,255,.18);backdrop-filter:blur(22px)}
+#artBar .artBrandRow{gap:19px;min-width:0}
+#artBar .navGem{width:70px;height:49px;stroke-width:2.7;filter:drop-shadow(0 0 8px rgba(207,112,255,.75))}
+#artBar .navLetters{font-size:21px;letter-spacing:9px;font-weight:800;white-space:nowrap}
+#artBar .navDivider{height:33px;border-color:rgba(82,211,255,.65)}
+#artBar #artWho{font-size:16px;font-weight:800;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+#artBar .navActions{margin-left:auto;display:flex;align-items:center;gap:15px}
+#artBar .navActions .artBtn{min-height:47px;padding:10px 21px;border-radius:16px;font-size:15px;font-weight:800;white-space:nowrap}
+#artBar #amMemberPassword{border-color:#65c9ff;background:linear-gradient(120deg,#081e68,#12256c);box-shadow:0 0 13px #269cff7d,inset 0 0 13px #359fff33;color:#fff}
+#artBar #artLogout{min-width:142px;border-color:#ff7ed8;background:linear-gradient(130deg,#a30740,#5a0a57);box-shadow:0 0 15px #f93eaa6e,inset 0 0 10px #ff608155;color:#fff}
+#artCatalog .sceneHero{height:157px;justify-content:center;padding:6px 0 2px;gap:2px;margin:0 0 3px}
+#artCatalog .heroGem{width:97px;height:60px;stroke:#f4b1ff;filter:drop-shadow(0 0 9px #b95aff)}
+#artCatalog .heroLetters{font-size:47px;letter-spacing:22px;padding-left:22px;font-weight:700;line-height:1}
+#artCatalog .heroSub{font-size:18px;gap:31px;margin-top:2px}
+#artCatalog .heroStar{font-size:24px}
+#artCatalog .heroSub:after{content:"";position:absolute;width:175px;height:3px;bottom:2px;left:50%;transform:translateX(-50%);border-radius:20px;background:linear-gradient(90deg,#18faff,#6166ff,#fd48ff);box-shadow:0 0 10px #6b9eff}
+#artCatalog .artCatalogMain{max-width:1700px;padding:0 19px;margin:0 auto}
+#artCatalog .guide,#artCatalog .toolbar{border-radius:40px;border-width:2.5px;background:linear-gradient(112deg,rgba(4,48,106,.88),rgba(9,23,85,.82) 48%,rgba(48,10,86,.82)) padding-box,linear-gradient(105deg,#1ce5ff 0%,#5b7aff 43%,#ff62f8 97%) border-box;box-shadow:0 0 2px #fff7,inset 0 0 15px #4c8bff3d,0 0 23px #00aaff73,8px 2px 23px #e82eff58,0 21px 36px #0510318a}
+#artCatalog .guide{display:flex;align-items:stretch;gap:26px;min-height:211px;padding:19px 24px 18px;margin-bottom:19px}
+#artCatalog .guideIntro{flex:0 0 29%;padding:3px 32px 4px 17px;display:flex;align-items:stretch;justify-content:center;flex-direction:column;gap:9px;border-right:1px solid #5eaaff80}
+#artCatalog .guideIntro h2{font-size:32px;line-height:1.12;font-weight:900;margin:0;text-shadow:0 2px 8px #0011a0,0 0 14px #4fd5ff60}
+#artCatalog .guideIntro p{font-size:16px;line-height:1.39;color:#edf5ff;max-width:390px;margin:0}
+#artCatalog .store{width:100%;max-width:425px;height:56px;border-radius:29px;border:2px solid #bbf7ff;background:linear-gradient(105deg,#06dafe,#377dff 40%,#ba3afd 74%,#ee38e3);font-size:19px;font-weight:800;box-shadow:inset 0 3px 5px #fff4,0 0 16px #32baff9c,0 5px 20px #531ac2aa;justify-content:space-between;padding:9px 22px}
+#artCatalog .store .chromeDot{width:25px;height:25px;flex:none}
+#artCatalog .store b{margin-left:auto;font-size:27px;font-weight:400}
+#artCatalog .steps{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+#artCatalog .step{position:relative;flex:1 1 0;max-width:none;min-width:0;display:flex;align-items:center;justify-content:space-around;flex-direction:column;height:168px;padding:12px 8px 8px;border-radius:21px;border:1.5px solid #89c2ff;background:linear-gradient(160deg,#09265f,#17236c 61%,#230f59);box-shadow:inset 0 0 12px #268aff65,0 0 8px #426aff9c,0 8px 14px #080a3ca1}
+#artCatalog .step:nth-of-type(3n){border-color:#c598ff}
+#artCatalog .stepNo{top:8px;left:9px;font-size:14px;min-width:37px;padding:5px 6px;border-radius:10px;color:#fff;background:linear-gradient(140deg,#44eeff,#3f78ff,#b556ff);box-shadow:0 0 10px #37b8ffb0}
+#artCatalog .stepVisual{width:68px;height:68px;min-height:60px;display:grid;place-items:center;margin-top:14px;filter:drop-shadow(0 0 9px #46dfff9e)}
+#artCatalog .stepVisual svg{max-width:66px!important;max-height:66px!important;width:58px;height:58px}
+#artCatalog .stepVisual.chromeBig{width:57px;height:57px;flex:0 0 57px;margin-top:18px;filter:drop-shadow(0 0 9px #46baff)}
+#artCatalog .stepName{font-size:14px;line-height:1.3;min-height:35px;font-weight:800;max-width:180px;text-align:center;text-shadow:0 1px 8px #000e}
+#artCatalog .stepArrow{font-size:25px;color:#fff;flex:0 0 15px;text-shadow:0 0 11px #7edaff}
+#artCatalog .toolbar{min-height:113px;padding:15px 27px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:20px}
+#artCatalog .toolbarIntro{display:flex;align-items:center;gap:25px}
+#artCatalog .stackSymbol{width:90px;height:68px;display:grid;place-items:center;font-size:54px;color:#f0baff;filter:drop-shadow(0 0 12px #f447ff)}
+#artCatalog .toolbarIntro h2{font-size:31px;font-weight:900;line-height:1.15;margin:0}
+#artCatalog .toolbarIntro p{font-size:16px;margin-top:6px;color:#edf4ff}
+#artCatalog .searchWrap{flex:0 1 575px;max-width:575px;min-width:240px;height:62px;border:2px solid #b5bcff;border-radius:35px;background:linear-gradient(98deg,rgba(9,24,68,.92),rgba(40,6,76,.84));box-shadow:0 0 17px #d548ff8d, inset 0 1px 10px #697dfb55;padding:0 21px}
+#artCatalog .searchWrap svg{height:29px;width:29px}
+#artCatalog .searchWrap .search{font-size:16px}
+#artCatalog .filters{display:flex;justify-content:center;flex-wrap:wrap;gap:23px;margin:3px 0 18px}
+#artCatalog .filters button{min-height:55px;padding:12px 35px;border-radius:32px;font-size:16px;font-weight:800;border:1.5px solid #87a8ff;background:linear-gradient(106deg,#0a295e,#21145f);box-shadow:inset 0 1px 10px #507aff33,0 0 10px #4277ff55}
+#artCatalog .filters button[aria-pressed="true"]{background:linear-gradient(105deg,#04d0f8,#437afd,#e535e8);border-color:#b8eeff;box-shadow:0 0 13px #47d8ffb5,0 0 15px #e33fff74,inset 0 1px 7px #ffffff77}
+#artGate{min-height:100svh;padding:60px 20px 95px}
+#artGate .artBox{transform:translateY(16px);padding:48px 48px 53px;width:min(575px,100%);box-shadow:0 0 0 1px #b4d5ff40 inset,0 0 25px #77aeff91,0 30px 90px #080f418e,12px 0 24px #d95aff60}
+#artGate .artHeader{margin-bottom:22px}
+#artGate .artField{margin-bottom:24px}
+#artGate .artField label{margin-bottom:11px}
+#artGate .artBtn[type="submit"]{margin-top:12px}
+#artGate .artMessage{margin-top:18px}
+@media(max-width:1350px){
+ #artCatalog .artCatalogMain{max-width:1190px}
+ #artCatalog .guide{gap:15px;padding:16px;min-height:178px}
+ #artCatalog .guideIntro{flex-basis:29%;padding:3px 16px}
+ #artCatalog .guideIntro h2{font-size:25px}
+ #artCatalog .guideIntro p{font-size:12px}
+ #artCatalog .store{height:48px;font-size:14px}
+ #artCatalog .step{height:140px;padding:10px 5px 8px}
+ #artCatalog .stepNo{font-size:11px;min-width:28px}
+ #artCatalog .stepName{font-size:10px;min-height:24px}
+ #artCatalog .stepVisual{height:52px;min-height:48px;width:49px}
+ #artCatalog .stepVisual svg{width:47px;height:47px}
+ #artCatalog .stepVisual.chromeBig{width:46px;height:46px;flex-basis:46px}
+ #artCatalog .stepArrow{font-size:18px;flex-basis:9px}
+ #artCatalog .toolbarIntro h2{font-size:25px}
+ #artCatalog .toolbarIntro p{font-size:12px}
+ #artCatalog .searchWrap{height:52px}
+ #artCatalog .filters button{font-size:13px;min-height:46px;padding:9px 21px}
+}
+@media(max-width:900px){
+ #artBar.artBar{width:calc(100% - 18px);padding:9px 13px;gap:9px;border-radius:18px}
+ #artBar .navLetters{font-size:18px;letter-spacing:5px}
+ #artBar #artWho{font-size:13px}
+ #artBar .navGem{width:45px;height:36px}
+ #artBar .navActions{gap:8px}
+ #artBar .navActions .artBtn{min-height:39px;padding:8px 13px;font-size:12px}
+ #artBar #artLogout{min-width:93px}
+ #artCatalog .sceneHero{height:136px}
+ #artCatalog .artCatalogMain{max-width:760px}
+ #artCatalog .guide{display:block;padding:18px 18px 20px}
+ #artCatalog .guideIntro{border-right:0;border-bottom:1px solid #60a7ff88;display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:0 0 16px;margin-bottom:15px}
+ #artCatalog .guideIntro h2{font-size:24px;grid-column:1}
+ #artCatalog .guideIntro p{font-size:13px;grid-column:1}
+ #artCatalog .store{grid-column:2;grid-row:1/3;align-self:center;min-width:190px;font-size:13px}
+ #artCatalog .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+ #artCatalog .stepArrow{display:none}
+ #artCatalog .step{height:129px;border-radius:14px}
+ #artCatalog .stepName{font-size:10px}
+ #artCatalog .toolbar{min-height:102px}
+ #artCatalog .stackSymbol{width:45px;font-size:40px}
+ #artCatalog .toolbarIntro{gap:8px}
+ #artCatalog .searchWrap{max-width:300px;min-width:185px}
+ #artCatalog .filters{gap:9px}
+}
+@media(max-width:620px){
+ #artBar.artBar{width:calc(100% - 12px);border-radius:0 0 19px 19px;margin:0 auto}
+ #artBar .artBrandRow{gap:7px}
+ #artBar .navLetters{font-size:16px;letter-spacing:4px}
+ #artBar .navGem{height:30px;width:38px}
+ #artBar #artWho{font-size:12px}
+ #artBar .navActions .artBtn{font-size:11px;padding:6px 9px;min-height:36px}
+ #artBar #artLogout{min-width:76px}
+ #artGate{padding:25px 13px 45px}
+ #artGate .artBox{transform:none;padding:29px 23px 37px;border-radius:33px}
+ #artGate .artField label{margin-bottom:8px}
+ #artCatalog .sceneHero{height:123px}
+ #artCatalog .heroGem{height:43px;width:60px}
+ #artCatalog .heroLetters{font-size:31px;letter-spacing:13px;padding-left:13px}
+ #artCatalog .heroSub{font-size:10px;gap:13px}
+ #artCatalog .heroSub:after{width:115px}
+ #artCatalog .artCatalogMain{padding:0 10px}
+ #artCatalog .guide{padding:15px 12px;border-radius:22px}
+ #artCatalog .guideIntro{display:flex;gap:6px;margin-bottom:12px;padding-bottom:13px}
+ #artCatalog .guideIntro h2{font-size:22px}
+ #artCatalog .guideIntro p{font-size:12px}
+ #artCatalog .store{min-width:0;width:100%;max-width:100%;height:44px;font-size:14px;grid-column:auto;grid-row:auto}
+ #artCatalog .steps{gap:5px}
+ #artCatalog .step{height:105px;padding:10px 3px 5px;border-radius:11px}
+ #artCatalog .stepNo{font-size:9px;min-width:21px;top:4px;left:4px;padding:3px 4px;border-radius:7px}
+ #artCatalog .stepVisual{height:37px;min-height:35px;width:37px;margin-top:17px}
+ #artCatalog .stepVisual svg{width:35px;height:35px}
+ #artCatalog .stepVisual.chromeBig{height:34px;width:34px;flex-basis:34px;margin-top:17px}
+ #artCatalog .stepName{font-size:8px;line-height:1.15;min-height:25px}
+ #artCatalog .toolbar{display:block;border-radius:22px;padding:14px;margin-bottom:12px}
+ #artCatalog .toolbarIntro{gap:8px}
+ #artCatalog .toolbarIntro h2{font-size:19px}
+ #artCatalog .toolbarIntro p{font-size:10px}
+ #artCatalog .stackSymbol{font-size:31px;width:36px;height:42px}
+ #artCatalog .searchWrap{height:44px;min-width:0;max-width:none;width:100%;margin-top:11px;padding:0 14px}
+ #artCatalog .searchWrap .search{font-size:12px}
+ #artCatalog .filters{gap:7px;margin-bottom:10px}
+ #artCatalog .filters button{font-size:10px;min-height:38px;padding:7px 10px;border-radius:18px}
+}
+
+
+/* Rapi pada lebar desktop dan kunci menu tersembunyi untuk non-master */
+#artCatalog .guide,#artCatalog .toolbar,#artCatalog .filters{max-width:none!important;width:100%!important}
+#artBar #masterNav[hidden],#artBar #artOpenAdmin[hidden],#artBar #artOpenCatalog[hidden],
+#artBar #amMemberPassword[hidden],#artBar #amNotify[hidden],#artBar #artRoleBadge[hidden],
+#artBar #artSync[hidden],#artAdmin[hidden],#artCatalog[hidden],#artGate[hidden]{display:none!important}
+#artCatalog .stackSymbol svg{display:block;width:67px;height:67px;filter:drop-shadow(0 0 12px rgba(174,124,255,.9))}
+@media(max-width:900px){#artCatalog .stackSymbol svg{width:43px;height:43px}}
+@media(max-width:620px){#artCatalog .stackSymbol svg{width:35px;height:35px}}
+
+
+/* Lebar toolbar sesuai screenshot; beri napas pada panel Data Login */
+#artCatalog .catalogSection{max-width:1510px!important;width:100%!important;margin-inline:auto!important}
+#artAdmin.masterArea{padding-top:25px}
+#artAdmin .masterHero{margin-bottom:24px}
+@media(max-width:900px){#artCatalog .catalogSection{max-width:100%!important}}
+@media(max-width:620px){#artAdmin.masterArea{padding-top:16px}}
+
 </style>
 </head>
 
@@ -1815,7 +1973,7 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
         <label for="artEmail">Username</label>
         <div class="artInput">
           <svg class="fieldIcon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="7"/><path d="M3 29v-3c0-7.2 5.2-12 13-12s13 4.8 13 12v3"/></svg><span class="artInputDivider" aria-hidden="true"></span>
-          <input id="artEmail" name="username" type="text" autocapitalize="none" spellcheck="false" autocomplete="username" required placeholder="wecaa" maxlength="128" />
+          <input id="artEmail" name="username" type="text" autocapitalize="none" spellcheck="false" autocomplete="username" required placeholder="isi wecaa kelen" maxlength="128" />
         </div>
       </div>
       <div class="artField">
@@ -1898,7 +2056,7 @@ body:has(#artCatalog:not([hidden]))::before{filter:saturate(1.6) contrast(1.21) 
  </div>
  <details id="amSetup" class="amSetup" hidden><summary>Pengaturan Server Bersama dan IP Pengguna</summary>
   <div class="setupText">
-   <p><strong>Mode server wajib diaktifkan agar semua login dari berbagai perangkat tampil di panel ini.</strong> HTML tanpa server hanya mencatat aktivitas di browser yang sama.</p>
+   <p><strong>Mode server wajib diaktifkan agar semua login dari berbagai perangkat tampil di panel ini. Untuk koneksi yang paling andal, gunakan file Index.html dan Code.gs yang disertakan, lalu buka Web App Google Apps Script.</strong> HTML tanpa server hanya mencatat aktivitas di browser yang sama.</p>
    <p>IP publik diambil dari layanan pemeriksaan IP pada perangkat pengguna saat login, lalu disimpan bersama catatan akun. Jika layanan diblokir, akan ditampilkan “Tidak tersedia”. IP tersebut adalah IP publik koneksi (dapat berupa VPN/proxy), bukan alamat internal Wi-Fi, dan tidak diverifikasi oleh Apps Script.</p>
    <p>Jika sudah pernah memasang Apps Script, ganti Code.gs dengan versi ini, lalu buat deployment versi baru pada project yang sama; riwayat dan password lama tetap berada di project tersebut.</p>
    <ol><li>Buka <a href="https://script.google.com/" target="_blank" rel="noopener">Google Apps Script</a> → Project baru.</li>
@@ -1955,7 +2113,26 @@ function artIP(ip){
  const parts=ip.split('.');return parts.length===4&&parts.every(p=>/^\d{1,3}$/.test(p)&&Number(p)<=255)?ip:'';
 }
 function artRevoke(p,name){const all=p.getProperties();Object.keys(all).filter(k=>k.startsWith('session:')).forEach(k=>{try{if(JSON.parse(all[k]).name===name)p.deleteProperty(k)}catch(_){p.deleteProperty(k)}})}
-function doGet(){return artJson({ok:true,service:'ART WECAA'})}
+function doGet(e){
+ // /exec = halaman WECAA. Browser apa pun menggunakan database yang sama lewat google.script.run.
+ if(e&&e.parameter&&e.parameter.health==='1')return artJson({ok:true,service:'ART WECAA'});
+ return HtmlService.createHtmlOutputFromFile('Index').setTitle('ART WECAA — Login & Dashboard')
+   .addMetaTag('viewport','width=device-width,initial-scale=1');
+}
+function artRpc(payload){
+ // Fungsi penghubung aman dari halaman HTML yang di-host oleh Apps Script.
+ // Semua izin dan identitas tetap diverifikasi dalam doPost di server.
+ if(typeof payload!=='string'||payload.length>8192)return {ok:false,error:'Permintaan tidak valid.'};
+ try{return JSON.parse(doPost({postData:{contents:payload}}).getContent())}
+ catch(err){return {ok:false,error:err.message||'Permintaan gagal.'}}
+}
+function artCleanSessions_(p,now){
+ // Mencegah sesi kedaluwarsa memenuhi Script Properties setelah banyak login.
+ const props=p.getProperties();
+ Object.keys(props).filter(k=>k.startsWith('session:')).forEach(k=>{
+  try{if(JSON.parse(props[k]).expires<=now)p.deleteProperty(k)}catch(_){p.deleteProperty(k)}
+ });
+}
 function doPost(e){
  const lock=LockService.getScriptLock();if(!lock.tryLock(20000))return artJson({ok:false,error:'Server sibuk. Coba kembali.'});
  try{
@@ -1965,6 +2142,7 @@ function doPost(e){
   if(!p.getProperty('sheet'))throw Error('Pemilik perlu menjalankan setupART dahulu.');
   const log=SpreadsheetApp.openById(p.getProperty('sheet')).getSheetByName('Log');
   if(d.action==='login'){
+   artCleanSessions_(p,now);
    const name=String(d.name||'').trim().toLowerCase();
    if(!artNames(p).includes(name)||artAccount(p,name).deleted)throw Error('Username atau password salah.');
    const cache=CacheService.getScriptCache(),failKey='fail:'+name;
@@ -2011,7 +2189,7 @@ function doPost(e){
     p.setProperty('account:'+name,JSON.stringify({deleted:true,changedAt:now}));
     artRevoke(p,name);log.appendRow([now,name,'Akun dihapus oleh '+s.name,s.device,s.ip||'']);
    }else{
-    if(typeof d.newPassword!=='string'||d.newPassword.length<1||d.newPassword.length>128)throw Error('Password harus 1–128 karakter.');
+    if(typeof d.newPassword!=='string'||d.newPassword.length<8||d.newPassword.length>128)throw Error('Password baru harus 8–128 karakter.');
     const salt=Utilities.getUuid();p.setProperty('account:'+name,JSON.stringify({salt,hash:artHash(salt+':'+d.newPassword),changedAt:now}));
     artRevoke(p,name);CacheService.getScriptCache().remove('fail:'+name);
     log.appendRow([now,name,own?'Password diubah':'Password direset oleh '+s.name,s.device,s.ip||'']);
@@ -2063,7 +2241,7 @@ function doPost(e){
     </section>
     <section class="catalogSection" aria-labelledby="catalogTitle">
       <div class="toolbar">
-        <div class="toolbarIntro"><span class="stackSymbol" aria-hidden="true">▱</span><div><h2 id="catalogTitle">Pilih Alat Bantu Anda</h2><p>Setiap alat, satu kegunaan yang mudah ditemukan.</p></div></div>
+        <div class="toolbarIntro"><span aria-hidden="true" class="stackSymbol"><svg viewBox="0 0 74 72" width="67" height="67" fill="none" stroke="url(#artStackGradient)" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="artStackGradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#64f7ff"/><stop offset=".5" stop-color="#8e9aff"/><stop offset="1" stop-color="#f49aff"/></linearGradient></defs><path d="M37 5 7 20l30 16 30-16L37 5Z"/><path d="M7 32 37 48l30-16"/><path d="M7 46 37 63l30-17"/></svg></span><div><h2 id="catalogTitle">Pilih Alat Bantu Anda</h2><p>Setiap alat, satu kegunaan yang mudah ditemukan.</p></div></div>
         <label class="searchWrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" class="search" type="search" aria-label="Cari script" placeholder="Cari nama atau kegunaan..."></label>
       </div>
       <div class="filters" role="group" aria-label="Filter kategori">
@@ -2282,9 +2460,21 @@ function loginView(note=''){
 }
 function persist(){try{sessionStorage.setItem(SESSION,JSON.stringify(current))}catch(_){}}
 async function api(action,payload={}){
- let res;try{res=await fetch(ART_SERVER_URL,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token:current?.token,...payload}),signal:AbortSignal.timeout(35000)})}catch(_){throw Error('Server tidak dapat dihubungi. Periksa koneksi atau deployment Apps Script.')}
- let result;try{result=await res.json()}catch(_){throw Error('Server tidak mengembalikan JSON. Periksa alamat Apps Script dan izin akses.')}
- if(!res.ok||!result.ok){if(result.code==='AUTH')loginView(result.error);throw Error(result.error||'Permintaan gagal.')}return result;
+ const message={action,token:current?.token,...payload};
+ let result;
+ if(ART_SERVER_URL==='GAS_NATIVE'){
+  if(!window.google?.script?.run)throw Error('Halaman harus dibuka melalui URL Web App Google Apps Script (/exec).');
+  result=await new Promise((resolve,reject)=>{
+   google.script.run.withSuccessHandler(resolve).withFailureHandler(err=>reject(Error(err?.message||'Server gagal merespons.'))).artRpc(JSON.stringify(message));
+  });
+ }else{
+  let res;
+  try{res=await fetch(ART_SERVER_URL,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(message),signal:AbortSignal.timeout(35000)})}
+  catch(_){throw Error('Server tidak dapat dihubungi. Gunakan versi Google Apps Script untuk sinkronisasi lintas browser, atau periksa CORS server eksternal.')}
+  try{result=await res.json()}catch(_){throw Error('Server tidak mengembalikan JSON. Periksa URL dan izin akses.')} 
+  if(!res.ok)throw Error(result.error||'Server gagal memproses permintaan.');
+ }
+ if(!result?.ok){if(result?.code==='AUTH')loginView(result.error);throw Error(result?.error||'Permintaan gagal.')}return result;
 }
 function highlightNav(which){document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('mnActive',b.dataset.nav===which))}
 function showAdmin(){if(!current?.admin)return;$('artAdmin').hidden=false;$('artCatalog').hidden=true;$('artOpenCatalog').hidden=false;highlightNav('dashboard');sync()}
@@ -2296,7 +2486,7 @@ function enter(){
  $('artOpenAdmin').hidden=!current.admin;$('artGate').hidden=true;$('artBar').hidden=false;$('artPassword').value='';
  $('artLoginMsg').textContent='';setSideInfo();
  if(current.admin)showAdmin();else showCatalog();
- clearInterval(timer);timer=setInterval(sync,30000);sync();
+ clearInterval(timer);timer=setInterval(sync,20000);sync();
 }
 $('artLogin').addEventListener('submit',async e=>{
  e.preventDefault();$('artSubmit').disabled=true;$('artLoginMsg').textContent='Memeriksa akun…';
@@ -2357,7 +2547,7 @@ async function changeAccount(data){
 $('amAccountForm').onsubmit=async e=>{
  e.preventDefault();if(changing||!accountAction||!current)return;
  const {action,name}=accountAction,newPassword=$('amNewPassword').value;
- if(action!=='deleteUser'&&(!newPassword||newPassword.length>128)){$('amAccountMsg').textContent='Password harus 1–128 karakter.';return}
+ if(action!=='deleteUser'&&(!newPassword||newPassword.length<8||newPassword.length>128)){$('amAccountMsg').textContent='Password baru minimal 8 karakter.';return}
  if(action!=='deleteUser'&&newPassword!==$('amConfirmPassword').value){$('amAccountMsg').textContent='Konfirmasi password tidak cocok.';return}
  changing=true;$('amAccountSave').disabled=true;$('amAccountCancel').disabled=true;
  try{const result=await changeAccount({action,name,newPassword,oldPassword:$('amOldPassword').value});$('amAccountDialog').close();if(result.reauth)loginView('Password berhasil diganti. Login kembali dengan password baru.');else{$('amManageNotice').textContent=action==='deleteUser'?'Akun '+name+' berhasil dihapus.':'Password '+name+' berhasil diubah.';changing=false;await sync()}}
@@ -2458,7 +2648,8 @@ async function sync(){
   $('artSync').textContent=remote?'● Server bersama':'● Mode lokal';
   $('artStatsMsg').textContent=(remote?'Data terpusat':'Hanya browser ini')+' · '+shortTime(Date.now());
   if(!storeOK&&!remote)$('artStatsMsg').textContent='Browser membatasi penyimpanan lokal.';
- }catch(err){$('artSync').textContent='Pembaruan gagal';$('artStatsMsg').textContent=err.message}
+  if(remote){$('amModeStatus').textContent='● Server Terhubung';$('amModeStatus').classList.remove('local')}
+ }catch(err){$('artSync').textContent='Pembaruan gagal';$('artStatsMsg').textContent=err.message;if(remote){$('amModeStatus').textContent='● Koneksi Terputus';$('amModeStatus').classList.add('local')}}
  finally{busy=false;$('amRefresh').disabled=false}
 }
 $('artFindUser').oninput=render;
@@ -2487,9 +2678,10 @@ $('amDownloadConfigured').onclick=()=>{
 };
 $('amServerURL').value=ART_SERVER_URL;
 $('amScope').textContent=remote?'SEMUA PERANGKAT':'MODE LOKAL';
-$('amModeStatus').textContent=remote?'● Sistem Aktif':'● Mode Lokal';
+$('amModeStatus').textContent=remote?'● Menghubungkan Server':'● Mode Lokal';
 $('amModeStatus').classList.toggle('local',!remote);
-$('amModeDetail').textContent=remote?'Data terpusat · otomatis refresh 30 detik':'Belum terhubung server. Data perangkat lain belum terlihat.';
+$('amModeDetail').textContent=remote?'Data terpusat · otomatis refresh 20 detik. Online dihitung dari aktivitas browser dalam 2 menit.':'Belum terhubung server. Data perangkat lain belum terlihat.';
+if(ART_SERVER_URL==='GAS_NATIVE') { $('amDownloadConfigured').hidden=true; $('amServerURL').value=''; $('amServerURL').placeholder='Mode Google Apps Script aktif — bagikan URL /exec halaman ini'; }
 window.addEventListener('storage',e=>{if(!remote&&e.key?.startsWith(PREFIX)&&current?.admin&&!$('artAdmin').hidden&&validLocalSession()){localData();render()}});
 window.addEventListener('pagehide',()=>{if(!remote)remove(PREFIX+'presence:'+pageID)});
 window.addEventListener('pageshow',sync);
